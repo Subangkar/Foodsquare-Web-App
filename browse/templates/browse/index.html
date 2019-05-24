@@ -89,9 +89,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <div class="login-section">
                 <ul>
-                    <li><a href="/accounts/login/">Login</a></li>
-                    |
-                    <li><a href="/accounts/register/">Register</a></li>
+                    {% if loggedIn %}
+                        <li><a href="/accounts/profile/">Profile</a></li>
+                    {% else %}
+                        <li><a href="/accounts/login/">Login</a></li>
+                        |
+                        <li><a href="/accounts/register/">Register</a></li>
+                    {% endif %}
                     |
                     <li><a href="#">Help</a></li>
                     <div class="clearfix"></div>
