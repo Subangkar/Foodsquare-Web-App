@@ -3,9 +3,10 @@ from browse import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-	path('', views.viewOrder),
+	path('', views.index),
 	# path('restaurants.html', views.viewRestaurants),
-	# path('index.html', views.index),
+	# path('browse/', views.index),
+	path('browse/', views.viewOrder),
 	path('order/', views.viewOrder),
 	# path('submitOrder/', views.submitOrder),
 	# path('allRestaurantList/', views.RestaurantList.as_view()),

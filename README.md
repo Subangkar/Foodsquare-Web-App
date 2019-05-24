@@ -1,12 +1,12 @@
 # Foodsquare-Web-App
 
-root
-	- Browse Page
-	- login/signup select
+root  
+	- Browse Page  
+	- login/signup select  
 
-accounts
-	- login
-	- signup
+accounts  
+	- login  
+	- signup  
 
-order
+order  
 	-		
