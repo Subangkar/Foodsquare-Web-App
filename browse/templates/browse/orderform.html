@@ -1,0 +1,54 @@
+<div class="ordering-form">
+    <div class="container">
+        <div class="order-form-head text-center wow bounceInLeft" data-wow-delay="0.4s">
+            <h3>Restaurant Order Form</h3>
+            <p>Ordering Food Was Never So Simple !!!!!!</p>
+        </div>
+        <div class="col-md-6 order-form-grids">
+
+            <div class="order-form-grid  wow fadeInLeft" data-wow-delay="0.4s">
+                <h5>Order Information</h5>
+                <span>Type of Order</span>
+                <div class="dropdown-button">
+                    <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
+                        <option value="0">Pick up</option>
+                        <option value="1">Delivery</option>
+                        <option value="2">Catering</option>
+                    </select>
+                </div>
+                <span>Restaurant Location</span>
+                <div class="dropdown-button wow">
+                    <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
+                        <option value="0">Restaurent A,144 East MG Road Indore</option>
+                        <option value="1">Restaurent B,64 Paarli Hills IndoreIndore</option>
+                    </select>
+                </div>
+                <span>Location name</span>
+                <div class="dropdown-button">
+                    <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
+                        <option value="0"> Secunderabad</option>
+                        <option value="1">Location-1</option>
+                        <option value="2">Location-2</option>
+                    </select>
+                </div>
+                <span>cuisine-name</span>
+                <div class="dropdown-button">
+                    <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
+                        <option value="0">cuisine-name</option>
+                        <option value="1">cuisine-name</option>
+                        <option value="2">cuisine-name</option>
+                    </select>
+                </div>
+                <input type="text" class="text" value="Time" id="delivery_time" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Time';}"><br>
+                <div class="wow swing animated" data-wow-delay="0.4s">
+                    <input type="button" value="order now" id="order_now">
+                    <script src="{% static 'browse/js/orderRequest.js' %}"></script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ordering-image wow bounceIn" data-wow-delay="0.4s">
+            <img src="{% static 'browse/images/browse.jpg' %}" class="img-responsive" alt=""/>
+        </div>
+    </div>
+</div>
