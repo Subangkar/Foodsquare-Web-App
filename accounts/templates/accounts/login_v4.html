@@ -39,12 +39,12 @@
 <div class="limiter">
     <div class="container-login100">
         {#            style="background-image: url('static/accounts/login_v4/images/bg-01.jpg');"#}
-        <div class="wrap-login100 p-l-55 p-r-55 p-t-25 p-b-20">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-15 p-b-20">
             <form class="login100-form validate-form" method="post">
                 {% csrf_token %}
-                <span class="login100-form-title p-b-20">
-						Login
-					</span>
+                <a class="login100-form-title p-b-20" href="/">
+						Foodsquare
+					</a>
 
                 <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
                     <span class="label-input100">Username</span>
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="text-right p-t-8 p-b-31">
-                    <a href="#">
+                    <a href="/accounts/recovery/">
                         Forgot password?
                     </a>
                 </div>
@@ -75,7 +75,7 @@
 
                 <div class="txt1 text-center p-t-54 p-b-10">
 						<span>
-							Or Sign Up Using
+							Or Proceed with
 						</span>
                 </div>
 
@@ -94,9 +94,12 @@
                 </div>
 
                 <div class="flex-col-c p-t-20">
-                    <a href="/accounts/register/" class="txt2">
-                        Create New Account
+                    <a class="txt1">
+                        or
                     </a>
+                    <b><u><a href="/accounts/register/" class="txt2">
+                        Create New Account
+                    </a></u></b>
                 </div>
             </form>
         </div>

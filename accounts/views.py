@@ -14,6 +14,9 @@ from accounts.account_links import *
 def loginRender(request):
     return render(request, "accounts/login_v4.html")
 
+def recoveryRender(request):
+    return HttpResponse("Enter email to recover !!!")
+
 
 def signupRender(request):
     return render(request, REGISTER_PAGE)

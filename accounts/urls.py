@@ -19,4 +19,5 @@ urlpatterns = [
 	path('register/', views.signupRender, name='register'),
 	# path('Register', views.LoginView.as_view(), name='Register'),
 
+	path('recovery/', views.recoveryRender, name='register'),
 ]
