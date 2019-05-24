@@ -12,63 +12,67 @@ from accounts.account_links import *
 
 
 def loginRender(request):
-    return render(request, "accounts/login_v4.html")
+	return render(request, "accounts/login_v4.html")
+
 
 def recoveryRender(request):
-    return HttpResponse("Enter email to recover !!!")
+	return HttpResponse("Enter email to recover !!!")
 
 
 def signupRender(request):
-    return render(request, REGISTER_PAGE)
+	return render(request, REGISTER_PAGE)
+
 
 def homepageRender(request):
-    return render(request, USER_DASHBOARD_PAGE)
+	return render(request, USER_DASHBOARD_PAGE)
+
 
 def modalpageRender(request):
-    return render(request, "index.html")
+	return render(request, "index.html")
+
 
 class LoginView(TemplateView):
 
-    def post(self, request, *args, **kwargs):
-        username = request.POST.get('username', False)
-        password = request.POST.get('password', False)
-        if username and password:
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
-        else:
-            return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+	def post(self, request, *args, **kwargs):
+		username = request.POST.get('username', False)
+		password = request.POST.get('password', False)
+		if username and password:
+			user = authenticate(request, username=username, password=password)
+			if user is not None:
+				login(request, user)
+				return redirect('/')
+			else:
+				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+		else:
+			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
 
 
 class SignUpView(TemplateView):
-    template_name = 'signup.html'
+	# template_name = 'signup.html'
 
-    def get_context_data(self, **kwargs):
-        ctx = super(SignUpView, self).get_context_data(**kwargs)
-        ctx['user_form'] = UserForm(prefix='user')
-        ctx['profile_form'] = ProfileForm(prefix='profile')
-        return ctx
+	def get_context_data(self, **kwargs):
+		ctx = super(SignUpView, self).get_context_data(**kwargs)
+		ctx['user_form'] = UserForm(prefix='user')
+		ctx['profile_form'] = ProfileForm(prefix='profile')
+		return ctx
 
-    def post(self, request, *args, **kwargs):
-        user_form = UserForm(request.POST, prefix='user')
-        profile_form = ProfileForm(request.POST, request.FILES, prefix='profile')
-        if profile_form.is_valid() and user_form.is_valid():
-            user = user_form.save(commit=False)
-            profile = profile_form.save(commit=False)
-            user.save()
-            profile.user = user
-            profile.save()
-            return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-        else:
-            return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+	def post(self, request, *args, **kwargs):
+		user_form = UserForm(request.POST, prefix='user')
+		profile_form = ProfileForm(request.POST, request.FILES, prefix='profile')
+		if profile_form.is_valid() and user_form.is_valid():
+			user = user_form.save(commit=False)
+			profile = profile_form.save(commit=False)
+			user.save()
+			profile.user = user
+			profile.save()
+			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+		else:
+			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
 
 
 class LogoutView(View, LoginRequiredMixin):
-    def get(self, request):
-        logout(request)
-        return redirect('/')
+	def get(self, request):
+		logout(request)
+		return redirect('/')
 
 # class HomePageView(TemplateView):
