@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'accounts.apps.AccountsConfig',
     'browse',
-    'accounts'
+    'accounts',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [

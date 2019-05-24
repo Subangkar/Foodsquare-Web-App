@@ -11,13 +11,13 @@ app_name = 'accounts'
 
 urlpatterns = [
 	path('', views.loginRender, name='home'),
-	path('modal/', views.modalpageRender, name='modal'),
-	# path('login_v4/', views.loginRender, name='login_view'),
-	path('login/', views.loginRender, name='login'),
-	# path('login', views.LoginView.as_view(), name='login'),
+	# path('modal/', views.modalpageRender, name='modal'),
 
-	path('register/', views.signupRender, name='register'),
-	# path('Register', views.LoginView.as_view(), name='Register'),
+	# path('login/', views.loginRender, name='login'),
+	path('login/', views.LoginView.as_view(), name='login'),
+
+	# path('register/', views.signupRender, name='register'),
+	path('register/', views.RegisterView.as_view(), name='register'),
 
 	path('recovery/', views.recoveryRender, name='register'),
 ]

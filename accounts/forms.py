@@ -17,6 +17,7 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password', 'email')
+        # fields = ('name', 'email', 'pass', 're_pass', 'signup')
 
     def save(self, commit=True):
         new_user = User.objects.create_user(self.cleaned_data['username'],

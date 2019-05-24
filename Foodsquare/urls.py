@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# if settings.DEBUG:
+#     import debug_toolbar
+
 urlpatterns = [
     # path(r'', include('accounts.urls'), name='home'),
     # path(r'browse/', include('browse.urls'),name='browse'),
