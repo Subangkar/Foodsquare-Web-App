@@ -90,7 +90,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="login-section">
                 <ul>
                     {% if loggedIn %}
-                        <li><a href="/accounts/profile/">Profile</a></li>
+                        <b><li><a href="/accounts/profile/">{{ request.user.username }}</a></li></b>
+                        |
+                        <li><a href="/accounts/logout/">Logout</a></li>
                     {% else %}
                         <li><a href="/accounts/login/">Login</a></li>
                         |

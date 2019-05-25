@@ -14,14 +14,6 @@ from browse.utils import *
 # from .serializers import *
 
 
-def index(request):
-	return render(request, "browse/index.html", {})
-
-
-def viewOrder(request):
-	return render(request, "browse/order.html")
-
-
 def viewRestaurants(request):
 	return render(request, "browse/restaurants.html", {})
 
@@ -32,9 +24,6 @@ class Index(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		# print(self.request.GET)
-		# print(self.request.user)
-		# print(self.request.user.is_authenticated)
 		ctx = {'loggedIn': False}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
@@ -47,9 +36,6 @@ class Order(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		# print(self.request.GET)
-		# print(self.request.user)
-		# print(self.request.user.is_authenticated)
 		ctx = {'loggedIn': False}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
