@@ -10,7 +10,7 @@ from accounts import views
 app_name = 'accounts'
 
 urlpatterns = [
-	path('', views.loginRender, name='home'),
+	# path('', views.loginRender, name='home'),
 	# path('modal/', views.modalpageRender, name='modal'),
 
 	# path('login/', views.loginRender, name='login'),
@@ -20,4 +20,6 @@ urlpatterns = [
 	path('register/', views.RegisterView.as_view(), name='register'),
 
 	path('recovery/', views.recoveryRender, name='register'),
+
+	path('logout/', views.LogoutView.as_view(), name='logout'),
 ]

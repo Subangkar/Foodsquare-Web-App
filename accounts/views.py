@@ -12,16 +12,8 @@ from accounts.account_links import *
 from accounts.utils import *
 
 
-def loginRender(request):
-	return render(request, "accounts/login_v4.html")
-
-
 def recoveryRender(request):
 	return HttpResponse("Enter email to recover !!!")
-
-
-def signupRender(request):
-	return render(request, REGISTER_PAGE)
 
 
 def homepageRender(request):
@@ -39,6 +31,12 @@ class ProfileView(TemplateView):
 class LoginView(TemplateView):
 	template_name = 'accounts/login_v4.html'
 
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/')
+		else:
+			return super(self.__class__, self).get(request, *args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		ctx = {'loggedIn': False}
 		if self.request.user.is_authenticated:
@@ -54,6 +52,7 @@ class LoginView(TemplateView):
 			user = authenticate(request, username=username, password=password)
 			if user is not None:
 				login(request, user)
+				print('Signing in: ' + str(request.user))
 				return redirect('/')
 			else:
 				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
@@ -63,6 +62,12 @@ class LoginView(TemplateView):
 
 class RegisterView(TemplateView):
 	template_name = 'accounts/colorlib-regform-7.html'
+
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/')
+		else:
+			return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		ctx = super(RegisterView, self).get_context_data(**kwargs)
@@ -98,6 +103,7 @@ class RegisterView(TemplateView):
 			user.save()
 			# profile.user = user
 			# profile.save()
+			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
@@ -105,6 +111,7 @@ class RegisterView(TemplateView):
 
 class LogoutView(View, LoginRequiredMixin):
 	def get(self, request):
+		print('Signing out: ' + str(request.user))
 		logout(request)
 		return redirect('/')
 
