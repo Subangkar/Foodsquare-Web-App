@@ -40,9 +40,11 @@ class LoginView(TemplateView):
 	template_name = 'accounts/login_v4.html'
 
 	def get_context_data(self, **kwargs):
+		ctx = {'loggedIn': False}
 		if self.request.user.is_authenticated:
 			print('Logged in: ' + str(self.request.user))
-			# return redirect('/')
+			ctx['loggedIn'] = True
+		return ctx
 
 	def post(self, request, *args, **kwargs):
 		print(pretty_request(request))
@@ -66,6 +68,10 @@ class RegisterView(TemplateView):
 		ctx = super(RegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
+		ctx = {'loggedIn': False}
+		if self.request.user.is_authenticated:
+			print('Logged in: ' + str(self.request.user))
+			ctx['loggedIn'] = True
 		return ctx
 
 	def post(self, request, *args, **kwargs):
