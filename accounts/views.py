@@ -39,6 +39,11 @@ class ProfileView(TemplateView):
 class LoginView(TemplateView):
 	template_name = 'accounts/login_v4.html'
 
+	def get_context_data(self, **kwargs):
+		if self.request.user.is_authenticated:
+			print('Logged in: ' + str(self.request.user))
+			# return redirect('/')
+
 	def post(self, request, *args, **kwargs):
 		print(pretty_request(request))
 		username = request.POST.get('username', False)
@@ -65,25 +70,26 @@ class RegisterView(TemplateView):
 
 	def post(self, request, *args, **kwargs):
 		print(request.POST)
+		# print(pretty_request(request))
 
-		username = request.POST.get('name',False)
-		email = request.POST.get('email',False)
-		password = request.POST.get('pass',False)
-		password_confirm = request.POST.get('re_pass',False)
+		username = request.POST.get('name', False)
+		email = request.POST.get('email', False)
+		password = request.POST.get('pass', False)
+		password_confirm = request.POST.get('re_pass', False)
 
 		# if password!=password_confirm
 		# 	return
 
-		user_form = UserForm(request.POST, prefix='user')
+		user_form = UserForm(request.POST)
 		# profile_form = ProfileForm(request.POST, request.FILES, prefix='profile')
 
 		print(user_form)
 		# print(profile_form)
 
 		if user_form.is_valid():
-			# user = user_form.save(commit=False)
+			user = user_form.save(commit=False)
 			# profile = profile_form.save(commit=False)
-			# user.save()
+			user.save()
 			# profile.user = user
 			# profile.save()
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
