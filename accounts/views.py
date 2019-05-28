@@ -94,7 +94,6 @@ class RegisterView(TemplateView):
 		user_form = UserForm(request.POST)
 		# profile_form = ProfileForm(request.POST, request.FILES, prefix='profile')
 
-		print(user_form)
 		# print(profile_form)
 
 		if user_form.is_valid():

@@ -2,18 +2,33 @@
 <html lang="en">
 <head>
     {% if not loggedIn %}
-        <meta charset="UTF-8">
-        {% load static %}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign Up Form</title>
+    <meta charset="UTF-8">
+    {% load static %}
+    {% load socialaccount %}
+    {% providers_media_js %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
 
         <!-- Font Icon -->
         <link rel="stylesheet"
               href="{% static 'accounts/colorlib-regform-7/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
 
-        <!-- Main css -->
-        <link rel="stylesheet" href="{% static 'accounts/colorlib-regform-7/css/style.css' %}">
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'accounts/colorlib-regform-7/css/style.css' %}">
+
+
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'accounts/login_v4/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'accounts/login_v4/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/main.css' %}">
     {% else %}
         <meta http-equiv='refresh' content='2; URL=/'>
     {% endif %}
@@ -53,43 +68,60 @@
 								document.getElementById('signup').style.backgroundColor = 'red'
 							}
 						}
-                    </script>
-                    <form method="POST" class="register-form" id="register-form">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="name" placeholder="Your Name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" placeholder="Your Email"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="password" placeholder="Password"
-                                   onkeyup='checkpass();'/>
-                        </div>
-                        <div class="form-group">
-                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"
-                                   onkeyup='checkpass();'/><span id='password-message'></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
-                                statements in <a href="#" class="term-service">Terms of service</a></label>
-                        </div>
-                        <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                        </div>
-                    </form>
-                </div>
-                <div class="signup-image">
-                    <figure><img src="{% static 'accounts/colorlib-regform-7/images/signup-image.jpg' %}"
-                                 alt="sing up image"></figure>
-                    <a href="/accounts/login/" class="signup-image-link">I am already member</a>
+					}
+                </script>
+                <form method="POST"  class="register-form" id="register-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="username" id="name" placeholder="Your Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                        <input type="email" name="email" id="email" placeholder="Your Email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="password" id="password" placeholder="Password" onkeyup='checkpass();'/>
+                    </div>
+                    <div class="form-group">
+                        <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"
+                               onkeyup='checkpass();'/><span id='password-message'></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
+                            statements in <a href="#" class="term-service">Terms of service</a></label>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                    </div>
+                </form>
+
+
+                    <div class="flex-c-m">
+                    <a href={% provider_login_url "facebook" method="js_sdk" %} class="login100-social-item bg1">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+
+                    <a href="#" class="login100-social-item bg2">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+
+                    <a href={% provider_login_url "google" method="js_sdk" %} class="login100-social-item bg3">
+                        <i class="fa fa-google"></i>
+                    </a>
                 </div>
             </div>
+
+            <div class="signup-image">
+                <figure><img src="{% static 'accounts/colorlib-regform-7/images/signup-image.jpg' %}"
+                             alt="sing up image"></figure>
+
+                <a href="/accounts/login/" class="signup-image-link">I am already member</a>
+            </div>
+
         </div>
     </section>
 

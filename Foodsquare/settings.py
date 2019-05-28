@@ -24,7 +24,7 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -35,12 +35,28 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.sites',
+
 	'rest_framework',
 	# 'accounts.apps.AccountsConfig',
 	'browse',
 	'accounts',
 	'debug_toolbar',
+
+
+	'django_extensions',
+
+
+	'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+	'allauth.socialaccount.providers.facebook',
+	'allauth.socialaccount.providers.google',
+
 ]
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
@@ -117,4 +133,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+AUTHENTICATION_BACKENDS = (
+	"django.contrib.auth.backends.ModelBackend",
+	"allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}}
+
 STATIC_URL = '/static/'
+SITE_ID = 1
