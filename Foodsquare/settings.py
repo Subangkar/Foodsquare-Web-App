@@ -24,7 +24,7 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -43,20 +43,17 @@ INSTALLED_APPS = [
 	'accounts',
 	'debug_toolbar',
 
-
 	'django_extensions',
 
-
 	'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+	'allauth.account',
+	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
 
 ]
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
@@ -139,26 +136,26 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'kr_KR',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'}}
+	{'facebook':
+		 {'METHOD': 'oauth2',
+		  'SCOPE': ['email', 'public_profile', 'user_friends'],
+		  'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+		  'FIELDS': [
+			  'id',
+			  'email',
+			  'name',
+			  'first_name',
+			  'last_name',
+			  'verified',
+			  'locale',
+			  'timezone',
+			  'link',
+			  'gender',
+			  'updated_time'],
+		  'EXCHANGE_TOKEN': True,
+		  'LOCALE_FUNC': lambda request: 'kr_KR',
+		  'VERIFIED_EMAIL': False,
+		  'VERSION': 'v2.4'}}
 
 STATIC_URL = '/static/'
 SITE_ID = 1
