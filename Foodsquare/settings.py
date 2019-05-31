@@ -38,9 +38,9 @@ INSTALLED_APPS = [
 	'django.contrib.sites',
 
 	'rest_framework',
-	# 'accounts.apps.AccountsConfig',
+	'accounts.apps.AccountsConfig',
 	'browse',
-	'accounts',
+	# 'accounts',
 	'debug_toolbar',
 
 	'django_extensions',
