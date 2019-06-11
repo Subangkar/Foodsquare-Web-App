@@ -9,6 +9,7 @@
 
 <head>
    {% load static %}
+   <link rel="icon" type="image/png" href="{% static 'browse/toys_shop/images/icons/favicon.ico' %}"/>
    <title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
    <!--meta tags -->
    <meta charset="UTF-8">
@@ -27,28 +28,28 @@
    </script>
    <!--//meta tags ends here-->
    <!--booststrap-->
-   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+   <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">
    <!--//booststrap end-->
    <!-- font-awesome icons -->
-   <link href="css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+   <link href="{% static 'browse/toys_shop/css/fontawesome-all.min.css' %}" rel="stylesheet" type="text/css" media="all">
    <!-- //font-awesome icons -->
    <!-- For Clients slider -->
-   <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" />
+   <link rel="stylesheet" href="{% static 'browse/toys_shop/css/flexslider.css' %}" type="text/css" media="all" />
    <!--flexs slider-->
-   <link href="css/JiSlider.css" rel="stylesheet">
+   <link href="{% static 'browse/toys_shop/css/JiSlider.css' %}" rel="stylesheet">
    <!--Shoping cart-->
-   <link rel="stylesheet" href="css/shop.css" type="text/css" />
+   <link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css" />
    <!--//Shoping cart-->
    <!--stylesheets-->
-   <link href="css/style.css" rel='stylesheet' type='text/css' media="all">
+   <link href="{% static 'browse/toys_shop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
    <!--//stylesheets-->
 
 
-   <link href="index/css/bootstrap.css" rel='stylesheet' type='text/css' />
+   <link href="{% static 'browse/toys_shop/index/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="index/js/jquery.min.js"></script>
+   <script src="{% static 'browse/toys_shop/index/js/jquery.min.js' %}"></script>
    <!-- Custom Theme files -->
-   <link href="index/css/style.css" rel="stylesheet" type="text/css" media="all" />
+   <link href="{% static 'browse/toys_shop/index/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
    <!-- Custom Theme files -->
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <script
@@ -65,14 +66,14 @@
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 
    <!--Animation-->
-   <script src="index/js/wow.min.js"></script>
-   <link href="index/css/animate.css" rel='stylesheet' type='text/css' />
+   <script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
+   <link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css' />
    <script>
       new WOW().init();
    </script>
-   <script src="index/js/simpleCart.min.js"> </script>
-   <script type="text/javascript" src="index/js/move-top.js"></script>
-   <script type="text/javascript" src="index/js/easing.js"></script>
+   <script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"> </script>
+   <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
+   <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
    <script type="text/javascript">
       jQuery(document).ready(function ($) {
          $(".scroll").click(function (event) {
@@ -106,7 +107,7 @@
          <div class="container-fluid">
             <div class="hedder-up row">
                <div class="col-lg-3 col-md-3 logo-head">
-                  <a href="index.html">
+                  <a href="/">
                      <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
                   </a>
                </div>
@@ -144,10 +145,10 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                <ul class="navbar-nav ">
                   <li class="nav-item active">
-                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                     <a href="index/restaurants.html" class="nav-link">Top Restaurants</a>
+                     <a href="/browse/restaurants" class="nav-link">Top Restaurants</a>
                   </li>
                   <li class="nav-item">
                      <a href="shop.html" class="nav-link">Order Now</a>
@@ -425,7 +426,7 @@
                      <li>
                         <div class="index-offer">
                            <div class="index-offer-image">
-                              <img src="index/images/p1.jpg" class="img-responsive" alt="" />
+                              <img src="{% static 'browse/toys_shop/index/images/p1.jpg' %}" class="img-responsive" alt="" />
                            </div>
                            <div class="index-offer-text">
                               <h4>Olister Combo pack lorem</h4>
@@ -439,7 +440,7 @@
                      <li>
                         <div class="index-offer">
                            <div class="index-offer-image">
-                              <img src="index/images/p2.jpg" class="img-responsive" alt="" />
+                              <img src="{% static 'browse/toys_shop/index/images/p2.jpg' %}" class="img-responsive" alt="" />
                            </div>
                            <div class="index-offer-text">
                               <h4>Chicken Jumbo pack lorem</h4>
@@ -453,7 +454,7 @@
                      <li>
                         <div class="index-offer">
                            <div class="index-offer-image">
-                              <img src="index/images/p1.jpg" class="img-responsive" alt="" />
+                              <img src="{% static 'browse/toys_shop/index/images/p1.jpg' %}" class="img-responsive" alt="" />
                            </div>
                            <div class="index-offer-text">
                               <h4>Crab Combo pack lorem</h4>
@@ -468,7 +469,7 @@
                      <li>
                         <div class="index-offer">
                            <div class="index-offer-image">
-                              <img src="index/images/p2.jpg" class="img-responsive" alt="" />
+                              <img src="{% static 'browse/toys_shop/index/images/p2.jpg' %}" class="img-responsive" alt="" />
                            </div>
                            <div class="index-offer-text">
                               <h4>Chicken Jumbo pack lorem</h4>
@@ -509,7 +510,7 @@
 
                      });
                   </script>
-                  <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+                  <script type="text/javascript" src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
                </div>
             </div>
          </div>
@@ -518,29 +519,29 @@
          <div class="container">
             <div class="col-md-4 index-top-restaurents">
                <div class="top-restaurent-head">
-                  <a href="index/restaurants.html">
+                  <a href="/index/restaurants.html">
                      <h3 class="index-textLink" style="font-family:'Lobster Two', cursive;  ">Top Restaurants</h3>
                   </a>
                </div>
                <div class="index-top-restaurent-grids">
                   <div class="index-top-restaurent-logos">
                      <div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-1.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-1.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-2.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-2.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-3.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-3.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-4.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-4.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="index-res-img-1 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-5.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-5.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="index-res-img-2 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="index/images/restaurent-6.jpg" class="img-responsive" alt="" />
+                        <img src="{% static 'browse/toys_shop/index/images/restaurent-6.jpg' %}" class="img-responsive" alt="" />
                      </div>
                      <div class="clearfix"></div>
                   </div>
@@ -554,35 +555,35 @@
                </div>
                <div class="index-top-cuisine-grids">
                   <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine1.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine1.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine2.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine2.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine3.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine3.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid nth-grid wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine4.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine4.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine5.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine5.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine6.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine6.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine7.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine7.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="index-top-cuisine-grid nth-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                     <a href=""><img src="index/images/cuisine8.jpg" class="img-responsive" alt="" /> </a>
+                     <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine8.jpg' %}" class="img-responsive" alt="" /> </a>
                      <label>Cuisine Name</label>
                   </div>
                   <div class="clearfix"></div>
@@ -605,7 +606,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t1.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Milky Deo
@@ -613,7 +614,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -628,7 +629,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t2.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t2.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Sam Deo
@@ -636,7 +637,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt2.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt2.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -655,7 +656,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t1.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Milky Deo
@@ -663,7 +664,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -678,7 +679,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t3.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t3.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Sam Deo
@@ -686,7 +687,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -705,7 +706,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t2.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t2.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Milky Deo
@@ -713,7 +714,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt2.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt2.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -728,7 +729,7 @@
                         <div class="least-w3layouts-text-gap">
                            <div class="row">
                               <div class="col-md-4 col-sm-4 news-img">
-                                 <img src="images/t3.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/t3.jpg' %}" alt="" class="image-fluid">
                               </div>
                               <div class="col-md-8 col-sm-8 clients-says-w3layouts">
                                  <h4>Sam Deo
@@ -736,7 +737,7 @@
                                  <span class="mt-2">Duis posuere</span>
                               </div>
                               <div class="mt-3 news-agile-text">
-                                 <img src="images/tt1.jpg" alt="" class="image-fluid">
+                                 <img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt="" class="image-fluid">
                                  <p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis vehicula. Duis
                                     posuere
                                     ex in mollis iaculis. Suspendisse tincidunt
@@ -921,10 +922,10 @@
    </div>
    <!-- //Modal 1-->
    <!--js working-->
-   <script src='js/jquery-2.2.3.min.js'></script>
+   <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
    <!--//js working-->
    <!-- cart-js -->
-   <script src="js/minicart.js"></script>
+   <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
    <script>
       toys.render();
 
@@ -940,7 +941,7 @@
    </script>
    <!-- //cart-js -->
    <!--responsiveslides banner-->
-   <script src="js/responsiveslides.min.js"></script>
+   <script src="{% static 'browse/toys_shop/js/responsiveslides.min.js' %}"></script>
    <script>
       // You can also use "$(window).load(function() {"
       $(function () {
@@ -963,7 +964,7 @@
    </script>
    <!--// responsiveslides banner-->
    <!--slider flexisel -->
-   <script src="js/jquery.flexisel.js"></script>
+   <script src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
    <script>
       $(window).load(function () {
          $("#flexiselDemo1").flexisel({
@@ -993,8 +994,8 @@
    </script>
    <!-- //slider flexisel -->
    <!-- start-smoth-scrolling -->
-   <script src="js/move-top.js"></script>
-   <script src="js/easing.js"></script>
+   <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+   <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
    <script>
       jQuery(document).ready(function ($) {
          $(".scroll").click(function (event) {
@@ -1024,7 +1025,7 @@
    </script>
    <!-- //here ends scrolling icon -->
    <!--bootstrap working-->
-   <script src="js/bootstrap.min.js"></script>
+   <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
    <!-- //bootstrap working-->
 </body>
 
