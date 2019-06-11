@@ -19,7 +19,7 @@ def viewRestaurants(request):
 
 
 class Index(TemplateView):
-	template_name = 'browse/index.html'
+	template_name = 'browse/toys_shop/index.html'
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
