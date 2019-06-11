@@ -31,7 +31,7 @@ class Index(TemplateView):
 
 
 class Order(TemplateView):
-	template_name = 'browse/order.html'
+	template_name = 'browse/toys_shop/order.html'
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
