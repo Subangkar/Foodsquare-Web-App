@@ -94,7 +94,7 @@
 		<div class="inner_breadcrumb  ml-4">
 			<ul class="short_ls">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="/">Home</a>
 					<span>/ /</span>
 				</li>
 				<li>Shop Now</li>
@@ -297,627 +297,61 @@
 				</div>
 				<div class="left-ads-display col-lg-9">
 					<div class="row">
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a1.jpg' %}"
-										     class="img-thumbnail img-fluid" alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys(barbie)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$575.00</span>
-													</div>
+						{# Searched Product list show start #}
+						{% for item in item_list %}
+							<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+								<div class="product-toys-info">
+									<div class="men-pro-item">
+										<div class="men-thumb-item">
+											<img src="{% static item.img %}"
+											     class="img-thumbnail img-fluid" alt="">
+											<div class="men-cart-pro">
+												<div class="inner-men-cart-pro">
+													<a href={{ item.url }} class="link-product-add-cart">Quick View</a>
 												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="far fa-star-half-o"></i>
-														</a>
-													</li>
-												</ul>
 											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys(barbie)">
-													<input type="hidden" name="amount" value="575.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
+											<span class="product-new-top">New</span>
 										</div>
-										<div class="clearfix"></div>
+										<div class="item-info-product">
+											<div class="info-product-price">
+												<div class="grid_meta">
+													<div class="product_price">
+														<h4>
+															<a href="/browse/item/">{{ item.name }}</a>
+														</h4>
+														<div class="grid-price mt-2">
+															<span class="money ">{{ item.price }}</span>
+														</div>
+													</div>
+													<ul class="stars">
+														{% for star in item.rating %}
+															<li>
+																<a href="#">
+																	<i class="fas fa-star"></i>
+																</a>
+															</li>
+														{% endfor %}
+													</ul>
+												</div>
+												<div class="toys single-item hvr-outline-out">
+													<form action="#" method="post">
+														<input type="hidden" name="cmd" value="_cart">
+														<input type="hidden" name="add" value="1">
+														<input type="hidden" name="toys_item" value="toys(barbie)">
+														<input type="hidden" name="amount" value="575.00">
+														<button type="submit" class="toys-cart ptoys-cart">
+															<i class="fas fa-cart-plus"></i>
+														</button>
+													</form>
+												</div>
+											</div>
+											<div class="clearfix"></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a2.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toy(todos)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$480.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="far fa-star-half-o"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toy(todos)">
-													<input type="hidden" name="amount" value="480.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a3.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys (Grey)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$265.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys (Grey)">
-													<input type="hidden" name="amount" value="265.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a4.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys (red)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$67.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys (red)">
-													<input type="hidden" name="amount" value="67.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a3.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys(blue)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$340.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys(blue)">
-													<input type="hidden" name="amount" value="340.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a1.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys(pink)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$160.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys(pink)">
-													<input type="hidden" name="amount" value="160.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a2.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toy(todos)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$480.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toy(todos)">
-													<input type="hidden" name="amount" value="480.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a3.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys (Grey)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$265.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys (Grey)">
-													<input type="hidden" name="amount" value="265.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-							<div class="product-toys-info">
-								<div class="men-pro-item">
-									<div class="men-thumb-item">
-										<img src="{% static 'browse/toys_shop/images/a4.jpg' %}" class="img-thumbnail"
-										     alt="">
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="single.html" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										<span class="product-new-top">New</span>
-									</div>
-									<div class="item-info-product">
-										<div class="info-product-price">
-											<div class="grid_meta">
-												<div class="product_price">
-													<h4>
-														<a href="single.html">toys (Grey)</a>
-													</h4>
-													<div class="grid-price mt-2">
-														<span class="money ">$67.00</span>
-													</div>
-												</div>
-												<ul class="stars">
-													<li>
-														<a href="#">
-															<i class="fas fa-star"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star" aria-hidden="true"></i>
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															<i class="fa fa-star-half-o" aria-hidden="true"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
-											<div class="toys single-item hvr-outline-out">
-												<form action="#" method="post">
-													<input type="hidden" name="cmd" value="_cart">
-													<input type="hidden" name="add" value="1">
-													<input type="hidden" name="toys_item" value="toys (Grey)">
-													<input type="hidden" name="amount" value="67.00">
-													<button type="submit" class="toys-cart ptoys-cart">
-														<i class="fas fa-cart-plus"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						{% endfor %}
+						{# Searched Product list show start #}
 					</div>
 				</div>
 			</div>

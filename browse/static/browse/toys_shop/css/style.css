@@ -215,9 +215,9 @@ h5#exampleModalLabel{
 }
 /*--//model--*/
 /*-- banner --*/ 
-.one-img{  background: url(../images/b1.jpg)no-repeat center;}
-.two-img{  background: url(../images/b2.jpg)no-repeat center;}
-.three-img{  background: url(../images/b3.jpg)no-repeat center;} 
+.one-img{  background: url("/static/browse/images/b1.jpg")no-repeat center;}
+.two-img{  background: url("/static/browse/images/b2.jpg")no-repeat center;}
+.three-img{  background: url("/static/browse/images/b3.jpg")no-repeat center;}
 .slider-img{  background-size: cover;
 min-height: 800px;}  
 .rslides {
@@ -482,7 +482,7 @@ border: 4px solid #d24055;
 /*-- inner-banner --*/ 
 .inner_page-banner {
 text-align: center;
-background: url(../images/b2.jpg) no-repeat center;
+background: url("/static/browse/images/b2.jpg") no-repeat center;
 background-size: cover;
 -webkit-background-size: cover;
 -moz-background-size: cover;
@@ -695,7 +695,7 @@ bottom:-86px}
 /*--//flexisel--*/
 /*--//slider--*/
 /* --customer-review--*/
-.clients { background: url(../images/b1.jpg)no-repeat center;
+.clients { background: url("/static/browse/images/b1.jpg")no-repeat center;
     background-size: cover;
 	-webkit-background-size: cover;
     -moz-background-size: cover;
@@ -766,16 +766,16 @@ color:#000;}
     -ms-background-size: cover;
     height:534px;}
 /*--//Premium-- */
-.img-toy-w3l-top{background: url(../images/cc1.jpg)no-repeat center;
+.img-toy-w3l-top{background: url("/static/browse/images/cc1.jpg")no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     -ms-background-size: cover;
     height:534px;}
-.toys-img-one{background: url(../images/cc2.jpg)no-repeat center;}
-.toys-img-one-two{background: url(../images/tt1.jpg)no-repeat center;}
-.toys-img-one-three{background: url(../images/tt2.jpg)no-repeat center;}
+.toys-img-one{background: url("/static/browse/images/cc2.jpg")no-repeat center;}
+.toys-img-one-two{background: url("/static/browse/images/tt1.jpg")no-repeat center;}
+.toys-img-one-three{background: url("/static/browse/images/tt2.jpg")no-repeat center;}
 .toys-img-one-two,.toys-img-one-three{
 	    background-size: cover;
     -webkit-background-size: cover;
