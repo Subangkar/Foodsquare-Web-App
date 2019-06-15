@@ -57,9 +57,8 @@
 	} </script>
 
 	<!--webfont-->
-	<link
-			href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-			rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
+	      rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
 	      type='text/css'>
 
@@ -84,6 +83,55 @@
 		});
 	</script>
 
+	{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+	<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+
+	<style>
+		.topBtn {
+			background-color: #000;
+			color: white;
+			padding: 16px;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.dropdown {
+			position: relative;
+			display: inline-block;
+
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+			z-index: 1;
+		}
+
+		.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			width: 100%;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #f1f1f1
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		.topBtn:hover {
+			/* background-color: #3e8e41; */
+			color: #f00;
+		}
+	</style>
 	{% block header %}
 	{% endblock %}
 
@@ -94,22 +142,22 @@
 <body>
 <div class="header-outs" id="home">
 	<div class="header-bar">
-		<div class="info-top-grid">
-			<div class="info-contact-agile">
-				<ul>
-					<li>
-						<span class="fas fa-phone-volume"></span>
-						<p>+(000)123 4565 32</p>
-					</li>
-					<li>
-						<span class="fas fa-envelope"></span>
-						<p><a href="mailto:info@example.com">info@example1.com</a></p>
-					</li>
-					<li>
-					</li>
-				</ul>
-			</div>
-		</div>
+		{#		<div class="info-top-grid">#}
+		{#			<div class="info-contact-agile">#}
+		{#				<ul>#}
+		{#					<li>#}
+		{#						<span class="fas fa-phone-volume"></span>#}
+		{#						<p>+(000)123 4565 32</p>#}
+		{#					</li>#}
+		{#					<li>#}
+		{#						<span class="fas fa-envelope"></span>#}
+		{#						<p><a href="mailto:info@example.com">info@example1.com</a></p>#}
+		{#					</li>#}
+		{#					<li>#}
+		{#					</li>#}
+		{#				</ul>#}
+		{#			</div>#}
+		{#		</div>#}
 		<div class="container-fluid">
 			<div class="hedder-up row">
 				<div class="col-lg-3 col-md-3 logo-head">
@@ -117,34 +165,58 @@
 						<h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
 					</a>
 				</div>
-				<div style="width: 40%; ">
+				<div style="width: 40%;">
 				</div>
 				<div class="col-lg-4 col-md-3 right-side-cart" align="right">
 					<div class="cart-icons">
-						<ul>
-							<li>
-								<span class="far fa-heart"></span>
-							</li>
-							<li>
-								<button type="button" data-toggle="modal" data-target="#exampleModal"> <span
-										class="far fa-user"></span></button>
-							</li>
-							<li class="toyscart toyscart2 cart cart box_1">
-								<form action="#" method="post" class="last">
-									<input type="hidden" name="cmd" value="_cart">
-									<input type="hidden" name="display" value="1">
-									<button class="top_toys_cart" type="submit" name="submit" value="">
-										<span class="fas fa-cart-arrow-down"></span>
-									</button>
-								</form>
-							</li>
-						</ul>
+						<div style="float: right">
+							<form action="#" method="post" class="last">
+								<input type="hidden" name="cmd" value="_cart">
+								<input type="hidden" name="display" value="1">
+								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">
+									<span class="fas fa-cart-arrow-down"> Cart</span>
+								</button>
+							</form>
+
+						</div>
+
+						<div class="dropdown" style="float: right">
+							{% if not loggedIn %}
+								<button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+								<div class="dropdown-content">
+									<a href="/accounts/login/">Login</a>
+									<a href="/accounts/register/">Register</a>
+								</div>
+							{% else %}
+								<button class="topBtn"><span
+										class="far fa-user"> {{ request.user.username|upper }}</span></button>
+								<div class="dropdown-content">
+									<a href="/customer/profile/">Profile</a>
+									<a href="/accounts/logout/">Logout</a>
+								</div>
+							{% endif %}
+						</div>
+						{#						<ul>#}
+						{#							<li>#}
+						{#								<span class="far fa-heart"></span>#}
+						{#							</li>#}
+						{#							<li class="toyscart toyscart2 cart cart box_1">#}
+						{#								<form action="#" method="post" class="last">#}
+						{#									<input type="hidden" name="cmd" value="_cart">#}
+						{#									<input type="hidden" name="display" value="1">#}
+						{#									<button class="top_toys_cart" type="submit" name="submit" value="">#}
+						{#										<span class="fas fa-cart-arrow-down"></span>#}
+						{#									</button>#}
+						{#								</form>#}
+						{#							</li>#}
+						{#						</ul>#}
 					</div>
 				</div>
 			</div>
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-light">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+			        data-target="#navbarSupportedContent"
 			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -154,10 +226,10 @@
 						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a href="/browse/restaurants" class="nav-link">Top Restaurants</a>
+						<a href="/browse/restaurants/" class="nav-link">Top Restaurants</a>
 					</li>
 					<li class="nav-item">
-						<a href="/order" class="nav-link">Order Now</a>
+						<a href="/order/" class="nav-link">Order Now</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -177,22 +249,22 @@
 					<li class="nav-item">
 						<a href="about.html" class="nav-link">About</a>
 					</li>
-					{% if loggedIn %}
-						<li class="nav-item">
-							<a href="/accounts/profile/"
-							   class="nav-link"><strong>{{ request.user.username }}</strong></a>
-						</li>
-						<li class="nav-item">
-							<a href="/accounts/logout/" class="nav-link">Logout</a>
-						</li>
-					{% else %}
-						<li class="nav-item">
-							<a href="/accounts/login/" class="nav-link">Login</a>
-						</li>
-						<li class="nav-item">
-							<a href="/accounts/register/" class="nav-link">Register</a>
-						</li>
-					{% endif %}
+					{#					{% if loggedIn %}#}
+					{#						<li class="nav-item">#}
+					{#							<a href="/accounts/profile/"#}
+					{#							   class="nav-link"><strong>{{ request.user.username }}</strong></a>#}
+					{#						</li>#}
+					{#						<li class="nav-item">#}
+					{#							<a href="/accounts/logout/" class="nav-link">Logout</a>#}
+					{#						</li>#}
+					{#					{% else %}#}
+					{#						<li class="nav-item">#}
+					{#							<a href="/accounts/login/" class="nav-link">Login</a>#}
+					{#						</li>#}
+					{#						<li class="nav-item">#}
+					{#							<a href="/accounts/register/" class="nav-link">Register</a>#}
+					{#						</li>#}
+					{#					{% endif %}#}
 					<li class="nav-item">
 						<a href="contact.html" class="nav-link">Contact</a>
 					</li>
@@ -379,6 +451,7 @@
 {% block body-js %}
 	<!--bootstrap working-->
 	<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+	{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
 	<!-- //bootstrap working-->
 {% endblock %}
 </body>
