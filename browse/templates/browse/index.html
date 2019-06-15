@@ -1,555 +1,750 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
-<html>
-<head>
-    {% load static %}
+{% extends 'browse/base.html' %}
 
-    <title>Food_Template Bootstrap Responsive Website Template | Home :: w3layouts</title>
-    <link href="{% static 'browse/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{% static 'browse/js/jquery.min.js' %}"></script>
-    <!-- Custom Theme files -->
-    <link href="{% static 'browse/css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="application/x-javascript"> addEventListener("load", function () {
-		setTimeout(hideURLbar, 0);
-	}, false);
+{% block header %}
+	<title>Foodsquare | Home</title>
+{% endblock %}
 
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	} </script>
-    <!--webfont-->
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-          rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
-          type='text/css'>
-    <!--Animation-->
-    <script src="{% static 'browse/js/wow.min.js' %}"></script>
-    <link href="{% static 'browse/css/animate.css' %}" rel='stylesheet' type='text/css'/>
-    <script>
-		new WOW().init();
-    </script>
-    <script src="{% static 'browse/js/simpleCart.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'browse/js/move-top.js' %}"></script>
-    <script type="text/javascript" src="{% static 'browse/js/easing.js' %}"></script>
-    <script type="text/javascript">
+{% block body-header %}
+	<!-- Slideshow 4 -->
+	<div class="slider text-center">
+		<div class="callbacks_container">
+			<ul class="rslides" id="slider4">
+				<li>
+					<div class="slider-img one-img">
+						<div class="slider-info ">
+							<div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
+								<div class="container">
+									<div class="index-banner-info">
+										<div class="index-banner-info-head text-center wow fadeInLeft"
+										     data-wow-delay="0.5s">
+											<h1>Network of over 5000 Restaurants</h1>
+											<div class="index-line">
+												<h2> To Order Online</h2>
+											</div>
+										</div>
+										<div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
+											<form>
+												<ul class="navmain">
+													<li><span>Location Name</span>
+														<input type="text" class="text" value="Secunderabad"
+														       onfocus="this.value = '';"
+														       onblur="if (this.value == '') {this.value = 'Secunderabad';}">
+													</li>
+													<li><span>Restaurant Name</span>
+														<input type="text" class="text" value="Swagath Grand"
+														       onfocus="this.value = '';"
+														       onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
+													</li>
+													<li><span>Cuisine Name</span>
+														<input type="text" class="text" value="Chicken Biriyani"
+														       onfocus="this.value = '';"
+														       onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
+													</li>
+												</ul>
+												<br>
+												<br>
+												<ul>
+													<li>
+														<!-- <div class="index-srch"><button>Search</button></div> -->
+													</li>
+													<li>
+														<div class="index-srch">
+															<button></button>
+														</div>
+													</li>
+													<!-- <li>
+													</li> -->
+												</ul>
+
+											</form>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- <li>
+				   <div class="slider-img two-img">
+					  <div class="slider-info ">
+						 <div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
+							<div class="container">
+							   <div class="index-banner-info">
+								  <div class="index-banner-info-head text-center wow fadeInLeft" data-wow-delay="0.5s">
+									 <h1>Network of over 5000 Restaurants</h1>
+									 <div class="index-line">
+										<h2> To Order Online</h2>
+									 </div>
+								  </div>
+								  <div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
+									 <form>
+										<ul class="navmain">
+										   <li><span>Location Name</span>
+											  <input type="text" class="text" value="Secunderabad"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Secunderabad';}">
+										   </li>
+										   <li><span>Restaurant Name</span>
+											  <input type="text" class="text" value="Swagath Grand"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
+										   </li>
+										   <li><span>Cuisine Name</span>
+											  <input type="text" class="text" value="Chicken Biriyani"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
+										   </li>
+										</ul>
+										<br>
+										<br>
+										<ul>
+										   <li>
+										   </li>
+										   <li>
+											  <div class="index-srch"><button></button></div>
+										   </li>
+										</ul>
+
+									 </form>
+
+
+								  </div>
+
+							   </div>
+							</div>
+						 </div>
+					  </div>
+				   </div>
+				</li> -->
+				<!-- <li>
+				   <div class="slider-img three-img">
+					  <div class="slider-info ">
+						 <div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
+							<div class="container">
+							   <div class="index-banner-info">
+								  <div class="index-banner-info-head text-center wow fadeInLeft" data-wow-delay="0.5s">
+									 <h1>Network of over 5000 Restaurants</h1>
+									 <div class="index-line">
+										<h2> To Order Online</h2>
+									 </div>
+								  </div>
+								  <div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
+									 <form>
+										<ul class="navmain">
+										   <li><span>Location Name</span>
+											  <input type="text" class="text" value="Secunderabad"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Secunderabad';}">
+										   </li>
+										   <li><span>Restaurant Name</span>
+											  <input type="text" class="text" value="Swagath Grand"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
+										   </li>
+										   <li><span>Cuisine Name</span>
+											  <input type="text" class="text" value="Chicken Biriyani"
+												 onfocus="this.value = '';"
+												 onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
+										   </li>
+										</ul>
+										<br>
+										<br>
+										<ul>
+										   <li>
+										   </li>
+										   <li>
+											  <div class="index-srch"><button></button></div>
+										   </li>
+										</ul>
+
+									 </form>
+
+
+								  </div>
+
+							   </div>
+							</div>
+						 </div>
+					  </div>
+				   </div>
+				</li> -->
+			</ul>
+		</div>
+		<!-- This is here just to demonstrate the callbacks -->
+		<!-- <ul class="events">
+			  <li>Example 4 callback events</li>
+			  </ul>-->
+		<div class="clearfix"></div>
+	</div>
+{% endblock %}
+
+{% block body-content %}
+	{% load static %}
+
+	<!-- //banner -->
+	<!-- about -->
+	<!-- <section class="about py-lg-4 py-md-3 py-sm-3 py-3" style="background-color: aqua"id="about"> -->
+	<div class="content">
+		<div class="index-ordering-section" id="Order">
+			<div class="container">
+				<div class="index-ordering-section-head text-center wow bounceInRight" data-wow-delay="0.4s">
+					<h3>Ordering food was never so easy</h3>
+					<div class="index-dotted-line">
+						<h4>Just 4 steps to follow </h4>
+					</div>
+				</div>
+				<div class="index-ordering-section-grids">
+					<div class="col-md-3 index-ordering-section-grid">
+						<div class="index-ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s">
+							<i class=" one"></i><br>
+							<i class="one-icon"></i>
+							<p>Choose <span>Your Restaurant</span></p>
+							<label></label>
+						</div>
+					</div>
+					<div class="col-md-3 index-ordering-section-grid">
+						<div class="index-ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s">
+							<i class=" two"></i><br>
+							<i class="two-icon"></i>
+							<p>Order <span>Your Cuisine</span></p>
+							<label></label>
+						</div>
+					</div>
+					<div class="col-md-3 index-ordering-section-grid">
+						<div class="index-ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s">
+							<i class=" three"></i><br>
+							<i class="three-icon"></i>
+							<p>Pay <span> online / on delivery</span></p>
+							<label></label>
+						</div>
+					</div>
+					<div class="col-md-3 index-ordering-section-grid">
+						<div class="index-ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s">
+							<i class=" four"></i><br>
+							<i class="four-icon"></i>
+							<p>Enjoy <span>your food </span></p>
+						</div>
+					</div>
+					<div class="index-clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="index-special-offers-section">
+			<div class="container">
+				<div class="index-special-offers-section-head text-center index-dotted-line">
+					<h4>Special Offers</h4>
+				</div>
+				<div class="index-special-offers-section-grids">
+					<div class="index-m_3"><span class="index-middle-dotted-line"> </span></div>
+					<div class="container">
+						<ul id="flexiselDemo3">
+							<li>
+								<div class="index-offer">
+									<div class="index-offer-image">
+										<img src="{% static 'browse/toys_shop/index/images/p1.jpg' %}"
+										     class="img-responsive" alt=""/>
+									</div>
+									<div class="index-offer-text">
+										<h4>Olister Combo pack lorem</h4>
+										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+										<input type="button" value="Grab It">
+										<span></span>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</li>
+							<li>
+								<div class="index-offer">
+									<div class="index-offer-image">
+										<img src="{% static 'browse/toys_shop/index/images/p2.jpg' %}"
+										     class="img-responsive" alt=""/>
+									</div>
+									<div class="index-offer-text">
+										<h4>Chicken Jumbo pack lorem</h4>
+										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+										<input type="button" value="Grab It">
+										<span></span>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</li>
+							<li>
+								<div class="index-offer">
+									<div class="index-offer-image">
+										<img src="{% static 'browse/toys_shop/index/images/p1.jpg' %}"
+										     class="img-responsive" alt=""/>
+									</div>
+									<div class="index-offer-text">
+										<h4>Crab Combo pack lorem</h4>
+										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+										<input type="button" value="Grab It">
+										<span></span>
+									</div>
+
+									<div class="clearfix"></div>
+								</div>
+							</li>
+							<li>
+								<div class="index-offer">
+									<div class="index-offer-image">
+										<img src="{% static 'browse/toys_shop/index/images/p2.jpg' %}"
+										     class="img-responsive" alt=""/>
+									</div>
+									<div class="index-offer-text">
+										<h4>Chicken Jumbo pack lorem</h4>
+										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+										<input type="button" value="Grab It">
+										<span></span>
+									</div>
+
+									<div class="clearfix"></div>
+								</div>
+							</li>
+						</ul>
+						<script type="text/javascript">
+							$(window).load(function () {
+
+								$("#flexiselDemo3").flexisel({
+									visibleItems: 3,
+									animationSpeed: 1000,
+									autoPlay: false,
+									autoPlaySpeed: 3000,
+									pauseOnHover: true,
+									enableResponsiveBreakpoints: true,
+									responsiveBreakpoints: {
+										portrait: {
+											changePoint: 480,
+											visibleItems: 1
+										},
+										landscape: {
+											changePoint: 640,
+											visibleItems: 2
+										},
+										tablet: {
+											changePoint: 768,
+											visibleItems: 3
+										}
+									}
+								});
+
+							});
+						</script>
+						<script type="text/javascript"
+						        src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="index-popular-restaurents" id="Popular-Restaurants">
+			<div class="container">
+				<div class="col-md-4 index-top-restaurents">
+					<div class="top-restaurent-head">
+						<a href="/index/restaurants.html">
+							<h3 class="index-textLink" style="font-family:'Lobster Two', cursive;  ">Top
+								Restaurants</h3>
+						</a>
+					</div>
+					<div class="index-top-restaurent-grids">
+						<div class="index-top-restaurent-logos">
+							<div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-1.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-2.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-3.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-4.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="index-res-img-1 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-5.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="index-res-img-2 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+								<img src="{% static 'browse/toys_shop/index/images/restaurent-6.jpg' %}"
+								     class="img-responsive" alt=""/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 index-top-cuisines">
+					<div class="index-top-cuisine-head">
+						<a href="#">
+							<h3 class="index-textLink" style="font-family:'Lobster Two', cursive;  ">Top Cuisine</h3>
+						</a>
+					</div>
+					<div class="index-top-cuisine-grids">
+						<div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine1.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine2.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine3.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid nth-grid wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine4.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine5.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine6.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine7.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="index-top-cuisine-grid nth-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
+							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine8.jpg' %}"
+							                class="img-responsive" alt=""/> </a>
+							<label>Cuisine Name</label>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--//about -->
+	<!--Customers Review -->
+	<section class="clients py-lg-4 py-md-3 py-sm-3 py-3" id="clients">
+		<div class="container py-lg-5 py-md-5 py-sm-4 py-3">
+			<h3 class="title clr text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Customers Review</h3>
+			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<div class="row">
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t1.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Milky Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t2.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Sam Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt2.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="row">
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t1.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Milky Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t3.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Sam Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="row">
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t2.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Milky Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt2.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 clients-w3layouts-row">
+								<div class="least-w3layouts-text-gap">
+									<div class="row">
+										<div class="col-md-4 col-sm-4 news-img">
+											<img src="{% static 'browse/toys_shop/images/t3.jpg' %}" alt=""
+											     class="image-fluid">
+										</div>
+										<div class="col-md-8 col-sm-8 clients-says-w3layouts">
+											<h4>Sam Deo
+											</h4>
+											<span class="mt-2">Duis posuere</span>
+										</div>
+										<div class="mt-3 news-agile-text">
+											<img src="{% static 'browse/toys_shop/images/tt1.jpg' %}" alt=""
+											     class="image-fluid">
+											<p class="mt-3"><span class="fas fa-quote-left"></span> velit sagittis
+												vehicula.
+												Duis
+												posuere
+												ex in mollis iaculis. Suspendisse tincidunt
+												velit sagittis vehicula. Duis posuere
+												velit sagittis vehicula. Duis posuere <span
+														class="fas fa-quote-right"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		</div>
+	</section>
+	<!--//Customers Review -->
+	<!-- Product-view -->
+
+	<!--//Product-view-->
+	<!--//Product-view-->
+
+	<!--Product-about-->
+
+	<!--//Product-about-->
+
+{% endblock %}
+
+{% block body-js %}
+	<!--js working-->
+	<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+	<!--//js working-->
+	<!-- cart-js -->
+	<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
+	<script>
+		toys.render();
+
+		toys.cart.on('toys_checkout', function (evt) {
+			var items, len, i;
+
+			if (this.subtotal() > 0) {
+				items = this.items();
+
+				for (i = 0, len = items.length; i < len; i++) {
+				}
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+	<!--responsiveslides banner-->
+	<script src="{% static 'browse/toys_shop/js/responsiveslides.min.js' %}"></script>
+	<script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+			// Slideshow 4
+			$("#slider4").responsiveSlides({
+				auto: true,
+				pager: false,
+				nav: true,
+				speed: 900,
+				namespace: "callbacks",
+				before: function () {
+					$('.events').append("<li>before event fired.</li>");
+				},
+				after: function () {
+					$('.events').append("<li>after event fired.</li>");
+				}
+			});
+
+		});
+	</script>
+	<!--// responsiveslides banner-->
+	<!--slider flexisel -->
+	<script src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
+	<script>
+		$(window).load(function () {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 3,
+				animationSpeed: 3000,
+				autoPlay: true,
+				autoPlaySpeed: 2000,
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: {
+					portrait: {
+						changePoint: 480,
+						visibleItems: 1
+					},
+					landscape: {
+						changePoint: 640,
+						visibleItems: 2
+					},
+					tablet: {
+						changePoint: 768,
+						visibleItems: 2
+					}
+				}
+			});
+
+		});
+	</script>
+	<!-- //slider flexisel -->
+	<!-- start-smoth-scrolling -->
+	<script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+	<script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+	<script>
 		jQuery(document).ready(function ($) {
 			$(".scroll").click(function (event) {
 				event.preventDefault();
-				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
 			});
 		});
-    </script>
-</head>
-<body>
-<!-- header-section-starts -->
-<div class="header">
-    <div class="container">
-        <div class="top-header">
-            <div class="logo">
-                <a href="index.html"><img src="{% static 'browse/images/logo.png' %}" class="img-responsive"
-                                          alt=""/></a>
-            </div>
-            <div class="queries">
-                <p>Questions? Call us Toll-free!<span>1800-0000-7777 </span><label>(11AM to 11PM)</label></p>
-            </div>
-            <div class="header-right">
-                <div class="cart box_1">
-                    <a href="checkout.html">
-                        <h3><span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity"
-                                                                                 class="simpleCart_quantity"> 0 </span>
-                            items)<img src="{% static 'browse/images/bag.png' %}" alt=""></h3>
-                    </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty card</a></p>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="menu-bar">
-        <div class="container">
-            <div class="top-menu">
-                <ul>
-                    <li class="active"><a href="#Home" class="scroll">Home</a></li>
-                    |
-                    <li><a href="restaurants.html">Popular Restaurants</a></li>
-                    |
-                    <li><a href="/order/">Order</a></li>
-                    |
-                    <li><a href="contact.html">contact</a></li>
-                    <div class="clearfix"></div>
-                </ul>
-            </div>
-            <div class="login-section">
-                <ul>
-                    {% if loggedIn %}
-                        <li><a href="/accounts/profile/"><strong>{{ request.user.username }}</strong></a></li>
-                        |
-                        <li><a href="/accounts/logout/">Logout</a></li>
-                    {% else %}
-                        <li><a href="/accounts/login/">Login</a></li>
-                        |
-                        <li><a href="/accounts/register/">Register</a></li>
-                    {% endif %}
-                    |
-                    <li><a href="#">Help</a></li>
-                    <div class="clearfix"></div>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
-        <div class="container">
-            <div class="banner-info">
-                <div class="banner-info-head text-center wow fadeInLeft" data-wow-delay="0.5s">
-                    <h1>Network of over 5000 Restaurants</h1>
-                    <div class="line">
-                        <h2> To Order Online</h2>
-                    </div>
-                </div>
-                <div class="form-list wow fadeInRight" data-wow-delay="0.5s">
-                    <form>
-                        <ul class="navmain">
-                            <li><span>Location Name</span>
-                                <input type="text" class="text" value="Secunderabad" onfocus="this.value = '';"
-                                       onblur="if (this.value == '') {this.value = 'Secunderabad';}">
-                            </li>
-                            <li><span>Restaurant Name</span>
-                                <input type="text" class="text" value="Swagath Grand" onfocus="this.value = '';"
-                                       onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
-                            </li>
-                            <li><span>Cuisine Name</span>
-                                <input type="text" class="text" value="Chicken Biriyani" onfocus="this.value = '';"
-                                       onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- start search-->
-                <div class="main-search">
-                    <form action="search.html">
-                        <input type="text" value="Search" onFocus="this.value = '';"
-                               onBlur="if (this.value == '') {this.value = 'Search';}" class="text"/>
-                        <input type="submit" value=""/>
-                    </form>
-                    <div class="close"><img src="{% static 'browse/images/cross.png' %}"/></div>
-                </div>
-                <div class="srch">
-                    <button></button>
-                </div>
-                <script type="text/javascript">
-					$('.main-search').hide();
-					$('button').click(function () {
-							$('.main-search').show();
-							$('.main-search text').focus();
-						}
-					);
-					$('.close').click(function () {
-						$('.main-search').hide();
-					});
-                </script>
+	</script>
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script>
+		$(document).ready(function () {
 
-            </div>
-        </div>
-    </div>
-</div>
-<!-- header-section-ends -->
-<!-- content-section-starts -->
-<div class="content">
-    <div class="ordering-section" id="Order">
-        <div class="container">
-            <div class="ordering-section-head text-center wow bounceInRight" data-wow-delay="0.4s">
-                <h3>Ordering food was never so easy</h3>
-                <div class="dotted-line">
-                    <h4>Just 4 steps to follow </h4>
-                </div>
-            </div>
-            <div class="ordering-section-grids">
-                <div class="col-md-3 ordering-section-grid">
-                    <div class="ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s"
-                    ">
-                    <i class="one"></i><br>
-                    <i class="one-icon"></i>
-                    <p>Choose <span>Your Restaurant</span></p>
-                    <label></label>
-                </div>
-            </div>
-            <div class="col-md-3 ordering-section-grid">
-                <div class="ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s"
-                ">
-                <i class="two"></i><br>
-                <i class="two-icon"></i>
-                <p>Order <span>Your Cuisine</span></p>
-                <label></label>
-            </div>
-        </div>
-        <div class="col-md-3 ordering-section-grid">
-            <div class="ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s"
-            ">
-            <i class="three"></i><br>
-            <i class="three-icon"></i>
-            <p>Pay <span> online / on delivery</span></p>
-            <label></label>
-        </div>
-    </div>
-    <div class="col-md-3 ordering-section-grid">
-        <div class="ordering-section-grid-process wow fadeInRight" data-wow-delay="0.4s"
-        ">
-        <i class="four"></i><br>
-        <i class="four-icon"></i>
-        <p>Enjoy <span>your food </span></p>
-    </div>
-</div>
-<div class="clearfix"></div>
-</div>
-</div>
-</div>
-<div class="special-offers-section">
-    <div class="container">
-        <div class="special-offers-section-head text-center dotted-line">
-            <h4>Special Offers</h4>
-        </div>
-        <div class="special-offers-section-grids">
-            <div class="m_3"><span class="middle-dotted-line"> </span></div>
-            <div class="container">
-                <ul id="flexiselDemo3">
-                    <li>
-                        <div class="offer">
-                            <div class="offer-image">
-                                <img src="{% static 'browse/images/p1.jpg' %}" class="img-responsive" alt=""/>
-                            </div>
-                            <div class="offer-text">
-                                <h4>Olister Combo pack lorem</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                                <input type="button" value="Grab It">
-                                <span></span>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="offer">
-                            <div class="offer-image">
-                                <img src="{% static 'browse/images/p2.jpg' %}" class="img-responsive" alt=""/>
-                            </div>
-                            <div class="offer-text">
-                                <h4>Chicken Jumbo pack lorem</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                                <input type="button" value="Grab It">
-                                <span></span>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="offer">
-                            <div class="offer-image">
-                                <img src="{% static 'browse/images/p1.jpg' %}" class="img-responsive" alt=""/>
-                            </div>
-                            <div class="offer-text">
-                                <h4>Crab Combo pack lorem</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                                <input type="button" value="Grab It">
-                                <span></span>
-                            </div>
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
 
-                            <div class="clearfix"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="offer">
-                            <div class="offer-image">
-                                <img src="{% static 'browse/images/p2.jpg' %}" class="img-responsive" alt=""/>
-                            </div>
-                            <div class="offer-text">
-                                <h4>Chicken Jumbo pack lorem</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                                <input type="button" value="Grab It">
-                                <span></span>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </li>
-                </ul>
-                <script type="text/javascript">
-					$(window).load(function () {
-
-						$("#flexiselDemo3").flexisel({
-							visibleItems: 3,
-							animationSpeed: 1000,
-							autoPlay: false,
-							autoPlaySpeed: 3000,
-							pauseOnHover: true,
-							enableResponsiveBreakpoints: true,
-							responsiveBreakpoints: {
-								portrait: {
-									changePoint: 480,
-									visibleItems: 1
-								},
-								landscape: {
-									changePoint: 640,
-									visibleItems: 2
-								},
-								tablet: {
-									changePoint: 768,
-									visibleItems: 3
-								}
-							}
-						});
-
-					});
-                </script>
-                <script type="text/javascript" src="{% static 'browse/js/jquery.flexisel.js' %}"></script>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="popular-restaurents" id="Popular-Restaurants">
-    <div class="container">
-        <div class="col-md-4 top-restaurents">
-            <div class="top-restaurent-head">
-                <h3>Top Restaurants</h3>
-            </div>
-            <div class="top-restaurent-grids">
-                <div class="top-restaurent-logos">
-                    <div class="res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-1.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-2.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-3.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-4.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="res-img-1 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-5.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="res-img-2 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                        <img src="{% static 'browse/images/restaurent-6.jpg' %}" class="img-responsive" alt=""/>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 top-cuisines">
-            <div class="top-cuisine-head">
-                <h3>Top Cuisines</h3>
-            </div>
-            <div class="top-cuisine-grids">
-                <div class="top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine1.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine2.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine3.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid nth-grid wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine4.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine5.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine6.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine7.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="top-cuisine-grid nth-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                    <a href=""><img src="{% static 'browse/images/cuisine8.jpg' %}" class="img-responsive" alt=""/> </a>
-                    <label>Cuisine Name</label>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<div class="service-section">
-    <div class="service-section-top-row">
-        <div class="container">
-            <div class="service-section-top-row-grids wow bounceInLeft" data-wow-delay="0.4s">
-                <div class="col-md-3 service-section-top-row-grid1">
-                    <h3>Enjoy Exclusive Food Order any of these</h3>
-                </div>
-                <div class="col-md-2 service-section-top-row-grid2">
-                    <ul>
-                        <li><i class="arrow"></i></li>
-                        <li class="lists">Party Orders</li>
-                    </ul>
-                    <ul>
-                        <li><i class="arrow"></i></li>
-                        <li class="lists">Home Made Food</li>
-                    </ul>
-                    <ul>
-                        <li><i class="arrow"></i></li>
-                        <li class="lists"> Diet Food</li>
-                    </ul>
-                </div>
-                <div class="col-md-5 service-section-top-row-grid3">
-                    <img src="{% static 'browse/images/lunch.png' %}" class="img-responsive" alt=""/>
-                </div>
-                <div class="col-md-2 service-section-top-row-grid4 wow swing animated" data-wow-delay="0.4s">
-                    <a href="order.html"><input type="submit" value="Order Now"></a>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <div class="service-section-bottom-row">
-        <div class="container">
-            <div class="col-md-4 service-section-bottom-grid wow bounceIn " data-wow-delay="0.2s">
-                <div class="icon">
-                    <img src="{% static 'browse/images/icon1.jpg' %}" class="img-responsive" alt=""/>
-                </div>
-                <div class="icon-data">
-                    <h4>100% Service Guarantee</h4>
-                    <p>Lorem ipsum dolor sit amet, consect-etuer adipiscing elit. </p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-4 service-section-bottom-grid wow bounceIn " data-wow-delay="0.2s">
-                <div class="icon">
-                    <img src="{% static 'browse/images/icon2.jpg' %}" class="img-responsive" alt=""/>
-                </div>
-                <div class="icon-data">
-                    <h4>Fully Secure Payment</h4>
-                    <p>Lorem ipsum dolor sit amet, consect-etuer adipiscing elit. </p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-4 service-section-bottom-grid wow bounceIn " data-wow-delay="0.2s">
-                <div class="icon">
-                    <img src="{% static 'browse/images/icon3.jpg' %}" class="img-responsive" alt=""/>
-                </div>
-                <div class="icon-data">
-                    <h4>Track Your Order</h4>
-                    <p>Lorem ipsum dolor sit amet, consect-etuer adipiscing elit. </p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-<div class="contact-section" id="contact">
-    <div class="container">
-        <div class="contact-section-grids">
-            <div class="col-md-3 contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
-                <h4>Site Links</h4>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">About Us</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Contact Us</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Terms of Use</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
-                <h4>Site Links</h4>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">About Us</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Contact Us</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <ul>
-                    <li><i class="point"></i></li>
-                    <li class="data"><a href="#">Terms of Use</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 contact-section-grid wow fadeInRight" data-wow-delay="0.4s">
-                <h4>Follow Us On...</h4>
-                <ul>
-                    <li><i class="fb"></i></li>
-                    <li class="data"><a href="#"> Facebook</a></li>
-                </ul>
-                <ul>
-                    <li><i class="tw"></i></li>
-                    <li class="data"><a href="#">Twitter</a></li>
-                </ul>
-                <ul>
-                    <li><i class="in"></i></li>
-                    <li class="data"><a href="#"> Linkedin</a></li>
-                </ul>
-                <ul>
-                    <li><i class="gp"></i></li>
-                    <li class="data"><a href="#">Google Plus</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 contact-section-grid nth-grid wow fadeInRight" data-wow-delay="0.4s">
-                <h4>Subscribe Newsletter</h4>
-                <p>To get latest updates and food deals every week</p>
-                <input type="text" class="text" value="" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = '';}">
-                <input type="submit" value="submit">
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- content-section-ends -->
-<!-- footer-section-starts -->
-<div class="footer">
-    <div class="container">
-        <p class="wow fadeInLeft" data-wow-delay="0.4s">&copy; 2014 All rights Reserved | Template by &nbsp;<a
-                href="http://w3layouts.com" target="target_blank">W3Layouts</a></p>
-    </div>
-</div>
-<!-- footer-section-ends -->
-<script type="text/javascript">
-	$(document).ready(function () {
-		/*
-		var defaults = {
-			  containerID: 'toTop', // fading element id
-			containerHoverID: 'toTopHover', // fading element hover id
-			scrollSpeed: 1200,
-			easingType: 'linear'
-		 };
-		*/
-
-		$().UItoTop({easingType: 'easeOutQuart'});
-
-	});
-</script>
-<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-
-</body>
-</html>
+		});
+	</script>
+	<!-- //here ends scrolling icon -->
+{% endblock %}

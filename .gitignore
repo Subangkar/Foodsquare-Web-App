@@ -108,3 +108,5 @@ venv.bak/
 sessionLog\.txt
 
 \.vscode/
+
+media/

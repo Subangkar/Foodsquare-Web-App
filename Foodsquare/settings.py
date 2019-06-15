@@ -37,13 +37,12 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'django.contrib.sites',
 
-	'rest_framework',
-	'accounts.apps.AccountsConfig',
 	'browse',
 	'accounts',
 	'manager',
-	'debug_toolbar',
 
+	'rest_framework',
+	'debug_toolbar',
 	'django_extensions',
 
 	'allauth',
