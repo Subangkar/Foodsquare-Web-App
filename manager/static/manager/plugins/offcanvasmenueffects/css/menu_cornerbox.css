@@ -1,0 +1,120 @@
+.show-menu, 
+.container, 
+.content-wrap {
+	overflow: hidden;
+}
+
+.content-wrap {
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+
+/* Menu Button */
+#profile-menu-link::before {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	bottom: 0.5em;
+	left: 0.5em;
+	content: '';
+}
+
+/* Close Button */
+.close-button {
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	overflow: hidden;
+	text-indent: 1em;
+	border: none;
+	background: transparent;
+	color: transparent;
+}
+
+.close-button::before,
+.close-button::after {
+	content: '';
+	position: absolute;
+	width: 2px;
+	height: 100%;
+	top: 0;
+	left: 50%;
+	background: #b8b7ad;
+}
+
+.close-button::before {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.close-button::after {
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+/* Menu */
+.menu-wrap {
+	position: fixed;
+	z-index: 1001;
+	width: 280px;
+	height: 280px;
+	background: #fff;
+	color: #373a47;
+	padding: 30px;
+	-webkit-transform: translate3d(-320px,-320px,0);
+	transform: translate3d(-320px,-320px,0);
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.profile {
+	display: inline-block;
+	line-height: 42px;
+	margin-bottom: 1em;
+	font-weight: 700;
+}
+
+.profile img {
+	float: left;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.profile-menu-list a {
+	display: block;
+	color: #b8b7ad;
+	font-weight: 700;
+	padding: 10px 8px;
+    text-decoration: none;
+}
+
+.profile-menu-list a:hover,
+.profile-menu-list a:focus {
+	color: #22BAA0;
+}
+
+.profile-menu-list a span {
+	margin-left: 10px;
+}
+
+/* Shown menu */
+.show-menu .menu-wrap {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.show-menu .content-wrap {
+	-webkit-transform: translate3d(80px,80px,0);
+	transform: translate3d(80px,80px,0);
+}
+
+.show-menu .content::before {
+	opacity: 1;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
