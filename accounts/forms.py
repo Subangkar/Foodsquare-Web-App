@@ -6,9 +6,10 @@ from .models import UserProfile
 
 
 class ProfileForm(ModelForm):
+
 	class Meta:
 		model = UserProfile
-		fields = ('age', 'desc', 'avatar')
+		fields = ( 'avatar','address')
 
 
 class UserForm(ModelForm):

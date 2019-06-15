@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
+from accounts.models import UserProfile
 from .forms import ProfileForm, UserForm
 from accounts.account_links import *
 from accounts.utils import *
@@ -22,10 +23,6 @@ def homepageRender(request):
 
 def modalpageRender(request):
 	return render(request, "index.html")
-
-
-class ProfileView(TemplateView):
-	template_name = 'accounts/profile.html'
 
 
 class LoginView(TemplateView):
@@ -83,30 +80,25 @@ class RegisterView(TemplateView):
 		print(request.POST)
 		# print(pretty_request(request))
 
-		username = request.POST.get('name', False)
-		email = request.POST.get('email', False)
-		password = request.POST.get('pass', False)
-		password_confirm = request.POST.get('re_pass', False)
 
 		# if password!=password_confirm
 		# 	return
 
 		user_form = UserForm(request.POST)
-		# profile_form = ProfileForm(request.POST, request.FILES, prefix='profile')
-
-		print(user_form)
+		# profile_form = ProfileForm(request.POST or None, request.FILES or None, prefix='profile')
+		#
 		# print(profile_form)
 
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
-			# profile = profile_form.save(commit=False)
 			user.save()
-			# profile.user = user
-			# profile.save()
+			p = UserProfile.objects.create(user=user)
+			p.save()
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+
 
 
 class LogoutView(View, LoginRequiredMixin):
