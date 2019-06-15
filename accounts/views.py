@@ -32,7 +32,7 @@ class LoginView(TemplateView):
 		if self.request.user.is_authenticated:
 			return redirect('/')
 		else:
-			return super(self.__class__, self).get(request, *args, **kwargs)
+			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		ctx = {'loggedIn': False}
@@ -64,7 +64,7 @@ class RegisterView(TemplateView):
 		if self.request.user.is_authenticated:
 			return redirect('/')
 		else:
-			return super(self.__class__, self).get(request, *args, **kwargs)
+			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		ctx = super(RegisterView, self).get_context_data(**kwargs)
