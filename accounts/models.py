@@ -4,8 +4,7 @@ from django.db import models
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	desc = models.CharField(max_length=140, blank=True)
-	age = models.IntegerField(default=0)
+	address = models.TextField(max_length=150, null=True)
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 
 
