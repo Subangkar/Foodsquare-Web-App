@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 	# 'accounts.apps.AccountsConfig',
 	'browse',
 	'accounts',
+	'customer',
 	'debug_toolbar',
 ]
 

@@ -24,5 +24,7 @@ urlpatterns = [
     # path(r'browse/', include('browse.urls'),name='browse'),
     path(r'', include('browse.urls'), name='home'),
     path(r'accounts/', include('accounts.urls'), name="accounts"),
+    path(r'customer/', include('customer.urls'), name="customer"),
     path('admin/', admin.site.urls),
+
 ]
