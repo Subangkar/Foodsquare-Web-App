@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'manager',
 
 	'rest_framework',
+	'customer',
 	'debug_toolbar',
 	'django_extensions',
 
