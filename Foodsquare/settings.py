@@ -51,6 +51,8 @@ INSTALLED_APPS = [
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
 
+	'location_field.apps.DefaultConfig',
+	'phonenumber_field',
 ]
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
