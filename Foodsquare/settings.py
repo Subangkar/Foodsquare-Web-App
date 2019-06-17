@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 	'browse',
 	'accounts',
 	'manager',
-
 	'rest_framework',
 	'customer',
 	'debug_toolbar',

@@ -4,7 +4,7 @@
 <head>
 
     <!-- Title -->
-    <title>Modern | Profile</title>
+    <title>Customer Profile</title>
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta charset="UTF-8">
@@ -143,7 +143,7 @@
                     </a>
                 </div>
                 <div class="logo-box">
-                    <a href="index.html" class="logo-text"><span>Modern</span></a>
+                    <a href="index.html" class="logo-text"><span>FoodSquare</span></a>
                 </div><!-- Logo Box -->
                 <div class="search-button">
                     <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i
@@ -302,7 +302,7 @@
                                 <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic"
                                     data-toggle="dropdown">
                                     <span class="user-name">{{ request.user.username }}<i class="fa fa-angle-down"></i></span>
-                                    <img class="img-circle avatar" src="{% static 'customer/profile/images/avatar1.png' %}" width="40"
+                                    <img class="img-circle avatar" src={{ userprofile.avatar.url }}  width="40"
                                         height="40" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-list" role="menu">
@@ -337,10 +337,10 @@
                     <div class="sidebar-profile">
                         <!-- <a href="javascript:void(0);" id="profile-menu-link"> -->
                         <div class="sidebar-profile-image">
-                            <img src="{% static 'customer/profile/images/avatar1.png' %}" class="img-circle img-responsive" alt="">
+                            <img src={{ userprofile.avatar.url }} class="img-circle img-responsive" alt="">
                         </div>
                         <div class="sidebar-profile-details">
-                            <span>David Green<br><small>Art Director</small></span>
+                            <span>{{ request.user.username }} <br></span>
                         </div>
                         </a>
                     </div>
@@ -372,13 +372,15 @@
                     <hr>
                     <div class="row">
                         <!-- left column -->
+                        <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                                {% csrf_token %}
                         <div class="col-md-3">
                             <div class="text-center">
-                                <img src="{% static 'customer/profile/images/avatar4.png' %}" class="avatar "
+                                <img src={{ userprofile.avatar.url }} class="avatar "
                                     style="width : 100%;height: 100%" alt="avatar">
                                 <h6>Upload a different photo...</h6>
 
-                                <input type="file" class="form-control">
+                                <input type="file" name="avatar" class="form-control">
                             </div>
                         </div>
 
@@ -391,55 +393,54 @@
                             </div>
                             <h3>Personal info</h3>
 
-                            <form method="post" class="form-horizontal" role="form">
-                                {% csrf_token %}
+
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">First name:</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" name="first_name" value="Burger">
+                                        <input class="form-control" type="text" name="first_name" value={{ userprofile.first_name }}>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Last Name:</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" name="last_name" >
+                                        <input class="form-control" type="text" name="last_name" value={{ userprofile.last_name }} >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Address:</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" name="address" value="">
+                                        <input class="form-control" type="text" name="address" value={{ userprofile.address }}>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Email:</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" name="email" value="janesemail@gmail.com">
+                                        <input class="form-control" type="text" name="email" value={{ request.user.email }}>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Username:</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="text" value="janeuser">
+                                        <input class="form-control" type="text" value={{ request.user.username }} name="username">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Password:</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="password" value="11111122333">
+                                        <input class="form-control" type="password" value="11111122333" name="password">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Confirm password:</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="password" value="11111122333">
+                                        <input class="form-control" type="password" value="11111122333" name="re_pass">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></label>
                                     <div class="col-md-8">
-                                        <input type="button" class="btn btn-primary" value="Save Changes">
+                                        <input type="submit" class="btn btn-primary" value="Save Changes">
                                         <span></span>
                                         <input type="reset" class="btn btn-default" value="Cancel">
                                     </div>
