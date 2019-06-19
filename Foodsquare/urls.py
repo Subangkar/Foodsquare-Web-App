@@ -26,8 +26,8 @@ urlpatterns = [
     # path(r'browse/', include('browse.urls'),name='browse'),
     path(r'', include('browse.urls'), name='home'),
     path(r'accounts/', include('accounts.urls'), name="accounts"),
-    path(r'manager/', include('manager.urls'), name="manager"),
-    path('admin/', admin.site.urls),
+    # path(r'manager/', include('manager.urls'), name="manager"),
+    # path('admin/', admin.site.urls),
     path(r'accounts/', include('allauth.urls')),
 ]
 
