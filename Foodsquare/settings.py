@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
+	'sslserver',
 
 	'location_field.apps.DefaultConfig',
 	'phonenumber_field',
