@@ -79,32 +79,17 @@ class Ingredient(models.Model):
 		return reverse("Ingredient_detail", kwargs={"pk": self.pk})
 
 
-class Item(models.Model):
-	item_name = models.CharField(max_length=50)
-
-	ingr_list = models.ManyToManyField(Ingredient, through='IngredientList')
-
-	class Meta:
-		verbose_name = "Item"
-		verbose_name_plural = "Items"
-
-	def __str__(self):
-		return self.item_name
-
-	def get_absolute_url(self):
-		return reverse("Item_detail", kwargs={"pk": self.pk})
-
-
 class Package(models.Model):
 	pkg_name = models.CharField(max_length=50)
-	for_n_persons = models.IntegerField(default=1)
-	price = models.IntegerField(blank=False)
+	for_n_persons = models.IntegerField(default=1, null=False)
+	price = models.IntegerField(blank=False, null=False)
 	available = models.BooleanField(default=True)
 	image = models.ImageField(upload_to='menu/', default='menu/default.png')
+	details = models.CharField(max_length=250, blank=True)
 
 	restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
-	item_list = models.ManyToManyField(Item, through='ItemList')
+	ingr_list = models.ManyToManyField(Ingredient, through='IngredientList')
 
 	class Meta:
 		verbose_name = "Package"
@@ -117,31 +102,13 @@ class Package(models.Model):
 		return reverse("Package_detail", kwargs={"pk": self.pk})
 
 
-class ItemList(models.Model):
-	pkg_id = models.ForeignKey(Package, on_delete=models.CASCADE)
-	item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
-
-	class Meta:
-		verbose_name = "ItemList"
-		verbose_name_plural = "ItemLists"
-
-	# def __str__(self):
-	# 	return self.item_name
-
-	def get_absolute_url(self):
-		return reverse("ItemList_detail", kwargs={"pk": self.pk})
-
-
 class IngredientList(models.Model):
-	item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+	pack_id = models.ForeignKey(Package, on_delete=models.CASCADE)
 	ingr_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = "IngredientList"
 		verbose_name_plural = "IngredientLists"
-
-	# def __str__(self):
-	# 	return self.name
 
 	def get_absolute_url(self):
 		return reverse("IngredientList_detail", kwargs={"pk": self.pk})
