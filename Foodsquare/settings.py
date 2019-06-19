@@ -24,7 +24,7 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'www.localhost', 'manager.localhost', 'api.localhost', 'admin.localhost',
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost', 'api.localhost', 'admin.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'api.foodsquare.com',
                  'admin.foodsquare.com']
 
@@ -77,7 +77,7 @@ ROOT_URLCONF = 'Foodsquare.urls'
 ROOT_HOSTCONF = 'Foodsquare.hosts'
 
 DEFAULT_HOST = 'www'
-PREPEND_WWW = True
+# PREPEND_WWW = True
 
 TEMPLATES = [
 	{
