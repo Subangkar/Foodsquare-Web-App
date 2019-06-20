@@ -1,8 +1,9 @@
 # Create your views here.
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from browse.utils import *
+from manager.models import Menu
 
 
 def viewRestaurants(request):
@@ -51,12 +52,22 @@ class Order(TemplateView):
 class Item(TemplateView):
 	template_name = 'browse/item.html'
 
+	def get(self, request, *args, **kwargs):
+		if kwargs.get('id') is None or not isinstance(kwargs['id'], int):
+			return redirect('/order/')
+		return super().get(request, *args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		ctx = {'loggedIn': False, 'item_img': [], 'reviewer_img': '/browse/images/toys_shop/team1.jpg'}
-		ctx['item_img'] = ['/browse/images/cuisine1.jpg', '/browse/images/cuisine2.jpg',
-		                   '/browse/images/cuisine3.jpg']
+		id = kwargs['id']
+		itm = Menu.objects.get(id=id)
+		item = item_t(name=itm.menu_name, price="$" + str(itm.price), img=itm.menu_img, rating='5',
+		              url="/browse/item/" + str(itm.id))
+
+		ctx = {}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
+			ctx['item'] = item
+			ctx['item_img'] = [item.img]
 		return ctx

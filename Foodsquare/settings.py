@@ -24,7 +24,9 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost', 'api.localhost', 'admin.localhost',
+                 'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'api.foodsquare.com',
+                 'admin.foodsquare.com']
 
 # Application definition
 
@@ -50,12 +52,17 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
+	'sslserver',
 
+	'location_field.apps.DefaultConfig',
+	'phonenumber_field',
+	'django_hosts',
 ]
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 MIDDLEWARE = [
+	'django_hosts.middleware.HostsRequestMiddleware',
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
@@ -64,9 +71,14 @@ MIDDLEWARE = [
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'debug_toolbar.middleware.DebugToolbarMiddleware',
+	'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'Foodsquare.urls'
+ROOT_HOSTCONF = 'Foodsquare.hosts'
+
+DEFAULT_HOST = 'www'
+# PREPEND_WWW = True
 
 TEMPLATES = [
 	{
@@ -119,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
