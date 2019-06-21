@@ -1,0 +1,339 @@
+@import 'bourbon'; // http://bourbon.io/
+
+@import '../partials/variables'; // colors, fonts etc...
+
+@import '../partials/mixins'; // custom mixins
+
+@import '../partials/layout'; // responsive grid and media queries
+
+/* -------------------------------- 
+
+Primary style
+
+-------------------------------- */
+
+*, *::after, *::before {
+	@include box-sizing(border-box);
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font: {
+		size: 1.6rem;
+		family: $primary-font; // variables inside partials > _variables.scss
+	}
+	color: $color-1;
+	background-color: $color-3;
+}
+
+a {
+	color: $color-2;
+	text-decoration: none;
+}
+
+/* -------------------------------- 
+
+Main Components 
+
+-------------------------------- */
+
+.cd-gallery {
+	width: 90%;
+	max-width: $L; // breakpoints inside partials > _layout.scss
+	margin: 1.5em auto;
+	@include clearfix;
+
+	> li {
+		overflow: hidden;
+		position: relative;
+		margin-bottom: 2em;
+		background: $color-5;
+		border-radius: .25em;
+		box-shadow: 0 1px 4px rgba(#000, .1);
+
+		> a {
+			display: block;
+		}  
+	}
+
+	@include MQ(M) {
+		margin: 2em auto;
+
+		> li {
+			@include column(.48); // see partials > _layout.scss
+			margin-right: 4%;
+			margin-bottom: 2.5em;
+
+			&:nth-of-type(2n) {
+				margin-right: 0;
+			}
+		}
+	}
+
+	@include MQ(L) {
+		margin: 2.5em auto;
+
+		> li {
+			
+			.no-touch &:hover .cd-dots li.selected a {
+				/* Slider dots - change background-color of the selected dot when hover over the its parent list item */
+				background: $color-1;
+				border-color: $color-1;
+			}
+
+			.no-touch &:hover .cd-dots a {
+				/* Slider dots - change dot border-color when hover over the its parent list item */
+				border-color: lighten($color-1, 40%);
+			}
+
+			.no-touch &:hover li.move-right,
+			.no-touch &:hover li.move-left {
+				/* show preview items when hover over the its parent list item */
+				opacity: 0.3;
+			}
+		}
+	}
+}
+
+.cd-item-wrapper {
+	position: relative;
+	overflow: hidden;
+	margin: 3em 0;
+
+	li {
+		position: absolute;
+		top: 0;
+		left: 25%;
+		height: 100%;
+		width: 50%;
+		opacity: 0;
+
+		/* Force Hardware Acceleration */
+		@include transform(translateZ(0));
+		@include backface-visibility(hidden);
+		will-change: transform, opacity;
+		
+		@include transform(translateX(200%) scale(0.7));
+		@include transition(transform .4s, opacity .4s);
+
+		&.selected {
+			/* selected item */
+			position: relative;
+			opacity: 1;
+			@include transform(translateX(0) scale(1.3));
+		}
+
+		&.move-left {
+			/* item on left - preview visible */
+			@include transform(translateX(-100%) scale(0.7));
+			opacity: 0.3;
+		}
+
+		&.move-right {
+			/* item on right - preview visible */
+			@include transform(translateX(100%) scale(0.7));
+			opacity: 0.3;
+		}
+
+		&.hide-left {
+			/* items hidden on the left */
+			@include transform(translateX(-200%) scale(0.7));
+		}
+
+		img {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	@include MQ(L) {
+
+		li.move-left,
+		li.move-right {
+			/* hide preview items */
+			opacity: 0;
+		}
+
+		li.focus-on-left {
+			/* class added to the .selected and .move-right items when user hovers over the .move-left item (item preview on the left) */
+			@include transform(translateX(3%) scale(1.25));
+
+
+			&.move-right {
+				@include transform(translateX(103%) scale(0.7));
+			}
+		}
+
+		li.focus-on-right {
+			/* class added to the .selected and .move-left items when user hovers over the .move-right item (item preview on the right) */
+			@include transform(translateX(-3%) scale(1.25));
+
+			&.move-left {
+				@include transform(translateX(-103%) scale(0.7));
+			}
+		}
+		
+		li.hover {
+			/* class added to the preview items (.move-left or .move-right) when user hovers over them */
+			opacity: 1 !important;
+
+			&.move-left {
+				@include transform(translateX(-97%) scale(0.75));
+			}
+
+			&.move-right {
+				@include transform(translateX(97%) scale(0.75));
+			}
+		}
+	}
+}
+
+.cd-dots {
+	/* not visible in the html document - created using jQuery */
+	position: absolute;
+	bottom: 95px;
+	@include center(x); // see partials > _mixins.scss
+	@include clearfix;
+	padding: .2em;
+
+	li {
+		display: inline-block;
+		float: left;
+		margin: 0 5px;
+		pointer-events: none;
+
+		&.selected a {
+			background: $color-1;
+			border-color: $color-1;
+		}
+	}
+
+	a {
+		display: block;
+		height: 6px;
+		width: 6px;
+		border-radius: 50%;
+		border: 1px solid lighten($color-1, 40%);
+
+		/* image replacement */
+		overflow: hidden;
+		text-indent: 100%;
+		white-space: nowrap;
+
+		@include transition(border-color .2s, background-color .2s);
+	}
+
+	@include MQ(L) {
+
+		li {
+			pointer-events: auto;
+
+			&.selected a {
+				background: darken($color-5, 20%);
+				border-color: darken($color-5, 20%);
+			}
+		}
+
+		a {
+			height: 8px;
+			width: 8px;
+			border-color: darken($color-5, 20%);
+			/* fix a bug in IE9/10 - transparent anchor not clickable */
+			background-color: rgba(#FFF, 0);
+		}
+	}
+}
+
+.cd-item-info {
+	height: 90px;
+	line-height: 90px;
+	padding: 0 2em;	
+	@include clearfix;
+
+	b, .cd-price, .cd-new-price {
+		font-weight: bold;
+		font-size: 2rem;
+	}
+
+	b {
+		float: left;
+
+		a {
+			color: $color-1;
+		}
+	}
+
+	.cd-price, .cd-new-price {
+		/* .cd-new-price not visible in the html document - created using jQuery */
+		float: right;
+	}
+
+	.cd-price {
+		color: $color-2;
+		position: relative;
+		margin-left: 10px;
+		@include transition(color .2s);
+
+		&::after {
+			/* crossing line - visible if price is on sale */
+			content:'';
+			position: absolute;
+			@include center(y);
+			left: 0;
+			height: 2px;
+			width: 0%;
+			background-color: $color-2;
+			opacity: 0;
+			@include transition(width .2s 0s, opacity 0s .2s);
+		}
+
+		&.on-sale::after {
+			opacity: 1;
+			width: 100%;
+			@include transition(width .2s 0s, opacity 0s 0s);
+		}
+	}
+
+	.cd-new-price {
+		/* new price - visible if price is on sale */
+		color: $color-4;
+		opacity: 0;
+		@include transform(translateX(5px));
+		@include transition(transform .2s, opacity .2s);
+
+		&.is-visible {
+			@include transform(translateX(0));
+			opacity: 1;
+		}
+	}
+
+	@include MQ(M) {
+		b, .cd-price, .cd-new-price {
+			font-size: 2.4rem;
+		}
+	}
+}
+
+.no-js .move-right,
+.no-js .move-left {
+	display: none;
+}
+
+/* -------------------------------- 
+
+xcredits 
+
+-------------------------------- */
+
+.credits {
+	width: 90%;
+	margin: 2em auto;
+	text-align: center;
+}
+
+.no-touch .credits a:hover {
+	text-decoration: underline;
+}

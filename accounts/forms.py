@@ -9,7 +9,7 @@ class ProfileForm(ModelForm):
 
 	class Meta:
 		model = UserProfile
-		fields = ( 'avatar','address')
+		fields = ( 'first_name', 'last_name', 'avatar','address')
 
 
 class UserForm(ModelForm):
