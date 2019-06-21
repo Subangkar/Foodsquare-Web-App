@@ -95,7 +95,8 @@ class RegisterView(TemplateView):
 			p = UserProfile.objects.create(user=user)
 			p.save()
 			print('Registering : ' + str(request.user))
-			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+			return redirect('/')
+			# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
 
