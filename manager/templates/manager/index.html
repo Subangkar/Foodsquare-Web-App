@@ -4,7 +4,7 @@
     <title>Finances &mdash; Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    {% load static %}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'finances/fonts/icomoon/style.css' %}">
 
@@ -62,28 +62,17 @@
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">Login/Register</a></li>
                 <li class="has-children">
-                  <a href="#about-section" class="nav-link">About Us</a>
+                  <a href="#about-section" class="nav-link">Login/Register</a>
                   <ul class="dropdown">
-                    <li><a href="#team-section" class="nav-link">Team</a></li>
-                    <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-                    <li><a href="#faq-section" class="nav-link">FAQ</a></li>
-                    <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-                    <li><a href="#services-section" class="nav-link">Services</a></li>
-                    <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
-                    <li class="has-children">
-                      <a href="#">More Links</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="/accounts/manager_login/" class="nav-link">Login</a></li>
+                    <li><a href="/accounts/manager_register/" class="nav-link">Register</a></li>
                   </ul>
                 </li>
                 
                 
-                <li><a href="#blog-section" class="nav-link">Blog</a></li>
+
                 <li><a href="#contact-section" class="nav-link">Contact</a></li>
                 <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-facebook"></span></a></li>
                 <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-twitter"></span></a></li>

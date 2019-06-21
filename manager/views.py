@@ -9,14 +9,21 @@ from accounts.utils import pretty_request
 from .forms import MenuForm
 
 
-class LoginView(TemplateView):
+class IndexView(TemplateView):
+	template_name = 'manager/index.html'
+
+	def get(self, request, *args, **kwargs):
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def post(self, request, *args, **kwargs):
+		pass
+
+
+class HomepageView(TemplateView):
 	template_name = 'manager/manager_profile.html'
 
 	def get(self, request, *args, **kwargs):
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
-		menuForm = MenuForm(request.POST or None, request.FILES or None)
-		menuForm.save()
-		print(menuForm)
-		return HttpResponse("<h1>Congrats</h1>")
+		pass
