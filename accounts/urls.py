@@ -16,6 +16,10 @@ urlpatterns = [
 
 	# path('login/', views.loginRender, name='login'),
 	path('login/', views.LoginView.as_view(), name='login'),
+
+	path('manager_login/', views.ManagerLoginView.as_view(), name='manger_login'),
+	path('manager_register/', views.ManagerRegisterView.as_view(), name='manager_register'),
+
 	# path('register/', views.signupRender, name='register'),
 	path('register/', views.RegisterView.as_view(), name='register'),
 	path(r'register/facebook-signUp/', include('allauth.urls'), name='facebook-signUp'),
@@ -23,4 +27,5 @@ urlpatterns = [
 	path('recovery/', views.recoveryRender, name='register'),
 
 	path('logout/', views.LogoutView.as_view(), name='logout'),
+	path('manager_logout/', views.ManagerLogoutView.as_view(), name='manager_logout'),
 ]

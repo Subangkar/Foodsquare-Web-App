@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Finances &mdash; Website Template by Colorlib</title>
+    <title>FoodSquare &mdash; Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    {% load static %}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'finances/fonts/icomoon/style.css' %}">
 
@@ -54,7 +54,7 @@
         <div class="row align-items-center">
           
           <div class="col-6 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="h2 mb-0">Finances<span class="text-primary">.</span> </a></h1>
+            <h1 class="mb-0 site-logo"><a href="index.html" class="h2 mb-0">FoodSquare<span class="text-primary">.</span> </a></h1>
           </div>
 
           <div class="col-12 col-md-10 d-none d-xl-block">
@@ -63,27 +63,13 @@
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li class="has-children">
-                  <a href="#about-section" class="nav-link">About Us</a>
+                  <a href="#about-section" class="nav-link">Login/Register</a>
                   <ul class="dropdown">
-                    <li><a href="#team-section" class="nav-link">Team</a></li>
-                    <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-                    <li><a href="#faq-section" class="nav-link">FAQ</a></li>
-                    <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-                    <li><a href="#services-section" class="nav-link">Services</a></li>
-                    <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
-                    <li class="has-children">
-                      <a href="#">More Links</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="/accounts/manager_login/" class="nav-link">Login</a></li>
+                    <li><a href="/accounts/manager_register/" class="nav-link">Register</a></li>
                   </ul>
                 </li>
-                
-                
-                <li><a href="#blog-section" class="nav-link">Blog</a></li>
+
                 <li><a href="#contact-section" class="nav-link">Contact</a></li>
                 <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-facebook"></span></a></li>
                 <li class="social"><a href="#contact-section" class="nav-link"><span class="icon-twitter"></span></a></li>
@@ -111,7 +97,7 @@
           <div class="col-md-10 mt-lg-5 text-center">
             <div class="single-text owl-carousel">
               <div class="slide">
-                <h1 class="text-uppercase" data-aos="fade-up">Banking Solutions</h1>
+                <h1 class="text-uppercase" data-aos="fade-up">Create Your Restaurant Profile</h1>
                 <p class="mb-5 desc"  data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae minima delectus accusamus accusantium deleniti libero excepturi porro illo.</p>
                 <div data-aos="fade-up" data-aos-delay="100">
                   <a href="#" target="_blank" class="btn  btn-primary mr-2 mb-2">Get In Touch</a>
@@ -119,7 +105,7 @@
               </div>
 
               <div class="slide">
-                <h1 class="text-uppercase" data-aos="fade-up">Financing Solutions</h1>
+                <h1 class="text-uppercase" data-aos="fade-up">Reach Your Customer</h1>
                 <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Repudiandae minima delectus accusamus accusantium deleniti libero excepturi porro illo.</p>
                 <div data-aos="fade-up" data-aos-delay="100">
@@ -128,7 +114,7 @@
               </div>
 
               <div class="slide">
-                <h1 class="text-uppercase" data-aos="fade-up">Savings Accounts</h1>
+                <h1 class="text-uppercase" data-aos="fade-up">Grow Your Business With Us</h1>
                 <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Repudiandae minima delectus accusamus accusantium deleniti libero excepturi porro illo.</p>
                 <div data-aos="fade-up" data-aos-delay="100">
@@ -166,7 +152,7 @@
           </div>
           <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
             
-            <h3 class="text-black mb-4">We Solve Your Financial Problem</h3>
+            <h3 class="text-black mb-4">We help you to reach out your target customer</h3>
 
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 
@@ -188,12 +174,12 @@
           </div>
           <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
             <img src="{% static 'finances/images/flaticon-svg/svg/004-cart.svg' %}" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-            <h3 class="card-title">Online Shoppings</h3>
+            <h3 class="card-title">Online Ordering</h3>
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
           </div>
           <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
             <img src="{% static 'finances/images/flaticon-svg/svg/006-credit-card.svg' %}" alt="Free Website Template by Free-Template.co" class="img-fluid w-25 mb-4">
-            <h3 class="card-title">Credit / Debit Cards</h3>
+            <h3 class="card-title">Online Payment</h3>
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
           </div>
 

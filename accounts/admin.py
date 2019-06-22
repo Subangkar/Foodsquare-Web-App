@@ -4,5 +4,7 @@ from .models import *
 # Register your models here.
 admin.site.register(UserProfile)
 
-admin.site.register(RestaurantProfile)
+admin.site.register(Restaurant)
+admin.site.register(ContactInfo)
+admin.site.register(RestaurantBranch)
 
