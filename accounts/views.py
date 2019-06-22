@@ -175,6 +175,23 @@ class ManagerRegisterView(TemplateView):
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
 
 
+def BranchRegister(request):
+	user_form = UserForm(request.POST)
+	# profile_form = ProfileForm(request.POST or None, request.FILES or None, prefix='profile')
+	#
+	# print(profile_form)
+
+	if user_form.is_valid():
+		user = user_form.save(commit=False)
+		user.save()
+		p = UserProfile.objects.create(user=user)
+		p.save()
+		print('Registering : ' + str(request.user))
+		return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+	else:
+		return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+
+
 class LogoutView(View, LoginRequiredMixin):
 	def get(self, request):
 		print('Signing out: ' + str(request.user))

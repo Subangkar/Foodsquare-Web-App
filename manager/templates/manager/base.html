@@ -137,7 +137,7 @@
                     </a>
                 </div>
                 <div class="logo-box">
-                    <a href="index.html" class="logo-text"><span>Modern</span></a>
+                    <a href="index.html" class="logo-text"><span>FoodSquare</span></a>
                 </div><!-- Logo Box -->
                 <div class="search-button">
                     <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i
@@ -295,8 +295,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic"
                                     data-toggle="dropdown">
-                                    <span class="user-name">{{ request.username }}<i class="fa fa-angle-down"></i></span>
-                                    <img class="img-circle avatar" src="{% static 'manager/images/avatar1.png' %}" width="40"
+                                    <span class="user-name">{{ request.user.username }}<i class="fa fa-angle-down"></i></span>
+                                    <img class="img-circle avatar" src={{ userprofile.avatar.url }}  width="40"
                                         height="40" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-list" role="menu">
@@ -310,12 +310,12 @@
                                     <li role="presentation" class="divider"></li>
                                     <li role="presentation"><a href="lock-screen.html"><i class="fa fa-lock"></i>Lock
                                             screen</a></li>
-                                    <li role="presentation"><a href="/accounts/manager_logout/"><i
+                                    <li role="presentation"><a href="login.html"><i
                                                 class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="/accounts/manager_logout/" class="log-out waves-effect waves-button waves-classic">
+                                <a href="/accounts/manager_logout" class="log-out waves-effect waves-button waves-classic">
                                     <span><i class="fa fa-sign-out m-r-xs"></i>Log out</span>
                                 </a>
                             </li>
@@ -331,10 +331,10 @@
                     <div class="sidebar-profile">
                         <!-- <a href="javascript:void(0);" id="profile-menu-link"> -->
                         <div class="sidebar-profile-image">
-                            <img src="{% static 'manager/images/avatar1.png' %}" class="img-circle img-responsive" alt="">
+                            <img src={{ userprofile.avatar.url }} class="img-circle img-responsive" alt="">
                         </div>
                         <div class="sidebar-profile-details">
-                            <span>David Green<br><small>Art Director</small></span>
+                            <span>{{ request.user.username }} <br></span>
                         </div>
                         </a>
                     </div>

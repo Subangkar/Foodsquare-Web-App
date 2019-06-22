@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import ModelForm
 
-from .models import UserProfile
+from .models import UserProfile, Restaurant, RestaurantBranch
 
 
 class ProfileForm(ModelForm):
@@ -29,3 +29,18 @@ class UserForm(ModelForm):
 		if commit:
 			new_user.save()
 		return new_user
+
+
+# class RestaurantProfileForm(ModelForm):
+#
+# 	class Meta:
+# 		model = Restaurant
+# 		fields = ('restaurant_key', 'trade_license')
+#
+#
+# class RestaurantBranchProfileForm(ModelForm):
+#
+# 	class Meta:
+# 		model = RestaurantBranch
+# 		fields = ('restaurant_key', 'trade_license')
+
