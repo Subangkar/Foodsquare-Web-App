@@ -1,15 +1,14 @@
 from django.db import models
 from django.urls import reverse
 
-
-
 # Create your models here.
 from accounts.models import Restaurant
 
 
 class Ingredient(models.Model):
 	name = models.CharField(max_length=50)
-	category = models.CharField(max_length=50)
+
+	# category = models.CharField(max_length=50)
 
 	class Meta:
 		verbose_name = "Ingredient"

@@ -14,8 +14,8 @@ urlpatterns = [
 	# path('branchListForRestaurant/', views.RestaurantBranchList.as_view())
 	path('browse/raw/', views.viewRaw),
 
-	path('browse/item/<int:id>/', views.Item.as_view(), name='Item'),
-	path('browse/item/', views.Item.as_view(), name='Item'),
+	path('browse/item/<int:id>/', views.PackageDetails.as_view(), name='Item'),
+	path('browse/item/', views.PackageDetails.as_view(), name='Item'),
 	# path('browse/item/<int:id>/', views.ItemDetailsRenderer, name='Item'),
 ]
 
