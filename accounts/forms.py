@@ -31,16 +31,17 @@ class UserForm(ModelForm):
 		return new_user
 
 
-# class RestaurantProfileForm(ModelForm):
-#
-# 	class Meta:
-# 		model = Restaurant
-# 		fields = ('restaurant_key', 'trade_license')
-#
-#
-# class RestaurantBranchProfileForm(ModelForm):
-#
-# 	class Meta:
-# 		model = RestaurantBranch
-# 		fields = ('restaurant_key', 'trade_license')
+class RestaurantForm(ModelForm):
+
+	class Meta:
+		model = Restaurant
+		fields = ('trade_license','restaurant_name')
+
+
+class RestaurantBranchForm(ModelForm):
+
+	class Meta:
+		model = RestaurantBranch
+		fields = ('branch_name',)
+		#branch location field
 

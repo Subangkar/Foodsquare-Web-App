@@ -5,7 +5,7 @@ from django.urls import reverse
 from location_field.models.plain import PlainLocationField
 from phonenumber_field.modelfields import PhoneNumberField
 
-
+#user contactinfo not completed
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)

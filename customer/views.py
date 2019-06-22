@@ -1,3 +1,5 @@
+from allauth import socialaccount
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -31,7 +33,18 @@ class EditProfileView(TemplateView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditProfileView, self).get_context_data(*args, **kwargs)
-		context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
+		print(pretty_request(self.request))
+		try:
+			obj = User.objects.get(id=self.request.user.id).userprofile
+			obj['socialacnt'] = False
+			context['userprofile'] = obj
+		except Exception as e:
+			obj = SocialAccount.objects.get(user_id=self.request.user.id).extra_data
+			obj['avatar'] = obj['picture']
+			obj['socialacnt'] = True
+			del obj['picture']
+
+			context['userprofile'] = obj
 		return context
 
 	def post(self, request, *args, **kwargs):
