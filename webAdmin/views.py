@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views.generic import TemplateView, ListView
@@ -21,3 +21,9 @@ class RestaurantListView(ListView):
 	#
 	# def post(self, request, *args, **kwargs):
 	# 	pass
+
+def requestAccept(request,id):
+	obj = Restaurant.objects.get(id = id)
+	obj.restaurant_key = '12345567789'
+	obj.save()
+	return redirect('/homepage/')

@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">Restaurant List</h4>
             </div>
-            
+
             <div class="panel-body">
                 <div class="table-responsive project-stats">
                     <table class="table">
@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             {% for restaurant in object_list %}
-                            
+
                             <tr>
                                 <td>{{ restaurant.restaurant_name }}</td>
                                 {% if restaurant.restaurant_key == '0' %}
@@ -37,9 +37,32 @@
                                 {% else %}
                                 <td><span class="label label-success">Registered</span></td>
                                 {% endif %}
-                                <td>{{ restaurant.trade_license }}</td>
+                                <td>{{ restaurant.user.username }}</td>
+                                {% comment %} <script>
+                                    $(function () {
+                                        $("#requestAcceptForm").submit(function (event) {
+                                            // Stop form from submitting normally
+                                            event.preventDefault();
+                                            var reqForm = $(this);
+                                            // Send the data using post
+                                            var posting = $.post(reqForm.attr('action'), reqForm.serialize());
+                                            // if success:
+                                            posting.done(function (data) {
+                                                // success actions, maybe change submit button to 'friend added' or whatever
+                                            });
+                                            // if failure:
+                                            posting.fail(function (data) {
+                                                // 4xx or 5xx response, alert user about failure
+                                            });
+                                        });
+                                    });
+                                </script> {% endcomment %}
                                 <td>
-                                    <a href="#" style="color: brown"> Request</a>
+                                    <form action="/accept/{{ restaurant.id }}/" method="post" id="requestAcceptForm">
+                                        {% csrf_token %}
+                                        <input type="submit" name="requestAccept" value="Request"
+                                            style="background-color: transparent; border: none; outline: none;color: tomato" />
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
