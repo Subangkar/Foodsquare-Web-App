@@ -1,15 +1,15 @@
 from django.db import models
 from django.urls import reverse
 
-
-
 # Create your models here.
 from accounts.models import Restaurant
+# from browse.views import PackageDetails
 
 
 class Ingredient(models.Model):
 	name = models.CharField(max_length=50)
-	category = models.CharField(max_length=50)
+
+	# category = models.CharField(max_length=50)
 
 	class Meta:
 		verbose_name = "Ingredient"
@@ -42,7 +42,8 @@ class Package(models.Model):
 		return self.pkg_name
 
 	def get_absolute_url(self):
-		return reverse("Package_detail", kwargs={"pk": self.pk})
+		return reverse("Package_detail", kwargs={"pk": self.pk}) # "Package_detail"
+		# return reverse(PackageDetails, kwargs={"pk": self.pk}) # "Package_detail"
 
 
 class IngredientList(models.Model):
