@@ -14,8 +14,11 @@ from .forms import MenuForm
 class IndexView(TemplateView):
 	template_name = 'manager/index.html'
 
-	def get(self, request, *args, **kwargs):
-		return super(self.__class__, self).get(request, *args, **kwargs)
+	def get_context_data(self, **kwargs):
+		context = {'loggedIn': False}
+		if self.request.user.is_authenticated:
+			context['loggedIn'] = True
+		return context
 
 	def post(self, request, *args, **kwargs):
 		pass
@@ -28,7 +31,10 @@ class HomepageView(TemplateView):
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
-		context = super(HomepageView, self).get_context_data(*args, **kwargs)
+		context = super(HomepageView, self).get_context_data()
+		context['loggedIn'] = False
+		if self.request.user.is_authenticated:
+			context['loggedIn'] = True
 		context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
 		return context
 
@@ -62,8 +68,8 @@ class EditProfileView(TemplateView):
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		# if user_form.is_valid():
-			# user = user_form.save(commit=False)
-			# user.save()
+		# user = user_form.save(commit=False)
+		# user.save()
 
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
