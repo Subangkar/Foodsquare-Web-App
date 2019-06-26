@@ -1,15 +1,10 @@
-from allauth import socialaccount
 from allauth.socialaccount.models import SocialAccount
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
 # Create your views here.
 from django.views.generic import TemplateView
-from django.views.generic.base import View
-from django.contrib.auth.models import User
 
 from accounts.forms import UserForm, ProfileForm
-from accounts.models import UserProfile
 from accounts.utils import pretty_request
 
 
@@ -44,10 +39,13 @@ class EditProfileView(TemplateView):
 		except Exception as e:
 			obj = dict()
 			obj = SocialAccount.objects.get(user_id=self.request.user.id).extra_data
-			obj['avatar'] = obj['picture']
+			print(obj)
 			obj['socialacnt'] = True
-			del obj['picture']
-
+			try:  # for facebook
+				obj['avatar'] = obj['picture']
+				del obj['picture']
+			except Exception as e1:
+				pass
 			context['userprofile'] = obj
 		return context
 
@@ -64,8 +62,8 @@ class EditProfileView(TemplateView):
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		# if user_form.is_valid():
-			# user = user_form.save(commit=False)
-			# user.save()
+		# user = user_form.save(commit=False)
+		# user.save()
 
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")

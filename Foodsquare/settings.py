@@ -26,6 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost', 'api.localhost', 'admin.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'api.foodsquare.com',
+                 'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'api.foodsquare.net',
                  'admin.foodsquare.com']
 
 # Application definition
@@ -175,4 +176,4 @@ LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ID = 1
+SITE_ID = 10

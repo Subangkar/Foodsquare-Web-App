@@ -176,7 +176,7 @@ class ManagerRegisterView(TemplateView):
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
 			user.save()
-			# UserProfile.objects.create(user=user).save() # lagbe na i guess
+		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:
 			return HttpResponse("Invalid Form or pass")
 
@@ -191,7 +191,7 @@ class ManagerRegisterView(TemplateView):
 		rest.user = user
 		rest.save()
 		return redirect('/homepage')
-		# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+	# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 
 
 # <QueryDict: {'csrfmiddlewaretoken': ['wOK59fUnGw3uc4TTqlzeOoAI7xCzwnXZUYRrqdPOx6srYtgei56x0ne0JerJc2j5'],
