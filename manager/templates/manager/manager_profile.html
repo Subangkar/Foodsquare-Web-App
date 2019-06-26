@@ -1,6 +1,11 @@
 {% extends 'manager/base.html' %}
 
 {% block header %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'awesomplete.css' %}" />
+<script src="{% static 'awesomplete.js' %}" async></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 <title>Foodsquare | Home</title>
 {% endblock %}
 
@@ -20,8 +25,8 @@
                     {% csrf_token %}
                     <div class="col-md-3">
                         <div class="text-center">
-                            <img src="{% static 'manager/images/avatar4.png' %}" class="avatar "
-                                style="width : 100%;height: 100%" alt="avatar">
+                            <img src="" class="avatar " name
+                                style="width : 100%;height: 100%" alt="menu image">
                             <h6>Upload a different photo...</h6>
 
                             <input type="file" name="menu_img" class="form-control">
@@ -40,16 +45,79 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Menu name:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" name="menu_name" value="Burger">
+                                <input class="form-control" type="text" name="menu_name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">price:</label>
+                            <label class="col-lg-3 control-label">Added Ingredients:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" name="price">
+                                <div>
+                                    <ol style="display: inline">
+                                    </ol>
+                                </div>
+
+
+
+
+                                <input class="awesomplete" id="ingrd_input"
+                                    style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
+                                    list="ingredient_list" />
+                                <datalist id="ingredient_list">
+                                    {% for ingrd in ingredient_list %}
+                                    <option>{{ ingrd.name }}</option>
+                                    {% endfor %}
+                                </datalist>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        $(window).keydown(function (event) {
+                                            if (event.keyCode == 13) {
+                                                event.preventDefault();
+                                                return false;
+                                            }
+                                        });
+                                        $('#ingrd_input').bind("enterKey", function (e) {
+                                            $("ol").append("<li>" + $("#ingrd_input").val() + ' ' + "<a href=\"#\" class=\"remove\">X</a></li>");
+                                            $('#ingrd_input').val("");
+                                        });
+                                        $('#ingrd_input').keyup(function (e) {
+                                            if (e.keyCode == 13) {
+                                                $(this).trigger("enterKey");
+                                            }
+                                        });
+                                        $("#remove_li").click(function () {
+                                            $("li:last").remove();
+                                        });
+                                        $("ol").on('click', '.remove', function () {
+                                            $(this).parents('li').remove();
+                                        });
+
+                                    });
+                                </script>
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Price:</label>
+                            <div class="col-lg-8">
+                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
+                                    name="price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">For How Many Persons:</label>
+                            <div class="col-lg-8">
+                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
+                                    name="for_n_person">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Extra Details:</label>
+                            <div class="col-lg-8">
+                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
+                                    name="extra_details">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
@@ -60,7 +128,9 @@
                             </div>
                         </div>
                 </form>
+
             </div>
+
         </div>
     </div>
     <hr>

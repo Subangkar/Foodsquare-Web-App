@@ -20,7 +20,7 @@ class UserProfile(models.Model):
 class Restaurant(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	restaurant_name = models.CharField(max_length=50, blank=False, null=False)
-	restaurant_key = models.CharField(max_length=250, blank=True)
+	restaurant_key = models.CharField(max_length=250, default='0')
 	trade_license = models.CharField(max_length=50, unique=True, blank=False)
 
 	class Meta:

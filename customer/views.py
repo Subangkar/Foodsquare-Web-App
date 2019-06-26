@@ -35,10 +35,14 @@ class EditProfileView(TemplateView):
 		context = super(EditProfileView, self).get_context_data(*args, **kwargs)
 		print(pretty_request(self.request))
 		try:
-			obj = User.objects.get(id=self.request.user.id).userprofile
+			obj = dict()
+			obj['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
+			print(obj)
 			obj['socialacnt'] = False
 			context['userprofile'] = obj
+
 		except Exception as e:
+			obj = dict()
 			obj = SocialAccount.objects.get(user_id=self.request.user.id).extra_data
 			obj['avatar'] = obj['picture']
 			obj['socialacnt'] = True
