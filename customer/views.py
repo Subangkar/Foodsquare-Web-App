@@ -1,5 +1,5 @@
 from allauth.socialaccount.models import SocialAccount
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.http import HttpResponse
 # Create your views here.
 from django.views.generic import TemplateView
@@ -16,7 +16,7 @@ class EditProfileView(TemplateView):
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
-		context = super(EditProfileView, self).get_context_data(*args, **kwargs)
+		context = super(EditProfileView, self).get_context_data(**kwargs)
 		print(pretty_request(self.request))
 		try:
 			obj = dict()

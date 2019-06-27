@@ -20,7 +20,7 @@ urlpatterns = [
 	path('manager_login/', views.ManagerLoginView.as_view(), name='manger_login'),
 	path('manager_register/', views.ManagerRegisterView.as_view(), name='manager_register'),
 
-	path('admin_login/', views.ManagerLoginView.as_view(), name='admin_login'),
+	path('admin_login/', views.AdminLoginView.as_view(), name='admin_login'),
 
 	# path('register/', views.signupRender, name='register'),
 	path('register/', views.RegisterView.as_view(), name='register'),
