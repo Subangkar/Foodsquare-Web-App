@@ -172,8 +172,10 @@ SOCIALACCOUNT_PROVIDERS = \
 		  'VERSION': 'v2.4'}}
 
 
+AUTH_USER_MODEL = 'accounts.User'
+
 LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ID = 10
+SITE_ID = 1
