@@ -1,7 +1,7 @@
 # Create your views here.
 
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from browse.utils import *
 from browse.models import *
 
@@ -79,3 +79,10 @@ class PackageDetails(TemplateView):
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
+
+
+class RestaurantList(ListView):
+	template_name = 'browse/restaurants.html'
+	queryset = Restaurant.objects.all()
+	context_object_name = 'restaurants'
+	# print(queryset)

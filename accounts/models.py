@@ -14,7 +14,7 @@ class UserProfile(models.Model):
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 
 	def __str__(self):
-		return str(self.first_name or None) + str(self.last_name or None) + self.user.username+" "+str(self.address or None)
+		return str(self.first_name or None) + str(self.last_name or None) + self.user.username+" "+str(self.address or None) + str(self.avatar.url)
 
 
 class Restaurant(models.Model):
@@ -23,12 +23,15 @@ class Restaurant(models.Model):
 	restaurant_key = models.CharField(max_length=250, default='0')
 	trade_license = models.CharField(max_length=50, unique=True, blank=False)
 
+	#ei field ta
+	restaurantImg = models.ImageField(upload_to='restaurant_img/', default='restaurant_img/default.png')
+
 	class Meta:
 		verbose_name = "Restaurant"
 		verbose_name_plural = "Restaurants"
 
 	def __str__(self):
-		return self.restaurant_name
+		return self.restaurant_name + " " + self.restaurantImg.url
 
 	def get_absolute_url(self):
 		return reverse("Restaurant_detail", kwargs={"id": self.pk})

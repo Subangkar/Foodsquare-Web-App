@@ -12,18 +12,7 @@ class EditProfileView(TemplateView):
 	template_name = 'customer/EditProfile.html'
 
 	def get(self, request, *args, **kwargs):
-		print(request.user.id)
-		ob = User.objects.all()
-		print(ob)
-		# ob2 = UserProfile.objects.filter(user = request.user.id)
-		# ob2 = User.objects.get(username='masum32145').userprofile
-		# ob2.address = 'Paltan'
-		# ob2.save()
-		# print(ob2)
-		# ob3 = User.objects.get(username='masum32145').userprofile
-		# # ob2.address = "new market"
-		# # ob2.save()
-		# print(ob3)
+
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
@@ -31,16 +20,13 @@ class EditProfileView(TemplateView):
 		print(pretty_request(self.request))
 		try:
 			obj = dict()
-			obj['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
-			print(obj)
-			obj['socialacnt'] = False
-			context['userprofile'] = obj
+			context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
+			context['socialacnt'] = False
 
 		except Exception as e:
 			obj = dict()
 			obj = SocialAccount.objects.get(user_id=self.request.user.id).extra_data
-			print(obj)
-			obj['socialacnt'] = True
+			context['socialacnt'] = True
 			try:  # for facebook
 				obj['avatar'] = obj['picture']
 				del obj['picture']

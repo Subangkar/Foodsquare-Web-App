@@ -2,11 +2,13 @@ from django.urls import path
 from browse import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
+app_name = 'browse'
+
 urlpatterns = [
 	path('', views.Index.as_view()),
 	path('order/', views.Order.as_view()),
 	# path('browse/item/', views.Item.as_view()),
-	# path('restaurants.html', views.viewRestaurants),
+	path('browse/restaurants/', views.RestaurantList.as_view()),
 	# path('browse/', views.index),
 	# path('submitOrder/', views.submitOrder),
 	# path('allRestaurantList/', views.RestaurantList.as_view()),
