@@ -33,6 +33,7 @@ class EditProfileView(TemplateView):
 			except Exception as e1:
 				pass
 			context['userprofile'] = obj
+			print(context)
 		return context
 
 	def post(self, request, *args, **kwargs):
