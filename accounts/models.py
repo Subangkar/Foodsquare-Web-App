@@ -50,33 +50,38 @@ class Restaurant(models.Model):
 		return reverse("Restaurant_detail", kwargs={"id": self.pk})
 
 
-class ContactInfo(models.Model):
-	phone = models.CharField(max_length=20)
-	mobile = models.CharField(max_length=20)
-	email = models.EmailField(max_length=254)
-
-	class Meta:
-		verbose_name = "ContactInfo"
-		verbose_name_plural = "ContactInfos"
-
-	def __str__(self):
-		return self.mobile
-
-	def get_absolute_url(self):
-		return reverse("ContactInfo_detail", kwargs={"pk": self.pk})
-
-
+# class ContactInfo(models.Model):
+# 	phone = models.CharField(max_length=20)
+# 	mobile = models.CharField(max_length=20)
+# 	email = models.EmailField(max_length=254)
+#
+# 	class Meta:
+# 		verbose_name = "ContactInfo"
+# 		verbose_name_plural = "ContactInfos"
+#
+# 	def __str__(self):
+# 		return self.mobile
+#
+# 	def get_absolute_url(self):
+# 		return reverse("ContactInfo_detail", kwargs={"pk": self.pk})
+#
+#
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	branch_name = models.CharField(blank=False, null=False, max_length=50)
-	branch_location = PlainLocationField(based_fields=['city'], zoom=7)
+	branch_location = models.CharField("Openstreetmap co-ordinates", max_length=20, default='0,0')
+	branch_location_details = models.CharField("If co-ordinates can't be provided or floor-no", max_length=100)
+	branch_phonenum = models.CharField(max_length=20, default='')
+	branch_mobilenum = models.CharField(max_length=20, default='')
+	branch_email = models.CharField(max_length=50, default='')
 
-	branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
+	# branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
 
 	restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 	# branch_location = LocationField(based_fields=['city'], zoom=7, default=Point(1.0, 1.0)) # https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/postgis/
 
+	# branch_location = PlainLocationField() # https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/postgis/
 	class Meta:
 		verbose_name = "Branch"
 		verbose_name_plural = "Branches"
@@ -87,3 +92,16 @@ class RestaurantBranch(models.Model):
 	def get_absolute_url(self):
 		return reverse("Branch_detail", kwargs={"pk": self.pk})
 
+# class BranchContactNumber(models.Model):
+# 	phonenum = models.CharField(max_length=20)
+# 	branch_id = models.ForeignKey(RestaurantBranch, on_delete=models.CASCADE)
+#
+# 	class Meta:
+# 		verbose_name = "ContactInfo"
+# 		verbose_name_plural = "ContactInfos"
+#
+# 	def __str__(self):
+# 		return self.phonenum
+#
+# 	def get_absolute_url(self):
+# 		return reverse("ContactInfo_detail", kwargs={"pk": self.pk})

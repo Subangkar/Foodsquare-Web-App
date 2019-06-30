@@ -6,6 +6,6 @@ admin.site.register(User)
 admin.site.register(UserProfile)
 
 admin.site.register(Restaurant)
-admin.site.register(ContactInfo)
+# admin.site.register(ContactInfo)
 admin.site.register(RestaurantBranch)
 

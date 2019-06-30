@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+django = "*"
+django-allauth = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
+django-hosts = "*"
+django-location-field = "*"
+django-phonenumber-field = "*"
+django-sslserver = "*"
+djangorestframework = "*"
+phonenumbers = "*"
+pillow = "*"
+
+[requires]
+python_version = "3.7"
