@@ -1,5 +1,7 @@
 # Create your views here.
+from itertools import chain
 
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, ListView
 from browse.utils import *
@@ -24,6 +26,8 @@ class Index(TemplateView):
 		ctx = {'loggedIn': False}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
+		ctx['restaurant_list'] = Restaurant.objects.all()
+
 		return ctx
 
 
@@ -54,6 +58,29 @@ class Order(TemplateView):
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
+
+
+class SearchMenu(ListView):
+	template_name = 'browse/order.html'
+	context_object_name = 'menus'
+
+	def get_queryset(self):
+		query = self.request.GET.get('menu_search')
+		queryset2=[ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
+		# ing_list = [ingobj.id for ingobj in Ingredient.objects.filter(name__icontains = query)]
+		# queryset2 = IngredientList.objects.filter(ingr_id__in = ing_list)
+		print(queryset2)
+		# queryset2 = Package.objects.raw(" Select * from browse_package where ")
+		queryset1 = Package.objects.filter(
+				Q(pkg_name__icontains=query)
+			)
+		# print(queryset2)
+		print(queryset1)
+		result_list = sorted(
+			chain(queryset1),
+			key=lambda instance: instance.pkg_name)
+		print(result_list)
+		return result_list
 
 
 class PackageDetails(TemplateView):

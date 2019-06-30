@@ -44,7 +44,7 @@ class Restaurant(models.Model):
 		verbose_name_plural = "Restaurants"
 
 	def __str__(self):
-		return self.restaurant_name + " " + self.restaurantImg.url
+		return self.restaurant_name + " "
 
 	def get_absolute_url(self):
 		return reverse("Restaurant_detail", kwargs={"id": self.pk})
