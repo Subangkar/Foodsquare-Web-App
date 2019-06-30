@@ -9,7 +9,7 @@ urlpatterns = [
 	path('order/', views.Order.as_view()),
 	# path('browse/item/', views.Item.as_view()),
 	path('browse/restaurants/', views.RestaurantList.as_view()),
-	path('browse/search/', views.SearchMenu.as_view()),
+	# path('browse/search/', views.SearchMenu.as_view()),
 	# path('browse/', views.index),
 	# path('submitOrder/', views.submitOrder),
 	# path('allRestaurantList/', views.RestaurantList.as_view()),

@@ -51,53 +51,71 @@ class Order(TemplateView):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
-		pkg_list = [pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
-		            for pkgobj in Package.objects.all()]
-
-		ctx = {'loggedIn': False, 'item_list': pkg_list }
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
-		return ctx
-
-
-class SearchMenu(TemplateView):
-	template_name = 'browse/order.html'
-
-	def get_context_data(self, **kwargs):
-		with open("sessionLog.txt", "a") as myfile:
-			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		query = self.request.GET.get('menu_search')
+		entry_name = self.request.GET.get('menu_search')
+		print(entry_name)
 		price_range = self.request.GET.get('range')
-		pkg_list = []
-		if query is not None:
-			queryset2 = [ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
-			# ing_list = [ingobj.id for ingobj in Ingredient.objects.filter(name__icontains = query)]
-			# queryset2 = IngredientList.objects.filter(ingr_id__in = ing_list)
-			print(queryset2)
+		# minprice = 50
+		# maxprice = 100
+		minprice = (float(str(price_range).split('-')[0].strip()[1:]))
+		maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
+		# print(str(price_range).split('-')[0].strip()[1:], end='<<')
+		# print(str(price_range).split('-')[1].strip()[1:], end='<<')
+		print(minprice)
+		print(maxprice)
+		pkg_list = [
+			pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
+			for pkgobj in Package.objects.all()]
+		if entry_name is not None:
+			queryset2 = [ingobj.pack_id for ingobj in
+			             IngredientList.objects.filter(ingr_id__name__icontains=entry_name)]
 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
 			queryset1 = Package.objects.filter(
-				Q(pkg_name__icontains=query)
+				Q(pkg_name__icontains=entry_name) & Q(price__range=(minprice, maxprice))
 			)
-			# # print(queryset2)
-			# print(list(queryset1))
 			result_list = list(dict.fromkeys(list(queryset1) + queryset2))
 			result_list.sort(key=lambda x: x.pkg_name, reverse=False)
-			# result_list = sorted(
-			# 	chain(list(queryset1) , queryset2),
-			# 	key=lambda instance: instance.pkg_name)
-			pkg_list = [pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
-						for pkgobj in result_list]
-
-		else:
-			print(price_range)
-
-		ctx = {'loggedIn': False, 'item_list': pkg_list }
+			filtered_result = []
+			for x in result_list:
+				if minprice <= x.price <= maxprice:
+					filtered_result.append(x)
+			pkg_list = [
+				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
+				for pkgobj in filtered_result]
+		ctx = {'loggedIn': False, 'item_list': pkg_list}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
 
 
-
+# class SearchMenu(TemplateView):
+# 	template_name = 'browse/order.html'
+#
+# 	def get_context_data(self, **kwargs):
+# 		with open("sessionLog.txt", "a") as myfile:
+# 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+# 		query = self.request.GET.get('menu_search')
+# 		price_range = self.request.GET.get('range')
+# 		pkg_list = []
+# 		if query is not None:
+# 			queryset2 = [ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
+# 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
+# 			queryset1 = Package.objects.filter(
+# 				Q(pkg_name__icontains=query)
+# 			)
+# 			result_list = list(dict.fromkeys(list(queryset1) + queryset2))
+# 			result_list.sort(key=lambda x: x.pkg_name, reverse=False)
+# 			pkg_list = [
+# 				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
+# 				for pkgobj in result_list]
+#
+# 		else:
+# 			print(price_range)
+#
+# 		ctx = {'loggedIn': False, 'item_list': pkg_list}
+# 		if self.request.user.is_authenticated:
+# 			ctx['loggedIn'] = True
+# 		return ctx
+#
 
 class PackageDetails(TemplateView):
 	template_name = 'browse/item.html'
@@ -128,4 +146,4 @@ class RestaurantList(ListView):
 	template_name = 'browse/restaurants.html'
 	queryset = Restaurant.objects.all()
 	context_object_name = 'restaurants'
-	# print(queryset)
+# print(queryset)
