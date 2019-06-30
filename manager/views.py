@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -9,7 +11,8 @@ from django.contrib.auth.models import User
 from accounts.forms import UserForm, ProfileForm, RestaurantForm
 from accounts.models import Restaurant
 from accounts.utils import pretty_request
-from browse.models import Ingredient
+from browse.forms import PackageForm
+from browse.models import Ingredient, IngredientList
 from .forms import MenuForm
 
 
@@ -73,4 +76,26 @@ class AddMenuView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
+        oldUser = User.objects.get(id=request.user.id)
+        user_form = UserForm(request.POST, oldUser)
+        restaurant = User.objects.get(id=self.request.user.id).restaurant
+        print(request.POST)
+        menu_form = PackageForm(
+            request.POST or None, request.FILES or None)
+        # print(menu_form)
+        ingrd_list = request.POST.getlist('ingrds')[0].split(',')
+
+        if menu_form.is_valid():
+            menu = menu_form.save(commit=False)
+            menu.restaurant = restaurant
+            print(menu)
+            menu.save()
+            for tmp in ingrd_list:
+                tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
+                ingrd,created = Ingredient.objects.get_or_create(name=tmp)
+                IngredientList.objects.create(pack_id =menu, ingr_id = ingrd)
+            return HttpResponse("Menu Added Up")
+
+        else:
+            return HttpResponse("Error : <a href='/signup'>Try again</a>!")
         pass
