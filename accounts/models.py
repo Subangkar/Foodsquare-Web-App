@@ -1,11 +1,23 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 # from location_field.models.spatial import LocationField
 from django.urls import reverse
 from location_field.models.plain import PlainLocationField
-from phonenumber_field.modelfields import PhoneNumberField
 
-#user contactinfo not completed
+
+class User(AbstractUser):
+	is_customer = models.BooleanField('Customer Account', default=False)
+	is_manager = models.BooleanField('Manager Account', default=False)
+
+	backend = 'django.contrib.auth.backends.ModelBackend'
+
+	class Meta:
+		verbose_name = "User"
+		verbose_name_plural = "Users"
+
+
+# user contactinfo not completed
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)
@@ -14,7 +26,8 @@ class UserProfile(models.Model):
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 
 	def __str__(self):
-		return str(self.first_name or None) + str(self.last_name or None) + self.user.username+" "+str(self.address or None) + str(self.avatar.url)
+		return str(self.first_name or None) + str(self.last_name or None) + self.user.username + " " + str(
+			self.address or None) + str(self.avatar.url)
 
 
 class Restaurant(models.Model):
@@ -23,7 +36,7 @@ class Restaurant(models.Model):
 	restaurant_key = models.CharField(max_length=250, default='0')
 	trade_license = models.CharField(max_length=50, unique=True, blank=False)
 
-	#ei field ta
+	# ei field ta
 	restaurantImg = models.ImageField(upload_to='restaurant_img/', default='restaurant_img/default.png')
 
 	class Meta:
@@ -38,7 +51,6 @@ class Restaurant(models.Model):
 
 
 class ContactInfo(models.Model):
-
 	phone = models.CharField(max_length=20)
 	mobile = models.CharField(max_length=20)
 	email = models.EmailField(max_length=254)

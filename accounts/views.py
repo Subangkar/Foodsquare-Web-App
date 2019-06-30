@@ -3,14 +3,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 # Create your views here.
-from django.urls import reverse
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 
-from accounts.models import *
-from .forms import ProfileForm, UserForm
 from accounts.account_links import *
+from accounts.models import *
 from accounts.utils import *
+from .forms import UserForm
 
 
 def recoveryRender(request):
@@ -43,14 +42,18 @@ class LoginView(TemplateView):
 
 	def post(self, request, *args, **kwargs):
 		print(pretty_request(request))
+		# print(request.get_host().split('.')[0])
 		username = request.POST.get('username', False)
 		password = request.POST.get('pass', False)
+		# is_customer_domain = request.get_host().split('.')[0] == 'www'
 		if username and password:
 			user = authenticate(request, username=username, password=password)
-			if user is not None:
+			if user is not None and user.is_customer:
 				login(request, user)
 				print('Signing in: ' + str(request.user))
 				return redirect('/')
+			elif not user.is_customer:
+				return HttpResponse('Not a Customer account')
 			else:
 				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
 		else:
@@ -79,10 +82,46 @@ class ManagerLoginView(TemplateView):
 		password = request.POST.get('pass', False)
 		if username and password:
 			user = authenticate(request, username=username, password=password)
-			if user is not None:
+			if user is not None and user.is_manager:
 				login(request, user)
 				print('Signing in: ' + str(request.user))
 				return redirect('/homepage')
+			elif not user.is_manager:
+				return HttpResponse('Not a Manager account')
+			else:
+				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+		else:
+			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+
+
+class AdminLoginView(TemplateView):
+	template_name = 'accounts/Manager_Login.html'
+
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/homepage')
+		else:
+			return super().get(request, *args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = {'loggedIn': False}
+		if self.request.user.is_authenticated:
+			print('Logged in: ' + str(self.request.user))
+			ctx['loggedIn'] = True
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		print(pretty_request(request))
+		username = request.POST.get('username', False)
+		password = request.POST.get('pass', False)
+		if username and password:
+			user = authenticate(request, username=username, password=password)
+			if user is not None and user.is_superuser:
+				login(request, user)
+				print('Signing in: ' + str(request.user))
+				return redirect('/homepage')
+			elif not user.is_superuser:
+				return HttpResponse('Not a Admin account')
 			else:
 				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
 		else:
@@ -122,10 +161,12 @@ class RegisterView(TemplateView):
 
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
+			user.is_customer = True
 			user.save()
 			p = UserProfile.objects.create(user=user)
 			p.save()
 			print('Registering : ' + str(request.user))
+			login(request, user)
 			return redirect('/')
 		# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
@@ -175,7 +216,9 @@ class ManagerRegisterView(TemplateView):
 		user = None
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
+			user.is_manager = True
 			user.save()
+			login(request, user)
 		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:
 			return HttpResponse("Invalid Form or pass")
@@ -191,7 +234,9 @@ class ManagerRegisterView(TemplateView):
 		rest.user = user
 		rest.save()
 		return redirect('/homepage')
-	# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+
+
+# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 
 
 # <QueryDict: {'csrfmiddlewaretoken': ['wOK59fUnGw3uc4TTqlzeOoAI7xCzwnXZUYRrqdPOx6srYtgei56x0ne0JerJc2j5'],

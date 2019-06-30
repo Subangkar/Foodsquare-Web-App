@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.forms.models import ModelForm
 
 from .models import UserProfile, Restaurant, RestaurantBranch
@@ -17,14 +17,16 @@ class UserForm(ModelForm):
 	class Meta:
 		model = User
 		fields = ('username', 'password', 'email')
-	# fields = ('name', 'email', 'pass', 're_pass', 'signup')
 
 	def save(self, commit=True):
-		new_user = User.objects.create_user(self.cleaned_data['username'],
-											self.cleaned_data['email'],
-											self.cleaned_data['password'])
-		# new_user.first_name = self.cleaned_data['first_name']
-		# new_user.last_name = self.cleaned_data['last_name']
+		new_user = User.objects.create_user(username=self.cleaned_data['username'],
+		                                    email=self.cleaned_data['email'],
+		                                    password=self.cleaned_data['password'])
+		try:
+			new_user.first_name = self.cleaned_data['first_name']
+			new_user.last_name = self.cleaned_data['last_name']
+		except Exception:
+			pass
 		if commit:
 			new_user.save()
 		return new_user

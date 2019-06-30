@@ -172,6 +172,8 @@ SOCIALACCOUNT_PROVIDERS = \
 		  'VERSION': 'v2.4'}}
 
 
+AUTH_USER_MODEL = 'accounts.User'
+
 LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
