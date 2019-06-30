@@ -54,33 +54,49 @@ class Order(TemplateView):
 		pkg_list = [pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
 		            for pkgobj in Package.objects.all()]
 
-		ctx = {'loggedIn': False, 'item_list': pkg_list + pkg_list}
+		ctx = {'loggedIn': False, 'item_list': pkg_list }
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
 
 
-class SearchMenu(ListView):
+class SearchMenu(TemplateView):
 	template_name = 'browse/order.html'
-	context_object_name = 'menus'
 
-	def get_queryset(self):
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		query = self.request.GET.get('menu_search')
-		queryset2=[ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
-		# ing_list = [ingobj.id for ingobj in Ingredient.objects.filter(name__icontains = query)]
-		# queryset2 = IngredientList.objects.filter(ingr_id__in = ing_list)
-		print(queryset2)
-		# queryset2 = Package.objects.raw(" Select * from browse_package where ")
-		queryset1 = Package.objects.filter(
+		price_range = self.request.GET.get('range')
+		pkg_list = []
+		if query is not None:
+			queryset2 = [ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
+			# ing_list = [ingobj.id for ingobj in Ingredient.objects.filter(name__icontains = query)]
+			# queryset2 = IngredientList.objects.filter(ingr_id__in = ing_list)
+			print(queryset2)
+			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
+			queryset1 = Package.objects.filter(
 				Q(pkg_name__icontains=query)
 			)
-		# print(queryset2)
-		print(queryset1)
-		result_list = sorted(
-			chain(queryset1),
-			key=lambda instance: instance.pkg_name)
-		print(result_list)
-		return result_list
+			# # print(queryset2)
+			# print(list(queryset1))
+			result_list = list(dict.fromkeys(list(queryset1) + queryset2))
+			result_list.sort(key=lambda x: x.pkg_name, reverse=False)
+			# result_list = sorted(
+			# 	chain(list(queryset1) , queryset2),
+			# 	key=lambda instance: instance.pkg_name)
+			pkg_list = [pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
+						for pkgobj in result_list]
+
+		else:
+			print(price_range)
+
+		ctx = {'loggedIn': False, 'item_list': pkg_list }
+		if self.request.user.is_authenticated:
+			ctx['loggedIn'] = True
+		return ctx
+
+
 
 
 class PackageDetails(TemplateView):
