@@ -37,6 +37,11 @@ class RestaurantForm(ModelForm):
 		model = Restaurant
 		fields = ('restaurantImg',)
 
+#
+# class BranchForm(ModelForm):
+# 	class Meta:
+# 		model = RestaurantBranch
+# 		fields = ('',)
 
 class RestaurantBranchForm(ModelForm):
 	class Meta:

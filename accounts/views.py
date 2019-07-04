@@ -206,7 +206,6 @@ class ManagerRegisterView(TemplateView):
 		return ctx
 
 	def post(self, request, *args, **kwargs):
-		print(request.POST)
 		print(pretty_request(request))
 
 		if request.POST.get('password') != request.POST.get('re_pass'):
@@ -233,6 +232,60 @@ class ManagerRegisterView(TemplateView):
 		# rest.user = User.objects.get(username=request.POST['username'])
 		rest.user = user
 		rest.save()
+		return redirect('/homepage')
+
+
+class BranchRegisterView(TemplateView):
+	template_name = 'accounts/Branch_Registration_Form.html'
+
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/')
+		else:
+			return super().get(request, *args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = super(BranchRegisterView, self).get_context_data(**kwargs)
+		ctx['user_form'] = UserForm(prefix='user')
+		# ctx['profile_form'] = ProfileForm(prefix='profile')
+		ctx = {'loggedIn': False}
+		if self.request.user.is_authenticated:
+			print('Logged in: ' + str(self.request.user))
+			ctx['loggedIn'] = True
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		print(pretty_request(request))
+
+		if request.POST.get('password') != request.POST.get('re_pass'):
+			return
+
+		user_form = UserForm(request.POST)
+		user = None
+		branch = RestaurantBranch()
+
+		try:
+			rest = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
+			print(rest)
+			if user_form.is_valid():
+				user = user_form.save(commit=False)
+				user.is_manager = True
+				user.save()
+				branch.user = user
+				branch.restaurant_id = rest
+				branch.save()
+				login(request, user)
+		# UserProfile.objects.create(user=user).save() # lagbe na i guess
+			else:
+				return HttpResponse("Invalid Form or pass")
+		except Exception as e:
+			return HttpResponse('Not Valid secret key')
+
+
+
+		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
+		#                  email=request.POST['email'])
+		print(branch)
 		return redirect('/homepage')
 
 

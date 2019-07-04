@@ -19,6 +19,7 @@ urlpatterns = [
 
 	path('manager_login/', views.ManagerLoginView.as_view(), name='manger_login'),
 	path('manager_register/', views.ManagerRegisterView.as_view(), name='manager_register'),
+	path('branch_register/', views.BranchRegisterView.as_view(), name='branch_register'),
 
 	path('admin_login/', views.AdminLoginView.as_view(), name='admin_login'),
 
