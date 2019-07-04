@@ -89,7 +89,7 @@ class AddMenuView(TemplateView):
                 tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
                 ingrd,created = Ingredient.objects.get_or_create(name=tmp)
                 IngredientList.objects.create(pack_id =menu, ingr_id = ingrd)
-            return HttpResponse("Menu Added Up")
+            return HttpResponse("<h1>Menu Added Up</h1>")
 
         else:
             return HttpResponse("Error : <a href='/signup'>Try again</a>!")

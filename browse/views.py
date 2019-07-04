@@ -32,16 +32,17 @@ class Index(TemplateView):
 
 
 class pkg_t:
-	def __init__(self, name='', img='', price='', rating='', url='/', ing_list=None, desc=''):
+	def __init__(self, name='', img='', price='', rating='', url='/', ing_list=None, desc='', rest_name=''):
 		if ing_list is None:
 			ing_list = []
 		self.name = name
 		self.img = img
-		self.price = "$" + str(price)
+		self.price = "BDT." + str(price)
 		self.rating = range(int(rating))
 		self.url = "/browse/item/" + url
 		self.ing_list = ing_list
 		self.desc = desc
+		self.rest_name = rest_name
 
 
 class Order(TemplateView):
@@ -52,20 +53,19 @@ class Order(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		entry_name = self.request.GET.get('menu_search')
-		print(entry_name)
 		price_range = self.request.GET.get('range')
-		# minprice = 50
-		# maxprice = 100
-		minprice = (float(str(price_range).split('-')[0].strip()[1:]))
-		maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
-		# print(str(price_range).split('-')[0].strip()[1:], end='<<')
-		# print(str(price_range).split('-')[1].strip()[1:], end='<<')
-		print(minprice)
-		print(maxprice)
 		pkg_list = [
 			pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
 			for pkgobj in Package.objects.all()]
 		if entry_name is not None:
+			print(entry_name)
+			print(str(price_range))
+			minprice = (float(str(price_range).split('-')[0].strip()[1:]))
+			maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
+			# print(str(price_range).split('-')[0].strip()[1:], end='<<\n')
+			# print(str(price_range).split('-')[1].strip()[1:], end='<<\n')
+			print(minprice)
+			print(maxprice)
 			queryset2 = [ingobj.pack_id for ingobj in
 			             IngredientList.objects.filter(ingr_id__name__icontains=entry_name)]
 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
@@ -78,9 +78,12 @@ class Order(TemplateView):
 			for x in result_list:
 				if minprice <= x.price <= maxprice:
 					filtered_result.append(x)
+				# print(x.restaurant.restaurant_name)
 			pkg_list = [
-				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
+				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id),
+				      rest_name=pkgobj.restaurant.restaurant_name)
 				for pkgobj in filtered_result]
+		# print(pkg_list[0].rest_name)
 		ctx = {'loggedIn': False, 'item_list': pkg_list}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
@@ -133,7 +136,7 @@ class PackageDetails(TemplateView):
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=id)]
 		pkg = pkg_t(name=pkg.pkg_name, price=pkg.price, img=pkg.image, rating='5', ing_list=ing_list,
 		            desc=pkg.details,
-		            url=str(pkg.id))
+		            url=str(pkg.id), rest_name=pkg.restaurant.restaurant_name)
 		# ing_list = list(IngredientList.objects.all().filter(pack_id=id).values('ingr_id'))
 		# print(pkg.get_absolute_url())
 		ctx = {'loggedIn': False, 'item': pkg, 'item_img': [pkg.img]}
@@ -144,6 +147,6 @@ class PackageDetails(TemplateView):
 
 class RestaurantList(ListView):
 	template_name = 'browse/restaurants.html'
-	queryset = Restaurant.objects.all()
+	queryset = Restaurant.objects.exclude(restaurant_key='0')
 	context_object_name = 'restaurants'
 # print(queryset)
