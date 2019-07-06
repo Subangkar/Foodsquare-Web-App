@@ -51,9 +51,10 @@ class Restaurant(models.Model):
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	branch_name = models.CharField(blank=False, null=False, max_length=50)
-	branch_location = models.CharField("Openstreetmap co-ordinates", max_length=50, default='0,0')
-	branch_location_details = models.CharField("If co-ordinates can't be provided or floor-no", max_length=100, default='')
-	location_area =  models.CharField(default='', max_length=50)
+	branch_location = models.CharField(verbose_name="Openstreetmap co-ordinates", max_length=50, default='0,0')
+	branch_location_details = models.CharField(verbose_name="If co-ordinates can't be provided or floor-no", max_length=100,
+	                                           default='')
+	location_area = models.CharField(default='', max_length=50)
 	branch_phonenum = models.CharField(max_length=20, default='')
 	branch_mobilenum = models.CharField(max_length=20, default='')
 	branch_email = models.CharField(max_length=50, default='')
@@ -62,9 +63,6 @@ class RestaurantBranch(models.Model):
 
 	restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
-	# branch_location = LocationField(based_fields=['city'], zoom=7, default=Point(1.0, 1.0)) # https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/postgis/
-
-	# branch_location = PlainLocationField() # https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/postgis/
 	class Meta:
 		verbose_name = "Branch"
 		verbose_name_plural = "Branches"
@@ -77,39 +75,36 @@ class RestaurantBranch(models.Model):
 
 
 class Payment(models.Model):
-
 	CASH = 'C'
 	ONLINE = 'O'
 	PAYMENT_TYPES = (
-        (CASH, 'Cash'),
-        (ONLINE, 'Online'),
-    )
+		(CASH, 'Cash'),
+		(ONLINE, 'Online'),
+	)
 
-	price = models.FloatField(("Total Price"))
-	payment_type = models.CharField(("Payment Type"), max_length=1, choices=PAYMENT_TYPES, default=CASH)
+	price = models.FloatField(verbose_name="Total Price")
+	payment_type = models.CharField(verbose_name="Payment Type", max_length=1, choices=PAYMENT_TYPES, default=CASH)
 
 	class Meta:
-		verbose_name = ("Payment")
-		verbose_name_plural = ("Payments")
+		verbose_name = "Payment"
+		verbose_name_plural = "Payments"
 
 	def __str__(self):
-		return self.price + " " + self.payment_type
+		return str(self.price) + " " + self.payment_type
 
 	def get_absolute_url(self):
 		return reverse("Payment_detail", kwargs={"pk": self.pk})
 
 
-
 class DeliveryMan(models.Model):
-
-	name = models.CharField(("Name"), max_length=50)
-	contactNum = models.CharField(("Phone Number"), max_length=15)
-	address = models.CharField(("Permanent Address"), max_length=50)
-	nid = models.CharField(("National ID No."), max_length=50)
+	name = models.CharField(verbose_name="Name", max_length=50)
+	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
+	address = models.CharField(verbose_name="Permanent Address", max_length=50)
+	nid = models.CharField(verbose_name="National ID No.", max_length=50)
 
 	class Meta:
-		verbose_name = ("DeliveryMan")
-		verbose_name_plural = ("DeliveryMen")
+		verbose_name = "DeliveryMan"
+		verbose_name_plural = "DeliveryMen"
 
 	def __str__(self):
 		return self.name
@@ -119,19 +114,18 @@ class DeliveryMan(models.Model):
 
 
 class Delivery(models.Model):
+	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
+	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
+	charge = models.FloatField(verbose_name="Delivery Fees")
+	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=False, auto_now_add=False)
+	rating_user = models.IntegerField(verbose_name="User Rating")
+	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating")
 
-	address = models.CharField(("Delivery Address Description"), max_length=50)
-	address_desc = models.CharField(("Delivery Address Description"), max_length=50)
-	charge = models.FloatField(("Delivery Fees"))
-	time = models.DateTimeField(("Delivery Completion Time"), auto_now=False, auto_now_add=False)
-	rating_user = models.IntegerField(("User Rating"))
-	rating_deliveryman = models.IntegerField(("Delivery Man Rating"))
-
-	deliveryman = models.ForeignKey(DeliveryMan, verbose_name=(""), on_delete=models.CASCADE)
+	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE)
 
 	class Meta:
-		verbose_name = ("Delivery")
-		verbose_name_plural = ("Deliveries")
+		verbose_name = "Delivery"
+		verbose_name_plural = "Deliveries"
 
 	def __str__(self):
 		return 'self.name'
@@ -141,37 +135,32 @@ class Delivery(models.Model):
 
 
 class Order(models.Model):
+	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
 
-	time = models.DateTimeField(("Order Place Time"), auto_now=False, auto_now_add=False)
-
-	user = models.ForeignKey(User, verbose_name=("Person To Deliver"), on_delete=models.CASCADE)
-	delivery = models.ForeignKey(Delivery, verbose_name=("Person To Deliver"), on_delete=models.CASCADE)
-	payment = models.ForeignKey(Payment, verbose_name=("Person To Deliver"), on_delete=models.CASCADE)
+	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
+	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True)
+	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name=("Packages in Order"))
 
 	class Meta:
-		verbose_name = ("Order")
-		verbose_name_plural = ("Orders")
+		verbose_name = "Order"
+		verbose_name_plural = "Orders"
 
 	def __str__(self):
-		return 'self.name'
-
-	def get_absolute_url(self):
-		return reverse("Order_detail", kwargs={"pk": self.pk})
+		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.pkg_list
 
 
 class OrderPackageList(models.Model):
-	
-	order = models.ForeignKey("accounts.Order", verbose_name=("Order"), on_delete=models.CASCADE)
-	delivery = models.ForeignKey("browse.Package", verbose_name=("Package"), on_delete=models.CASCADE)
+	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)
+	package = models.ForeignKey("browse.Package", verbose_name="Package", on_delete=models.CASCADE)
 
 	class Meta:
-		verbose_name = ("OrderPackageList")
-		verbose_name_plural = ("OrderPackageLists")
+		verbose_name = "OrderPackageList"
+		verbose_name_plural = "OrderPackageLists"
 
 	def __str__(self):
-		return 'self.name'
+		return ''.join(self.package.pkg_name)
 
 	def get_absolute_url(self):
 		return reverse("OrderPackageList_detail", kwargs={"pk": self.pk})
