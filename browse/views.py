@@ -90,36 +90,6 @@ class Order(TemplateView):
 		return ctx
 
 
-# class SearchMenu(TemplateView):
-# 	template_name = 'browse/order.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		with open("sessionLog.txt", "a") as myfile:
-# 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-# 		query = self.request.GET.get('menu_search')
-# 		price_range = self.request.GET.get('range')
-# 		pkg_list = []
-# 		if query is not None:
-# 			queryset2 = [ingobj.pack_id for ingobj in IngredientList.objects.filter(ingr_id__name__icontains=query)]
-# 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
-# 			queryset1 = Package.objects.filter(
-# 				Q(pkg_name__icontains=query)
-# 			)
-# 			result_list = list(dict.fromkeys(list(queryset1) + queryset2))
-# 			result_list.sort(key=lambda x: x.pkg_name, reverse=False)
-# 			pkg_list = [
-# 				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=str(pkgobj.id))
-# 				for pkgobj in result_list]
-#
-# 		else:
-# 			print(price_range)
-#
-# 		ctx = {'loggedIn': False, 'item_list': pkg_list}
-# 		if self.request.user.is_authenticated:
-# 			ctx['loggedIn'] = True
-# 		return ctx
-#
-
 class PackageDetails(TemplateView):
 	template_name = 'browse/item.html'
 
