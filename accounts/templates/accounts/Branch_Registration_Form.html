@@ -30,6 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/main.css' %}">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
     {% else %}
     <meta http-equiv='refresh' content='2; URL=/'>
     {% endif %}
@@ -69,12 +75,12 @@
                                     document.getElementById('signup').style.backgroundColor = 'red'
                                 }
                             }
-					}
+
                         </script>
 
 
                         <h1 class="form-title">Open Your Restaurant Branch</h1>
-                        <form method="POST" class="register-form" id="#">
+                        <form method="POST" class="register-form" id="infoForm">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -82,7 +88,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="text" name="branch" placeholder="Your Branch" />
+                                <input type="text" name="branch_name"
+                                    placeholder="Your Branch Name" />
                             </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -108,18 +115,162 @@
                         </form>
 
                 </div>
-                <div style="display: inline-block">
-                    <div style="height: 50vh;">
-                    </div>
-                    <div class="flex-col-c p-t-20">
-                        Don't have your restaurant account yet? 
-                        <b><u><a href="/accounts/manager_register/" class="txt2">
-                                    Open Now
-                                </a></u></b>
-                    </div>
-                </div>
+                <div>
 
-            </div>
+                    <div class="address_container">
+                        <style type="text/css">
+                            .address_container {
+                                width: 95%;
+                                max-width: 980px;
+                                padding: 1% 2%;
+                                margin: 0 auto;
+                            }
+
+                            #lat,
+                            #lon {
+                                text-align: right;
+                            }
+
+                            #map {
+                                width: 100%;
+                                height: 50vh;
+                                padding: 0;
+                                margin: 0;
+                                position: static;
+                            }
+
+                            .address {
+                                cursor: pointer
+                            }
+
+                            .address:hover {
+                                color: #AA0000;
+                                text-decoration: underline
+                            }
+                        </style>
+                        <!-- <form> -->
+                        <input type="hidden" name="lat" id="lat" size=12 value="" form="infoForm" readonly>
+                        <input type="hidden" name="lon" id="lon" size=12 value="" form="infoForm" readonly>
+                        <!-- </form> -->
+
+                        <b>Address Lookup</b>
+                        <div>
+                            <div class="form-group" id="search">
+                                <label for="Address Lookup"><i
+                                        class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="addr" value="" id="addr_search_box" size="58"
+                                    placeholder="your restaurant Loaction" />
+                            </div>
+                            <div id="results"></div>
+
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="extra_details"
+                                    placeholder="Extra precision details beyond co-ordinates(optional)" />
+                            </div>
+                            <br />
+
+                            <div id="map"></div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $(window).keydown(function (event) {
+                                    if (event.keyCode == 13) {
+                                        // event.preventDefault();
+                                        return false;
+                                    }
+                                });
+                                $('#addr_search_box').bind("enterKey", function (e) {
+                                    var inp = document.getElementById("addr_search_box");
+                                    var xmlhttp = new XMLHttpRequest();
+                                    var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+                                    xmlhttp.onreadystatechange = function () {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            var myArr = JSON.parse(this.responseText);
+                                            myFunction(myArr);
+                                        }
+                                    };
+                                    xmlhttp.open("GET", url, true);
+                                    xmlhttp.send();
+                                });
+                                function myFunction(arr) {
+                                    var out = "<br />";
+                                    var i;
+
+                                    if (arr.length > 0) {
+                                        for (i = 0; i < arr.length; i++) {
+                                            out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
+                                        }
+                                        document.getElementById('results').innerHTML = out;
+                                    }
+                                    else {
+                                        document.getElementById('results').innerHTML = "Sorry, no results...";
+                                    }
+
+                                }
+                                $('#addr_search_box').keyup(function (e) {
+                                    if (e.keyCode == 13) {
+                                        $(this).trigger("enterKey");
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            // New York
+                            var startlat = 40.75637123;
+                            var startlon = -73.98545321;
+
+                            var options = {
+                                center: [startlat, startlon],
+                                zoom: 9
+                            }
+
+                            document.getElementById('lat').value = startlat;
+                            document.getElementById('lon').value = startlon;
+
+                            var map = L.map('map', options);
+                            var nzoom = 12;
+
+                            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'OSM' }).addTo(map);
+
+                            var myMarker = L.marker([startlat, startlon], { title: "Coordinates", alt: "Coordinates", draggable: true }).addTo(map).on('dragend', function () {
+                                var lat = myMarker.getLatLng().lat.toFixed(8);
+                                var lon = myMarker.getLatLng().lng.toFixed(8);
+                                var czoom = map.getZoom();
+                                if (czoom < 18) { nzoom = czoom + 2; }
+                                if (nzoom > 18) { nzoom = 18; }
+                                if (czoom != 18) { map.setView([lat, lon], nzoom); } else { map.setView([lat, lon]); }
+                                document.getElementById('lat').value = lat;
+                                document.getElementById('lon').value = lon;
+                                myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+                            });
+
+                            function chooseAddr(lat1, lng1) {
+                                myMarker.closePopup();
+                                map.setView([lat1, lng1], 18);
+                                myMarker.setLatLng([lat1, lng1]);
+                                lat = lat1.toFixed(8);
+                                lon = lng1.toFixed(8);
+                                document.getElementById('lat').value = lat;
+                                document.getElementById('lon').value = lon;
+                                myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+                            }
+
+
+                        </script>
+                        <!-- <div style="height: 50vh;">
+                    </div> -->
+                        <div class="flex-col-c p-t-20">
+                            Don't have your restaurant account yet?
+                            <b><u><a href="/accounts/manager_register/" class="txt2">
+                                        Open Now
+                                    </a></u></b>
+                        </div>
+                    </div>
+
+                </div>
 
     </section>
 

@@ -69,8 +69,9 @@ class Restaurant(models.Model):
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	branch_name = models.CharField(blank=False, null=False, max_length=50)
-	branch_location = models.CharField("Openstreetmap co-ordinates", max_length=20, default='0,0')
-	branch_location_details = models.CharField("If co-ordinates can't be provided or floor-no", max_length=100)
+	branch_location = models.CharField("Openstreetmap co-ordinates", max_length=50, default='0,0')
+	branch_location_details = models.CharField("If co-ordinates can't be provided or floor-no", max_length=100, default='')
+	location_area =  models.CharField(default='', max_length=50)
 	branch_phonenum = models.CharField(max_length=20, default='')
 	branch_mobilenum = models.CharField(max_length=20, default='')
 	branch_email = models.CharField(max_length=50, default='')

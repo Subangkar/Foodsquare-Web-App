@@ -145,6 +145,73 @@ class PackageDetails(TemplateView):
 		return ctx
 
 
+class checkoutView(TemplateView):
+	template_name = 'browse/checkout.html'
+
+	# def get(self, request, *args, **kwargs):
+	# 	if self.request.user.is_authenticated:
+	# 		return redirect('/')
+	# 	else:
+	# 		return super().get(request, *args, **kwargs)
+	# 
+	# def get_context_data(self, **kwargs):
+	# 	ctx = super(BranchRegisterView, self).get_context_data(**kwargs)
+	# 	ctx['user_form'] = UserForm(prefix='user')
+	# 	# ctx['profile_form'] = ProfileForm(prefix='profile')
+	# 	ctx = {'loggedIn': False}
+	# 	if self.request.user.is_authenticated:
+	# 		print('Logged in: ' + str(self.request.user))
+	# 		ctx['loggedIn'] = True
+	# 	return ctx
+	# 
+	# def post(self, request, *args, **kwargs):
+	# 	print(pretty_request(request))
+	# 
+	# 	if request.POST.get('password') != request.POST.get('re_pass'):
+	# 		return
+	# 
+	# 	user_form = UserForm(request.POST)
+	# 	user = None
+	# 	branch = RestaurantBranch()
+	# 	try:
+	# 
+	# 		rest = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
+	# 		if user_form.is_valid():
+	# 			user = user_form.save(commit=False)
+	# 			user.is_manager = True
+	# 			# branch_form = RestaurantBranchForm(request.POST)
+	# 			# print('here')
+	# 			# if branch_form.is_valid():
+	# 			# 	branch = branch_form.save(commit=False)
+	# 			# 	print(branch_form)
+	# 			#
+	# 			# 	print(branch)
+	# 			user.save()
+	# 
+	# 			print(rest)
+	# 
+	# 			branch.user = user
+	# 			branch.restaurant_id = rest
+	# 			# print(branch.restaurant_id)
+	# 			branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
+	# 			print(branch.branch_location)
+	# 
+	# 			branch.branch_name = request.POST['branch_name']
+	# 			print(branch.branch_name)
+	# 			try:
+	# 				branch.branch_location_details = request.POST['extra_details']
+	# 			except Exception:
+	# 				pass
+	# 			# branch.location_area = ...
+	# 			branch.save()
+	# 			login(request, user)
+	# 		# UserProfile.objects.create(user=user).save() # lagbe na i guess
+	# 		else:
+	# 			return HttpResponse("Invalid Form or pass")
+	# 	except Exception as e:
+	# 		print(e)
+	# 		return HttpResponse('Not Valid secret key')
+
 class RestaurantList(ListView):
 	template_name = 'browse/restaurants.html'
 	queryset = Restaurant.objects.exclude(restaurant_key='0')

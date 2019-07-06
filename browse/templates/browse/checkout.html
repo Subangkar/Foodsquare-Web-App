@@ -1,428 +1,42 @@
-<!--A Design by W3layouts
-   Author: W3layout
-   Author URL: http://w3layouts.com
-   License: Creative Commons Attribution 3.0 Unported
-   License URL: http://creativecommons.org/licenses/by/3.0/
-   -->
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-	<title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
-	<!--meta tags -->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-         Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+{% extends 'browse/base-banner.html' %}
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-	<!--//meta tags ends here-->
-	<!--booststrap-->
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-	<!--//booststrap end-->
-	<!-- font-awesome icons -->
-	<link href="css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
-	<!-- //font-awesome icons -->
-	<!--Shoping cart-->
-	<link rel="stylesheet" href="css/shop.css" type="text/css"/>
-	<!--//Shoping cart-->
-	<!--checkout-->
-	<link rel="stylesheet" type="text/css" href="css/checkout.css">
-	<!--//checkout-->
-	<!--stylesheets-->
-	<link href="css/style.css" rel='stylesheet' type='text/css' media="all">
-	<!--//stylesheets-->
-	<link href="//fonts.googleapis.com/css?family=Sunflower:500,700" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-</head>
-<body>
-<!--headder-->
-<div class="header-outs" id="home">
-	<div class="header-bar">
-		<div class="info-top-grid">
-			<div class="info-contact-agile">
-				<ul>
-					<li>
-						<span class="fas fa-phone-volume"></span>
-						<p>+(000)123 4565 32</p>
-					</li>
-					<li>
-						<span class="fas fa-envelope"></span>
-						<p><a href="mailto:info@example.com">info@example1.com</a></p>
-					</li>
-					<li>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="container-fluid">
-			<div class="hedder-up row">
-				<div class="col-lg-3 col-md-3 logo-head">
-					<h1><a class="navbar-brand" href="index.html">Toys-Shop</a></h1>
-				</div>
-				<div class="col-lg-5 col-md-6 search-right">
-					<form class="form-inline my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search">
-						<button class="btn" type="submit">Search</button>
-					</form>
-				</div>
-				<div class="col-lg-4 col-md-3 right-side-cart">
-					<div class="cart-icons">
-						<ul>
-							<li>
-								<span class="far fa-heart"></span>
-							</li>
-							<li>
-								<button type="button" data-toggle="modal" data-target="#exampleModal"><span
-										class="far fa-user"></span></button>
-							</li>
-							<li class="toyscart toyscart2 cart cart box_1">
-								<form action="#" method="post" class="last">
-									<input type="hidden" name="cmd" value="_cart">
-									<input type="hidden" name="display" value="1">
-									<button class="top_toys_cart" type="submit" name="submit" value="">
-										<span class="fas fa-cart-arrow-down"></span>
-									</button>
-								</form>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-            </div>
-		<nav class="navbar navbar-expand-lg navbar-light">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-				<ul class="navbar-nav ">
-					<li class="nav-item active">
-						<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a href="about.html" class="nav-link">About</a>
-					</li>
-					<li class="nav-item">
-						<a href="service.html" class="nav-link">Service</a>
-					</li>
-					<li class="nav-item active">
-						<a href="shop.html" class="nav-link">Shop Now</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Pages
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="nav-link" href="icon.html">404 Page</a>
-							<a class="nav-link " href="typography.html">Typography</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Product
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="nav-link" href="product.html">Kids Toys</a>
-							<a class="nav-link " href="product.html">Dolls</a>
-							<a class="nav-link " href="product.html">Key Toys</a>
-							<a class="nav-link " href="product.html">Boys Toys</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a href="contact.html" class="nav-link">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</div>
-</div>
-<!--//headder-->
-<!-- banner -->
-<div class="inner_page-banner one-img">
-</div>
-<!-- short -->
-<div class="using-border py-3">
-	<div class="inner_breadcrumb  ml-4">
-		<ul class="short_ls">
-			<li>
-				<a href="index.html">Home</a>
-				<span>/ /</span>
-			</li>
-			<li>Checkout</li>
-		</ul>
-            </div>
-</div>
-<!-- //short-->
-<!--Checkout-->
-<!-- //banner -->
-<!-- top Products -->
-<section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
-	<div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-		<div class="shop_inner_inf">
-			<div class="privacy about">
-				<h3>Chec<span>kout</span></h3>
-				<div class="checkout-right">
-					<h4>Your shopping cart contains: <span>3 Products</span></h4>
-					<table class="timetable_sub">
-						<thead>
-						<tr>
-							<th>SL No.</th>
-							<th>Product</th>
-							<th>Quality</th>
-							<th>Product Name</th>
-							<th>Price</th>
-							<th>Remove</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr class="rem1">
-							<td class="invert">1</td>
-							<td class="invert-image"><a href="single.html"><img src="images/f1.jpg" alt=" "
-							                                                    class="img-responsive"></a></td>
-							<td class="invert">
-								<div class="quantity">
-									<div class="quantity-select">
-										<div class="entry value-minus">&nbsp;</div>
-										<div class="entry value"><span>1</span></div>
-										<div class="entry value-plus active">&nbsp;</div>
-									</div>
-								</div>
-							</td>
-							<td class="invert">Bella Toes</td>
-							<td class="invert">$675.00</td>
-							<td class="invert">
-								<div class="rem">
-									<div class="close1"></div>
-								</div>
-							</td>
-						</tr>
-						<tr class="rem2">
-							<td class="invert">2</td>
-							<td class="invert-image"><a href="single.html"><img src="images/f2.jpg" alt=" "
-							                                                    class="img-responsive"></a></td>
-							<td class="invert">
-								<div class="quantity">
-									<div class="quantity-select">
-										<div class="entry value-minus">&nbsp;</div>
-										<div class="entry value"><span>1</span></div>
-										<div class="entry value-plus active">&nbsp;</div>
-									</div>
-								</div>
-							</td>
-							<td class="invert">Red Bellies</td>
-							<td class="invert">$325.00</td>
-							<td class="invert">
-								<div class="rem">
-									<div class="close2"></div>
-								</div>
-							</td>
-						</tr>
-						<tr class="rem3">
-							<td class="invert">3</td>
-							<td class="invert-image"><a href="single.html"><img src="images/f3.jpg" alt=" "
-							                                                    class="img-responsive"></a></td>
-							<td class="invert">
-								<div class="quantity">
-									<div class="quantity-select">
-										<div class="entry value-minus">&nbsp;</div>
-										<div class="entry value"><span>1</span></div>
-										<div class="entry value-plus active">&nbsp;</div>
-									</div>
-								</div>
-							</td>
-							<td class="invert">Chikku Loafers</td>
-							<td class="invert">$405.00</td>
-							<td class="invert">
-								<div class="rem">
-									<div class="close3"></div>
-								</div>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="checkout-left">
-					<div class="col-md-4 checkout-left-basket">
-						<h4>Continue to basket</h4>
-						<ul>
-							<li>Product1 <i>-</i> <span>$675.00 </span></li>
-							<li>Product2 <i>-</i> <span>$325.00 </span></li>
-							<li>Product3 <i>-</i> <span>$405.00 </span></li>
-							<li>Total Service Charges <i>-</i> <span>$55.00</span></li>
-							<li>Total <i>-</i> <span>$1405.00</span></li>
-						</ul>
-					</div>
-					<div class="col-md-8 address_form">
-						<h4>Add a new Details</h4>
-						<form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
-							<section class="creditly-wrapper wrapper">
-								<div class="information-wrapper">
-									<div class="first-row form-group">
-										<div class="controls">
-											<label class="control-label">Full name: </label>
-											<input class="billing-address-name form-control" type="text" name="name"
-											       placeholder="Full name">
-										</div>
-										<div class="card_number_grids">
-											<div class="card_number_grid_left">
-												<div class="controls">
-													<label class="control-label">Mobile number:</label>
-													<input class="form-control" type="text" placeholder="Mobile number">
-												</div>
-											</div>
-											<div class="card_number_grid_right">
-												<div class="controls">
-													<label class="control-label">Landmark: </label>
-													<input class="form-control" type="text" placeholder="Landmark">
-												</div>
-											</div>
-											<div class="clear"></div>
-										</div>
-										<div class="controls">
-											<label class="control-label">Town/City: </label>
-											<input class="form-control" type="text" placeholder="Town/City">
-										</div>
-										<div class="controls">
-											<label class="control-label">Address type: </label>
-											<select class="form-control option-w3ls">
-												<option>Office</option>
-												<option>Home</option>
-												<option>Commercial</option>
-											</select>
-										</div>
-									</div>
-									<button class="submit check_out">Delivery to this Address</button>
-								</div>
-							</section>
-						</form>
-						<div class="checkout-right-basket">
-							<a href="payment.html">Make a Payment </a>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
-		<!-- //top products -->
-	</div>
-</section>
-<!--subscribe-address-->
-<section class="subscribe">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 col-md-6 map-info-right px-0">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3150859.767904157!2d-96.62081048651531!3d39.536794757966845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1408111832978"></iframe>
-			</div>
-			<div class="col-lg-6 col-md-6 address-w3l-right text-center">
-				<div class="address-gried ">
-					<span class="far fa-map"></span>
-					<p>25478 Road St.121<br>USA New Hill
-					<p>
-				</div>
-				<div class="address-gried mt-3">
-					<span class="fas fa-phone-volume"></span>
-					<p> +(000)123 4565<br>+(010)123 4565</p>
-				</div>
-				<div class=" address-gried mt-3">
-					<span class="far fa-envelope"></span>
-					<p><a href="mailto:info@example.com">info@example1.com</a>
-						<br><a href="mailto:info@example.com">info@example2.com</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!--//subscribe-address-->
-<section class="sub-below-address py-lg-4 py-md-3 py-sm-3 py-3">
-	<div class="container py-lg-5 py-md-5 py-sm-4 py-3">
-		<h3 class="title clr text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Get In Touch Us</h3>
-		<div class="icons mt-4 text-center">
-			<ul>
-				<li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-				<li><a href="#"><span class="fas fa-envelope"></span></a></li>
-				<li><a href="#"><span class="fas fa-rss"></span></a></li>
-				<li><a href="#"><span class="fab fa-vk"></span></a></li>
-			</ul>
-			<p class="my-3">velit sagittis vehicula. Duis posuere
-				ex in mollis iaculis. Suspendisse tincidunt
-				velit sagittis vehicula. Duis posuere
-				velit sagittis vehicula. Duis posuere
-			</p>
-		</div>
-		<div class="email-sub-agile">
-			<form action="#" method="post">
-				<div class="form-group sub-info-mail">
-					<input type="email" class="form-control email-sub-agile" placeholder="Email">
-				</div>
-				<div class="text-center">
-					<button type="submit" class="btn subscrib-btnn">Subscribe</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</section>
-<!--//subscribe-->
-<!-- footer -->
-<footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
-	<div class="copy-agile-right">
-		<p>
-			© 2018 Toys-Shop. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank">W3Layouts</a>
-		</p>
-	</div>
-</footer>
-<!-- //footer -->
-<!-- Modal 1-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="register-form">
-					<form action="#" method="post">
-						<div class="fields-grid">
-							<div class="styled-input">
-								<input type="text" placeholder="Your Name" name="Your Name" required="">
-							</div>
-							<div class="styled-input">
-								<input type="email" placeholder="Your Email" name="Your Email" required="">
-							</div>
-							<div class="styled-input">
-								<input type="password" placeholder="password" name="password" required="">
-							</div>
-							<button type="submit" class="btn subscrib-btnn">Login</button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
+{% block header %}
+{% load static %}
+<title>Foodsquare | Order</title>
+
+<!--price range-->
+<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
+<!--//price range-->
+<script>
+	addEventListener("load", function () {
+		setTimeout(hideURLbar, 0);
+	}, false);
+
+	function hideURLbar() {
+		window.scrollTo(0, 1);
+	}
+</script>
+<!--//meta tags ends here-->
+
+<!--checkout-->
+<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/checkout.css' %}">
+<!--//checkout-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+{% endblock %}
+
+
+{% block body-js %}
+{#	{% load static %}#}
 <!-- //Modal 1-->
 <!--js working-->
 <script src='js/jquery-2.2.3.min.js'></script>
 <!--//js working-->
 <!-- cart-js -->
-<script src="js/minicart.js"></script>
+<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
 <script>
 	toys.render();
 
@@ -483,8 +97,8 @@
 </script>
 <!--//closed-->
 <!-- start-smoth-scrolling -->
-<script src="js/move-top.js"></script>
-<script src="js/easing.js"></script>
+<script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+<script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
 <script>
 	jQuery(document).ready(function ($) {
 		$(".scroll").click(function (event) {
@@ -514,7 +128,289 @@
 </script>
 <!-- //here ends scrolling icon -->
 <!--bootstrap working-->
-<script src="js/bootstrap.min.js"></script>
+<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
 <!-- //bootstrap working-->
-</body>
-</html>
+<!-- //here ends scrolling icon -->
+{% endblock %}
+
+{% block body-content %}
+{#	{% load static %}#}
+<div class="using-border py-3">
+	<div class="inner_breadcrumb  ml-4">
+		<ul class="short_ls">
+			<li>
+				<a href="{% static 'browse/toys_shop/index.html' %}">Home</a>
+				<span>/ /</span>
+			</li>
+			<li>Checkout</li>
+		</ul>
+	</div>
+</div>
+<!-- //short-->
+<!--Checkout-->
+<!-- //banner -->
+<!-- top Products -->
+<section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
+	<div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+		<div class="shop_inner_inf">
+			<h3>Chec<span>kout</span></h3>
+			<h4>Your shopping cart contains: <span>3 Products</span></h4>
+			<div class="privacy about" style="display: flexbox" >
+
+
+				<div class="checkout-right" style="background: yellow">
+					<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>SL No.</th>
+								<th>Product</th>
+								<th>Quality</th>
+								<th>Product Name</th>
+								<th>Price</th>
+								<th>Remove</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="rem1">
+								<td class="invert">1</td>
+								<td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img
+											src="{% static 'browse/toys_shop/images/f1.jpg' %}" alt=" "
+											class="img-responsive"></a></td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+											<div class="entry value-minus">&nbsp;</div>
+											<div class="entry value"><span>1</span></div>
+											<div class="entry value-plus active">&nbsp;</div>
+										</div>
+									</div>
+								</td>
+								<td class="invert">Bella Toes</td>
+								<td class="invert">$675.00</td>
+								<td class="invert">
+									<div class="rem">
+										<div class="close1"></div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rem2">
+								<td class="invert">2</td>
+								<td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img
+											src="{% static 'browse/toys_shop/images/f2.jpg' %}" alt=" "
+											class="img-responsive"></a></td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+											<div class="entry value-minus">&nbsp;</div>
+											<div class="entry value"><span>1</span></div>
+											<div class="entry value-plus active">&nbsp;</div>
+										</div>
+									</div>
+								</td>
+								<td class="invert">Red Bellies</td>
+								<td class="invert">$325.00</td>
+								<td class="invert">
+									<div class="rem">
+										<div class="close2"></div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rem3">
+								<td class="invert">3</td>
+								<td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img
+											src="{% static 'browse/toys_shop/images/f3.jpg' %}" alt=" "
+											class="img-responsive"></a></td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+											<div class="entry value-minus">&nbsp;</div>
+											<div class="entry value"><span>1</span></div>
+											<div class="entry value-plus active">&nbsp;</div>
+										</div>
+									</div>
+								</td>
+								<td class="invert">Chikku Loafers</td>
+								<td class="invert">$405.00</td>
+								<td class="invert">
+									<div class="rem">
+										<div class="close3"></div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="clearfix"></div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="checkout-left">
+					<div class="col-md-4 checkout-left-basket" style="background: #0f0">
+						<h4>Continue to basket</h4>
+						<ul>
+							<li>Product1 <i>-</i> <span>$675.00 </span></li>
+							<li>Product2 <i>-</i> <span>$325.00 </span></li>
+							<li>Product3 <i>-</i> <span>$405.00 </span></li>
+							<li>Total Service Charges <i>-</i> <span>$55.00</span></li>
+							<li>Total <i>-</i> <span>$1405.00</span></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div>
+
+				<div>
+					<div class="address_container">
+						<style type="text/css">
+							.address_container {
+								width: 95%;
+								max-width: 980px;
+								padding: 1% 2%;
+								margin: 0 auto;
+							}
+
+							#lat,
+							#lon {
+								text-align: right;
+							}
+
+							#map {
+								width: 100%;
+								height: 50vh;
+								padding: 0;
+								margin: 0;
+								position: static;
+							}
+
+							.address {
+								cursor: pointer
+							}
+
+							.address:hover {
+								color: #AA0000;
+								text-decoration: underline
+							}
+						</style>
+						<!-- <form> -->
+						<input type="hidden" name="lat" id="lat" size=12 value="" form="infoForm" readonly>
+						<input type="hidden" name="lon" id="lon" size=12 value="" form="infoForm" readonly>
+						<!-- </form> -->
+
+						<b>Address Lookup</b>
+						<div>
+							<div class="form-group" id="search">
+								<label for="Delivey address"><i
+										class="zmdi zmdi-account material-icons-name"></i></label>
+								<input type="text" name="addr" value="" id="addr_search_box" size="58"
+									placeholder="Your delivery Address" />
+							</div>
+							<div id="results"></div>
+
+
+
+							<!-- <div id="map"></div> -->
+						</div>
+
+						<script>
+							$(document).ready(function () {
+								$(window).keydown(function (event) {
+									if (event.keyCode == 13) {
+										// event.preventDefault();
+										return false;
+									}
+								});
+								$('#addr_search_box').bind("enterKey", function (e) {
+									var inp = document.getElementById("addr_search_box");
+									var xmlhttp = new XMLHttpRequest();
+									var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+									xmlhttp.onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											var myArr = JSON.parse(this.responseText);
+											myFunction(myArr);
+										}
+									};
+									xmlhttp.open("GET", url, true);
+									xmlhttp.send();
+								});
+								function myFunction(arr) {
+									var out = "<br />";
+									var i;
+
+									if (arr.length > 0) {
+										for (i = 0; i < arr.length; i++) {
+											out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
+										}
+										document.getElementById('results').innerHTML = out;
+									}
+									else {
+										document.getElementById('results').innerHTML = "Sorry, no results...";
+									}
+
+								}
+								$('#addr_search_box').keyup(function (e) {
+									if (e.keyCode == 13) {
+										$(this).trigger("enterKey");
+									}
+								});
+							});
+						</script>
+						<script type="text/javascript">
+
+							// New York
+							var startlat = 40.75637123;
+							var startlon = -73.98545321;
+
+							var options = {
+								center: [startlat, startlon],
+								zoom: 9
+							}
+
+							document.getElementById('lat').value = startlat;
+							document.getElementById('lon').value = startlon;
+
+							var map = L.map('map', options);
+							var nzoom = 12;
+
+							L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'OSM' }).addTo(map);
+
+							var myMarker = L.marker([startlat, startlon], { title: "Coordinates", alt: "Coordinates", draggable: true }).addTo(map).on('dragend', function () {
+								var lat = myMarker.getLatLng().lat.toFixed(8);
+								var lon = myMarker.getLatLng().lng.toFixed(8);
+								var czoom = map.getZoom();
+								if (czoom < 18) { nzoom = czoom + 2; }
+								if (nzoom > 18) { nzoom = 18; }
+								if (czoom != 18) { map.setView([lat, lon], nzoom); } else { map.setView([lat, lon]); }
+								document.getElementById('lat').value = lat;
+								document.getElementById('lon').value = lon;
+								myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+							});
+
+							function chooseAddr(lat1, lng1) {
+								myMarker.closePopup();
+								map.setView([lat1, lng1], 18);
+								myMarker.setLatLng([lat1, lng1]);
+								lat = lat1.toFixed(8);
+								lon = lng1.toFixed(8);
+								document.getElementById('lat').value = lat;
+								document.getElementById('lon').value = lon;
+								myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+							}
+
+
+						</script>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- //top products -->
+	</div>
+</section>
+<!-- //show Now-->
+{% endblock %}

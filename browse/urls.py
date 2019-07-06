@@ -20,6 +20,9 @@ urlpatterns = [
 	path('browse/item/<int:id>/', views.PackageDetails.as_view(), name='Item'),
 	path('browse/item/', views.PackageDetails.as_view(), name='Item'),
 	# path('browse/item/<int:id>/', views.ItemDetailsRenderer, name='Item'),
+
+	path('order/checkout/', views.checkoutView.as_view(), name='checkout'),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
