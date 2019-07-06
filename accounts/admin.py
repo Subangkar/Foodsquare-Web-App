@@ -9,3 +9,9 @@ admin.site.register(Restaurant)
 # admin.site.register(ContactInfo)
 admin.site.register(RestaurantBranch)
 
+admin.site.register(Delivery)
+admin.site.register(DeliveryMan)
+admin.site.register(Order)
+admin.site.register(Payment)
+admin.site.register(OrderPackageList)
+

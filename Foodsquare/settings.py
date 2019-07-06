@@ -57,7 +57,6 @@ INSTALLED_APPS = [
 	'sslserver',
 
 	'location_field.apps.DefaultConfig',
-	'phonenumber_field',
 	'django_hosts',
 ]
 
