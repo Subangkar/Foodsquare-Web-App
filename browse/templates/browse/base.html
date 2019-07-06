@@ -184,15 +184,15 @@
 							{% if not loggedIn %}
 								<button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
 								<div class="dropdown-content">
-									<a href="/accounts/login/">Login</a>
-									<a href="/accounts/register/">Register</a>
+									<a href={% url 'accounts:login' %}>Login</a>
+									<a href={% url 'accounts:register' %}>Register</a>
 								</div>
 							{% else %}
 								<button class="topBtn"><span
 										class="far fa-user"> {{ request.user.username|upper }}</span></button>
 								<div class="dropdown-content">
 									<a href="/customer/editProfile/">Profile</a>
-									<a href="/accounts/logout/">Logout</a>
+									<a href={% url 'accounts:logout' %}>Logout</a>
 								</div>
 							{% endif %}
 						</div>
@@ -223,13 +223,13 @@
 			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
 				<ul class="navbar-nav ">
 					<li class="nav-item active">
-						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href={% url 'browse:home' %}>Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a href="/browse/restaurants/" class="nav-link">Top Restaurants</a>
+						<a href={% url 'browse:restaurants' %} class="nav-link">Top Restaurants</a>
 					</li>
 					<li class="nav-item">
-						<a href="/order/" class="nav-link">Order Now</a>
+						<a href={% url 'browse:package-list' %} class="nav-link">Order Now</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -254,14 +254,14 @@
 					{#							   class="nav-link"><strong>{{ request.user.username }}</strong></a>#}
 					{#						</li>#}
 					{#						<li class="nav-item">#}
-					{#							<a href="/accounts/logout/" class="nav-link">Logout</a>#}
+					{#							<a href={% url 'accounts:logout' %} class="nav-link">Logout</a>#}
 					{#						</li>#}
 					{#					{% else %}#}
 					{#						<li class="nav-item">#}
-					{#							<a href="/accounts/login/" class="nav-link">Login</a>#}
+					{#							<a href={% url 'accounts:login' %} class="nav-link">Login</a>#}
 					{#						</li>#}
 					{#						<li class="nav-item">#}
-					{#							<a href="/accounts/register/" class="nav-link">Register</a>#}
+					{#							<a href={% url 'accounts:register' %} class="nav-link">Register</a>#}
 					{#						</li>#}
 					{#					{% endif %}#}
 					<li class="nav-item">

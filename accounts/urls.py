@@ -27,7 +27,7 @@ urlpatterns = [
 	path('register/', views.RegisterView.as_view(), name='register'),
 	path(r'register/facebook-signUp/', include('allauth.urls'), name='facebook-signUp'),
 
-	path('recovery/', views.recoveryRender, name='register'),
+	path('recovery/', views.recoveryRender, name='recovery'),
 
 	path('logout/', views.LogoutView.as_view(), name='logout'),
 	path('manager_logout/', views.ManagerLogoutView.as_view(), name='manager_logout'),

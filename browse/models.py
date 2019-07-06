@@ -42,8 +42,7 @@ class Package(models.Model):
 		return self.pkg_name
 
 	def get_absolute_url(self):
-		return reverse("Package_detail", kwargs={"pk": self.pk}) # "Package_detail"
-		# return reverse(PackageDetails, kwargs={"pk": self.pk}) # "Package_detail"
+		return reverse("browse:package-details", kwargs={"id": self.pk})
 
 
 class IngredientList(models.Model):
