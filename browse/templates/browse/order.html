@@ -11,27 +11,17 @@
 
 
 {% block body-js %}
-    {#	{% load static %}#}
     <!--js working-->
     <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
     <!--//js working-->
-    <!-- cart-js -->
-    <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
-    <script>
-		toys.render();
-
-		toys.cart.on('toys_checkout', function (evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) {
-				}
-			}
-		});
-    </script>
-    <!-- //cart-js -->
+    {#    Notification - Did not work#}
+    <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+    {#    Notification#}
+    {#Cart#}
+    {#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
+    <script type="text/javascript" src="{% static 'browse/js/cart.js' %}"></script>
+    {#Cart#}
+    {#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
     <!-- price range (top products) -->
     <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
     <script>
@@ -145,174 +135,6 @@
                         <!-- //price range -->
                         <!--preference -->
                     </form>
-                    {# Dummy Now                   #}
-{#                    <div class="left-side">#}
-{#                        <h3 class="agileits-sear-head">Occasion</h3>#}
-{#                        <ul>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">Beef</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">Kids Menu</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">Vegetable</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">Chicken</span>#}
-{#                            </li>#}
-{##}
-{#                        </ul>#}
-{#                    </div>#}
-{#                    <!-- // preference -->#}
-{#                    <!-- discounts -->#}
-{#                    <div class="left-side">#}
-{#                        <h3 class="agileits-sear-head">Discount</h3>#}
-{#                        <ul>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">5% or More</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">10% or More</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">20% or More</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">30% or More</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">50% or More</span>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <input type="checkbox" class="checked">#}
-{#                                <span class="span">60% or More</span>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </div>#}
-{#                    <!-- //discounts -->#}
-{#                    <!-- reviews -->#}
-{#                    <div class="customer-rev left-side">#}
-{#                        <h3 class="agileits-sear-head">Customer Review</h3>#}
-{#                        <ul>#}
-{#                            <li>#}
-{#                                <a href="#">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <span>5.0</span>#}
-{#                                </a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <span>4.0</span>#}
-{#                                </a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star-half"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <span>3.5</span>#}
-{#                                </a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <span>3.0</span>#}
-{#                                </a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star"></i>#}
-{#                                    <i class="fas fa-star-half"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <i class="far fa-star"></i>#}
-{#                                    <span>2.5</span>#}
-{#                                </a>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </div>#}
-                    <!-- //reviews -->
-                    <!-- deals -->
-                    <!-- <div class="deal-leftmk left-side">
-						<h3 class="agileits-sear-head">Special Deals</h3>
-						<div class="row special-sec1">
-							<div class="col-xs-4 img-deals">
-								<img src="{% static 'browse/toys_shop/images/g1.jpg' %}" alt="" class="img-fluid">
-							</div>
-							<div class="col-xs-8 img-deal1">
-								<h3>toys(barbie)</h3>
-								<a href="single.html">$575.00</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="row special-sec1">
-							<div class="col-xs-4 img-deals">
-								<img src="{% static 'browse/toys_shop/images/g2.jpg' %}" alt="" class="img-fluid">
-							</div>
-							<div class="col-xs-8 img-deal1">
-								<h3>toy(todos)</h3>
-								<a href="single.html">$480.00</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="row special-sec1">
-							<div class="col-xs-4 img-deals">
-								<img src="{% static 'browse/toys_shop/images/g3.jpg' %}" alt="" class="img-fluid">
-							</div>
-							<div class="col-xs-8 img-deal1">
-								<h3>toys (Grey)</h3>
-								<a href="single.html">$165.00</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="row special-sec1">
-							<div class="col-xs-4 img-deals">
-								<img src="{% static 'browse/toys_shop/images/g2.jpg' %}" alt="" class="img-fluid">
-							</div>
-							<div class="col-xs-8 img-deal1">
-								<h3>Soft teddy </h3>
-								<a href="single.html">$225.00</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="row special-sec1">
-							<div class="col-xs-4 img-deals">
-								<img src="{% static 'browse/toys_shop/images/g4.jpg' %}" alt="" class="img-fluid">
-							</div>
-							<div class="col-xs-8 img-deal1">
-								<h3>pink bear</h3>
-								<a href="single.html">$169.00</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div> -->
-                    <!-- //deals -->
-                    {# Dummy Now                   #}
                 </div>
                 <div class="left-ads-display col-lg-9">
                     <div class="row">
@@ -335,10 +157,10 @@
                                                 <div class="grid_meta">
                                                     <div class="product_price">
                                                         <h4>
-                                                            <a href="/browse/item/">{{ item.name }}</a>
+                                                            <a href={{ item.url }}>{{ item.name }}</a>
                                                         </h4>
                                                         <div class="grid-price mt-2">
-                                                            <span class="money ">{{ item.price }}</span>
+                                                            <span class="money ">BDT {{ item.price }}</span>
                                                         </div>
                                                     </div>
                                                     <ul class="stars">
@@ -352,15 +174,30 @@
                                                     </ul>
                                                 </div>
                                                 <div class="toys single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <input type="hidden" name="cmd" value="_cart">
-                                                        <input type="hidden" name="add" value="1">
-                                                        <input type="hidden" name="toys_item" value="toys(barbie)">
-                                                        <input type="hidden" name="amount" value="575.00">
-                                                        <button type="submit" class="toys-cart ptoys-cart">
-                                                            <i class="fas fa-cart-plus"></i>
-                                                        </button>
-                                                    </form>
+                                                    {#                                                    <form action="#" method="post">#}
+                                                    {#                                                        <input type="hidden" name="cmd" value="_cart">#}
+                                                    {#                                                        <input type="hidden" name="add" value="1">#}
+                                                    {#                                                        <input type="hidden" name="toys_item" value="toys(barbie)">#}
+                                                    {#                                                        <input type="hidden" name="amount" value="575.00">#}
+                                                    {#                                                        <button type="submit" class="toys-cart ptoys-cart">#}
+                                                    {#                                                            <i class="fas fa-cart-plus"></i>#}
+                                                    {#                                                        </button>#}
+                                                    {#                                                    </form>#}
+                                                    <script>
+														function showsuccess() {
+															$.notify(name + " has been added to your cart.", {
+																position: "center",
+																autoHideDelay: 5000
+															});
+														}
+                                                    </script>
+                                                    <button href="#" data-pkg-id="{{ item.id }}"
+                                                            data-name="{{ item.name }}"
+                                                            data-price="{{ item.price }}"
+                                                            class="add-to-cart toys-cart ptoys-cart"
+                                                            onclick="showsuccess()">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>

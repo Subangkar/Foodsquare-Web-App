@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-	{% load static %}
-	<link rel="icon" type="image/png" href="{% static 'browse/toys_shop/images/icons/favicon.ico' %}"/>
-	<!--meta tags -->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords"
-	      content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'browse/toys_shop/images/icons/favicon.ico' %}"/>
+    <!--meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+          content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
-	<script>
+    <script>
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
 		}, false);
@@ -19,36 +18,37 @@
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
-	</script>
-	<!--//meta tags ends here-->
-	<!--booststrap-->
-	<link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">
-	<!--//booststrap end-->
-	<!-- font-awesome icons -->
-	<link href="{% static 'browse/toys_shop/css/fontawesome-all.min.css' %}" rel="stylesheet" type="text/css"
-	      media="all">
-	<!-- //font-awesome icons -->
-	<!-- For Clients slider -->
-	<link rel="stylesheet" href="{% static 'browse/toys_shop/css/flexslider.css' %}" type="text/css" media="all"/>
-	<!--flexs slider-->
-	<link href="{% static 'browse/toys_shop/css/JiSlider.css' %}" rel="stylesheet">
-	<!--Shoping cart-->
-	<link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css"/>
-	<!--//Shoping cart-->
-	<!--stylesheets-->
-	<link href="{% static 'browse/toys_shop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
-	<!--//stylesheets-->
+    </script>
+    <!--//meta tags ends here-->
+    <!--booststrap-->
+    <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">
+    <!--//booststrap end-->
+    <!-- font-awesome icons -->
+    <link href="{% static 'browse/toys_shop/css/fontawesome-all.min.css' %}" rel="stylesheet" type="text/css"
+          media="all">
+    <!-- //font-awesome icons -->
+    <!-- For Clients slider -->
+    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/flexslider.css' %}" type="text/css" media="all"/>
+    <!--flexs slider-->
+    <link href="{% static 'browse/toys_shop/css/JiSlider.css' %}" rel="stylesheet">
+    <!--Shoping cart-->
+    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css"/>
+    <!--//Shoping cart-->
+    <!--stylesheets-->
+    <link href="{% static 'browse/toys_shop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
+    <!--//stylesheets-->
 
 
-	<link href="{% static 'browse/toys_shop/index/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="{% static 'browse/toys_shop/index/js/jquery.min.js' %}"></script>
-	<!-- Custom Theme files -->
-	<link href="{% static 'browse/toys_shop/index/css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
-	<!-- Custom Theme files -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script
-			type="application/x-javascript"> addEventListener("load", function () {
+    <link href="{% static 'browse/toys_shop/index/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'browse/toys_shop/index/js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    <link href="{% static 'browse/toys_shop/index/css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script
+            type="application/x-javascript"> addEventListener("load", function () {
 		setTimeout(hideURLbar, 0);
 	}, false);
 
@@ -56,235 +56,219 @@
 		window.scrollTo(0, 1);
 	} </script>
 
-	<!--webfont-->
-	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-	      rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
-	      type='text/css'>
+    {#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
+    {#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <!--webfont-->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
+          rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
+          type='text/css'>
 
-	<!--Animation-->
-	<script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
-	<link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css'/>
-	<script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
+    <!--Animation-->
+    <script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
+    <link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css'/>
+    <script>
 		new WOW().init();
-	</script>
-	<script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
-	<script type="text/javascript">
+    </script>
+    <script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
+    <script type="text/javascript">
 		jQuery(document).ready(function ($) {
 			$(".scroll").click(function (event) {
 				event.preventDefault();
 				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
 			});
 		});
-	</script>
+    </script>
 
-	{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
-	<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+    {#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
 
-	<style>
-		.topBtn {
-			background-color: #000;
-			color: white;
-			padding: 16px;
-			font-size: 16px;
-			border: none;
-			cursor: pointer;
-		}
+    <style>
+        .topBtn {
+            background-color: #000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
 
-		.dropdown {
-			position: relative;
-			display: inline-block;
+        .dropdown {
+            position: relative;
+            display: inline-block;
 
-		}
+        }
 
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
-			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-		}
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
 
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-			width: 100%;
-		}
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
 
-		.dropdown-content a:hover {
-			background-color: #f1f1f1
-		}
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
 
-		.dropdown:hover .dropdown-content {
-			display: block;
-		}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-		.topBtn:hover {
-			/* background-color: #3e8e41; */
-			color: #f00;
-		}
-	</style>
-	{% block header %}
-	{% endblock %}
+        .topBtn:hover {
+            /* background-color: #3e8e41; */
+            color: #f00;
+        }
+    </style>
+    {% block header %}
+    {% endblock %}
 
-	<title>Foodsquare</title>
+    <title>Foodsquare</title>
 
 </head>
 
-<body>
+
 <div class="header-outs" id="home">
-	<div class="header-bar">
-		{#		<div class="info-top-grid">#}
-		{#			<div class="info-contact-agile">#}
-		{#				<ul>#}
-		{#					<li>#}
-		{#						<span class="fas fa-phone-volume"></span>#}
-		{#						<p>+(000)123 4565 32</p>#}
-		{#					</li>#}
-		{#					<li>#}
-		{#						<span class="fas fa-envelope"></span>#}
-		{#						<p><a href="mailto:info@example.com">info1@gmail.com</a></p>#}
-		{#					</li>#}
-		{#					<li>#}
-		{#					</li>#}
-		{#				</ul>#}
-		{#			</div>#}
-		{#		</div>#}
-		<div class="container-fluid">
-			<div class="hedder-up row">
-				<div class="col-lg-3 col-md-3 logo-head">
-					<a href="/">
-						<h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
-					</a>
-				</div>
-				<div style="width: 40%;">
-				</div>
-				<div class="col-lg-4 col-md-3 right-side-cart" align="right">
-					<div class="cart-icons">
-						<div style="float: right">
-							<form action="#" method="post" class="last">
-								<input type="hidden" name="cmd" value="_cart">
-								<input type="hidden" name="display" value="1">
-								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">
-									<span class="fas fa-cart-arrow-down"> Cart</span>
-								</button>
-							</form>
+    <div class="header-bar">
+        <div class="container-fluid">
+            <div class="hedder-up row">
+                <div class="col-lg-3 col-md-3 logo-head">
+                    <a href="/">
+                        <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
+                    </a>
+                </div>
+                <div style="width: 40%;">
+                </div>
+                <div class="col-lg-4 col-md-3 right-side-cart" align="right">
+                    <div class="cart-icons">
+                        <div style="float: right">
+                            {#							<form action="#" method="post" class="last">#}
+                            {#								<input type="hidden" name="cmd" value="_cart">#}
+                            {#								<input type="hidden" name="display" value="1">#}
+                            {#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
+                            {#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
+                            {#								</button>#}
+                            {#							</form>#}
+                            <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
+                                    data-target="#cart">
+                                <span class="fas fa-cart-arrow-down"> Cart (<span class="total-count"></span>)</span>
+                            </button>
 
-						</div>
+                        </div>
 
-						<div class="dropdown" style="float: right">
-							{% if not loggedIn %}
-								<button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
-								<div class="dropdown-content">
-									<a href={% url 'accounts:login' %}>Login</a>
-									<a href={% url 'accounts:register' %}>Register</a>
-								</div>
-							{% else %}
-								<button class="topBtn"><span
-										class="far fa-user"> {{ request.user.username|upper }}</span></button>
-								<div class="dropdown-content">
-									<a href="/customer/editProfile/">Profile</a>
-									<a href={% url 'accounts:logout' %}>Logout</a>
-								</div>
-							{% endif %}
-						</div>
-						{#						<ul>#}
-						{#							<li>#}
-						{#								<span class="far fa-heart"></span>#}
-						{#							</li>#}
-						{#							<li class="toyscart toyscart2 cart cart box_1">#}
-						{#								<form action="#" method="post" class="last">#}
-						{#									<input type="hidden" name="cmd" value="_cart">#}
-						{#									<input type="hidden" name="display" value="1">#}
-						{#									<button class="top_toys_cart" type="submit" name="submit" value="">#}
-						{#										<span class="fas fa-cart-arrow-down"></span>#}
-						{#									</button>#}
-						{#								</form>#}
-						{#							</li>#}
-						{#						</ul>#}
-					</div>
-				</div>
-			</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navbar-light">
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-			        data-target="#navbarSupportedContent"
-			        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-				<ul class="navbar-nav ">
-					<li class="nav-item active">
-						<a class="nav-link" href={% url 'browse:home' %}>Home <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a href={% url 'browse:restaurants' %} class="nav-link">Top Restaurants</a>
-					</li>
-					<li class="nav-item">
-						<a href={% url 'browse:package-list' %} class="nav-link">Order Now</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Product
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="nav-link" href="product.html">Kids Menu</a>
-							<a class="nav-link " href="product.html">Key Item</a>
-							<a class="nav-link " href="product.html">Beverage</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a href="service.html" class="nav-link">Service</a>
-					</li>
-					<li class="nav-item">
-						<a href="about.html" class="nav-link">About</a>
-					</li>
-					{#					{% if loggedIn %}#}
-					{#						<li class="nav-item">#}
-					{#							<a href="/accounts/profile/"#}
-					{#							   class="nav-link"><strong>{{ request.user.username }}</strong></a>#}
-					{#						</li>#}
-					{#						<li class="nav-item">#}
-					{#							<a href={% url 'accounts:logout' %} class="nav-link">Logout</a>#}
-					{#						</li>#}
-					{#					{% else %}#}
-					{#						<li class="nav-item">#}
-					{#							<a href={% url 'accounts:login' %} class="nav-link">Login</a>#}
-					{#						</li>#}
-					{#						<li class="nav-item">#}
-					{#							<a href={% url 'accounts:register' %} class="nav-link">Register</a>#}
-					{#						</li>#}
-					{#					{% endif %}#}
-					<li class="nav-item">
-						<a href="contact.html" class="nav-link">Contact</a>
-					</li>
-					<!-- <li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Pages
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="nav-link" href="icon.html">404 Page</a>
-							<a class="nav-link " href="typography.html">Typography</a>
-						</div>
-					</li> -->
-				</ul>
-			</div>
-		</nav>
-	</div>
-	{% block body-header %}
-	{% endblock body-header %}
+                        <div class="dropdown" style="float: right">
+                            {% if not loggedIn %}
+                                <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+                                <div class="dropdown-content">
+                                    <a href={% url 'accounts:login' %}>Login</a>
+                                    <a href={% url 'accounts:register' %}>Register</a>
+                                </div>
+                            {% else %}
+                                <button class="topBtn"><span
+                                        class="far fa-user"> {{ request.user.username|upper }}</span></button>
+                                <div class="dropdown-content">
+                                    <a href="/customer/editProfile/">Profile</a>
+                                    <a href={% url 'accounts:logout' %}>Logout</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                <ul class="navbar-nav ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href={% url 'browse:home' %}>Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href={% url 'browse:restaurants' %} class="nav-link">Top Restaurants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href={% url 'browse:package-list' %} class="nav-link">Order Now</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Product
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link" href="product.html">Kids Menu</a>
+                            <a class="nav-link " href="product.html">Key Item</a>
+                            <a class="nav-link " href="product.html">Beverage</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="service.html" class="nav-link">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    {% block body-header %}
+    {% endblock body-header %}
 </div>
 
+{% block shopping-cart %}
+
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true" style="padding-top: 100px;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
+
+                    </table>
+                    <div>Total price: $<span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-cart btn btn-danger" data-background-color="red">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#     Cart #}
+{% endblock %}
 
 {% block body-content %}
 {% endblock body-content %}
@@ -295,105 +279,105 @@
 
 <!--subscribe-address-->
 <section class="subscribe">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 col-md-6 map-info-right px-0">
-				<iframe
-						src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3150859.767904157!2d-96.62081048651531!3d39.536794757966845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1408111832978">
-				</iframe>
-			</div>
-			<div class="col-lg-6 col-md-6 address-w3l-right text-center">
-				<div class="address-gried ">
-					<span class="far fa-map"></span>
-					<p>25478 Road St.121<br>Uttara, Dhaka
-					<p>
-				</div>
-				<div class="address-gried mt-3">
-					<span class="fas fa-phone-volume"></span>
-					<p> +(880)1828 127 309<br>+(880)1552 392 227</p>
-				</div>
-				<div class=" address-gried mt-3">
-					<span class="far fa-envelope"></span>
-					<p><a href="mailto:info@example.com">info1@gmail.com</a>
-						<br><a href="mailto:info@example.com">info2@gmail.com</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 map-info-right px-0">
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3150859.767904157!2d-96.62081048651531!3d39.536794757966845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1408111832978">
+                </iframe>
+            </div>
+            <div class="col-lg-6 col-md-6 address-w3l-right text-center">
+                <div class="address-gried ">
+                    <span class="far fa-map"></span>
+                    <p>25478 Road St.121<br>Uttara, Dhaka
+                    <p>
+                </div>
+                <div class="address-gried mt-3">
+                    <span class="fas fa-phone-volume"></span>
+                    <p> +(880)1828 127 309<br>+(880)1552 392 227</p>
+                </div>
+                <div class=" address-gried mt-3">
+                    <span class="far fa-envelope"></span>
+                    <p><a href="mailto:info@example.com">info1@gmail.com</a>
+                        <br><a href="mailto:info@example.com">info2@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!--//subscribe-address-->
 <!-- <section class="sub-below-address py-lg-4 py-md-3 py-sm-3 py-3"> -->
 <div class="index-contact-section" id="contact">
-	<div class="container">
-		<div class="index-contact-section-grids">
-			<div class="col-md-3 index-contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
-				<h4>Site Links</h4>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">About Us</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Contact Us</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Privacy Policy</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Terms of Use</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 index-contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
-				<h4>Site Links</h4>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">About Us</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Contact Us</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Privacy Policy</a></li>
-				</ul>
-				<ul>
-					<li><i class="point"></i></li>
-					<li class="data"><a href="#">Terms of Use</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 index-contact-section-grid wow fadeInRight" data-wow-delay="0.4s">
-				<h4>Follow Us On...</h4>
-				<ul>
-					<li><i class="fb"></i></li>
-					<li class="data"><a href="#"> Facebook</a></li>
-				</ul>
-				<ul>
-					<li><i class="tw"></i></li>
-					<li class="data"><a href="#">Twitter</a></li>
-				</ul>
-				<ul>
-					<li><i class="in"></i></li>
-					<li class="data"><a href="#"> Linkedin</a></li>
-				</ul>
-				<ul>
-					<li><i class="gp"></i></li>
-					<li class="data"><a href="#">Google Plus</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 index-contact-section-grid nth-grid wow fadeInRight" data-wow-delay="0.4s">
-				<h4>Subscribe Newsletter</h4>
-				<p>To get latest updates and food deals every week</p>
-				<input type="text" class="text" value="" onfocus="this.value = '';"
-				       onblur="if (this.value == '') {this.value = '';}">
-				<input type="submit" value="submit">
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="index-contact-section-grids">
+            <div class="col-md-3 index-contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
+                <h4>Site Links</h4>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">About Us</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Contact Us</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 index-contact-section-grid wow fadeInLeft" data-wow-delay="0.4s">
+                <h4>Site Links</h4>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">About Us</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Contact Us</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <ul>
+                    <li><i class="point"></i></li>
+                    <li class="data"><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 index-contact-section-grid wow fadeInRight" data-wow-delay="0.4s">
+                <h4>Follow Us On...</h4>
+                <ul>
+                    <li><i class="fb"></i></li>
+                    <li class="data"><a href="#"> Facebook</a></li>
+                </ul>
+                <ul>
+                    <li><i class="tw"></i></li>
+                    <li class="data"><a href="#">Twitter</a></li>
+                </ul>
+                <ul>
+                    <li><i class="in"></i></li>
+                    <li class="data"><a href="#"> Linkedin</a></li>
+                </ul>
+                <ul>
+                    <li><i class="gp"></i></li>
+                    <li class="data"><a href="#">Google Plus</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 index-contact-section-grid nth-grid wow fadeInRight" data-wow-delay="0.4s">
+                <h4>Subscribe Newsletter</h4>
+                <p>To get latest updates and food deals every week</p>
+                <input type="text" class="text" value="" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = '';}">
+                <input type="submit" value="submit">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 </div>
 <!-- </section> -->
 <!--//subscribe-->
@@ -401,56 +385,60 @@
 
 <!-- footer -->
 <footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
-	<div class="copy-agile-right">
-		<!-- <p>
+    <div class="copy-agile-right">
+        <!-- <p>
 			© 2018 Toys-Shop. All Rights Reserved | Design by <a href="http://www.W3Layouts.com"
-			                                                     target="_blank">W3Layouts</a>
+																 target="_blank">W3Layouts</a>
 		</p> -->
-	</div>
+    </div>
 </footer>
 <!-- //footer -->
 <!-- Modal 1-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="register-form">
-					<form action="#" method="post">
-						<div class="fields-grid">
-							<div class="styled-input">
-								<input type="text" placeholder="Your Name" name="Your Name" required="">
-							</div>
-							<div class="styled-input">
-								<input type="email" placeholder="Your Email" name="Your Email" required="">
-							</div>
-							<div class="styled-input">
-								<input type="password" placeholder="password" name="password" required="">
-							</div>
-							<button type="submit" class="btn subscrib-btnn">Login</button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="register-form">
+                    <form action="#" method="post">
+                        <div class="fields-grid">
+                            <div class="styled-input">
+                                <input type="text" placeholder="Your Name" name="Your Name" required="">
+                            </div>
+                            <div class="styled-input">
+                                <input type="email" placeholder="Your Email" name="Your Email" required="">
+                            </div>
+                            <div class="styled-input">
+                                <input type="password" placeholder="password" name="password" required="">
+                            </div>
+                            <button type="submit" class="btn subscrib-btnn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- //Modal 1-->
 
 {% block body-js %}
-	<!--bootstrap working-->
-	<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
-	{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
-	<!-- //bootstrap working-->
+    {#Cart#}
+{#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
+    <script src="{% static 'browse/js/cart.js' %}"></script>
+    {#Cart#}
+    <!--bootstrap working-->
+    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+    {#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+    <!-- //bootstrap working-->
 {% endblock %}
 </body>
 
