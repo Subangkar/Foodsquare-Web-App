@@ -143,12 +143,13 @@ var shoppingCart = (function () {
 // Add item
 $('.add-to-cart').click(function (event) {
 	event.preventDefault();
-	var id = $(this).data('pkg-id');
+	var pkg_id = $(this).data('pkg-id');
+	var rest_id = $(this).data('restaurant-id');
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
 	shoppingCart.addItemToCart(name, price, 1);
 	displayCart();
-	// $.notify(name + " has been added to your cart.", {position: "center", autoHideDelay: 5000});
+	showNotification(name);
 });
 
 // Clear items
@@ -161,17 +162,26 @@ $('.clear-cart').click(function () {
 function displayCart() {
 	var cartArray = shoppingCart.listCart();
 	var output = "";
-	for (var i in cartArray) {
-		output += "<tr>"
-			+ "<td>" + cartArray[i].name + "</td>"
-			+ "<td>(" + cartArray[i].price + ")</td>"
+	if (shoppingCart.totalCount() === 0) {
+		output = "<h3>" + "Your Shopping cart is empty" + "<h3>";
+		document.getElementById("cart-checkout-button").disabled = true;
+		document.getElementById("cart-clear-button").disabled = true;
+	} else {
+		document.getElementById("cart-checkout-button").disabled = false;
+		document.getElementById("cart-clear-button").disabled = false;
+		for (var i in cartArray) {
+			console.log(cartArray[i]);
+			output += "<tr>"
+				+ "<td>" + cartArray[i].name + "</td>"
+				+ "<td>(" + cartArray[i].price + ")</td>"
 			+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>"
 			+ "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>"
 			+ "<button class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>"
 			+ "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>"
 			+ " = "
-			+ "<td>" + cartArray[i].total + "</td>"
-			+ "</tr>";
+				+ "<td>" + cartArray[i].total + "</td>"
+				+ "</tr>";
+		}
 	}
 	$('.show-cart').html(output);
 	$('.total-cart').html(shoppingCart.totalCart());

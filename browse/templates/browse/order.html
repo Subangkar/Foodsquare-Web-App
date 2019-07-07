@@ -144,10 +144,10 @@
                                 <div class="product-toys-info">
                                     <div class="men-pro-item">
                                         <div class="men-thumb-item">
-                                            <img src="/media/{{ item.img }}" class="img-thumbnail img-fluid" alt="">
+                                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
                                             <div class="men-cart-pro">
                                                 <div class="inner-men-cart-pro">
-                                                    <a href={{ item.url }} class="link-product-add-cart">Quick View</a>
+                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick View</a>
                                                 </div>
                                             </div>
                                             <span class="product-new-top">New</span>
@@ -157,14 +157,14 @@
                                                 <div class="grid_meta">
                                                     <div class="product_price">
                                                         <h4>
-                                                            <a href={{ item.url }}>{{ item.name }}</a>
+                                                            <a href={{ item.get_absolute_url }}>{{ item.pkg_name }}</a>
                                                         </h4>
                                                         <div class="grid-price mt-2">
                                                             <span class="money ">BDT {{ item.price }}</span>
                                                         </div>
                                                     </div>
                                                     <ul class="stars">
-                                                        {% for star in item.rating %}
+                                                        {% for star in rating %}
                                                             <li>
                                                                 <a href="#">
                                                                     <i class="fas fa-star"></i>
@@ -174,28 +174,19 @@
                                                     </ul>
                                                 </div>
                                                 <div class="toys single-item hvr-outline-out">
-                                                    {#                                                    <form action="#" method="post">#}
-                                                    {#                                                        <input type="hidden" name="cmd" value="_cart">#}
-                                                    {#                                                        <input type="hidden" name="add" value="1">#}
-                                                    {#                                                        <input type="hidden" name="toys_item" value="toys(barbie)">#}
-                                                    {#                                                        <input type="hidden" name="amount" value="575.00">#}
-                                                    {#                                                        <button type="submit" class="toys-cart ptoys-cart">#}
-                                                    {#                                                            <i class="fas fa-cart-plus"></i>#}
-                                                    {#                                                        </button>#}
-                                                    {#                                                    </form>#}
                                                     <script>
-														function showsuccess() {
-															$.notify(name + " has been added to your cart.", {
-																position: "center",
-																autoHideDelay: 5000
+														function showNotification(name, timeout=5000) {
+															$.notify(name + " has been added to your cart.", "success", {
+																position: "right",
+																autoHideDelay: timeout
 															});
 														}
                                                     </script>
                                                     <button href="#" data-pkg-id="{{ item.id }}"
-                                                            data-name="{{ item.name }}"
+                                                            data-name="{{ item.pkg_name }}"
                                                             data-price="{{ item.price }}"
-                                                            class="add-to-cart toys-cart ptoys-cart"
-                                                            onclick="showsuccess()">
+                                                            data-restaurant-id="{{ item.restaurant.id }}"
+                                                            class="add-to-cart toys-cart ptoys-cart">
                                                         <i class="fas fa-cart-plus"></i>
                                                     </button>
                                                 </div>

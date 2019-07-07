@@ -2,7 +2,7 @@
 
 {% block header %}
 	{% load static %}
-	<title>Foodsquare | View Item Details</title>
+	<title>Foodsquare | View Package Details</title>
 {% endblock %}
 
 {% block body-content %}
@@ -21,8 +21,8 @@
 										{#											                              data-imagezoom="true" class="img-fluid"#}
 										{#											                              alt=" "></div>#}
 										{#										</li>#}
-										<li data-thumb="/media/{{ item.img }}">
-											<div class="thumb-image"><img src="/media/{{ item.img }}"
+										<li data-thumb="/media/{{ item.image }}">
+											<div class="thumb-image"><img src="/media/{{ item.image }}"
 											                              data-imagezoom="true" class="img-fluid"
 											                              alt=" "></div>
 										</li>
@@ -33,14 +33,14 @@
 						</div>
 					</div>
 					<div class="col-lg-8 single-right-left simpleCart_shelfItem">
-						<h3>{{ item.name }}</h3>
-                        <h4>{{ item.rest_name }}</h4>
-						<p><span class="item_price">{{ item.price }}</span>
+						<h3>{{ item.pkg_name }}</h3>
+                        <h4>{{ item.restaurant.restaurant_name }}</h4>
+						<p><span class="item_price">BDT {{ item.price }}</span>
 							<del>{{ item.price }}</del>
 						</p>
 						<div class="rating1">
 							<ul class="stars">
-								{% for i in item.rating %}
+								{% for i in rating %}
 									<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
 								{% endfor %}
 
@@ -144,17 +144,17 @@
 								<!--/tab_one-->
 								<div class="tab1">
 									<div class="single_page">
-										<h6>{{ item.name }}</h6>
-										<p class="para">{{ item.desc }}</p>
+										<h6>{{ item.pkg_name }}</h6>
+										<p class="para">{{ item.details }}</p>
 									</div>
 								</div>
 								<!--//tab_one-->
 								{# Ingredients #}
 								<div class="tab3">
 									<div class="single_page">
-										<h6>{{ item.name }}</h6>
+										<h6>{{ item.pkg_name }}</h6>
 										<ul>
-											{% for ing in item.ing_list %}
+											{% for ing in ing_list %}
 												<li>{{ ing }}</li>
 											{% endfor %}
 										</ul>
@@ -211,6 +211,10 @@
 {% endblock %}
 
 {% block body-js %}
+    {#Cart#}
+{#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
+    <script src="{% static 'browse/js/cart.js' %}"></script>
+    {#Cart#}
 	<!--jQuery-->
 	<script src="{% static '/browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
 	<!-- newsletter modal -->

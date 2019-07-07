@@ -32,21 +32,6 @@ class Index(TemplateView):
 		return ctx
 
 
-class pkg_t:
-	def __init__(self, name='', img='', price=0, rating='', url='/', ing_list=None, desc='', rest_name='', id=0):
-		if ing_list is None:
-			ing_list = []
-		self.name = name
-		self.img = img
-		self.price = price
-		self.rating = range(int(rating))
-		self.url = url
-		self.ing_list = ing_list
-		self.desc = desc
-		self.rest_name = rest_name
-		self.id = id
-
-
 class Order(TemplateView):
 	template_name = 'browse/order.html'
 
@@ -55,19 +40,10 @@ class Order(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		entry_name = self.request.GET.get('menu_search')
 		price_range = self.request.GET.get('range')
-		pkg_list = [
-			pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5', url=pkgobj.get_absolute_url(),
-			      id=pkgobj.id)
-			for pkgobj in Package.objects.all()]
+		pkg_list = Package.objects.all()
 		if entry_name is not None:
-			print(entry_name)
-			print(str(price_range))
 			minprice = (float(str(price_range).split('-')[0].strip()[1:]))
 			maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
-			# print(str(price_range).split('-')[0].strip()[1:], end='<<\n')
-			# print(str(price_range).split('-')[1].strip()[1:], end='<<\n')
-			print(minprice)
-			print(maxprice)
 			queryset2 = [ingobj.pack_id for ingobj in
 			             IngredientList.objects.filter(ingr_id__name__icontains=entry_name)]
 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
@@ -80,13 +56,8 @@ class Order(TemplateView):
 			for x in result_list:
 				if minprice <= x.price <= maxprice:
 					filtered_result.append(x)
-			pkg_list = [
-				pkg_t(name=pkgobj.pkg_name, img=pkgobj.image, price=pkgobj.price, rating='5',
-				      url=pkgobj.get_absolute_url(),
-				      rest_name=pkgobj.restaurant.restaurant_name, id=pkgobj.id)
-				for pkgobj in filtered_result]
-		# print(pkg_list[0].rest_name)
-		ctx = {'loggedIn': False, 'item_list': pkg_list}
+			pkg_list = filtered_result
+		ctx = {'loggedIn': False, 'item_list': pkg_list, 'rating': range(5)}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
@@ -105,14 +76,10 @@ class PackageDetails(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
-		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=id)]
-		print(pkg.get_absolute_url())
-		pkg = pkg_t(name=pkg.pkg_name, price=pkg.price, img=pkg.image, rating='5', ing_list=ing_list,
-		            desc=pkg.details,
-		            url=pkg.get_absolute_url(), rest_name=pkg.restaurant.restaurant_name, id=pkg.id)
-		# ing_list = list(IngredientList.objects.all().filter(pack_id=id).values('ingr_id'))
-		# print(pkg.get_absolute_url())
-		ctx = {'loggedIn': False, 'item': pkg, 'item_img': [pkg.img]}
+		# print(IngredientList.objects.select_related('ingr_id').filter(id))
+		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		# # ing_list = list(IngredientList.objects.all().filter(pack_id=id).values('ingr_id'))
+		ctx = {'loggedIn': False, 'item': pkg, 'item_img': [pkg.image], 'ing_list': ing_list, 'rating': range(5)}
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
