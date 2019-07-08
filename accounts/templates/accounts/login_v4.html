@@ -1,10 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% if not loggedIn %}
         <title>Login V4</title>
         <meta charset="UTF-8">
-        {% load static %}
         {% load socialaccount %}
         {% providers_media_js %}
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,11 +88,11 @@
 
                     <div class="flex-c-m">
                         <a href={% provider_login_url "facebook" method="js_sdk" %}  class="login100-social-item bg1">
-                            <i class="fa fa-facebook"></i>
+                        <i class="fa fa-facebook"></i>
                         </a>
 
                         <a href={% provider_login_url "google" method="js_sdk" %}  class="login100-social-item bg3">
-                            <i class="fa fa-google"></i>
+                        <i class="fa fa-google"></i>
                         </a>
                     </div>
 

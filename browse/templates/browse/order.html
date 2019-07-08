@@ -1,7 +1,7 @@
 {% extends 'browse/base-banner.html' %}
+{% load static %}
 
 {% block header %}
-    {% load static %}
     <title>Foodsquare | Order</title>
 
     <!--price range-->
@@ -11,17 +11,6 @@
 
 
 {% block body-js %}
-    <!--js working-->
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-    <!--//js working-->
-    {#    Notification - Did not work#}
-    <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
-    {#    Notification#}
-    {#Cart#}
-    {#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
-    <script type="text/javascript" src="{% static 'browse/js/cart.js' %}"></script>
-    {#Cart#}
-    {#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
     <!-- price range (top products) -->
     <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
     <script>
@@ -78,7 +67,6 @@
 {% endblock %}
 
 {% block body-content %}
-    {#	{% load static %}#}
     <!-- short -->
     <div class="using-border py-3">
         <div class="inner_breadcrumb  ml-4">
@@ -147,7 +135,8 @@
                                             <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
                                             <div class="men-cart-pro">
                                                 <div class="inner-men-cart-pro">
-                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick View</a>
+                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                        View</a>
                                                 </div>
                                             </div>
                                             <span class="product-new-top">New</span>
@@ -174,14 +163,6 @@
                                                     </ul>
                                                 </div>
                                                 <div class="toys single-item hvr-outline-out">
-                                                    <script>
-														function showNotification(name, timeout=5000) {
-															$.notify(name + " has been added to your cart.", "success", {
-																position: "right",
-																autoHideDelay: timeout
-															});
-														}
-                                                    </script>
                                                     <button href="#" data-id="{{ item.id }}"
                                                             data-name="{{ item.pkg_name }}"
                                                             data-price="{{ item.price }}"

@@ -1,7 +1,7 @@
 {% extends 'browse/base.html' %}
+{% load static %}
 
 {% block header %}
-    {% load static %}
 
     <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}"/>
     <script src="{% static 'browse/js/awesomplete.js' %}" async></script>
@@ -534,13 +534,6 @@
 {% endblock %}
 
 {% block body-js %}
-    <!--js working-->
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-    <!--//js working-->
-    {#Cart#}
-{#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
-    <script type="text/javascript" src="{% static 'browse/js/cart.js' %}"></script>
-    {#Cart#}
     <!--responsiveslides banner-->
     <script src="{% static 'browse/toys_shop/js/responsiveslides.min.js' %}"></script>
     <script>

@@ -1,8 +1,9 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-    {% load static %}
     <link rel="icon" type="image/png" href="{% static 'browse/toys_shop/images/icons/favicon.ico' %}"/>
     <!--meta tags -->
     <meta charset="UTF-8">
@@ -139,13 +140,12 @@
         }
     </style>
     {% block header %}
+        <title>Foodsquare</title>
     {% endblock %}
-
-    <title>Foodsquare</title>
 
 </head>
 
-
+<body>
 <div class="header-outs" id="home">
     <div class="header-bar">
         <div class="container-fluid">
@@ -257,7 +257,7 @@
                     <table class="show-cart table">
 
                     </table>
-                    <div>Total price: $<span class="total-cart"></span></div>
+                    <div align="right">Total price: BDT <span class="total-cart"></span></div>
                 </div>
                 <div class="modal-footer">
                     <button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
@@ -267,7 +267,6 @@
             </div>
         </div>
     </div>
-    {#     Cart #}
 {% endblock %}
 
 {% block body-content %}
@@ -430,16 +429,49 @@
 </div>
 <!-- //Modal 1-->
 
+{#{% block base-body-js %}#}
+{#   ------------------------------ javascripts ----------------------------------- #}
+
+<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+{#    Notification #}
+<script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+{#    Notification#}
+<script>
+	function showSuccessNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "success", {
+			position: "right",
+			autoHideDelay: timeout
+		});
+	}
+	function showFailureNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "error", {
+			position: "right",
+			autoHideDelay: timeout
+		});
+	}
+	function showWarningNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "warn", {
+			position: "right",
+			autoHideDelay: timeout
+		});
+	}
+</script>
+
+{#    Cart#}
+<link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
+<script src="{% static 'browse/js/cart.js' %}"></script>
+{#    Cart#}
+<!--bootstrap working-->
+<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+<!-- //bootstrap working-->
+{#   ------------------------------ javascripts ----------------------------------- #}
+
+{#{% endblock %}#}
+
 {% block body-js %}
-    {#Cart#}
-{#    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>#}
-    <script src="{% static 'browse/js/cart.js' %}"></script>
-    {#Cart#}
-    <!--bootstrap working-->
-    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
-    {#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
-    <!-- //bootstrap working-->
 {% endblock %}
+
 </body>
 
 </html>

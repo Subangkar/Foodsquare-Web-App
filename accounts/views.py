@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 # Create your views here.
 from django.views.generic import TemplateView
@@ -52,10 +52,12 @@ class LoginView(TemplateView):
 				login(request, user)
 				print('Signing in: ' + str(request.user))
 				return redirect('/')
+			elif user is None:
+				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+				# return JsonResponse({'account': False})
 			elif not user.is_customer:
 				return HttpResponse('Not a Customer account')
-			else:
-				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+				# return JsonResponse({'account': True, 'customer': False})
 		else:
 			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
 

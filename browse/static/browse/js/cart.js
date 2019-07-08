@@ -151,7 +151,7 @@ $('.add-to-cart').click(function (event) {
 	var price = Number($(this).data('price'));
 	shoppingCart.addItemToCart(id, price, 1, name, rest_id);
 	displayCart();
-	showNotification(name);
+	showSuccessNotification(name);
 });
 
 // Clear items
