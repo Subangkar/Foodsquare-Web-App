@@ -112,8 +112,38 @@ class checkoutView(TemplateView):
 			return
 
 
-class RestaurantList(ListView):
+class RestaurantList(TemplateView):
 	template_name = 'browse/restaurants.html'
-	queryset = Restaurant.objects.exclude(restaurant_key='0')
-	context_object_name = 'restaurants'
-# print(queryset)
+
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
+		entry_name = self.request.GET.get('menu_search')
+		price_range = self.request.GET.get('range')
+		rest_list = [ Restaurant.objects.exclude(restaurant_key='0')]
+
+		ctx = {'loggedIn': False, 'restaurants': rest_list}
+		if self.request.user.is_authenticated:
+			ctx['loggedIn'] = True
+		return ctx
+
+
+class RestaurantDetails(TemplateView):
+	template_name = 'browse/restaurant_home.html'
+
+
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
+		# entry_name = self.request.GET.get('menu_search')
+		# price_range = self.request.GET.get('range')
+		rest = Restaurant.objects.get(id = kwargs['id'])
+
+		pkg_list =list( Package.objects.filter(restaurant = rest) )
+		print(pkg_list)
+		ctx = {'loggedIn': False, 'item_list': pkg_list, 'restaurant': rest}
+		if self.request.user.is_authenticated:
+			ctx['loggedIn'] = True
+		return ctx

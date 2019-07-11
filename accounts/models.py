@@ -45,7 +45,7 @@ class Restaurant(models.Model):
 		return self.restaurant_name + " "
 
 	def get_absolute_url(self):
-		return reverse("Restaurant_detail", kwargs={"id": self.pk})
+		return reverse("browse:restaurant_detail", kwargs={"id": self.pk})
 
 
 class RestaurantBranch(models.Model):
