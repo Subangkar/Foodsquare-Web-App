@@ -1,7 +1,8 @@
 {% extends 'browse/base-banner.html' %}
+{% load static %}
 
 {% block header %}
-    {% load static %}
+
     <title>Foodsquare | Checkout</title>
 
     <!--price range-->
@@ -30,133 +31,8 @@
 {% endblock %}
 
 
-{% block body-js %}
-    {#	{% load static %}#}
-
-    <!-- //Modal 1-->
-    <!--js working-->
-    <!--//js working-->
-    <!-- cart-js -->
-    <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
-    <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    <!--bootstrap working-->
-    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
-    <script>
-		$(function () {
-			var creditly = Creditly.initialize(
-				'.creditly-wrapper .expiration-month-and-year',
-				'.creditly-wrapper .credit-card-number',
-				'.creditly-wrapper .security-code',
-				'.creditly-wrapper .card-type');
-
-			$(".creditly-card-form .submit").click(function (e) {
-				e.preventDefault();
-				var output = creditly.validate();
-				if (output) {
-					// Your validated credit card output
-					console.log(output);
-				}
-			});
-		});
-    </script>
-    <!-- //credit-card -->
-    <!-- start-smoth-scrolling -->
-
-
-    <script>
-		$(document).ready(function () {
-			$('#horizontalTab').easyResponsiveTabs({
-				type: 'default', //Types: default, vertical, accordion
-				width: 'auto', //auto or any width like 600px
-				fit: true, // 100% fit in a container
-				closed: 'accordion', // Start closed if in accordion view
-				activate: function (event) { // Callback function if tab is switched
-					var $tab = $(this);
-					var $info = $('#tabInfo');
-					var $name = $('span', $info);
-					$name.text($tab.text());
-					$info.show();
-				}
-			});
-			$('#verticalTab').easyResponsiveTabs({
-				type: 'vertical',
-				width: 'auto',
-				fit: true
-			});
-		});
-    </script>
-
-    <!--//js working-->
-    <!--closed-->
-    <script>
-		$(document).ready(function (c) {
-			$('.close1').on('click', function (c) {
-				$('.rem1').fadeOut('slow', function (c) {
-					$('.rem1').remove();
-				});
-			});
-		});
-    </script>
-    <script>
-		$(document).ready(function (c) {
-			$('.close2').on('click', function (c) {
-				$('.rem2').fadeOut('slow', function (c) {
-					$('.rem2').remove();
-				});
-			});
-		});
-    </script>
-    <script>
-		$(document).ready(function (c) {
-			$('.close3').on('click', function (c) {
-				$('.rem3').fadeOut('slow', function (c) {
-					$('.rem3').remove();
-				});
-			});
-		});
-    </script>
-    <!--//closed-->
-
-    <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
-    </script>
-    <!-- start-smoth-scrolling -->
-    <!-- here stars scrolling icon -->
-    <script>
-		$(document).ready(function () {
-
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
-		});
-    </script>
-    <!-- //here ends scrolling icon -->
-
-    <!-- //bootstrap working-->
-    <!-- //here ends scrolling icon -->
-{% endblock %}
-
 {% block body-content %}
-    {#	{% load static %}#}
+
     <div class="using-border py-3">
         <div class="inner_breadcrumb  ml-4">
             <ul class="short_ls">
@@ -180,148 +56,61 @@
                 <div class="privacy about" style="display: flex; border: 5px">
 
 
-                    <div class="checkout-right">
+                    <div class="checkout-right" id="checkout-form-div">
                         <table class=" timetable_sub">
                             <thead>
                             <tr>
-                                <th>SL No.</th>
-                                <th>Product</th>
-                                <th>Quality</th>
-                                <th>Product Name</th>
+                                <th>ID No.</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                {#                                <th>Product Name</th>#}
                                 <th>Price</th>
                                 <th>Remove</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            {% for element in elements %}
-                                <tr class="rem1">
-                                    <td class="invert">{{ element.pkg.id }}</td>
-                                    <td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img
-                                            src="/media/{{ element.pkg.image }}" alt=""
-                                            class="img-responsive"></a></td>
-                                    <td class="invert">
-                                        <div class="quantity">
-                                            <div class="quantity-select">
-                                                <div class="entry value-minus">&nbsp;</div>
-                                                <div class="entry value"><span>{{ element.quantity }}</span></div>
-                                                <div class="entry value-plus active">&nbsp;</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="invert">{{ element.pkg.pkg_name }}</td>
-                                    <td class="invert">{{ element.pkg.price }}</td>
-                                    <td class="invert">
-                                        <div class="rem">
-                                            <div class="close1"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            {% endfor %}
-
-                            {#                            <tr class="rem1">#}
-                            {#                                <td class="invert">1</td>#}
-                            {#                                <td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img#}
-                            {#                                        src="{% static 'browse/toys_shop/images/f1.jpg' %}" alt=" "#}
-                            {#                                        class="img-responsive"></a></td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="quantity">#}
-                            {#                                        <div class="quantity-select">#}
-                            {#                                            <div class="entry value-minus">&nbsp;</div>#}
-                            {#                                            <div class="entry value"><span>1</span></div>#}
-                            {#                                            <div class="entry value-plus active">&nbsp;</div>#}
-                            {#                                        </div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                                <td class="invert">Bella Toes</td>#}
-                            {#                                <td class="invert">$675.00</td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="rem">#}
-                            {#                                        <div class="close1"></div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                            </tr>#}
-                            {#                            <tr class="rem2">#}
-                            {#                                <td class="invert">2</td>#}
-                            {#                                <td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img#}
-                            {#                                        src="{% static 'browse/toys_shop/images/f2.jpg' %}" alt=" "#}
-                            {#                                        class="img-responsive"></a></td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="quantity">#}
-                            {#                                        <div class="quantity-select">#}
-                            {#                                            <div class="entry value-minus">&nbsp;</div>#}
-                            {#                                            <div class="entry value"><span>1</span></div>#}
-                            {#                                            <div class="entry value-plus active">&nbsp;</div>#}
-                            {#                                        </div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                                <td class="invert">Red Bellies</td>#}
-                            {#                                <td class="invert">$325.00</td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="rem">#}
-                            {#                                        <div class="close2"></div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                            </tr>#}
-                            {#                            <tr class="rem3">#}
-                            {#                                <td class="invert">3</td>#}
-                            {#                                <td class="invert-image"><a href="{% static 'browse/toys_shop/single.html' %}"><img#}
-                            {#                                        src="{% static 'browse/toys_shop/images/f3.jpg' %}" alt=" "#}
-                            {#                                        class="img-responsive"></a></td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="quantity">#}
-                            {#                                        <div class="quantity-select">#}
-                            {#                                            <div class="entry value-minus">&nbsp;</div>#}
-                            {#                                            <div class="entry value"><span>1</span></div>#}
-                            {#                                            <div class="entry value-plus active">&nbsp;</div>#}
-                            {#                                        </div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                                <td class="invert">Chikku Loafers</td>#}
-                            {#                                <td class="invert">$405.00</td>#}
-                            {#                                <td class="invert">#}
-                            {#                                    <div class="rem">#}
-                            {#                                        <div class="close3"></div>#}
-                            {#                                    </div>#}
-                            {#                                </td>#}
-                            {#                            </tr>#}
+                            <tbody class="checkout-form" id="checkout-table-body">
                             </tbody>
                         </table>
 
-			<div style=" height: 10vh"><hr style="border: 2px dashed  "></div>
+                        <div style=" height: 10vh">
+                            <hr style="border: 2px dashed  ">
+                        </div>
 
-					<div>
-						<div class="contact-list-grid">
-							<h3>Delivery Address</h3>
-							<form id="infoForm" method="post">
-								<div>
-									<div class="form-group contact-forms" style="float: left; width:40%">
-										<input type="text" class="form-control" placeholder="House No">
-									</div>
-									<div class="form-group contact-forms" style="float: right; width:40%">
-										<input type="text" class="form-control" placeholder="Street/Road No">
-									</div>
+                        <div>
+                            <div class="contact-list-grid">
+                                <h3>Delivery Address</h3>
+                                <form id="infoForm" method="post">
+                                    <div>
+                                        <div class="form-group contact-forms" style="float: left; width:40%">
+                                            <input type="text" class="form-control" placeholder="House No">
+                                        </div>
+                                        <div class="form-group contact-forms" style="float: right; width:40%">
+                                            <input type="text" class="form-control" placeholder="Street/Road No">
+                                        </div>
 
-									<div class="form-group contact-forms" style="float: left; width:40%">
-										<input type="text" class="form-control" placeholder="(Optional) Block/Sector">
-									</div>
-									<div class="form-group contact-forms" style="float: right; width:40%">
-										<input type="text" class="form-control" placeholder="(Optional) Apartment No">
-									</div>
-									<div class="form-group contact-forms">
-										<input type="text" class="form-control" style="width: 50%"
-											placeholder="Area(e.g. New Market, Azimpur)">
-									</div>
-								</div>
-							</form>
-						</div>
+                                        <div class="form-group contact-forms" style="float: left; width:40%">
+                                            <input type="text" class="form-control"
+                                                   placeholder="(Optional) Block/Sector">
+                                        </div>
+                                        <div class="form-group contact-forms" style="float: right; width:40%">
+                                            <input type="text" class="form-control"
+                                                   placeholder="(Optional) Apartment No">
+                                        </div>
+                                        <div class="form-group contact-forms">
+                                            <input type="text" class="form-control" style="width: 50%"
+                                                   placeholder="Area(e.g. New Market, Azimpur)">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
 
                     </div>
-
-					</div>
-
-				</div>
-				<div style=" height: 10vh"><hr style="border: 2px  solid "></div>
+                </div>
+                <div style=" height: 10vh">
+                    <hr style="border: 2px  solid ">
+                </div>
 
                 <!-- <div style=" height: 10vh"></div> -->
 
@@ -348,12 +137,12 @@
                                                         <input type="checkbox" class="checkbox">
                                                         <span> We also accept Credit/Debit card on delivery. Please
 																Check with the agent.</span>
-														</label>
-													</div>
-												</div>
-												<div class="pay_info">
-													<input type="submit" value="Make your payment"></input>
-												</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="pay_info">
+                                                <input type="submit" value="Make your payment"></input>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -508,10 +297,10 @@
                 </div>
 
 
-				</div>
-			</div>
-
             </div>
+        </div>
+
+        </div>
         </div>
 
         </div> <!-- //top products -->
@@ -519,3 +308,196 @@
     </section>
     <!-- //show Now-->
 {% endblock %}
+
+{% block body-js %}
+    <script type="text/javascript">
+
+		function displayCheckout() {
+			var cartArray = shoppingCart.listCart();
+			var output = "";
+			var format = ['rem1', 'rem2', 'rem3'];
+			j = 0;
+			{#output += cartArray[0].rest_id;#}
+			for (var i in cartArray) {
+				console.log(">> " + cartArray[i]);
+				{#output += "<tr>"#}
+				{#	+ "<td>" + cartArray[i].id + "</td>"#}
+				{#	+ "<td>" + cartArray[i].name + "</td>"#}
+				{#	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"#}
+				{#	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"#}
+				{#	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"#}
+				{#	+ "<td>" + cartArray[i].total + "</td>"#}
+				{#	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"#}
+				{#	+ "</tr>";#}
+				output += '<tr class=' + format[j % 3] + '>'
+					+ '<td class="invert">' + cartArray[i].id + '</td>'
+					{#+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'#}
+					+ '<td class="invert">' + cartArray[i].name + '</td>'
+					+ '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
+					+ '<td class="invert">' + cartArray[i].price + '</td>'
+					{#+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"#}
+					+ '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
+					+ '</tr>';
+				j++;
+			}
+			$('.checkout-form').html(output);
+		}
+
+		$('.checkout-form').on("click", ".close1", function (event) {
+			console.log(">> delete >");
+			var id = $(this).data('id');
+			shoppingCart.removeItemFromCartAll(id);
+			displayCheckout();
+			displayCart();
+		});
+
+		// -1
+		$('.checkout-form').on("click", ".value-minus", function (event) {
+			var id = $(this).data('id');
+			shoppingCart.removeItemFromCart(id);
+			displayCheckout();
+			displayCart();
+		});
+		// +1
+		$('.checkout-form').on("click", ".value-plus", function (event) {
+			var id = $(this).data('id');
+			shoppingCart.addItemToCart(id);
+			displayCheckout();
+			displayCart();
+		});
+
+		// Item count input
+		$('.show-cart').on("change", ".item-count", function (event) {
+			var id = $(this).data('id');
+			var count = Number($(this).val());
+			shoppingCart.setCountForItem(id, count);
+			displayCheckout();
+			displayCart();
+		});
+
+		displayCheckout();
+		{#document.getElementById('checkout-table-body').innerHTML = output;#}
+		{#oQuickReply.swap('checkout-form-div');#}
+    </script>
+    <!-- //Modal 1-->
+    <!--js working-->
+    <!--//js working-->
+    <!-- cart-js -->
+    <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
+    <script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
+    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+    <script src="{% static 'browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
+    <!-- start-smoth-scrolling -->
+    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+    <!--bootstrap working-->
+    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+    <script>
+		$(function () {
+			var creditly = Creditly.initialize(
+				'.creditly-wrapper .expiration-month-and-year',
+				'.creditly-wrapper .credit-card-number',
+				'.creditly-wrapper .security-code',
+				'.creditly-wrapper .card-type');
+
+			$(".creditly-card-form .submit").click(function (e) {
+				e.preventDefault();
+				var output = creditly.validate();
+				if (output) {
+					// Your validated credit card output
+					console.log(output);
+				}
+			});
+		});
+    </script>
+    <!-- //credit-card -->
+    <!-- start-smoth-scrolling -->
+
+
+    <script>
+		$(document).ready(function () {
+			$('#horizontalTab').easyResponsiveTabs({
+				type: 'default', //Types: default, vertical, accordion
+				width: 'auto', //auto or any width like 600px
+				fit: true, // 100% fit in a container
+				closed: 'accordion', // Start closed if in accordion view
+				activate: function (event) { // Callback function if tab is switched
+					var $tab = $(this);
+					var $info = $('#tabInfo');
+					var $name = $('span', $info);
+					$name.text($tab.text());
+					$info.show();
+				}
+			});
+			$('#verticalTab').easyResponsiveTabs({
+				type: 'vertical',
+				width: 'auto',
+				fit: true
+			});
+		});
+    </script>
+
+    <!--//js working-->
+    <!--closed-->
+    <script>
+		$(document).ready(function (c) {
+			$('.close1').on('click', function (c) {
+				$('.rem1').fadeOut('slow', function (c) {
+					$('.rem1').remove();
+				});
+			});
+		});
+    </script>
+    <script>
+		$(document).ready(function (c) {
+			$('.close2').on('click', function (c) {
+				$('.rem2').fadeOut('slow', function (c) {
+					$('.rem2').remove();
+				});
+			});
+		});
+    </script>
+    <script>
+		$(document).ready(function (c) {
+			$('.close3').on('click', function (c) {
+				$('.rem3').fadeOut('slow', function (c) {
+					$('.rem3').remove();
+				});
+			});
+		});
+    </script>
+    <!--//closed-->
+
+    <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- here stars scrolling icon -->
+    <script>
+		$(document).ready(function () {
+
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+		});
+    </script>
+    <!-- //here ends scrolling icon -->
+
+    <!-- //bootstrap working-->
+    <!-- //here ends scrolling icon -->
+{% endblock %}
+
