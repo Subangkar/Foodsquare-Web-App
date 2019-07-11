@@ -8,14 +8,14 @@
 <html lang="en">
 
 <head>
-	<title>Cafe In Restaurant Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
-	{% load static %}
-	<!-- Meta tag Keywords -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="keywords" content="Cafe In Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-	<script type="application/x-javascript">
+    <title>Cafe In Restaurant Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
+    {% load static %}
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Cafe In Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script type="application/x-javascript">
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
 		}, false);
@@ -23,29 +23,29 @@
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
-	</script>
+    </script>
 
-	<link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css" />
-	<link href="{% static 'browse/toys_shop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
+    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css"/>
+    <link href="{% static 'browse/toys_shop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
 
-	<!--// Meta tag Keywords -->
+    <!--// Meta tag Keywords -->
 
-	<!-- css files -->
-	<link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/bootstrap.css' %}">
-	<!-- Bootstrap-Core-CSS -->
-	<link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/style.css' %}" type="text/css" media="all" />
-	<!-- Style-CSS -->
-	<link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/fontawesome-all.css' %}">
-	<!-- Font-Awesome-Icons-CSS -->
-	<!-- //css files -->
+    <!-- css files -->
+    <link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/bootstrap.css' %}">
+    <!-- Bootstrap-Core-CSS -->
+    <link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/style.css' %}" type="text/css" media="all"/>
+    <!-- Style-CSS -->
+    <link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/fontawesome-all.css' %}">
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
 
-	<link href="{% static 'browse/Restaurant_homepage/css/prettyPhoto.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'browse/Restaurant_homepage/css/prettyPhoto.css' %}" rel="stylesheet" type="text/css"/>
 
-	<!-- web-fonts -->
-	<link
-		href="//fonts.googleapis.com/css?family=Alegreya+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
-		rel="stylesheet">
-	<!-- //web-fonts -->
+    <!-- web-fonts -->
+    <link
+            href="//fonts.googleapis.com/css?family=Alegreya+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+            rel="stylesheet">
+    <!-- //web-fonts -->
 
 
 </head>
@@ -53,189 +53,142 @@
 <body>
 
 
-	<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+{% block shopping-cart %}
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true" style="padding-top: 100px;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
 
-	<script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
-
-	<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
-	{#    Notification #}
-	<script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
-	{#    Notification#}
-	<script>
-		function showSuccessNotification(name, timeout = 5000) {
-			$.notify(name + " has been added to your cart.", "success", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
-		function showFailureNotification(name, timeout = 5000) {
-			$.notify(name + " has been added to your cart.", "error", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
-		function showWarningNotification(name, timeout = 5000) {
-			$.notify(name + " has been added to your cart.", "warn", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
-	</script>
-
-	{#    Cart#}
-	<link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css' />
-	<script src="{% static 'browse/js/cart.js' %}"></script>
-	{#    Cart#}
-
-	<script>
-		toys.render();
-
-		toys.cart.on('toys_checkout', function (evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) {
-				}
-			}
-		});
-	</script>
-
-	<!-- cart starts here -->
-	<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-		style="padding-top: 100px;">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table class="show-cart table">
-
-					</table>
-					<div align="right">Total price: BDT <span class="total-cart"></span></div>
-				</div>
-				<div class="modal-footer">
-					<button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="cart-checkout-button">Checkout</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- cart ends here  -->
-
-	<!-- Navigation -->
-	<header>
-		<div class="top-nav" style="position: relative">
-			<div>
-				<nav class="navbar navbar-expand-lg navbar-light" style="background: black">
-					<a class="navbar-brand text-uppercase" href="index.html">{{ restaurant.restaurant_name }}</a></br>
-					<div class="collapse navbar-collapse justify-content-center pr-md-4" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto">
+                    </table>
+                    <div align="right">Total price: BDT <span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="cart-checkout-button">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 
-							<li class="nav-item">
-								<a class="nav-link" href="#food_gallery">Food Menu</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="contact.html">Contact</a>
-							</li>
-							<li class="nav-item">
-								<div class="cart-icons">
-									<div style="float: right">
-										{#							<form action="#" method="post" class="last">#}
-										{#								<input type="hidden" name="cmd" value="_cart">#}
-										{#								<input type="hidden" name="display" value="1">#}
-										{#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
-										{#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
-										{#								</button>#}
-										{#							</form>#}
-										<button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-											data-target="#cart">
+<!-- Navigation -->
+<header>
+    <div class="top-nav" style="position: relative">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background: black">
+                <a class="navbar-brand text-uppercase" href="index.html">{{ restaurant.restaurant_name }}</a></br>
+                <div class="collapse navbar-collapse justify-content-center pr-md-4" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#food_gallery">Food Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="cart-icons">
+                                <div style="float: right">
+                                    {#							<form action="#" method="post" class="last">#}
+                                    {#								<input type="hidden" name="cmd" value="_cart">#}
+                                    {#								<input type="hidden" name="display" value="1">#}
+                                    {#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
+                                    {#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
+                                    {#								</button>#}
+                                    {#							</form>#}
+                                    <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
+                                            data-target="#cart">
 											<span class="fas fa-cart-arrow-down"> Cart (<span
-													class="total-count"></span>)</span>
-										</button>
+                                                    class="total-count"></span>)</span>
+                                    </button>
 
-									</div>
-							</li>
+                                </div>
+                            </div>
+                        </li>
 
-							<!-- search --->
-							<div class="search-bar-agileits">
-								<div class="cd-main-header">
-									<ul class="cd-header-buttons">
-										<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-									</ul>
-									<!-- cd-header-buttons -->
-								</div>
-								<div id="cd-search" class="cd-search">
-									<form action="#" method="post">
-										<input name="Search" type="search" placeholder="Click enter after typing...">
-									</form>
-								</div>
-							</div>
-							<!-- search --->
+                        <!-- search --->
+                        <div class="search-bar-agileits">
+                            <div class="cd-main-header">
+                                <ul class="cd-header-buttons">
+                                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+                                </ul>
+                                <!-- cd-header-buttons -->
+                            </div>
+                            <div id="cd-search" class="cd-search">
+                                <form action="#" method="post">
+                                    <input name="Search" type="search" placeholder="Click enter after typing...">
+                                </form>
+                            </div>
+                        </div>
+                        <!-- search --->
 
-						</ul>
+                    </ul>
 
-					</div>
+                </div>
 
-				</nav>
-			</div>
-		</div>
-	</header>
-	<!-- //Navigation -->
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- //Navigation -->
 
-	<!--Slider-->
+<!--Slider-->
 
-	<div class="slider">
-		<div class="callbacks_container" style="height:45vh;">
-			<ul class="rslides" id="slider3" style="height: 100%">
-				<li>
-					<div class="slider-img1">
-						<div class="dot">
-							<div class="container">
-								<div class="slider_banner_info_w3ls text-center">
-									<h1 class="text-uppercase">Cafe & Bar</h1>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="slider-img2">
-						<div class="dot">
-							<div class="container">
-								<div class="slider_banner_info_w3ls text-center">
-									<h2 class="text-uppercase">Restaurant</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="slider-img3">
-						<div class="dot">
-							<div class="container">
-								<div class="slider_banner_info_w3ls text-center">
-									<h4 class="text-uppercase">5 Star Hotel</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="clearfix"></div>
-	</div>
+<div class="slider">
+    <div class="callbacks_container" style="height:45vh;">
+        <ul class="rslides" id="slider3" style="height: 100%">
+            <li>
+                <div class="slider-img1">
+                    <div class="dot">
+                        <div class="container">
+                            <div class="slider_banner_info_w3ls text-center">
+                                <h1 class="text-uppercase">Cafe & Bar</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="slider-img2">
+                    <div class="dot">
+                        <div class="container">
+                            <div class="slider_banner_info_w3ls text-center">
+                                <h2 class="text-uppercase">Restaurant</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="slider-img3">
+                    <div class="dot">
+                        <div class="container">
+                            <div class="slider_banner_info_w3ls text-center">
+                                <h4 class="text-uppercase">5 Star Hotel</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
 
-	<!--//Slider-->
+<!--//Slider-->
 
-	<!-- About us
+<!-- About us
 <section class="about py-5">
 	<div class="container">
 		<h3 class="heading text-center text-uppercase mb-5"> What We Do </h3>
@@ -264,10 +217,10 @@
 		
 	</div>
 </section>
-<!-- //About us -->
+< //About us -->
 
-	<!-- about bottom -->
-	<!-- <section class="aboutbottom-grids pt-5 container-fluid">
+<!-- about bottom -->
+<!-- <section class="aboutbottom-grids pt-5 container-fluid">
 	<div class="row">
 		<div class="col-lg-6 aboutleft">
 			<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid"/>
@@ -279,36 +232,36 @@
 		</div>
 	</div>
 </section> -->
-	<!-- //about bottom -->
-	<!-- /stats -->
-	<!-- <section class="stats_test pb-5 container-fluid">
-	<div class="row inner_stat_wthree_agileits">
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid">
-			<i class="far fa-building"></i>
-			<p class="counter">145</p>
-			<h4>Branches</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid1">
-			<i class="fas fa-users"></i>
-			<p class="counter">165</p>
-			<h4>Qualified Chefs</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid2">
-			<i class="far fa-edit"></i>
-			<p class="counter">563</p>
-			<h4>Food Items</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid3">
-			<i class="far fa-smile"></i>
-			<p class="counter">1045</p>
-			<h4>Happy Customers</h4>
-		</div>
+<!-- //about bottom -->
+<!-- /stats -->
+<!-- <section class="stats_test pb-5 container-fluid">
+<div class="row inner_stat_wthree_agileits">
+	<div class="col-sm-3 col-6 py-5 stats_left counter_grid">
+		<i class="far fa-building"></i>
+		<p class="counter">145</p>
+		<h4>Branches</h4>
 	</div>
+	<div class="col-sm-3 col-6 py-5 stats_left counter_grid1">
+		<i class="fas fa-users"></i>
+		<p class="counter">165</p>
+		<h4>Qualified Chefs</h4>
+	</div>
+	<div class="col-sm-3 col-6 py-5 stats_left counter_grid2">
+		<i class="far fa-edit"></i>
+		<p class="counter">563</p>
+		<h4>Food Items</h4>
+	</div>
+	<div class="col-sm-3 col-6 py-5 stats_left counter_grid3">
+		<i class="far fa-smile"></i>
+		<p class="counter">1045</p>
+		<h4>Happy Customers</h4>
+	</div>
+</div>
 </section> -->
-	<!-- //stats -->
+<!-- //stats -->
 
-	<!-- How we Work -->
-	<!-- <section class="work py-5">
+<!-- How we Work -->
+<!-- <section class="work py-5">
 	<div class="container">
 	<h3 class="heading text-center text-uppercase mb-5"> How We Work </h3>
 		<div class="row">
@@ -336,90 +289,90 @@
 		</div>
 	</div>
 </section> --> -->
-	<!-- //How we Work -->
+<!-- //How we Work -->
 
-	<!-- food gallery -->
+<!-- food gallery -->
 
 
-	<section class="banner_bottom proj py-5">
+<section class="banner_bottom proj py-5">
 
-		<div class="wrap_view" id="food_gallery">
-			<h3 class="heading text-center text-uppercase mb-5"> Food Gallery </h3>
+    <div class="wrap_view" id="food_gallery">
+        <h3 class="heading text-center text-uppercase mb-5"> Food Gallery </h3>
 
-			<div class="inner_sec">
-				<ul class="portfolio-categ filter">
-					<li class="port-filter all active">
-						<a href="#">All</a>
-					</li>
-					<li class="cat-item-1">
-						<a href="#" title="Category 1">Category 1</a>
-					</li>
-					<li class="cat-item-2">
-						<a href="#" title="Category 2">Category 2</a>
-					</li>
-					<li class="cat-item-3">
-						<a href="#" title="Category 3">Category 3</a>
-					</li>
-					<li class="cat-item-4">
-						<a href="#" title="Category 4">Category 4</a>
-					</li>
-				</ul>
-				<div class="row" style="width: 80%">
-					{# Searched Product list show start #}
-					{% for item in item_list %}
-					<div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-						<div class="product-toys-info">
-							<div class="men-pro-item">
-								<div class="men-thumb-item">
-									<img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
-									<div class="men-cart-pro">
-										<div class="inner-men-cart-pro">
-											<a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-												View</a>
-										</div>
-									</div>
-									<span class="product-new-top">New</span>
-								</div>
-								<div class="item-info-product">
-									<div class="info-product-price">
-										<div class="grid_meta">
-											<div class="product_price">
-												<h4>
-													<a href="/browse/item/">{{ item.pkg_name }}</a>
-												</h4>
-												<div class="grid-price mt-2">
-													<span class="money ">BDT {{ item.price }}/=</span>
-												</div>
-											</div>
-											<ul class="stars">
-												{% for star in item.rating %}
-												<li>
-													<a href="#">
-														<i class="fas fa-star"></i>
-													</a>
-												</li>
-												{% endfor %}
-											</ul>
-										</div>
-										<div class="toys single-item hvr-outline-out">
-											<button href="#" data-id="{{ item.id }}" data-name="{{ item.pkg_name }}"
-												data-price="{{ item.price }}"
-												data-restaurant-id="{{ item.restaurant.id }}"
-												class="add-to-cart toys-cart ptoys-cart">
-												<i class="fas fa-cart-plus"></i>
-											</button>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-					{# Searched Product list show start #}
-				</div>
+        <div class="inner_sec">
+            <ul class="portfolio-categ filter">
+                <li class="port-filter all active">
+                    <a href="#">All</a>
+                </li>
+                <li class="cat-item-1">
+                    <a href="#" title="Category 1">Category 1</a>
+                </li>
+                <li class="cat-item-2">
+                    <a href="#" title="Category 2">Category 2</a>
+                </li>
+                <li class="cat-item-3">
+                    <a href="#" title="Category 3">Category 3</a>
+                </li>
+                <li class="cat-item-4">
+                    <a href="#" title="Category 4">Category 4</a>
+                </li>
+            </ul>
+            <div class="row" style="width: 80%">
+                {# Searched Product list show start #}
+                {% for item in item_list %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+                        <div class="product-toys-info">
+                            <div class="men-pro-item">
+                                <div class="men-thumb-item">
+                                    <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
+                                    <div class="men-cart-pro">
+                                        <div class="inner-men-cart-pro">
+                                            <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                View</a>
+                                        </div>
+                                    </div>
+                                    <span class="product-new-top">New</span>
+                                </div>
+                                <div class="item-info-product">
+                                    <div class="info-product-price">
+                                        <div class="grid_meta">
+                                            <div class="product_price">
+                                                <h4>
+                                                    <a href="/browse/item/">{{ item.pkg_name }}</a>
+                                                </h4>
+                                                <div class="grid-price mt-2">
+                                                    <span class="money ">BDT {{ item.price }}/=</span>
+                                                </div>
+                                            </div>
+                                            <ul class="stars">
+                                                {% for star in item.rating %}
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fas fa-star"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="toys single-item hvr-outline-out">
+                                            <button href="#" data-id="{{ item.id }}" data-name="{{ item.pkg_name }}"
+                                                    data-price="{{ item.price }}"
+                                                    data-restaurant-id="{{ item.restaurant.id }}"
+                                                    class="add-to-cart toys-cart ptoys-cart">
+                                                <i class="fas fa-cart-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {# Searched Product list show start #}
+            </div>
 
-				<!-- <ul class="portfolio-area">
+            <!-- <ul class="portfolio-area">
 
 					<li class="portfolio-item2 mb-2" data-id="id-0" data-type="cat-item-4">
 						<div>
@@ -614,17 +567,17 @@
 					</li>
 
 				</ul> -->
-				<!--end portfolio-area -->
+            <!--end portfolio-area -->
 
-				<div class="clearfix"></div>
-			</div>
+            <div class="clearfix"></div>
+        </div>
 
-		</div>
-	</section>
-	<!--//food gallery-->
+    </div>
+</section>
+<!--//food gallery-->
 
-	<!--Team-->
-	<!-- <section class="Team py-5">
+<!--Team-->
+<!-- <section class="Team py-5">
 	<div class="container">
 	<h3 class="heading text-center text-uppercase mb-5"> Our Chefs </h3>
 		<div class="row inner-sec-w3layouts-agileinfo">
@@ -716,176 +669,212 @@
 		</div>
 	</div>
 </section> -->
-	<!--//Team-->
+<!--//Team-->
 
-	<!-- Newsletter -->
-	<!-- <section class="newsletter text-center py-5">
-	<div class="container">
-		<h3 class="heading text-center text-uppercase mb-5"> Newsletter </h3>
-		
-		<div class="subscribe_inner">
-			<p class="mb-4">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. </p>
-			<form action="#" method="post">
-				<input type="email" placeholder="Enter your email address" required="">
-				<input type="submit" class="mt-3" value="Subscribe">
-			</form>
-			<div class="social mt-5">
-				<h4>Follow us</h4>
-				<ul class="d-flex mt-3 justify-content-center">
-					<li class="mx-2"><a href="#"><span class="fab fa-facebook"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-twitter-square"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fas fa-rss-square"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-linkedin"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-google-plus-square"></span></a></li>
-				</ul>
-			</div>
+<!-- Newsletter -->
+<!-- <section class="newsletter text-center py-5">
+<div class="container">
+	<h3 class="heading text-center text-uppercase mb-5"> Newsletter </h3>
+
+	<div class="subscribe_inner">
+		<p class="mb-4">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. </p>
+		<form action="#" method="post">
+			<input type="email" placeholder="Enter your email address" required="">
+			<input type="submit" class="mt-3" value="Subscribe">
+		</form>
+		<div class="social mt-5">
+			<h4>Follow us</h4>
+			<ul class="d-flex mt-3 justify-content-center">
+				<li class="mx-2"><a href="#"><span class="fab fa-facebook"></span></a></li>
+				<li class="mx-2"><a href="#"><span class="fab fa-twitter-square"></span></a></li>
+				<li class="mx-2"><a href="#"><span class="fas fa-rss-square"></span></a></li>
+				<li class="mx-2"><a href="#"><span class="fab fa-linkedin"></span></a></li>
+				<li class="mx-2"><a href="#"><span class="fab fa-google-plus-square"></span></a></li>
+			</ul>
 		</div>
-		
 	</div>
+
+</div>
 </section> -->
-	<!-- //Newsletter -->
+<!-- //Newsletter -->
 
-	<!-- footer -->
-	<footer>
-		<div class="container py-3 py-md-4">
-			<div class="row">
-				<div class="col-lg-5 col-md-12">
-					<p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a
-							href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
-				</div>
-				<div class="col-lg-2 col-md-12 logo text-center">
-					<a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>
-				</div>
-				<div class="col-lg-5 col-md-12">
-					<ul class="py-lg-4">
-						<li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a></li>
-						<li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>
-						</li>
-						<li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food menu</a>
-						</li>
-						<li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error page</a>
-						</li>
-						<li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- footer -->
-
-
-	<!-- Vertically centered Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"
-						alt="cafe Image" />
-					Vivamus eget est in odio tempor interdum. Mauris maximus fermentum arcu, ac finibus ante. Sed mattis
-					risus at ipsum elementum, ut auctor turpis cursus. Sed sed odio pharetra, aliquet velit cursus,
-					vehicula enim. Mauris porta aliquet magna, eget laoreet ligula.
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- //Vertically centered Modal -->
+<!-- footer -->
+<footer>
+    <div class="container py-3 py-md-4">
+        <div class="row">
+            <div class="col-lg-5 col-md-12">
+                <p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a
+                        href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
+            </div>
+            <div class="col-lg-2 col-md-12 logo text-center">
+                <a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <ul class="py-lg-4">
+                    <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a></li>
+                    <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>
+                    </li>
+                    <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food menu</a>
+                    </li>
+                    <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error page</a>
+                    </li>
+                    <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer -->
 
 
-	<!-- js-scripts -->
+<!-- Vertically centered Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"
+                     alt="cafe Image"/>
+                Vivamus eget est in odio tempor interdum. Mauris maximus fermentum arcu, ac finibus ante. Sed mattis
+                risus at ipsum elementum, ut auctor turpis cursus. Sed sed odio pharetra, aliquet velit cursus,
+                vehicula enim. Mauris porta aliquet magna, eget laoreet ligula.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Vertically centered Modal -->
 
-	<!-- js -->
-	<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-2.1.4.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/bootstrap.js' %}"></script>
-	<!-- Necessary-JavaScript-File-For-Bootstrap -->
-	<!-- //js -->
 
-	<!-- Banner Responsive slider -->
-	<script src="{% static 'browse/Restaurant_homepage/js/responsiveslides.min.js' %}"></script>
-	<script>
-		// You can also use "$(window).load(function() {"
-		$(function () {
-			// Slideshow 3
-			$("#slider3").responsiveSlides({
-				auto: true,
-				pager: false,
-				nav: true,
-				speed: 500,
-				namespace: "callbacks",
-				before: function () {
-					$('.events').append("<li>before event fired.</li>");
-				},
-				after: function () {
-					$('.events').append("<li>after event fired.</li>");
-				}
-			});
+<!-- js-scripts -->
 
+<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+
+{#    Notification #}
+<script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+{#    Notification#}
+<script>
+	function showSuccessNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "success", {
+			position: "right",
+			autoHideDelay: timeout
 		});
-	</script>
-	<!-- // Banner Responsive slider -->
+	}
 
-	<!-- stats -->
-	<script src="{% static 'browse/Restaurant_homepage/js/jquery.waypoints.min.js' %}"></script>
-	<script src="{% static 'browse/Restaurant_homepage/js/jquery.countup.js' %}"></script>
-	<script>
-		$('.counter').countUp();
-	</script>
-	<!-- //stats -->
-
-	<!-- search-bar -->
-	<script src="{% static 'browse/Restaurant_homepage/js/main.js' %}"></script>
-	<!-- //search-bar -->
-
-	<!-- start-smoth-scrolling -->
-	<script src="{% static 'browse/Restaurant_homepage/js/SmoothScroll.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/move-top.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/easing.js' %}"></script>
-	<script type="text/javascript">
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-			});
+	function showFailureNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "error", {
+			position: "right",
+			autoHideDelay: timeout
 		});
-	</script>
-	<!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
+	}
 
-			$().UItoTop({ easingType: 'easeOutQuart' });
-
+	function showWarningNotification(name, timeout = 5000) {
+		$.notify(name + " has been added to your cart.", "warn", {
+			position: "right",
+			autoHideDelay: timeout
 		});
-	</script>
-	<!-- //here ends scrolling icon -->
-	<!-- start-smoth-scrolling -->
+	}
+</script>
 
-	<!-- jQuery-Photo-filter-lightbox-Gallery-plugin -->
-	<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
-	<script src="{% static 'browse/Restaurant_homepage/js/jquery.quicksand.js' %}" type="text/javascript"></script>
-	<script src="{% static 'browse/Restaurant_homepage/js/script.js' %}" type="text/javascript"></script>
-	<script src="{% static 'browse/Restaurant_homepage/js/jquery.prettyPhoto.js' %}" type="text/javascript"></script>
-	<!-- //jQuery-Photo-filter-lightbox-Gallery-plugin -->
+{#    Cart#}
+<link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
+<script src="{% static 'browse/js/cart.js' %}"></script>
+{#    Cart#}
 
-	<!-- //js-scripts -->
+<!-- js -->
+<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-2.1.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/bootstrap.js' %}"></script>
+<!-- Necessary-JavaScript-File-For-Bootstrap -->
+<!-- //js -->
+
+<!-- Banner Responsive slider -->
+<script src="{% static 'browse/Restaurant_homepage/js/responsiveslides.min.js' %}"></script>
+<script>
+	// You can also use "$(window).load(function() {"
+	$(function () {
+		// Slideshow 3
+		$("#slider3").responsiveSlides({
+			auto: true,
+			pager: false,
+			nav: true,
+			speed: 500,
+			namespace: "callbacks",
+			before: function () {
+				$('.events').append("<li>before event fired.</li>");
+			},
+			after: function () {
+				$('.events').append("<li>after event fired.</li>");
+			}
+		});
+
+	});
+</script>
+<!-- // Banner Responsive slider -->
+
+<!-- stats -->
+<script src="{% static 'browse/Restaurant_homepage/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'browse/Restaurant_homepage/js/jquery.countup.js' %}"></script>
+<script>
+	$('.counter').countUp();
+</script>
+<!-- //stats -->
+
+<!-- search-bar -->
+<script src="{% static 'browse/Restaurant_homepage/js/main.js' %}"></script>
+<!-- //search-bar -->
+
+
+
+
+<!-- start-smoth-scrolling -->
+<script src="{% static 'browse/Restaurant_homepage/js/SmoothScroll.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/easing.js' %}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function ($) {
+		$(".scroll").click(function (event) {
+			event.preventDefault();
+			$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+		});
+	});
+</script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript">
+	$(document).ready(function () {
+		/*
+			var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear'
+			};
+		*/
+
+		$().UItoTop({easingType: 'easeOutQuart'});
+
+	});
+</script>
+<!-- //here ends scrolling icon -->
+<!-- start-smoth-scrolling -->
+
+<!-- jQuery-Photo-filter-lightbox-Gallery-plugin -->
+<script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
+<script src="{% static 'browse/Restaurant_homepage/js/jquery.quicksand.js' %}" type="text/javascript"></script>
+<script src="{% static 'browse/Restaurant_homepage/js/script.js' %}" type="text/javascript"></script>
+<script src="{% static 'browse/Restaurant_homepage/js/jquery.prettyPhoto.js' %}" type="text/javascript"></script>
+<!-- //jQuery-Photo-filter-lightbox-Gallery-plugin -->
+
+<!-- //js-scripts -->
 
 </body>
 
