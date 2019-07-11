@@ -6,7 +6,7 @@ app_name = 'browse'
 
 urlpatterns = [
 	path('', views.Index.as_view(), name='home'),
-	path('browse/', views.Order.as_view(), name='package-list'),
+	path('/', views.Order.as_view(), name='package-list'),
 
 	path('browse/restaurants/', views.RestaurantList.as_view(), name='restaurants'),
 	# path('menuEntryForRestaurant/', views.RestaurantMenuEntryList.as_view()),

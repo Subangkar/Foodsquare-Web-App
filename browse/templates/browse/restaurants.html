@@ -14,109 +14,380 @@
 		setTimeout(hideURLbar, 0);
 	}, false);
 
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	} </script>
-<!--webfont-->
-<link
-    href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-    rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<!--Animation-->
-<script src="{% static 'browse/js/wow.min.js' %}"></script>
-<link href="{% static 'browse/css/animate.css' %}" rel='stylesheet' type='text/css' />
+<!--price range-->
+<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
+
+<link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}" />
+<script src="{% static 'browse/js/awesomplete.js' %}" async></script>
+<!--//price range-->
+{% endblock %}
+
+
+{% block body-js %}
+{#	{% load static %}#}
+<!--js working-->
+<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+<!--//js working-->
+<!-- cart-js -->
+<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
 <script>
-    new WOW().init();
+    toys.render();
+
+    toys.cart.on('toys_checkout', function (evt) {
+        var items, len, i;
+
+        if (this.subtotal() > 0) {
+            items = this.items();
+
+            for (i = 0, len = items.length; i < len; i++) {
+            }
+        }
+    });
 </script>
-<script type="text/javascript" src="{% static 'browse/js/move-top.js' %}"></script>
-<script type="text/javascript" src="{% static 'browse/js/easing.js' %}"></script>
-<script type="text/javascript">
+<!-- //cart-js -->
+<!-- price range (top products) -->
+<script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
+<script>
+    //<![CDATA[
+    // $(window).load(function () {
+    //     $("#slider-range").slider({
+    //         range: true,
+    //         min: 0,
+    //         max: 2000,
+    //         values: [10, 600],
+    //         slide: function (event, ui) {
+    //             $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+    //         }
+    //     });
+    //     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+    // }); //]]>
+</script>
+<!-- //price range (top products) -->
+
+<!-- start-smoth-scrolling -->
+<script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+<script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+<script>
     jQuery(document).ready(function ($) {
         $(".scroll").click(function (event) {
             event.preventDefault();
-            $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 900);
         });
     });
 </script>
-<script src="{% static 'browse/js/simpleCart.min.js' %}"></script>
-{% endblock %}
+<!-- start-smoth-scrolling -->
+<!-- here stars scrolling icon -->
+<script>
+    $(document).ready(function () {
 
-{% block body-header %}
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
 
+
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+</script>
+<!-- //here ends scrolling icon -->
 {% endblock %}
 
 {% block body-content %}
 <div style="height: 70vh">
 
 </div>
-<div class="content">
-    <div class="Popular-Restaurants-content">
-        <div class="Popular-Restaurants-grids">
-            <div class="container">
-                {% for restaurant in object_list %}
-                <div class="Popular-Restaurants-grid wow fadeInRight" data-wow-delay="0.4s"> 
-                    <div class="col-md-3 restaurent-logo">
-                        <img src={{ restaurant.restaurantImg.url }} class="img-responsive" alt="" />
-                    </div>
-                    <div class="col-md-2 restaurent-title">
-                        <div class="logo-title">
-                            <h4><a href="{% static 'browse/#' %}">{{ restaurant.restaurant_name }}</a></h4>
-                        </div>
-                        <div class="rating">
-                            <span>ratings</span>
-                            <a href="{% static 'browse/#' %}"> <img src="{% static 'browse/images/star1.png' %}"
-                                    class="img-responsive" alt="">(004)</a>
-                        </div>
-                    </div>
-                    <div class="col-md-7 visit">
+<!-- //short-->
+<!--show Now-->
+<!--show Now-->
+<style>
+    .search {
+        width: 100%;
+        position: relative;
+        display: flex;
+    }
 
-                        <a class="morebtn hvr-rectangle-in" href="orders-list.html">visit</a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div> 
-                {% endfor %}
+    .searchTerm {
+        width: 100%;
+        border: 3px solid #00B4CC;
+        border-right: none;
+        padding: 5px;
+        height: 100%;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        /* color: #9DBFAF; */
+    }
 
+    .searchTerm:focus {
+        /* color: #00B4CC; */
+    }
+
+    .searchButton {
+        width: 40px;
+        height: 36px;
+        border: 1px solid #00B4CC;
+        background: #00B4CC;
+        text-align: center;
+        color: #fff;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    /*Resize the wrap to see the search bar change!*/
+    .wrap {
+        width: 30%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+<section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
+    <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
+        <!-- <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Restaurants </h3> -->
+        <div style="height: 10vh"></div>
+        <div class="wrap">
+            <div class="search">
+                <input class="awesomplete text"
+                    style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
+                    list="restaurant_list" value="Restaurants near you" onfocus="this.value = '';"
+                    onblur="if (this.value == '') {this.value = 'Restaurants near you';}" />
+                <datalist id="restaurant_list">
+                    {% for restaurant in restaurants %}
+                    <option>{{ restaurant.restaurant_name }}</option>
+                    {% endfor %}
+                </datalist>
+                <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
+        </div>
+        <div style="height: 10vh"></div>
 
+        <div class="row">
+            <div class="side-bar col-lg-3">
+                <form action="." method="GET">
+                    {#                        <div class="search-hotel">#}
+                    {#                            <input type="submit" value=" ">#}
+                    {#                        </div>#}
+                    <div class="search-hotel">
+                        {#                                                        <form action="." method="GET">#}
+                        {#                            <h3 class="agileits-sear-head">Search Here ...</h3>#}
+                        <input type="search" placeholder="Product name..." name="menu_search">
+                        {#                            <form name="search">#}
+                        {#                            <input type="submit" value=" ">#}
+                        {#                            <i class="fa fa-search"><input class="fa fa-search" type="submit" value=" "></i>#}
 
+                        {#                                                        </form>#}
+                    </div>
+                    <!-- price range -->
+                    <!-- <div class="range">
+                        <h3 class="agileits-sear-head">Price range</h3>
+                        <ul class="dropdown-menu6">
+                            <li>
+
+                                <div id="slider-range"></div>
+                                <input type="text" id="amount" name="range"
+                                    style="border: 0; color: #ffffff; font-weight: normal;" />
+                            </li>
+                        </ul>
+                    </div> -->
+                    <br>
+                    <div align="center">
+                        <button class="btn btn-warning" type="submit">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+
+                    </div>
+                    <!-- //price range -->
+                    <!--preference -->
+                </form>
+                {# Dummy Now                   #}
+                {#                    <div class="left-side">#}
+                {#                        <h3 class="agileits-sear-head">Occasion</h3>#}
+                {#                        <ul>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">Beef</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">Kids Menu</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">Vegetable</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">Chicken</span>#}
+                {#                            </li>#}
+                {##}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                    <!-- // preference -->#}
+                {#                    <!-- discounts -->#}
+                {#                    <div class="left-side">#}
+                {#                        <h3 class="agileits-sear-head">Discount</h3>#}
+                {#                        <ul>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">5% or More</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">10% or More</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">20% or More</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">30% or More</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">50% or More</span>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <input type="checkbox" class="checked">#}
+                {#                                <span class="span">60% or More</span>#}
+                {#                            </li>#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                    <!-- //discounts -->#}
+                {#                    <!-- reviews -->#}
+                {#                    <div class="customer-rev left-side">#}
+                {#                        <h3 class="agileits-sear-head">Customer Review</h3>#}
+                {#                        <ul>#}
+                {#                            <li>#}
+                {#                                <a href="#">#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <span>5.0</span>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <a href="#">#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <span>4.0</span>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <a href="#">#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star-half"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <span>3.5</span>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <a href="#">#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <span>3.0</span>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                            <li>#}
+                {#                                <a href="#">#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star"></i>#}
+                {#                                    <i class="fas fa-star-half"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <i class="far fa-star"></i>#}
+                {#                                    <span>2.5</span>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                <!-- //reviews -->
+
+                <!-- //deals -->
+                {# Dummy Now                   #}
+            </div>
+            <div class="left-ads-display col-lg-9">
+                <div class="row">
+                    {# Searched Product list show start #}
+                    {% for restaurant in restaurants %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+                        <div class="product-toys-info">
+                            <div class="men-pro-item">
+                                <div class="men-thumb-item">
+                                    <img src="/media/{{ item.img }}" class="img-thumbnail img-fluid" alt="">
+                                    <div class="men-cart-pro">
+                                        <div class="inner-men-cart-pro">
+                                            <a href={{ restaurant.get_absolute_url }}
+                                                class="link-product-add-cart">Quick View</a>
+                                        </div>
+                                    </div>
+                                    <span class="product-new-top">New</span>
+                                </div>
+                                <div class="item-info-product">
+                                    <div class="info-product-price">
+                                        <div class="grid_meta">
+                                            <div class="product_price">
+                                                <h4>
+                                                    <a href="/browse/item/">{{ restaurant.restaurant_name }}</a>
+                                                </h4>
+                                                <div class="grid-price mt-2">
+                                                    <span class="money ">{{ item.price }}</span>
+                                                </div>
+                                            </div>
+                                            <ul class="stars">
+                                                {% for star in item.rating %}
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fas fa-star"></i>
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="toys single-item hvr-outline-out">
+                                                    <form action="#" method="post">
+                                                        <input type="hidden" name="cmd" value="_cart">
+                                                        <input type="hidden" name="add" value="1">
+                                                        <input type="hidden" name="toys_item" value={{ item.name }}>
+                                                        <input type="hidden" name="amount" value="575.00">
+                                                        <button type="submit" class="toys-cart ptoys-cart">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                    </form>
+                                                </div> -->
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {# Searched Product list show start #}
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <div style="display: inline-flex;  width: 100%">
-        <style>
-            .pagination {
-                display: inline-block;
-            }
-
-            .pagination a {
-                color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-                transition: background-color .3s;
-            }
-
-            .pagination a.active {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            .pagination a:hover:not(.active) {
-                background-color: #ddd;
-            }
-        </style>
-        <div style="width: 30%; "> </div>
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-
-            <a href="#">&raquo;</a>
-        </div>
-    </div>
-
-</div>
-
-
+</section>
+<!-- //show Now-->
 {% endblock %}
