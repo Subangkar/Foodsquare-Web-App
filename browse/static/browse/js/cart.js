@@ -172,15 +172,15 @@ function displayCart() {
 		document.getElementById("cart-checkout-button").disabled = false;
 		document.getElementById("cart-clear-button").disabled = false;
 		for (var i in cartArray) {
-			console.log(cartArray[i]);
+			// console.log(cartArray[i]);
 			output += "<tr>"
 				+ "<td>" + cartArray[i].name + "</td>"
 				+ "<td>(" + cartArray[i].price + ")</td>"
-			+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
-			+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
-			+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"
-			+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"
-			+ " = "
+				+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
+				+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
+				+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"
+				+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"
+				+ " = "
 				+ "<td>" + cartArray[i].total + "</td>"
 				+ "</tr>";
 		}
@@ -189,6 +189,25 @@ function displayCart() {
 	$('.total-cart').html(shoppingCart.totalCart());
 	$('.total-count').html(shoppingCart.totalCount());
 }
+
+// function displayCheckout() {
+// 	var cartArray = shoppingCart.listCart();
+// 	var output = "";
+// 	for (var i in cartArray) {
+// 		console.log(">> " + cartArray[i]);
+// 		output += "<tr>"
+// 			+ "<td>" + cartArray[i].name + "</td>"
+// 			+ "<td>(" + cartArray[i].price + ")</td>"
+// 			+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
+// 			+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
+// 			+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"
+// 			+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"
+// 			+ " = "
+// 			+ "<td>" + cartArray[i].total + "</td>"
+// 			+ "</tr>";
+// 	}
+// 	$('.checkout-form').html(output);
+// }
 
 // Delete item button
 
@@ -221,3 +240,9 @@ $('.show-cart').on("change", ".item-count", function (event) {
 });
 
 displayCart();
+
+
+// $('.checkout-right').ready(function () {
+// 	displayCheckout();
+// 	//block will be loaded with element with id myid is ready in dom
+// });

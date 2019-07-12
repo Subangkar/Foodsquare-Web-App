@@ -1,0 +1,235 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    {% block head-includes %}
+
+    {% endblock %}
+
+    {% block header %}
+
+    {% endblock %}
+</head>
+
+<body>
+    <div class="header-outs" id="home">
+
+        <div class="header-bar">
+            {% block topbar %}
+            <div class="container-fluid">
+                <div class="hedder-up row">
+                    <div class="col-lg-3 col-md-3 logo-head">
+                        <a href="/">
+                            <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
+                        </a>
+                    </div>
+                    <div style="width: 40%;">
+                    </div>
+                    <div class="col-lg-4 col-md-3 right-side-cart" align="right">
+                        <style>
+                            .hotelsearchBox {
+                                position: absolute;
+                                top: -5%;
+                                left: 28%;
+                                transform: translate(-100%, 0%);
+                                background: #2f3640;
+                                /* height: 40px; */
+                                border-radius: 40px;
+                                padding: 10px;
+
+                            }
+
+                            .hotelsearchBox:hover>.hotelsearchInput {
+                                width: 240px;
+                                padding: 0 6px;
+                            }
+
+                            .hotelsearchBox:hover>.hotelsearchButton {
+                                background: white;
+                                color: #2f3640;
+                            }
+
+                            .hotelsearchButton {
+                                color: white;
+                                float: right;
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                background: #2f3640;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                transition: 0.4s;
+                            }
+
+                            .hotelsearchInput {
+                                border: none;
+                                background: none;
+                                outline: none;
+                                float: left;
+                                padding: 0;
+                                color: white;
+                                font-size: 16px;
+                                transition: 0.4s;
+                                line-height: 40px;
+                                width: 0px;
+
+                            }
+
+                            @media screen and (max-width: 620px) {
+                                .hotelsearchBox:hover>.hotelsearchInput {
+                                    width: 150px;
+                                    padding: 0 6px;
+                                }
+                            }
+                        </style>
+
+
+
+                        <div class="cart-icons">
+                            <div class="hotelsearchBox" style="float: left">
+
+                                <input class="hotelsearchInput" type="text" name="" placeholder="Search">
+                                <button class="hotelsearchButton" href="#">
+                                    <i class="fa fa-search">
+                                        search
+                                    </i>
+                                </button>
+                            </div>
+                            <div style="float: right">
+                                {#							<form action="#" method="post" class="last">#}
+                                {#								<input type="hidden" name="cmd" value="_cart">#}
+                                {#								<input type="hidden" name="display" value="1">#}
+                                {#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
+                                {#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
+                                {#								</button>#}
+                                {#							</form>#}
+                                <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
+                                    data-target="#cart">
+                                    <span class="fas fa-cart-arrow-down"> Cart (<span
+                                            class="total-count"></span>)</span>
+                                </button>
+
+                            </div>
+
+                            <div class="dropdown" style="float: right">
+                                {% if not loggedIn %}
+                                <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+                                <div class="dropdown-content">
+                                    <a href={% url 'accounts:login' %}>Login</a>
+                                    <a href={% url 'accounts:register' %}>Register</a>
+                                </div>
+                                {% else %}
+                                <button class="topBtn"><span class="far fa-user">
+                                        {{ request.user.username|upper }}</span></button>
+                                <div class="dropdown-content">
+                                    <a href="/customer/editProfile/">Profile</a>
+                                    <a href={% url 'accounts:logout' %}>Logout</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endblock %}
+            {% block navbar %}
+
+            {% endblock %}
+        </div>
+        {% block body-header %}
+
+        {% endblock %}
+    </div>
+
+    {% block body-content %}
+    {% endblock body-content %}
+
+    {% block body-footer %}
+
+    {% endblock body-footer %}
+
+    {% block body-footer-common %}
+
+    {% endblock %}
+
+    {% block shopping-cart %}
+
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        style="padding-top: 100px;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
+
+                    </table>
+                    <div align="right">Total price: BDT <span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href={% url 'browse:checkout' %}><button type="button" class="btn btn-primary"
+                            id="cart-checkout-button">Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
+    {#    Notification #}
+    <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+    {#    Notification#}
+    <script>
+        function showSuccessNotification(name, timeout = 5000) {
+            $.notify(name + " has been added to your cart.", "success", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
+
+        function showFailureNotification(name, timeout = 5000) {
+            $.notify(name + " has been added to your cart.", "error", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
+
+        function showWarningNotification(name, timeout = 5000) {
+            $.notify(name + " has been added to your cart.", "warn", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
+    </script>
+
+    {#    Cart#}
+    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css' />
+    <script src="{% static 'browse/js/cart.js' %}"></script>
+    {#    Cart#}
+
+    {% endblock %}
+
+    {% block body-js-common %}
+    {% endblock %}
+
+    {% block body-js %}
+    {% endblock %}
+
+</body>
+
+</html>
