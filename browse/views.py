@@ -121,7 +121,7 @@ class RestaurantList(TemplateView):
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		entry_name = self.request.GET.get('menu_search')
 		price_range = self.request.GET.get('range')
-		rest_list = list( Restaurant.objects.exclude(restaurant_key='0'))
+		rest_list = list(Restaurant.objects.exclude(restaurant_key='0') )
 
 		ctx = {'loggedIn': False, 'restaurants': rest_list}
 		if self.request.user.is_authenticated:

@@ -1,4 +1,4 @@
-{% extends 'browse/base.html' %}
+{% extends 'browse/base-banner.html' %}
 {% load static %}
 
 {% block header %}
@@ -13,8 +13,7 @@
 <script type="application/x-javascript"> addEventListener("load", function () {
 		setTimeout(hideURLbar, 0);
 	}, false);
-
-<!--price range-->
+</script>
 <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
 
 <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}" />
@@ -29,7 +28,7 @@
 <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
 <!--//js working-->
 <!-- cart-js -->
-<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
+<!-- <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
 <script>
     toys.render();
 
@@ -43,27 +42,11 @@
             }
         }
     });
-</script>
+</script> -->
 <!-- //cart-js -->
 <!-- price range (top products) -->
 <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
-<script>
-    //<![CDATA[
-    // $(window).load(function () {
-    //     $("#slider-range").slider({
-    //         range: true,
-    //         min: 0,
-    //         max: 2000,
-    //         values: [10, 600],
-    //         slide: function (event, ui) {
-    //             $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-    //         }
-    //     });
-    //     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
-    // }); //]]>
-</script>
-<!-- //price range (top products) -->
 
 <!-- start-smoth-scrolling -->
 <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
@@ -101,9 +84,7 @@
 {% endblock %}
 
 {% block body-content %}
-<div style="height: 70vh">
 
-</div>
 <!-- //short-->
 <!--show Now-->
 <!--show Now-->
@@ -338,8 +319,7 @@
                                     <img src="/media/{{ item.img }}" class="img-thumbnail img-fluid" alt="">
                                     <div class="men-cart-pro">
                                         <div class="inner-men-cart-pro">
-                                            <a href={{ restaurant.get_absolute_url }}
-                                                class="link-product-add-cart">Quick View</a>
+                                            <a href={{ restaurant.get_absolute_url }} class="link-product-add-cart">Quick View</a>
                                         </div>
                                     </div>
                                     <span class="product-new-top">New</span>
