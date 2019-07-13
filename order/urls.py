@@ -16,7 +16,7 @@ urlpatterns = [
 	path('browse/item/<int:id>/', views.PackageDetails.as_view(), name='package-details'),
 	path('browse/restaurants/<int:id>/', views.RestaurantDetails.as_view(), name='restaurant_detail'),
 
-	path('order/checkout/', views.checkoutView.as_view(), name='checkout'),
+	path('order/checkout/', views.CheckoutView.as_view(), name='checkout'),
 
 ]
 

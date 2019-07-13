@@ -1,12 +1,14 @@
 # Create your views here.
-from itertools import chain
+import json
 
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView, ListView
-from browse.utils import *
+from django.views.generic import TemplateView
+
+from accounts.models import *  # Delivery, Order
 from browse.models import *
+from browse.utils import *
 
 
 def viewRestaurants(request):
@@ -91,7 +93,7 @@ class OrderElement_t:
 		self.pkg = Package.objects.get(id=id)
 
 
-class checkoutView(TemplateView):
+class CheckoutView(TemplateView):
 	template_name = 'browse/checkout.html'
 
 	def get(self, request, *args, **kwargs):
@@ -102,7 +104,8 @@ class checkoutView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		elements = [OrderElement_t(1), OrderElement_t(2)]
-		ctx = {'num_items': range(0, len(elements)), 'elements': elements}
+		ctx = {'num_items': range(0, len(elements)), 'elements': elements,
+		       'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -110,6 +113,31 @@ class checkoutView(TemplateView):
 
 		if not (self.request.user.is_authenticated and self.request.user.is_customer):
 			return
+
+		pkg_list = json.loads(request.POST.get('item-list'))['pkg-list']
+		houseNo = request.POST.get('house-no')
+		roadNo = request.POST.get('road-no')
+		blockNo = request.POST.get('block-no')
+		apartmentNo = request.POST.get('apartment-no')
+		area = request.POST.get('area')
+		mobileNo = request.POST.get('mobile-no')
+
+		# b'csrfmiddlewaretoken=YG4XDr7l46ARcQ9kdLBNDzQmQ5OVwikfRypkoV8r4tJIYjAIeinEpBt0F3ECRBez&item-list=%7B%22pkg-list%22%3A%5B%7B%22id%22%3A1%2C%22quantity%22%3A4%2C%22price%22%3A150%7D%2C%7B%22id%22%3A5%2C%22quantity%22%3A5%2C%22price%22%3A220%7D%2C%7B%22id%22%3A4%2C%22quantity%22%3A1%2C%22price%22%3A250%7D%5D%7D&
+		# house-no=&road-no=&block-no=&apartment-no=&area=&mobile-no='
+
+		delivery = Delivery(address=area,
+		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo).save()
+		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery).save()
+
+		for pkg in pkg_list:
+			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
+
+		# return JsonResponse(json.loads(request.POST.get('item-list')))
+		return HttpResponse('<head><meta http-equiv="refresh" content="5;url=/" /></head>' +
+		                    '<body><h1> Your Order has been successfullt placed in queue</h1>\n\nRedirecting...</body')
+
+
+# return HttpResponse((request.POST.get('item-list')))
 
 
 class RestaurantList(TemplateView):
@@ -121,7 +149,7 @@ class RestaurantList(TemplateView):
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		entry_name = self.request.GET.get('menu_search')
 		price_range = self.request.GET.get('range')
-		rest_list = list(Restaurant.objects.exclude(restaurant_key='0') )
+		rest_list = list(Restaurant.objects.exclude(restaurant_key='0'))
 
 		ctx = {'loggedIn': False, 'restaurants': rest_list}
 		if self.request.user.is_authenticated:
@@ -132,16 +160,15 @@ class RestaurantList(TemplateView):
 class RestaurantDetails(TemplateView):
 	template_name = 'browse/restaurant_home.html'
 
-
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		# entry_name = self.request.GET.get('menu_search')
 		# price_range = self.request.GET.get('range')
-		rest = Restaurant.objects.get(id = kwargs['id'])
+		rest = Restaurant.objects.get(id=kwargs['id'])
 
-		pkg_list =list( Package.objects.filter(restaurant = rest) )
+		pkg_list = list(Package.objects.filter(restaurant=rest))
 		print(pkg_list)
 		ctx = {'loggedIn': False, 'item_list': pkg_list, 'restaurant': rest}
 		if self.request.user.is_authenticated:

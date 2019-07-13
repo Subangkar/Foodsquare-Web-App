@@ -53,249 +53,272 @@
             <div>
                 <h3>Chec<span>kout</span></h3>
                 <h4>Your shopping cart contains: <span>3 Products</span></h4>
-                <div class="privacy about" style="display: flex; border: 5px">
+                <form action="." method="post" id="checkout-form-submit">
+                    {% csrf_token %}
+                    <div class="privacy about" style="display: flex; border: 5px">
 
 
-                    <div class="checkout-right" id="checkout-form-div">
-                        <table class=" timetable_sub">
-                            <thead>
-                            <tr>
-                                <th>ID No.</th>
-                                <th>Item Name</th>
-                                <th>Quantity</th>
-                                {#                                <th>Product Name</th>#}
-                                <th>Price</th>
-                                <th>Remove</th>
-                            </tr>
-                            </thead>
-                            <tbody class="checkout-form" id="checkout-table-body">
-                            </tbody>
-                        </table>
+                        <div class="checkout-right" id="checkout-form-div">
+                            <table class=" timetable_sub">
+                                <thead>
+                                <tr>
+                                    <th>ID No.</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    {#                                <th>Product Name</th>#}
+                                    <th>Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                                </thead>
+                                <tbody class="checkout-form" id="checkout-table-body">
+                                </tbody>
+                                <input type="hidden" id="item-list" name="item-list">
+                            </table>
 
-                        <div style=" height: 10vh">
-                            <hr style="border: 2px dashed  ">
-                        </div>
+                            <div style=" height: 10vh">
+                                <hr style="border: 2px dashed  ">
+                            </div>
 
-                        <div>
-                            <div class="contact-list-grid">
-                                <h3>Delivery Address</h3>
-                                <form id="infoForm" method="post">
-                                    <div>
-                                        <div class="form-group contact-forms" style="float: left; width:40%">
-                                            <input type="text" class="form-control" placeholder="House No">
-                                        </div>
-                                        <div class="form-group contact-forms" style="float: right; width:40%">
-                                            <input type="text" class="form-control" placeholder="Street/Road No">
-                                        </div>
+                            <div>
+                                <div class="contact-list-grid">
+                                    <h3>Delivery Address</h3>
+                                    <form id="infoForm" method="post">
+                                        <div>
+                                            <div class="form-group contact-forms" style="float: left; width:40%">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       placeholder="House No"
+                                                       id="house-no" name="house-no">
+                                            </div>
+                                            <div class="form-group contact-forms" style="float: right; width:40%">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       placeholder="Street/Road No"
+                                                       id="road-no" name="road-no">
+                                            </div>
 
-                                        <div class="form-group contact-forms" style="float: left; width:40%">
-                                            <input type="text" class="form-control"
-                                                   placeholder="(Optional) Block/Sector">
+                                            <div class="form-group contact-forms" style="float: left; width:40%">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       placeholder="(Optional) Block/Sector" id="block-no"
+                                                       name="block-no">
+                                            </div>
+                                            <div class="form-group contact-forms" style="float: right; width:40%">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       placeholder="(Optional) Apartment No" id="apartment-no"
+                                                       name="apartment-no">
+                                            </div>
+                                            <div class="form-group contact-forms">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       style="width: 50%"
+                                                       placeholder="Area(e.g. New Market, Azimpur)"
+                                                       id="area" name="area">
+                                            </div>
+                                            <div class="form-group contact-forms" style="float: right; width:40%">
+                                                <input form="checkout-form-submit" type="text" class="form-control"
+                                                       placeholder="Mobile No" id="mobile-no" name="mobile-no">
+                                            </div>
                                         </div>
-                                        <div class="form-group contact-forms" style="float: right; width:40%">
-                                            <input type="text" class="form-control"
-                                                   placeholder="(Optional) Apartment No">
-                                        </div>
-                                        <div class="form-group contact-forms">
-                                            <input type="text" class="form-control" style="width: 50%"
-                                                   placeholder="Area(e.g. New Market, Azimpur)">
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
-                </div>
-                <div style=" height: 10vh">
-                    <hr style="border: 2px  solid ">
-                </div>
+                    <div style=" height: 10vh">
+                        <hr style="border: 2px  solid ">
+                    </div>
 
-                <!-- <div style=" height: 10vh"></div> -->
-
-                <div>
-                    <h3>Pay<span>ment</span></h3>
-                    <!--/tabs-->
-                    <div class="responsive_tabs">
-                        <div id="horizontalTab">
-                            <ul class="resp-tabs-list">
-                                <li>Cash on delivery (COD)</li>
-                                <li>Credit/Debit</li>
-                                <li>Online Banking</li>
-                                <li>Mobile Banking</li>
-                            </ul>
-                            <div class="resp-tabs-container">
-                                <!--/tab_one-->
-                                <div class="tab1">
-                                    <div class="pay_info">
-                                        <div class="vertical_post check_box_agile">
-                                            <h5>COD</h5>
-                                            <div class="checkbox">
-                                                <div class="check_box_one cashon_delivery">
-                                                    <label class="anim">
-                                                        <input type="checkbox" class="checkbox">
-                                                        <span> We also accept Credit/Debit card on delivery. Please
+                    <div>
+                        <h3>Pay<span>ment</span></h3>
+                        <!--/tabs-->
+                        <div class="responsive_tabs">
+                            <div id="horizontalTab">
+                                <ul class="resp-tabs-list">
+                                    <li>Cash on delivery (COD)</li>
+                                    <li>Credit/Debit</li>
+                                    <li>Online Banking</li>
+                                    <li>Mobile Banking</li>
+                                </ul>
+                                <div class="resp-tabs-container">
+                                    <!--/tab_one-->
+                                    <div class="tab1">
+                                        <div class="pay_info">
+                                            <div class="vertical_post check_box_agile">
+                                                <h5>COD</h5>
+                                                <div class="checkbox">
+                                                    <div class="check_box_one cashon_delivery">
+                                                        <label class="anim">
+                                                            <input type="checkbox" class="checkbox">
+                                                            <span> We also accept Credit/Debit card on delivery. Please
 																Check with the agent.</span>
-                                                    </label>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="pay_info">
-                                                <input type="submit" value="Make your payment"></input>
-                                            </div>
+                                                <div class="pay_info">
+                                                    {#                                                <form method="post" id="checkout-form-submit">#}
+                                                    {#                                                    {% csrf_token %}#}
+                                                    {#                                                  <input type="text" name="test-text1" value="test1">#}
+                                                    <input type="submit" form="checkout-form-submit"
+                                                           value="Make your payment"/>
+                                                    {#                                                </form>#}
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--//tab_one-->
-                                <div class="tab2">
-                                    <div class="pay_info">
-                                        <form action="#" method="post" class="creditly-card-form agileinfo_form">
-                                            <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                                                <div class="credit-card-wrapper">
-                                                    <div class="first-row form-group">
-                                                        <div class="controls">
-                                                            <label class="control-label">Name on Card</label>
-                                                            <input class="billing-address-name form-control"
-                                                                   type="text" name="name" placeholder="John Smith">
-                                                        </div>
-                                                        <div class="w3_agileits_card_number_grids">
-                                                            <div class="w3_agileits_card_number_grid_left">
-                                                                <div class="controls">
-                                                                    <label class="control-label">Card Number</label>
-                                                                    <input
-                                                                            class="number credit-card-number form-control"
-                                                                            type="text" name="number"
-                                                                            inputmode="numeric" autocomplete="cc-number"
-                                                                            autocompletetype="cc-number"
-                                                                            x-autocompletetype="cc-number"
-                                                                            placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
-                                                                </div>
+                                    <!--//tab_one-->
+                                    <div class="tab2">
+                                        <div class="pay_info">
+                                            <form action="#" method="post" class="creditly-card-form agileinfo_form">
+                                                <section class="creditly-wrapper wthree, w3_agileits_wrapper">
+                                                    <div class="credit-card-wrapper">
+                                                        <div class="first-row form-group">
+                                                            <div class="controls">
+                                                                <label class="control-label">Name on Card</label>
+                                                                <input class="billing-address-name form-control"
+                                                                       type="text" name="name" placeholder="John Smith">
                                                             </div>
-                                                            <div class="w3_agileits_card_number_grid_right">
-                                                                <div class="controls">
-                                                                    <label class="control-label">CVV</label>
-                                                                    <input class="security-code form-control" Â·
-                                                                           inputmode="numeric" type="text"
-                                                                           name="security-code"
-                                                                           placeholder="&#149;&#149;&#149;">
+                                                            <div class="w3_agileits_card_number_grids">
+                                                                <div class="w3_agileits_card_number_grid_left">
+                                                                    <div class="controls">
+                                                                        <label class="control-label">Card Number</label>
+                                                                        <input
+                                                                                class="number credit-card-number form-control"
+                                                                                type="text" name="number"
+                                                                                inputmode="numeric"
+                                                                                autocomplete="cc-number"
+                                                                                autocompletetype="cc-number"
+                                                                                x-autocompletetype="cc-number"
+                                                                                placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+                                                                    </div>
                                                                 </div>
+                                                                <div class="w3_agileits_card_number_grid_right">
+                                                                    <div class="controls">
+                                                                        <label class="control-label">CVV</label>
+                                                                        <input class="security-code form-control" Â·
+                                                                               inputmode="numeric" type="text"
+                                                                               name="security-code"
+                                                                               placeholder="&#149;&#149;&#149;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clear"></div>
                                                             </div>
-                                                            <div class="clear"></div>
+                                                            <div class="controls">
+                                                                <label class="control-label">Expiration Date</label>
+                                                                <input class="expiration-month-and-year form-control"
+                                                                       type="text" name="expiration-month-and-year"
+                                                                       placeholder="MM / YY">
+                                                            </div>
                                                         </div>
-                                                        <div class="controls">
-                                                            <label class="control-label">Expiration Date</label>
-                                                            <input class="expiration-month-and-year form-control"
-                                                                   type="text" name="expiration-month-and-year"
-                                                                   placeholder="MM / YY">
-                                                        </div>
+                                                        <button class="submit"><span>Make a payment </span></button>
                                                     </div>
-                                                    <button class="submit"><span>Make a payment </span></button>
-                                                </div>
-                                            </section>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="tab3">
-                                    <div class="pay_info">
-                                        <div class="vertical_post">
-                                            <form action="#" method="post">
-                                                <h5>Select From Popular Banks</h5>
-                                                <div class="swit-radio">
-                                                    <div class="check_box_one">
-                                                        <div class="radio_one"><label><input type="radio"
-                                                                                             name="radio"
-                                                                                             checked=""><i></i>Syndicate
-                                                            Bank</label></div>
-                                                    </div>
-                                                    <div class="check_box_one">
-                                                        <div class="radio_one"><label><input type="radio"
-                                                                                             name="radio"><i></i>Bank of
-                                                            Baroda</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="check_box_one">
-                                                        <div class="radio_one"><label><input type="radio"
-                                                                                             name="radio"><i></i>Canara
-                                                            Bank</label></div>
-                                                    </div>
-                                                    <div class="check_box_one">
-                                                        <div class="radio_one"><label><input type="radio"
-                                                                                             name="radio"><i></i>ICICI
-                                                            Bank</label></div>
-                                                    </div>
-                                                    <div class="check_box_one">
-                                                        <div class="radio_one"><label><input type="radio"
-                                                                                             name="radio"><i></i>State
-                                                            Bank Of
-                                                            India</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <h5>Or SELECT OTHER BANK</h5>
-                                                <div class="section_room_pay">
-                                                    <select class="year">
-                                                        <option value="">=== Other Banks ===</option>
-                                                        <option value="ALB-NA">Allahabad Bank NetBanking</option>
-                                                    </select>
-                                                </div>
-                                                <input type="submit" value="PAY NOW">
+                                                </section>
                                             </form>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab4">
-                                    <div class="row pay_info">
-                                        <div class="col-md-6 tab-grid">
-                                            <img class="pp-img"
-                                                 href="{% static 'browse/toys_shop/images/paypal.png' %}"
-                                                 alt="Image Alternative text" title="Image Title">
-                                            <p>Important: You will be redirected to PayPal's website to securely
-                                                complete your payment.</p>
-                                            <a class="btn btn-primary">Checkout via Paypal</a>
+                                    <div class="tab3">
+                                        <div class="pay_info">
+                                            <div class="vertical_post">
+                                                <form action="#" method="post">
+                                                    <h5>Select From Popular Banks</h5>
+                                                    <div class="swit-radio">
+                                                        <div class="check_box_one">
+                                                            <div class="radio_one"><label><input type="radio"
+                                                                                                 name="radio"
+                                                                                                 checked=""><i></i>Syndicate
+                                                                Bank</label></div>
+                                                        </div>
+                                                        <div class="check_box_one">
+                                                            <div class="radio_one"><label><input type="radio"
+                                                                                                 name="radio"><i></i>Bank
+                                                                of
+                                                                Baroda</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="check_box_one">
+                                                            <div class="radio_one"><label><input type="radio"
+                                                                                                 name="radio"><i></i>Canara
+                                                                Bank</label></div>
+                                                        </div>
+                                                        <div class="check_box_one">
+                                                            <div class="radio_one"><label><input type="radio"
+                                                                                                 name="radio"><i></i>ICICI
+                                                                Bank</label></div>
+                                                        </div>
+                                                        <div class="check_box_one">
+                                                            <div class="radio_one"><label><input type="radio"
+                                                                                                 name="radio"><i></i>State
+                                                                Bank Of
+                                                                India</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <h5>Or SELECT OTHER BANK</h5>
+                                                    <div class="section_room_pay">
+                                                        <select class="year">
+                                                            <option value="">=== Other Banks ===</option>
+                                                            <option value="ALB-NA">Allahabad Bank NetBanking</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="submit" value="PAY NOW">
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <form class="cc-form">
-                                                <div class="clearfix">
-                                                    <div class="form-group form-group-cc-number">
-                                                        <label>Card Number</label>
-                                                        <input class="form-control"
-                                                               placeholder="xxxx xxxx xxxx xxxx" type="text"><span
-                                                            class="cc-card-icon"></span>
+                                    </div>
+                                    <div class="tab4">
+                                        <div class="row pay_info">
+                                            <div class="col-md-6 tab-grid">
+                                                <img class="pp-img"
+                                                     href="{% static 'browse/toys_shop/images/paypal.png' %}"
+                                                     alt="Image Alternative text" title="Image Title">
+                                                <p>Important: You will be redirected to PayPal's website to securely
+                                                    complete your payment.</p>
+                                                <a class="btn btn-primary">Checkout via Paypal</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <form class="cc-form">
+                                                    <div class="clearfix">
+                                                        <div class="form-group form-group-cc-number">
+                                                            <label>Card Number</label>
+                                                            <input class="form-control"
+                                                                   placeholder="xxxx xxxx xxxx xxxx" type="text"><span
+                                                                class="cc-card-icon"></span>
+                                                        </div>
+                                                        <div class="form-group form-group-cc-cvc">
+                                                            <label>CVV</label>
+                                                            <input class="form-control" placeholder="xxxx" type="text">
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group form-group-cc-cvc">
-                                                        <label>CVV</label>
-                                                        <input class="form-control" placeholder="xxxx" type="text">
+                                                    <div class="clearfix">
+                                                        <div class="form-group form-group-cc-name">
+                                                            <label>Card Holder Name</label>
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        <div class="form-group form-group-cc-date">
+                                                            <label>Valid Thru</label>
+                                                            <input class="form-control" placeholder="mm/yy" type="text">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <div class="form-group form-group-cc-name">
-                                                        <label>Card Holder Name</label>
-                                                        <input class="form-control" type="text">
+                                                    <div class="checkbox checkbox-small">
+                                                        <label>
+                                                            <input class="i-check" type="checkbox" checked="">Add to My
+                                                            Cards</label>
                                                     </div>
-                                                    <div class="form-group form-group-cc-date">
-                                                        <label>Valid Thru</label>
-                                                        <input class="form-control" placeholder="mm/yy" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="checkbox checkbox-small">
-                                                    <label>
-                                                        <input class="i-check" type="checkbox" checked="">Add to My
-                                                        Cards</label>
-                                                </div>
-                                                <input class="btn btn-primary submit" type="submit"
-                                                       value="Proceed Payment">
-                                            </form>
+                                                    <input class="btn btn-primary submit" type="submit"
+                                                           value="Proceed Payment">
+                                                </form>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+
+                </form>
 
             </div>
         </div>
@@ -311,6 +334,28 @@
 
 {% block body-js %}
     <script type="text/javascript">
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+
+		function csrfSafeMethod(method) {
+			// these HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+
+		{#var csrftoken = getCookie('csrftoken');#}
 
 		function displayCheckout() {
 			var cartArray = shoppingCart.listCart();
@@ -341,6 +386,7 @@
 				j++;
 			}
 			$('.checkout-form').html(output);
+			document.getElementById('item-list').value = itemListJSON();
 		}
 
 		$('.checkout-form').on("click", ".close1", function (event) {
@@ -378,6 +424,58 @@
 		displayCheckout();
 		{#document.getElementById('checkout-table-body').innerHTML = output;#}
 		{#oQuickReply.swap('checkout-form-div');#}
+
+
+		function postAjax(url, token, data, success, failure) {
+			{#var params = typeof data == 'string' ? data : Object.keys(data).map(#}
+			{#	function (k) {#}
+			{#		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])#}
+			{#	}#}
+			{#).join('&');#}
+
+			var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open('POST', url);
+			xhr.beforeSend = function (xhr, settings) {
+				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", token);
+				}
+				xhr.setRequestHeader("Content-type", "application/json");
+
+			};
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState > 3 && xhr.status === 200) {
+					success(xhr.responseText);
+				} else {
+					failure(xhr.responseText);
+				}
+			};
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			{#xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');#}
+			{#xhr.conten#}
+			xhr.send(data);
+			return xhr;
+		}
+
+		$(document).on('submit', '#checkout-form-submit', function (event) {
+
+			{#event.preventDefault();#}
+			var data = {
+				{#myTextToPass: $('#sometext').val()#}
+				packagelist: $('#item-list').val(),
+				houseNo: $('#house-no').val(),
+				roadNo: $('#road-no').val(),
+				blockNo: $('#block-no').val(),
+				apartmentNo: $('#apartment-no').val(),
+				area: $('#area').val(),
+				mobileNo: $('#mobile-no').val()
+			};
+			// LOOK AT ME! BETWEEN HERE AND
+			{#var token = $('input[name="csrfToken"]').attr('value');#}
+			var token = getCookie('csrftoken');//$('input[name="csrfmiddlewaretoken"]').attr('value');
+			{#var token = jQuery("[name=csrfmiddlewaretoken]").val();#}
+			{#console.log(token);#}
+			{#postAjax("{% url 'browse:checkout' %}", token, JSON.stringify(data), function (data) {			}, function (data) {});#}
+		});
     </script>
     <!-- //Modal 1-->
     <!--js working-->
