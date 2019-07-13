@@ -52,7 +52,8 @@ class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	branch_name = models.CharField(blank=False, null=False, max_length=50)
 	branch_location = models.CharField(verbose_name="Openstreetmap co-ordinates", max_length=50, default='0,0')
-	branch_location_details = models.CharField(verbose_name="If co-ordinates can't be provided or floor-no", max_length=100,
+	branch_location_details = models.CharField(verbose_name="If co-ordinates can't be provided or floor-no",
+	                                           max_length=100,
 	                                           default='')
 	location_area = models.CharField(default='', max_length=50)
 	branch_phonenum = models.CharField(max_length=20, default='')
@@ -141,7 +142,10 @@ class Order(models.Model):
 	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True)
 	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True)
 
-	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name=("Packages in Order"))
+	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
+
+	# houseNo = models.CharField(verbose_name="Delivery House No")
+	mobileNo = models.CharField(verbose_name="Mobile Number", null=False, blank=False)
 
 	class Meta:
 		verbose_name = "Order"

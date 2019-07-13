@@ -161,6 +161,14 @@ $('.clear-cart').click(function () {
 });
 
 
+function itemListJSON() {
+	var arr = [];
+	for (const item of shoppingCart.listCart()) {
+		arr.push({'id': item.id, 'quantity': item.count, 'price': item.price});
+	}
+	return JSON.stringify({'pkg-list': arr});
+}
+
 function displayCart() {
 	var cartArray = shoppingCart.listCart();
 	var output = "";
@@ -190,46 +198,27 @@ function displayCart() {
 	$('.total-count').html(shoppingCart.totalCount());
 }
 
-// function displayCheckout() {
-// 	var cartArray = shoppingCart.listCart();
-// 	var output = "";
-// 	for (var i in cartArray) {
-// 		console.log(">> " + cartArray[i]);
-// 		output += "<tr>"
-// 			+ "<td>" + cartArray[i].name + "</td>"
-// 			+ "<td>(" + cartArray[i].price + ")</td>"
-// 			+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
-// 			+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
-// 			+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"
-// 			+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"
-// 			+ " = "
-// 			+ "<td>" + cartArray[i].total + "</td>"
-// 			+ "</tr>";
-// 	}
-// 	$('.checkout-form').html(output);
-// }
-
 // Delete item button
 
 $('.show-cart').on("click", ".delete-item", function (event) {
-	var id = $(this).data('id')
+	var id = $(this).data('id');
 	shoppingCart.removeItemFromCartAll(id);
 	displayCart();
-})
+});
 
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {
-	var id = $(this).data('id')
+	var id = $(this).data('id');
 	shoppingCart.removeItemFromCart(id);
 	displayCart();
-})
+});
 // +1
 $('.show-cart').on("click", ".plus-item", function (event) {
-	var id = $(this).data('id')
+	var id = $(this).data('id');
 	shoppingCart.addItemToCart(id);
 	displayCart();
-})
+});
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function (event) {
@@ -240,9 +229,3 @@ $('.show-cart').on("change", ".item-count", function (event) {
 });
 
 displayCart();
-
-
-// $('.checkout-right').ready(function () {
-// 	displayCheckout();
-// 	//block will be loaded with element with id myid is ready in dom
-// });
