@@ -147,9 +147,17 @@ class RestaurantList(TemplateView):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
-		entry_name = self.request.GET.get('menu_search')
-		price_range = self.request.GET.get('range')
-		rest_list = list(Restaurant.objects.exclude(restaurant_key='0'))
+		srch = self.request.GET.get('searchBy_dish_food')
+		show = self.request.GET.get('show')
+		rest_list = []
+		print(pretty_request(self.request))
+		if srch is None:
+			rest_list = list(Restaurant.objects.exclude(restaurant_key='0') )
+		else:
+			if show == 'all':
+				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch) )
+			else:
+				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch) )
 
 		ctx = {'loggedIn': False, 'restaurants': rest_list}
 		if self.request.user.is_authenticated:

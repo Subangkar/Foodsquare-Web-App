@@ -55,6 +55,10 @@
                                 background: white;
                                 color: #2f3640;
                             }
+                            .hotelsearchBox:hover .autocomplete-items {
+                                visibility: visible;
+                                
+                            }
 
                             .hotelsearchButton {
                                 color: white;
@@ -95,12 +99,97 @@
                         <div class="cart-icons">
                             <div class="hotelsearchBox" style="float: left">
 
-                                <input class="hotelsearchInput" type="text" name="" placeholder="Search">
+
+                                <script
+                                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                                <script
+                                    src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+                                <link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+                                    rel="stylesheet">
+                                <!-- <link rel="stylesheet" href="{% static 'browse/css/myAutocomplete.css' %}"
+                                    type="text/css" /> -->
+                                <style>
+                                    .autocomplete {
+                                        position: relative;
+                                        display: inline-block;
+                                    }
+
+
+
+
+
+                                    .autocomplete-items {
+                                        /* transform: translate(-100%, 0%); */
+                                        position: absolute;
+                                        border: 1px solid #d4d4d4;
+                                        border-bottom: none;
+                                        border-top: none;
+                                        z-index: 99;
+                                        /*position the autocomplete items to be the same width as the container:*/
+                                        top: 100%;
+                                        left: 20px;
+                                        right: 0;
+                                        width: 80%;
+                                        text-align: left;
+                                        border-radius: 5px;
+                                        visibility: hidden;
+                                    }
+
+                                    .autocomplete-items div {
+                                        /* transform: translate(-100%, 0%); */
+                                        padding: 10px;
+                                        cursor: pointer;
+                                        background: black;
+                                        /* background-color: transparent; */
+                                        border-bottom: 1px solid #d4d4d4;
+                                        color: crimson;
+                                    }
+
+                                    /*when hovering an item:*/
+                                    .autocomplete-items div:hover {
+                                        background-color: #e9e9e9;
+                                    }
+
+                                    /*when navigating through the items using the arrow keys:*/
+                                    .autocomplete-active {
+                                        background-color: #e9e9e9 !important;
+                                        color: #da3333;
+                                    }
+                                </style>
+                                <!-- <div class="autocomplete"> -->
+
+                                <input class="hotelsearchInput  " type="text" name=""
+                                    placeholder="Search" id="myInput" style="background: transparent;">
                                 <button class="hotelsearchButton" href="#">
+                                    <i class="fa fa-search">
+
+                                    </i>
+                                </button>
+
+                                <!-- </div> -->
+                                <!-- <div class="form-group"> 
+                                        <input id="myInput" type="text" name="myCountry" placeholder="Country"> 
+                                    <label for="ac-demo" class="control-label">Autocomplete demo</label>
+                                    <input class="form-control" id="myInput" value="" type="text"
+                                        data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id"
+                                        data-item_label="cityName" autocomplete="off"> 
+                                </div>
+                                 <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label for="city-code" class="control-label">“Hidden” field</label>
+                                                <input class="form-control" id="city-code" name="citycode" value=""
+                                                    type="number" readonly>
+                                                <span class="help-block">This field should be hidden!</span>
+                                            </div>
+                                        </div> -->
+
+
+                                <script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
+                                <!-- <button class="hotelsearchButton" href="#">
                                     <i class="fa fa-search">
                                         search
                                     </i>
-                                </button>
+                                </button> -->
                             </div>
                             <div style="float: right">
                                 {#							<form action="#" method="post" class="last">#}
