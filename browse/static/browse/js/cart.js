@@ -39,6 +39,7 @@ var shoppingCart = (function () {
 
 	// Add to cart
 	obj.addItemToCart = function (id, price, count, name, rest_id) {
+		
 		for (var item in cart) {
 			if (cart[item].id === id) {
 				cart[item].count++;
@@ -49,6 +50,7 @@ var shoppingCart = (function () {
 		var item = new Item(id, price, count, name, rest_id);
 		cart.push(item);
 		saveCart();
+		return true;
 	};
 	// Set count from item
 	obj.setCountForItem = function (id, count) {
@@ -149,9 +151,39 @@ $('.add-to-cart').click(function (event) {
 	var id = $(this).data('id');
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
-	shoppingCart.addItemToCart(id, price, 1, name, rest_id);
-	displayCart();
-	showSuccessNotification(name);
+
+	if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
+		$.confirm({
+			title: 'Confirm!',
+			content: '"You Have Orders from Other Restaurant.\nREMOVE those to add current one to cart ?"',
+			buttons: {
+				confirm: {
+					text: 'Clear',
+					btnClass: 'btn-red',
+					action: function () {
+						shoppingCart.clearCart();
+						shoppingCart.addItemToCart(id, price, 1, name, rest_id);
+						displayCart();
+						this.close();
+						showSuccessNotification(name + " has been added to your cart.");
+					}
+				},
+				cancel: {
+					text: 'Cancel',
+					// btnClass: 'btn-red',
+					action: function () {
+						showWarningNotification(name + " has not been added to your cart.");
+						this.close();
+					}
+				},
+			}
+		});
+	} else {
+		shoppingCart.addItemToCart(id, price, 1, name, rest_id)
+		displayCart();
+		showSuccessNotification(name + " has been added to your cart.");
+	}
+
 });
 
 // Clear items
