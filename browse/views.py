@@ -2,7 +2,7 @@
 import json
 
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
@@ -78,12 +78,9 @@ class PackageDetails(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
-		# print(IngredientList.objects.select_related('ingr_id').filter(id))
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
-		# # ing_list = list(IngredientList.objects.all().filter(pack_id=id).values('ingr_id'))
-		ctx = {'loggedIn': False, 'item': pkg, 'item_img': [pkg.image], 'ing_list': ing_list, 'rating': range(5)}
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
+		       'ing_list': ing_list, 'rating': range(5)}
 		return ctx
 
 
@@ -121,13 +118,15 @@ class CheckoutView(TemplateView):
 		apartmentNo = request.POST.get('apartment-no')
 		area = request.POST.get('area')
 		mobileNo = request.POST.get('mobile-no')
+		branchID = request.POST.get('branch-id')
 
 		# b'csrfmiddlewaretoken=YG4XDr7l46ARcQ9kdLBNDzQmQ5OVwikfRypkoV8r4tJIYjAIeinEpBt0F3ECRBez&item-list=%7B%22pkg-list%22%3A%5B%7B%22id%22%3A1%2C%22quantity%22%3A4%2C%22price%22%3A150%7D%2C%7B%22id%22%3A5%2C%22quantity%22%3A5%2C%22price%22%3A220%7D%2C%7B%22id%22%3A4%2C%22quantity%22%3A1%2C%22price%22%3A250%7D%5D%7D&
 		# house-no=&road-no=&block-no=&apartment-no=&area=&mobile-no='
 
+		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery(address=area,
 		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo).save()
-		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery).save()
+		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch).save()
 
 		for pkg in pkg_list:
 			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
@@ -152,12 +151,12 @@ class RestaurantList(TemplateView):
 		rest_list = []
 		print(pretty_request(self.request))
 		if srch is None:
-			rest_list = list(Restaurant.objects.exclude(restaurant_key='0') )
+			rest_list = list(Restaurant.objects.exclude(restaurant_key='0'))
 		else:
 			if show == 'all':
-				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch) )
+				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch))
 			else:
-				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch) )
+				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch))
 
 		ctx = {'loggedIn': False, 'restaurants': rest_list}
 		if self.request.user.is_authenticated:

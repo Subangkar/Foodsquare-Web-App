@@ -209,6 +209,7 @@ function displayCart() {
 		document.getElementById("cart-checkout-button").disabled = true;
 		document.getElementById("cart-clear-button").disabled = true;
 	} else {
+		document.getElementById('rest-id').value=cartArray[0].rest_id;
 		document.getElementById("cart-checkout-button").disabled = false;
 		document.getElementById("cart-clear-button").disabled = false;
 		for (var i in cartArray) {

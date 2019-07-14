@@ -1,12 +1,13 @@
 import re
 
 from django.http import HttpResponse
+from django.shortcuts import redirect
 
 from django.views.generic import TemplateView
 
 from accounts.forms import UserForm, RestaurantForm
 
-from accounts.models import User
+from accounts.models import *
 from browse.forms import PackageForm
 from browse.models import Ingredient, IngredientList
 
@@ -24,17 +25,33 @@ class IndexView(TemplateView):
 		pass
 
 
+class ProcessOrdersView(TemplateView):
+	template_name = 'manager/manage_order.html'
+
+	def get_context_data(self, **kwargs):
+		# rests = Rest
+		branch = RestaurantBranch.objects.get(user=self.request.user)
+		obj_list = Order.objects.filter(branch=branch).order_by('status', '-time')
+		return {'object_list': obj_list}
+
+
 class EditRestaurantView(TemplateView):
 	template_name = 'manager/edit_restaurant.html'
 
 	def get(self, request, *args, **kwargs):
+		if request.user.is_branch_manager:
+			return redirect('/orders/')
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditRestaurantView, self).get_context_data(kwargs=kwargs)
-		context['restaurant'] = User.objects.get(id=self.request.user.id).restaurant
 		print(context)
-
+		# if self.request.user.is_branch_manager:
+		# 	self.template_name = 'manager/manage_order.html'
+		# pass
+		# elif self.request.user.is_manager:
+		context['restaurant'] = User.objects.get(id=self.request.user.id).restaurant
+		# pass
 		return context
 
 	def post(self, request, *args, **kwargs):

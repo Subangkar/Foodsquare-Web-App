@@ -7,7 +7,7 @@ from django.urls import reverse
 class User(AbstractUser):
 	is_customer = models.BooleanField('Customer Account', default=False)
 	is_manager = models.BooleanField('Manager Account', default=False)
-	is_branch_manager = models.BooleanField('Manager Account', default=False)
+	is_branch_manager = models.BooleanField('Branch Manager Account', default=False)
 	backend = 'django.contrib.auth.backends.ModelBackend'
 
 	class Meta:
@@ -141,12 +141,13 @@ class Order(models.Model):
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
 	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True)
 	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True)
+	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
 
 	# houseNo = models.CharField(verbose_name="Delivery House No")
 	mobileNo = models.CharField(verbose_name="Mobile Number", max_length=15, null=False, blank=False, default='0')
-	status = models.CharField(verbose_name="Order Status", max_length=15, null=False,  default='Pending')
+	status = models.CharField(verbose_name="Order Status", max_length=15, null=False, default='Pending')
 
 	class Meta:
 		verbose_name = "Order"

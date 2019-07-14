@@ -260,15 +260,7 @@ class BranchRegisterView(TemplateView):
 			rest = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
 			if user_form.is_valid():
 				user = user_form.save(commit=False)
-				user.is_manager = True
 				user.is_branch_manager = True
-				# branch_form = RestaurantBranchForm(request.POST)
-				# print('here')
-				# if branch_form.is_valid():
-				# 	branch = branch_form.save(commit=False)
-				# 	print(branch_form)
-				#
-				# 	print(branch)
 				user.save()
 
 				print(rest)

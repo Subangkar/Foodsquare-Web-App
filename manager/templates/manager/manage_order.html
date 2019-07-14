@@ -1,25 +1,29 @@
 {% extends 'manager/base.html' %}
 
 {% block header %}
-<title>Foodsquare </title>
+    <title>Foodsquare </title>
 {% endblock %}
 
-<!-- <span class="label label-success">Finished</span></td> -->
-<!-- <span class="label label-info">Pending</span></td> -->
-<!-- copied from index.html template -->
-{% block body-content %}
-<div class="page-inner">
-    {% load static %}
-    <div class="col-lg-12 col-md-12">
-        <div class="panel panel-white">
-            <div class="panel-heading">
-                <h4 class="panel-title">Order List</h4>
-            </div>
+{% block slidebar %}
+    <li><a href="/homepage/" class="waves-effect waves-button"><span
+            class="menu-icon glyphicon glyphicon-home"></span>
+        <p>Orders</p>
+    </a></li>
+{% endblock %}
 
-            <div class="panel-body">
-                <div class="table-responsive project-stats">
-                    <table class="table">
-                        <thead>
+{% block body-content %}
+    <div class="page-inner">
+        {% load static %}
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Order List</h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive project-stats">
+                        <table class="table">
+                            <thead>
                             <tr>
                                 <th>Order Id</th>
                                 <th>Customer</th>
@@ -29,60 +33,60 @@
                                 <th>Ref. No(if applicable)</th>
                                 <th>Approve/Reject</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             {% for order in object_list %}
 
-                            <tr>
-                                <td>{{ order.id }}</td>
-                                <td>{{ order.user.username }}</td>
-                                <td>{{ order.time }} </td>
-
-                                {% if order.status == "Pending" %}
-                                <td><span class="label label-danger">Pending</span></td>
-                                {% else if order.status == "Processing"%}
-                                <td><span class="label label-info">Delivered</span></td>
-                                {% else if order.status == "Delivered"%}
-                                <td><span class="label label-success">Delivered</span></td>
-                                {% endif %}
-                                <td>{{ order.payment.payment_type }}</td>
-                                <td> 1234 </td>
-                                <td>
-                                    <!-- <script>
-                                    $(function () {
-                                        $("#requestAcceptForm").submit(function (event) {
-                                            // Stop form from submitting normally
-                                            event.preventDefault();
-                                            var reqForm = $(this);
-                                            // Send the data using post
-                                            var posting = $.post(reqForm.attr('action'), reqForm.serialize());
-                                            // if success:
-                                            posting.done(function (data) {
-                                                // success actions, maybe change submit button to 'friend added' or whatever
-                                            });
-                                            // if failure:
-                                            posting.fail(function (data) {
-                                                // 4xx or 5xx response, alert user about failure
-                                            });
-                                        });
-                                    });
-                                </script>  -->
-                                <td>
-                                    <form action="/accept/{{ restaurant.id }}/" method="post" id="requestAcceptForm">
-                                        {% csrf_token %}
-                                        {% if order.payment.payment_type == 'C' %}
-                                        <input type="submit" name="requestAccept" value="Confirm Payment"
-                                            style="background-color: transparent; border: none; outline: none;color: tomato" />
-                                        {% else if order.payment.payment_type == 'C' %}
-                                        <input type="submit" name="requestAccept" value="Confirm Payment"
-                                            style="background-color: transparent; border: none; outline: none;color: tomato" />
-                                        {% else %}
-                                        <input name="" value="Processed" disabled="disabled"
-                                            style="background-color: transparent; border: none; outline: none;color: green" />
-                                        {% endif %}
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.user.username }}</td>
+                                    <td>{{ order.time }} </td>
+                                    {% if order.status == "Pending" %}
+                                        <td><span class="label label-danger">Pending</span></td>
+                                    {% elif order.status == "Processing" %}
+                                        <td><span class="label label-info">Delivered</span></td>
+                                    {% elif order.status == "Delivered" %}
+                                        <td><span class="label label-success">Delivered</span></td>
+                                    {% endif %}
+                                    <td>{{ order.payment.payment_type }}</td>
+                                    <td> 1234</td>
+                                    <td>
+                                        <!-- <script>
+										$(function () {
+											$("#requestAcceptForm").submit(function (event) {
+												// Stop form from submitting normally
+												event.preventDefault();
+												var reqForm = $(this);
+												// Send the data using post
+												var posting = $.post(reqForm.attr('action'), reqForm.serialize());
+												// if success:
+												posting.done(function (data) {
+													// success actions, maybe change submit button to 'friend added' or whatever
+												});
+												// if failure:
+												posting.fail(function (data) {
+													// 4xx or 5xx response, alert user about failure
+												});
+											});
+										});
+									</script>  -->
+                                    <td>
+                                        <form action="/accept/{{ restaurant.id }}/" method="post"
+                                              id="requestAcceptForm">
+                                            {% csrf_token %}
+                                            {% if order.payment.payment_type == 'C' %}
+                                                <input type="submit" name="requestAccept" value="Confirm Payment"
+                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>
+                                            {% elif order.payment.payment_type == 'C' %}
+                                                <input type="submit" name="requestAccept" value="Confirm Payment"
+                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>
+                                            {% else %}
+                                                <input name="" value="Processed" disabled="disabled"
+                                                       style="background-color: transparent; border: none; outline: none;color: green"/>
+                                            {% endif %}
+                                        </form>
+                                    </td>
+                                </tr>
                             {% endfor %}
                             <!-- <tr>
                                 <td>Wordpress Theme</td>
@@ -93,13 +97,13 @@
                                     <a href="#" style="color: brown"> Request</a>
                                 </td>
                             </tr> -->
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 {% endblock %}
