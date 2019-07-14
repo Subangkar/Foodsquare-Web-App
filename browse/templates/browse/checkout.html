@@ -51,8 +51,21 @@
 <section>
     <div style="margin: 2%">
         <div>
-            <h3>Chec<span>kout</span></h3>
+            <div style="display: flex;">
+                <h3>Chec<span>kout</span></h3>
+
+                <div class="dropdown" style="padding-left: 70%">
+                    <button style=""><span > Branches Near You</span></button>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                    </div>
+
+                </div>
+
+            </div>
             <h4>Your shopping cart contains: <span>3 Products</span></h4>
+
             <form action="." method="post" id="checkout-form-submit">
                 {% csrf_token %}
                 <div class="privacy about" style="display: flex; border: 5px">

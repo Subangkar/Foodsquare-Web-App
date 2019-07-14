@@ -147,6 +147,7 @@ class RestaurantList(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		srch = self.request.GET.get('searchBy_dish_food')
+		srchByArea = self.request.GET.get('delivery_area_srch')
 		show = self.request.GET.get('show')
 		rest_list = []
 		print(pretty_request(self.request))
