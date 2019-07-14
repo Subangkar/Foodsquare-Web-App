@@ -140,7 +140,7 @@
                 <div class="search">
                     <input class="awesomplete text" name="searchBy_dish_food"
                         style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
-                        list="restaurant_list" value="Restaurants near you" onfocus="this.value = '';"
+                        list="restaurant_list" value="Search by Dishes or Restaurants" onfocus="this.value = '';"
                         onblur="if (this.value == '') {this.value = 'Search by Dishes or Restaurants';}" />
                     <datalist id="restaurant_list">
                         {% for restaurant in restaurants %}
@@ -396,7 +396,7 @@
                         <div class="product-toys-info">
                             <div class="men-pro-item">
                                 <div class="men-thumb-item">
-                                    <img src="/media/{{ item.img }}" class="img-thumbnail img-fluid" alt="">
+                                    <img src="/media/{{ restaurant.restaurantImg }}" class="img-thumbnail img-fluid" alt="">
                                     <div class="men-cart-pro">
                                         <div class="inner-men-cart-pro">
                                             <a href={{ restaurant.get_absolute_url }}
