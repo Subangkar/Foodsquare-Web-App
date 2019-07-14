@@ -19,10 +19,10 @@
 </head>
 
 <body>
-    <div class="header-outs" id="home">
+<div class="header-outs" id="home">
 
-        <div class="header-bar">
-            {% block topbar %}
+    <div class="header-bar">
+        {% block topbar %}
             <div class="container-fluid">
                 <div class="hedder-up row">
                     <div class="col-lg-3 col-md-3 logo-head">
@@ -89,7 +89,7 @@
                             }
 
                             @media screen and (max-width: 620px) {
-                                .hotelsearchBox:hover>.hotelsearchInput {
+                                .hotelsearchBox:hover > .hotelsearchInput {
                                     width: 150px;
                                     padding: 0 6px;
                                 }
@@ -158,25 +158,13 @@
                                 <form action="/browse/restaurants/" method="GET">
                                     {% csrf_token %}
                                     <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                        id="delivery_input" style="background: transparent;">
+                                           id="delivery_input" style="background: transparent;">
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"></input>
                                     <button class="hotelsearchButton" href="#">
                                         <i class="fa fa-search">
                                         </i>
                                     </button>
                                 </form>
-
-                                <input class="hotelsearchInput  " type="text" name=""
-                                       placeholder="Search" id="myInput" style="background: transparent;">
-                                <button class="hotelsearchButton" href="#">
-                                    <i class="fa fa-search">
-
-                                    });
-                                    </script> -->
-
-
-
-
                                 <!-- </div> -->
                                 <!-- <div class="form-group"> 
                                         <input id="myInput" type="text" name="myCountry" placeholder="Country"> 
@@ -211,7 +199,7 @@
                                 {#								</button>#}
                                 {#							</form>#}
                                 <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-                                    data-target="#cart">
+                                        data-target="#cart">
                                     <span class="fas fa-cart-arrow-down"> Cart (<span
                                             class="total-count"></span>)</span>
                                 </button>
@@ -220,18 +208,18 @@
 
                             <div class="dropdown" style="float: right">
                                 {% if not loggedIn %}
-                                <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
-                                <div class="dropdown-content">
-                                    <a href={% url 'accounts:login' %}>Login</a>
-                                    <a href={% url 'accounts:register' %}>Register</a>
-                                </div>
+                                    <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+                                    <div class="dropdown-content">
+                                        <a href={% url 'accounts:login' %}>Login</a>
+                                        <a href={% url 'accounts:register' %}>Register</a>
+                                    </div>
                                 {% else %}
-                                <button class="topBtn"><span class="far fa-user">
+                                    <button class="topBtn"><span class="far fa-user">
                                         {{ request.user.username|upper }}</span></button>
-                                <div class="dropdown-content">
-                                    <a href="/customer/editProfile/">Profile</a>
-                                    <a href={% url 'accounts:logout' %}>Logout</a>
-                                </div>
+                                    <div class="dropdown-content">
+                                        <a href="/customer/editProfile/">Profile</a>
+                                        <a href={% url 'accounts:logout' %}>Logout</a>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -239,31 +227,31 @@
 
                 </div>
             </div>
-            {% endblock %}
-            {% block navbar %}
-
-            {% endblock %}
-        </div>
-        {% block body-header %}
+        {% endblock %}
+        {% block navbar %}
 
         {% endblock %}
     </div>
-
-    {% block body-content %}
-    {% endblock body-content %}
-
-    {% block body-footer %}
-
-    {% endblock body-footer %}
-
-    {% block body-footer-common %}
+    {% block body-header %}
 
     {% endblock %}
+</div>
 
-    {% block shopping-cart %}
+{% block body-content %}
+{% endblock body-content %}
+
+{% block body-footer %}
+
+{% endblock body-footer %}
+
+{% block body-footer-common %}
+
+{% endblock %}
+
+{% block shopping-cart %}
 
     <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        style="padding-top: 100px;">
+         style="padding-top: 100px;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -324,19 +312,19 @@
     </script>
 
     {#    Cart#}
-    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css' />
+    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
     <script src="{% static 'browse/js/cart.js' %}"></script>
     {#    Cart#}
 
-    {% endblock %}
+{% endblock %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 {% block body-js-common %}
 {% endblock %}
 
-    {% block body-js %}
-    {% endblock %}
+{% block body-js %}
+{% endblock %}
 
 </body>
 
