@@ -7,7 +7,7 @@ from django.urls import reverse
 class User(AbstractUser):
 	is_customer = models.BooleanField('Customer Account', default=False)
 	is_manager = models.BooleanField('Manager Account', default=False)
-
+	is_branch_manager = models.BooleanField('Manager Account', default=False)
 	backend = 'django.contrib.auth.backends.ModelBackend'
 
 	class Meta:
@@ -146,6 +146,7 @@ class Order(models.Model):
 
 	# houseNo = models.CharField(verbose_name="Delivery House No")
 	mobileNo = models.CharField(verbose_name="Mobile Number", max_length=15, null=False, blank=False, default='0')
+	status = models.CharField(verbose_name="Order Status", max_length=15, null=False,  default='Pending')
 
 	class Meta:
 		verbose_name = "Order"
