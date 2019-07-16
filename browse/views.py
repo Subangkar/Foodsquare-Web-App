@@ -26,11 +26,7 @@ class Index(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
-		ctx['restaurant_list'] = Restaurant.objects.all()
-
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all()}
 		return ctx
 
 
@@ -59,9 +55,7 @@ class Order(TemplateView):
 				if minprice <= x.price <= maxprice:
 					filtered_result.append(x)
 			pkg_list = filtered_result
-		ctx = {'loggedIn': False, 'item_list': pkg_list, 'rating': range(5)}
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5)}
 		return ctx
 
 
@@ -133,10 +127,7 @@ class CheckoutView(TemplateView):
 
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
 		return HttpResponse('<head><meta http-equiv="refresh" content="5;url=/" /></head>' +
-		                    '<body><h1> Your Order has been successfullt placed in queue</h1>\n\nRedirecting...</body')
-
-
-# return HttpResponse((request.POST.get('item-list')))
+		                    '<body><h1> Your Order has been successfullt placed in queue</h1><br><br>Redirecting...</body')
 
 
 class RestaurantList(TemplateView):
@@ -159,9 +150,7 @@ class RestaurantList(TemplateView):
 			else:
 				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch))
 
-		ctx = {'loggedIn': False, 'restaurants': rest_list}
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list}
 		return ctx
 
 

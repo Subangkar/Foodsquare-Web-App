@@ -47,8 +47,7 @@ var shoppingCart = (function () {
 				return;
 			}
 		}
-		var item = new Item(id, price, count, name, rest_id);
-		cart.push(item);
+		cart.push(new Item(id, price, count, name, rest_id));
 		saveCart();
 		return true;
 	};
