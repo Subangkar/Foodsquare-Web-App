@@ -1,151 +1,154 @@
 {% extends 'manager/base.html' %}
 
 {% block header %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'awesomplete.css' %}" />
-<script src="{% static 'awesomplete.js' %}" async></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'awesomplete.css' %}"/>
+    <script src="{% static 'awesomplete.js' %}" async></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-<title>Foodsquare | Home</title>
+    <title>Foodsquare | Home</title>
 {% endblock %}
 
 
 {% block body-content %}
-<div class="page-inner">
-    {% load static %}
-    <div style="height: 50px"></div>
-    <div id="main-wrapper">
-        <div class="container"></div>
-        <div class="container">
-            <h1>Add Menu</h1>
-            <hr>
-            <div class="row">
-                <!-- left column -->
-                <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
-                    {% csrf_token %}
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <img src="" class="avatar " name style="width : 100%;height: 100%" alt="menu image">
-                            <h6>Upload a different photo...</h6>
+    <div class="page-inner">
+        {% load static %}
+        <div style="height: 50px"></div>
+        <div id="main-wrapper">
+            <div class="container"></div>
+            <div class="container">
+                <h1>Add Menu</h1>
+                <hr>
+                <div class="row">
+                    <!-- left column -->
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                        {% csrf_token %}
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="" class="avatar " name style="width : 100%;height: 100%" alt="menu image">
+                                <h6>Upload a different photo...</h6>
 
-                            <input type="file" name="image" class="form-control">
-                        </div>
-                    </div>
-
-                    <!-- edit form column -->
-                    <div class="col-md-9 personal-info">
-                        <div class="alert alert-info alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a>
-                            <i class="fa fa-coffee"></i>
-                            This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                        </div>
-                        <h3>Menu info</h3>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Menu name:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" name="pkg_name">
+                                <input type="file" name="image" class="form-control">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Add Ingredients:</label>
-                            <div class="col-lg-8">
-                                <div>
-                                    <ol style="display: inline" id="added_ingrdList">
-                                    </ol>
+
+                        <!-- edit form column -->
+                        <div class="col-md-9 personal-info">
+                            <div class="alert alert-info alert-dismissable">
+                                <a class="panel-close close" data-dismiss="alert">×</a>
+                                <i class="fa fa-coffee"></i>
+                                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                            </div>
+                            <h3>Menu info</h3>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Menu name:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" name="pkg_name">
                                 </div>
-                               
-                                <input type="hidden" name="ingrds" id="ingrds">
-
-                                <input class="awesomplete" id="ingrd_input"
-                                    style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
-                                    list="ingredient_list" />
-                                <datalist id="ingredient_list">
-                                    {% for ingrd in ingredient_list %}
-                                    <option>{{ ingrd.name }}</option>
-                                    {% endfor %}
-                                </datalist>
-
-                                <script>
-                                    $(document).ready(function () {
-                                        $(window).keydown(function (event) {
-                                            if (event.keyCode == 13) {
-                                                event.preventDefault();
-                                                return false;
-                                            }
-                                        });
-                                        $('#ingrd_input').bind("enterKey", function (e) {
-                                            $("ol").append("<li id=\"myId1\">" + $("#ingrd_input").val() + ' ' + "<a href=\"#\" class=\"remove\">X</a></li>");
-                                            $('#ingrd_input').val("");
-                                        });
-                                        $('#ingrd_input').keyup(function (e) {
-                                            if (e.keyCode == 13) {
-                                                $(this).trigger("enterKey");
-                                            }
-                                        });
-                                        $("#remove_li").click(function () {
-                                            $("li:last").remove();
-                                        });
-                                        $("ol").on('click', '.remove', function () {
-                                            $(this).parents('li').remove();
-                                        });
-                                        $("#submitForm").click(function () {
-                                            var str = ''
-                                            $('#added_ingrdList').each(function () {// id of ul
-                                                var li = $(this).find('li')//get each li in ul
-                                                li.each(function () {// id of ul
-                                                    str += '\'' + $(this).text().trim().slice(0,-1).trim() + '\','
-                                                })
-                                                $('#ingrds').val(str.slice(0, -1))
-
-
-                                            })
-                                        });
-
-                                    });
-                                </script>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Add Ingredients:</label>
+                                <div class="col-lg-8">
+                                    <div>
+                                        <ol style="display: inline" id="added_ingrdList">
+                                        </ol>
+                                    </div>
 
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Price:</label>
-                            <div class="col-lg-8">
-                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
-                                    name="price">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">For How Many Persons:</label>
-                            <div class="col-lg-8">
-                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
-                                    name="for_n_persons">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Extra Details:</label>
-                            <div class="col-lg-8">
-                                <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;" type="text"
-                                    name="details">
-                            </div>
-                        </div>
+                                    <input type="hidden" name="ingrds" id="ingrds">
 
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"></label>
-                            <div class="col-md-8">
-                                <input type="submit" class="btn btn-primary" value="Add item" id="submitForm">
-                                <span></span>
-                                <input type="reset" class="btn btn-default" value="Cancel">
+                                    <input class="awesomplete" id="ingrd_input"
+                                           style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
+                                           list="ingredient_list"/>
+                                    <datalist id="ingredient_list">
+                                        {% for ingrd in ingredient_list %}
+                                            <option>{{ ingrd.name }}</option>
+                                        {% endfor %}
+                                    </datalist>
+
+                                    <script>
+										$(document).ready(function () {
+											$(window).keydown(function (event) {
+												if (event.keyCode == 13) {
+													event.preventDefault();
+													return false;
+												}
+											});
+											$('#ingrd_input').bind("enterKey", function (e) {
+												$("ol").append("<li id=\"myId1\">" + $("#ingrd_input").val() + ' ' + "<a href=\"#\" class=\"remove\">X</a></li>");
+												$('#ingrd_input').val("");
+											});
+											$('#ingrd_input').keyup(function (e) {
+												if (e.keyCode == 13) {
+													$(this).trigger("enterKey");
+												}
+											});
+											$("#remove_li").click(function () {
+												$("li:last").remove();
+											});
+											$("ol").on('click', '.remove', function () {
+												$(this).parents('li').remove();
+											});
+											$("#submitForm").click(function () {
+												var str = ''
+												$('#added_ingrdList').each(function () {// id of ul
+													var li = $(this).find('li')//get each li in ul
+													li.each(function () {// id of ul
+														str += '\'' + $(this).text().trim().slice(0, -1).trim() + '\','
+													})
+													$('#ingrds').val(str.slice(0, -1))
+
+
+												})
+											});
+
+										});
+                                    </script>
+                                </div>
                             </div>
-                        </div>
-                </form>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Price:</label>
+                                <div class="col-lg-8">
+                                    <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
+                                           type="text"
+                                           name="price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">For How Many Persons:</label>
+                                <div class="col-lg-8">
+                                    <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
+                                           type="text"
+                                           name="for_n_persons">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Extra Details:</label>
+                                <div class="col-lg-8">
+                                    <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
+                                           type="text"
+                                           name="details">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                    <input type="submit" class="btn btn-primary" value="Add item" id="submitForm">
+                                    <span></span>
+                                    <input type="reset" class="btn btn-default" value="Cancel">
+                                </div>
+                            </div>
+                    </form>
+
+                </div>
 
             </div>
-
         </div>
+        <hr>
+
     </div>
-    <hr>
 
-</div>
-
-<!-- </div>Page Inner -->
+    <!-- </div>Page Inner -->
 {% endblock %}

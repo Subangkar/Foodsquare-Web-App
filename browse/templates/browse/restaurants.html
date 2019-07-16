@@ -2,33 +2,33 @@
 {% load static %}
 
 {% block header %}
-<title>Foodsquare | order page :: food ordering made simple</title>
-<link href="{% static 'browse/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{% static 'browse/js/jquery.min.js' %}"></script>
-<!-- Custom Theme files -->
-<!-- <link href="{% static 'browse/css/style.css' %}" rel="stylesheet" type="text/css" media="all" /> -->
-<!-- Custom Theme files -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function () {
+    <title>Foodsquare | order page :: food ordering made simple</title>
+    <link href="{% static 'browse/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'browse/js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    <!-- <link href="{% static 'browse/css/style.css' %}" rel="stylesheet" type="text/css" media="all" /> -->
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function () {
 		setTimeout(hideURLbar, 0);
 	}, false);
-</script>
-<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
+    </script>
+    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
 
-<link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}" />
-<script src="{% static 'browse/js/awesomplete.js' %}" async></script>
-<!--//price range-->
+    <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}"/>
+    <script src="{% static 'browse/js/awesomplete.js' %}" async></script>
+    <!--//price range-->
 {% endblock %}
 
 
 {% block body-js %}
-{#	{% load static %}#}
-<!--js working-->
-<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-<!--//js working-->
-<!-- cart-js -->
-<!-- <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
+    {#	{% load static %}#}
+    <!--js working-->
+    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+    <!--//js working-->
+    <!-- cart-js -->
+    <!-- <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
 <script>
     toys.render();
 
@@ -43,123 +43,123 @@
         }
     });
 </script> -->
-<!-- //cart-js -->
-<!-- price range (top products) -->
-<script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
+    <!-- //cart-js -->
+    <!-- price range (top products) -->
+    <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
 
 
-<!-- start-smoth-scrolling -->
-<script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-<script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-<script>
-    jQuery(document).ready(function ($) {
-        $(".scroll").click(function (event) {
-            event.preventDefault();
-            $('html,body').animate({
-                scrollTop: $(this.hash).offset().top
-            }, 900);
-        });
-    });
-</script>
-<!-- start-smoth-scrolling -->
-<!-- here stars scrolling icon -->
-<script>
-    $(document).ready(function () {
+    <!-- start-smoth-scrolling -->
+    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+    <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- here stars scrolling icon -->
+    <script>
+		$(document).ready(function () {
 
-        var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-        };
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
 
 
-        $().UItoTop({
-            easingType: 'easeOutQuart'
-        });
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
 
-    });
-</script>
-<!-- //here ends scrolling icon -->
+		});
+    </script>
+    <!-- //here ends scrolling icon -->
 {% endblock %}
 
 {% block body-content %}
 
-<!-- //short-->
-<!--show Now-->
-<!--show Now-->
-<style>
-    .search {
-        width: 100%;
-        position: relative;
-        display: flex;
-    }
+    <!-- //short-->
+    <!--show Now-->
+    <!--show Now-->
+    <style>
+        .search {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
 
-    .searchTerm {
-        width: 100%;
-        border: 3px solid #00B4CC;
-        border-right: none;
-        padding: 5px;
-        height: 100%;
-        border-radius: 5px 0 0 5px;
-        outline: none;
-        /* color: #9DBFAF; */
-    }
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 100%;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            /* color: #9DBFAF; */
+        }
 
-    .searchTerm:focus {
-        /* color: #00B4CC; */
-    }
+        .searchTerm:focus {
+            /* color: #00B4CC; */
+        }
 
-    .searchButton {
-        width: 40px;
-        height: 36px;
-        border: 1px solid #00B4CC;
-        background: #00B4CC;
-        text-align: center;
-        color: #fff;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-        font-size: 20px;
-    }
+        .searchButton {
+            width: 40px;
+            height: 36px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
 
-    /*Resize the wrap to see the search bar change!*/
-    .wrap {
-        width: 30%;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-</style>
-<section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
-    <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
-        <!-- <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Restaurants </h3> -->
-        <div style="height: 10vh"></div>
-        <div class="wrap">
-            <form action="." id="searchForm" method="GET">
-                <div class="search">
-                    <input class="awesomplete text" name="searchBy_dish_food"
-                        style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
-                        list="restaurant_list" value="Search by Dishes or Restaurants" onfocus="this.value = '';"
-                        onblur="if (this.value == '') {this.value = 'Search by Dishes or Restaurants';}" />
-                    <datalist id="restaurant_list">
-                        {% for restaurant in restaurants %}
-                        <option>{{ restaurant.restaurant_name }}</option>
-                        {% endfor %}
-                    </datalist>
-                    <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </form>
+        /*Resize the wrap to see the search bar change!*/
+        .wrap {
+            width: 30%;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
+        <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
+            <!-- <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Restaurants </h3> -->
+            <div style="height: 10vh"></div>
+            <div class="wrap">
+                <form action="." id="searchForm" method="GET">
+                    <div class="search">
+                        <input class="awesomplete text" name="searchBy_dish_food"
+                               style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
+                               list="restaurant_list" value="Search by Dishes or Restaurants" onfocus="this.value = '';"
+                               onblur="if (this.value == '') {this.value = 'Search by Dishes or Restaurants';}"/>
+                        <datalist id="restaurant_list">
+                            {% for restaurant in restaurants %}
+                                <option>{{ restaurant.restaurant_name }}</option>
+                            {% endfor %}
+                        </datalist>
+                        <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
 
-        </div>
-        <div style="height: 10vh"></div>
+            </div>
+            <div style="height: 10vh"></div>
 
-        <div class="row">
-            <div class="side-bar col-lg-3">
-                <!-- <form action="." method="GET">
+            <div class="row">
+                <div class="side-bar col-lg-3">
+                    <!-- <form action="." method="GET">
                     {#                        <div class="search-hotel">#}
                     {#                            <input type="submit" value=" ">#}
                     {#                        </div>#}
@@ -173,259 +173,260 @@
 
                         {#                                                        </form>#}
                     </div> -->
-                <!-- price range -->
-                <!-- <div class="range">
-                        <h3 class="agileits-sear-head">Price range</h3>
-                        <ul class="dropdown-menu6">
-                            <li>
+                    <!-- price range -->
+                    <!-- <div class="range">
+							<h3 class="agileits-sear-head">Price range</h3>
+							<ul class="dropdown-menu6">
+								<li>
 
-                                <div id="slider-range"></div>
-                                <input type="text" id="amount" name="range"
-                                    style="border: 0; color: #ffffff; font-weight: normal;" />
-                            </li>
-                        </ul>
-                    </div> -->
-                <!-- <br>
-                    <div align="center">
-                        <button class="btn btn-warning" type="submit">
-                            <i class="fa fa-search"></i> Search
-                        </button>
+									<div id="slider-range"></div>
+									<input type="text" id="amount" name="range"
+										style="border: 0; color: #ffffff; font-weight: normal;" />
+								</li>
+							</ul>
+						</div> -->
+                    <!-- <br>
+						<div align="center">
+							<button class="btn btn-warning" type="submit">
+								<i class="fa fa-search"></i> Search
+							</button>
 
-                    </div> -->
-                <!-- //price range -->
-                <!--preference -->
-                <!-- </form> -->
-                <style>
-                    /* The radio_container */
-                    .radio_container {
-                        display: block;
-                        position: relative;
-                        padding-left: 35px;
-                        margin-bottom: 12px;
-                        cursor: pointer;
-                        font-size: 15px;
-                        -webkit-user-select: none;
-                        -moz-user-select: none;
-                        -ms-user-select: none;
-                        user-select: none;
-                    }
+						</div> -->
+                    <!-- //price range -->
+                    <!--preference -->
+                    <!-- </form> -->
+                    <style>
+                        /* The radio_container */
+                        .radio_container {
+                            display: block;
+                            position: relative;
+                            padding-left: 35px;
+                            margin-bottom: 12px;
+                            cursor: pointer;
+                            font-size: 15px;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                        }
 
-                    /* Hide the browser's default radio button */
-                    .radio_container input {
-                        position: absolute;
-                        opacity: 0;
-                        cursor: pointer;
-                    }
+                        /* Hide the browser's default radio button */
+                        .radio_container input {
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
 
-                    /* Create a custom radio button */
-                    .checkmark {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        height: 25px;
-                        width: 25px;
-                        background-color: #eee;
-                        border-radius: 50%;
-                    }
+                        /* Create a custom radio button */
+                        .checkmark {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 25px;
+                            width: 25px;
+                            background-color: #eee;
+                            border-radius: 50%;
+                        }
 
-                    /* On mouse-over, add a grey background color */
-                    .radio_container:hover input~.checkmark {
-                        background-color: #ccc;
-                    }
+                        /* On mouse-over, add a grey background color */
+                        .radio_container:hover input ~ .checkmark {
+                            background-color: #ccc;
+                        }
 
-                    /* When the radio button is checked, add a blue background */
-                    .radio_container input:checked~.checkmark {
-                        background-color: #2196F3;
-                    }
+                        /* When the radio button is checked, add a blue background */
+                        .radio_container input:checked ~ .checkmark {
+                            background-color: #2196F3;
+                        }
 
-                    /* Create the indicator (the dot/circle - hidden when not checked) */
-                    .checkmark:after {
-                        content: "";
-                        position: absolute;
-                        display: none;
-                    }
+                        /* Create the indicator (the dot/circle - hidden when not checked) */
+                        .checkmark:after {
+                            content: "";
+                            position: absolute;
+                            display: none;
+                        }
 
-                    /* Show the indicator (dot/circle) when checked */
-                    .radio_container input:checked~.checkmark:after {
-                        display: block;
-                    }
+                        /* Show the indicator (dot/circle) when checked */
+                        .radio_container input:checked ~ .checkmark:after {
+                            display: block;
+                        }
 
-                    /* Style the indicator (dot/circle) */
-                    .radio_container .checkmark:after {
-                        top: 9px;
-                        left: 9px;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background: white;
-                    }
-                </style>
-                <div>
-                    <label class="radio_container">Shw only restaurants near me
-                        <input type="radio" checked="checked" name="show" value="near_me" form="searchForm">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio_container">Show all
-                        <input type="radio" name="show" value="all" form="searchForm">
-                        <span class="checkmark"></span>
-                    </label>
+                        /* Style the indicator (dot/circle) */
+                        .radio_container .checkmark:after {
+                            top: 9px;
+                            left: 9px;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: white;
+                        }
+                    </style>
+                    <div>
+                        <label class="radio_container">Shw only restaurants near me
+                            <input type="radio" checked="checked" name="show" value="near_me" form="searchForm">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio_container">Show all
+                            <input type="radio" name="show" value="all" form="searchForm">
+                            <span class="checkmark"></span>
+                        </label>
 
 
+                    </div>
+                    {# Dummy Now                   #}
+                    {#                    <div class="left-side">#}
+                    {#                        <h3 class="agileits-sear-head">Occasion</h3>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">Beef</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">Kids Menu</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">Vegetable</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">Chicken</span>#}
+                    {#                            </li>#}
+                    {##}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                    {#                    <!-- // preference -->#}
+                    {#                    <!-- discounts -->#}
+                    {#                    <div class="left-side">#}
+                    {#                        <h3 class="agileits-sear-head">Discount</h3>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">5% or More</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">10% or More</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">20% or More</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">30% or More</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">50% or More</span>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <input type="checkbox" class="checked">#}
+                    {#                                <span class="span">60% or More</span>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                    {#                    <!-- //discounts -->#}
+                    {#                    <!-- reviews -->#}
+                    {#                    <div class="customer-rev left-side">#}
+                    {#                        <h3 class="agileits-sear-head">Customer Review</h3>#}
+                    {#                        <ul>#}
+                    {#                            <li>#}
+                    {#                                <a href="#">#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <span>5.0</span>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <a href="#">#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <span>4.0</span>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <a href="#">#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star-half"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <span>3.5</span>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <a href="#">#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <span>3.0</span>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                            <li>#}
+                    {#                                <a href="#">#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star"></i>#}
+                    {#                                    <i class="fas fa-star-half"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <i class="far fa-star"></i>#}
+                    {#                                    <span>2.5</span>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                    <!-- //reviews -->
+
+                    <!-- //deals -->
+                    {# Dummy Now                   #}
                 </div>
-                {# Dummy Now                   #}
-                {#                    <div class="left-side">#}
-                {#                        <h3 class="agileits-sear-head">Occasion</h3>#}
-                {#                        <ul>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">Beef</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">Kids Menu</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">Vegetable</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">Chicken</span>#}
-                {#                            </li>#}
-                {##}
-                {#                        </ul>#}
-                {#                    </div>#}
-                {#                    <!-- // preference -->#}
-                {#                    <!-- discounts -->#}
-                {#                    <div class="left-side">#}
-                {#                        <h3 class="agileits-sear-head">Discount</h3>#}
-                {#                        <ul>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">5% or More</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">10% or More</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">20% or More</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">30% or More</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">50% or More</span>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <input type="checkbox" class="checked">#}
-                {#                                <span class="span">60% or More</span>#}
-                {#                            </li>#}
-                {#                        </ul>#}
-                {#                    </div>#}
-                {#                    <!-- //discounts -->#}
-                {#                    <!-- reviews -->#}
-                {#                    <div class="customer-rev left-side">#}
-                {#                        <h3 class="agileits-sear-head">Customer Review</h3>#}
-                {#                        <ul>#}
-                {#                            <li>#}
-                {#                                <a href="#">#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <span>5.0</span>#}
-                {#                                </a>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <a href="#">#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <span>4.0</span>#}
-                {#                                </a>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <a href="#">#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star-half"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <span>3.5</span>#}
-                {#                                </a>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <a href="#">#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <span>3.0</span>#}
-                {#                                </a>#}
-                {#                            </li>#}
-                {#                            <li>#}
-                {#                                <a href="#">#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star"></i>#}
-                {#                                    <i class="fas fa-star-half"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <i class="far fa-star"></i>#}
-                {#                                    <span>2.5</span>#}
-                {#                                </a>#}
-                {#                            </li>#}
-                {#                        </ul>#}
-                {#                    </div>#}
-                <!-- //reviews -->
-
-                <!-- //deals -->
-                {# Dummy Now                   #}
-            </div>
-            <div class="left-ads-display col-lg-9">
-                <div class="row">
-                    {# Searched Product list show start #}
-                    {% for restaurant in restaurants %}
-                    <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-                        <div class="product-toys-info">
-                            <div class="men-pro-item">
-                                <div class="men-thumb-item">
-                                    <img src="/media/{{ restaurant.restaurantImg }}" class="img-thumbnail img-fluid" alt="">
-                                    <div class="men-cart-pro">
-                                        <div class="inner-men-cart-pro">
-                                            <a href={{ restaurant.get_absolute_url }}
-                                                class="link-product-add-cart">Quick View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info-product">
-                                    <div class="info-product-price">
-                                        <div class="grid_meta">
-                                            <div class="product_price">
-                                                <h4>
-                                                    <a href="/browse/item/">{{ restaurant.restaurant_name }}</a>
-                                                </h4>
-                                                <div class="grid-price mt-2">
-                                                    <span class="money ">{{ item.price }}</span>
+                <div class="left-ads-display col-lg-9">
+                    <div class="row">
+                        {# Searched Product list show start #}
+                        {% for restaurant in restaurants %}
+                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+                                <div class="product-toys-info">
+                                    <div class="men-pro-item">
+                                        <div class="men-thumb-item">
+                                            <img src="/media/{{ restaurant.restaurantImg }}"
+                                                 class="img-thumbnail img-fluid" alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href={{ restaurant.get_absolute_url }}
+                                                               class="link-product-add-cart">Quick View</a>
                                                 </div>
                                             </div>
-                                            <ul class="stars">
-                                                {% for star in item.rating %}
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fas fa-star"></i>
-                                                    </a>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
                                         </div>
-                                        <!-- <div class="toys single-item hvr-outline-out">
+                                        <div class="item-info-product">
+                                            <div class="info-product-price">
+                                                <div class="grid_meta">
+                                                    <div class="product_price">
+                                                        <h4>
+                                                            <a href="/browse/item/">{{ restaurant.restaurant_name }}</a>
+                                                        </h4>
+                                                        <div class="grid-price mt-2">
+                                                            <span class="money ">{{ item.price }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="stars">
+                                                        {% for star in item.rating %}
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fas fa-star"></i>
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                <!-- <div class="toys single-item hvr-outline-out">
                                                     <form action="#" method="post">
                                                         <input type="hidden" name="cmd" value="_cart">
                                                         <input type="hidden" name="add" value="1">
@@ -436,18 +437,18 @@
                                                         </button>
                                                     </form>
                                                 </div> -->
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
-                        </div>
+                        {% endfor %}
+                        {# Searched Product list show start #}
                     </div>
-                    {% endfor %}
-                    {# Searched Product list show start #}
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- //show Now-->
+    </section>
+    <!-- //show Now-->
 {% endblock %}

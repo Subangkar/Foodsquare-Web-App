@@ -294,8 +294,6 @@ class BranchRegisterView(TemplateView):
 		return redirect('/homepage')
 
 
-
-
 class LogoutView(View, LoginRequiredMixin):
 	def get(self, request):
 		print('Signing out: ' + str(request.user))

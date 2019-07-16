@@ -9,307 +9,357 @@
 
 <head>
     <title>Flaticon WebFont</title>
-    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="flaticon.css">
     <meta charset="UTF-8">
     <style>
-    html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
-    }
-    /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, 
-    footer, header, hgroup, menu, nav, section {
-        display: block;
-    }
-    body {
-        line-height: 1;
-    }
-    ol, ul {
-        list-style: none;
-    }
-    blockquote, q {
-        quotes: none;
-    }
-    blockquote:before, blockquote:after,
-    q:before, q:after {
-        content: '';
-        content: none;
-    }
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-    body {
-        font-family: 'Varela Round', Helvetica, Arial, sans-serif;
-        font-size: 16px;
-        color: #222;
-    }
-    a {
-        color: #333;
-        border-bottom: 1px solid #a9fd00;
-        font-weight: bold;
-        text-decoration: none;
-    }
-    * {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-    [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-        font-family: Flaticon;
-        font-size: 30px;
-        font-style: normal;
-        margin-left: 20px;
-        color: #333;
-    }
-    .wrapper {
-        max-width: 600px;
-        margin: auto;
-        padding: 0 1em;
-    }
-    .title {
-        font-size: 1.25em;
-        text-align: center;
-        margin-bottom: 1em;
-        text-transform: uppercase;
-    }
-    header {
-        text-align: center;
-        background-color: #222;
-        color: #fff;
-        padding: 1em;
-    }
-    header .logo {
-        width: 210px;
-        height: 38px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 1em;
-        border: none;
-    }
-    header strong {
-        font-size: 1.95em;
-        font-weight: bold;
-        vertical-align: middle;
-        margin-top: 5px;
-        display: inline-block;
-    }
-    .demo {
-        margin: 2em auto;
-        line-height: 1.25em;
-    }
-    .demo ul li {
-        margin-bottom: 1em;
-    }
-    .demo ul li .num {
-        color: #222;
-        border-radius: 20px;
-        display: inline-block;
-        width: 26px;
-        padding: 3px;
-        height: 26px;
-        text-align: center;
-        margin-right: 0.5em;
-        border: 1px solid #222;
-    }
-    .demo ul li code {
-        background-color: #222;
-        border-radius: 4px;
-        padding: 0.25em 0.5em;
-        display: inline-block;
-        color: #fff;
-        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-        font-weight: lighter;
-        margin-top: 1em;
-        font-size: 0.8em;
-        word-break: break-all;
-    }
-    .demo ul li code.big {
-        padding: 1em;
-        font-size: 0.9em;
-    }
-    .demo ul li code .red {
-        color: #EF3159;
-    }
-    .demo ul li code .green {
-        color: #ACFF65;
-    }
-    .demo ul li code .yellow {
-        color: #FFFF99;
-    }
-    .demo ul li code .blue {
-        color: #99D3FF;
-    }
-    .demo ul li code .purple {
-        color: #A295FF;
-    }
-    .demo ul li code .dots {
-        margin-top: 0.5em;
-        display: block;
-    }
-    #glyphs {
-        border-bottom: 1px solid #ccc;
-        padding: 2em 0;
-        text-align: center;
-    }
-    .glyph {
-        display: inline-block;
-        width: 9em;
-        margin: 1em;
-        text-align: center;
-        vertical-align: top;
-        background: #FFF;
-    }
-    .glyph .glyph-icon {
-        padding: 10px;
-        display: block;
-        font-family:"Flaticon";
-        font-size: 64px;
-        line-height: 1;
-    }
-    .glyph .glyph-icon:before {
-        font-size: 64px;
-        color: #222;
-        margin-left: 0;
-    }
-    .class-name {
-        font-size: 0.65em;
-        background-color: #222;
-        color: #fff;
-        border-radius: 4px 4px 0 0;
-        padding: 0.5em;
-        color: #FFFF99;
-        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-    }
-    .author-name {
-        font-size: 0.6em;
-        background-color: #fcfcfd;
-        border: 1px solid #DEDEE4;
-        border-top: 0;
-        border-radius: 0 0 4px 4px;
-        padding: 0.5em;
-    }
-    .class-name:last-child {
-        font-size: 10px;
-        color:#888;
-    }
-    .class-name:last-child a {
-        font-size: 10px;
-        color:#555;
-    }
-    .class-name:last-child a:hover {
-        color:#a9fd00;
-    }
-    .glyph > input {
-        display: block;
-        width: 100px;
-        margin: 5px auto;
-        text-align: center;
-        font-size: 12px;
-        cursor: text;
-    }
-    .glyph > input.icon-input {
-        font-family:"Flaticon";
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-    .attribution .title {
-        margin-top: 2em;
-    }
-    .attribution textarea {
-        background-color: #fcfcfd;
-        padding: 1em;
-        border: none;
-        box-shadow: none;
-        border: 1px solid #DEDEE4;
-        border-radius: 4px;
-        resize: none;
-        width: 100%;
-        height: 150px;
-        font-size: 0.8em;
-        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-        -webkit-appearance: none;
-    }
-    .iconsuse {
-        margin: 2em auto;
-        text-align: center;
-        max-width: 1200px;
-    }
-    .iconsuse:after {
-        content: '';
-        display: table;
-        clear: both;
-    }
-    .iconsuse .image {
-        float: left;
-        width: 25%;
-        padding: 0 1em;
-    }
-    .iconsuse .image p {
-        margin-bottom: 1em;
-    }
-    .iconsuse .image span {
-        display: block;
-        font-size: 0.65em;
-        background-color: #222;
-        color: #fff;
-        border-radius: 4px;
-        padding: 0.5em;
-        color: #FFFF99;
-        margin-top: 1em;
-        font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-    }
-    #footer {
-        text-align: center;
-        background-color: #4C5B5C;
-        color: #7c9192;
-        padding: 1em;
-    }
-    #footer a {
-        border: none;
-        color: #a9fd00;
-        font-weight: normal;
-    }
-    @media (max-width: 960px) {
-        .iconsuse .image {
-            width: 50%;
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
         }
-    }
-    @media (max-width: 560px) {
-        .iconsuse .image {
+
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        blockquote, q {
+            quotes: none;
+        }
+
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Varela Round', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            color: #222;
+        }
+
+        a {
+            color: #333;
+            border-bottom: 1px solid #a9fd00;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        * {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+            font-family: Flaticon;
+            font-size: 30px;
+            font-style: normal;
+            margin-left: 20px;
+            color: #333;
+        }
+
+        .wrapper {
+            max-width: 600px;
+            margin: auto;
+            padding: 0 1em;
+        }
+
+        .title {
+            font-size: 1.25em;
+            text-align: center;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+        }
+
+        header {
+            text-align: center;
+            background-color: #222;
+            color: #fff;
+            padding: 1em;
+        }
+
+        header .logo {
+            width: 210px;
+            height: 38px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 1em;
+            border: none;
+        }
+
+        header strong {
+            font-size: 1.95em;
+            font-weight: bold;
+            vertical-align: middle;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .demo {
+            margin: 2em auto;
+            line-height: 1.25em;
+        }
+
+        .demo ul li {
+            margin-bottom: 1em;
+        }
+
+        .demo ul li .num {
+            color: #222;
+            border-radius: 20px;
+            display: inline-block;
+            width: 26px;
+            padding: 3px;
+            height: 26px;
+            text-align: center;
+            margin-right: 0.5em;
+            border: 1px solid #222;
+        }
+
+        .demo ul li code {
+            background-color: #222;
+            border-radius: 4px;
+            padding: 0.25em 0.5em;
+            display: inline-block;
+            color: #fff;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+            font-weight: lighter;
+            margin-top: 1em;
+            font-size: 0.8em;
+            word-break: break-all;
+        }
+
+        .demo ul li code.big {
+            padding: 1em;
+            font-size: 0.9em;
+        }
+
+        .demo ul li code .red {
+            color: #EF3159;
+        }
+
+        .demo ul li code .green {
+            color: #ACFF65;
+        }
+
+        .demo ul li code .yellow {
+            color: #FFFF99;
+        }
+
+        .demo ul li code .blue {
+            color: #99D3FF;
+        }
+
+        .demo ul li code .purple {
+            color: #A295FF;
+        }
+
+        .demo ul li code .dots {
+            margin-top: 0.5em;
+            display: block;
+        }
+
+        #glyphs {
+            border-bottom: 1px solid #ccc;
+            padding: 2em 0;
+            text-align: center;
+        }
+
+        .glyph {
+            display: inline-block;
+            width: 9em;
+            margin: 1em;
+            text-align: center;
+            vertical-align: top;
+            background: #FFF;
+        }
+
+        .glyph .glyph-icon {
+            padding: 10px;
+            display: block;
+            font-family: "Flaticon";
+            font-size: 64px;
+            line-height: 1;
+        }
+
+        .glyph .glyph-icon:before {
+            font-size: 64px;
+            color: #222;
+            margin-left: 0;
+        }
+
+        .class-name {
+            font-size: 0.65em;
+            background-color: #222;
+            color: #fff;
+            border-radius: 4px 4px 0 0;
+            padding: 0.5em;
+            color: #FFFF99;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        }
+
+        .author-name {
+            font-size: 0.6em;
+            background-color: #fcfcfd;
+            border: 1px solid #DEDEE4;
+            border-top: 0;
+            border-radius: 0 0 4px 4px;
+            padding: 0.5em;
+        }
+
+        .class-name:last-child {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .class-name:last-child a {
+            font-size: 10px;
+            color: #555;
+        }
+
+        .class-name:last-child a:hover {
+            color: #a9fd00;
+        }
+
+        .glyph > input {
+            display: block;
+            width: 100px;
+            margin: 5px auto;
+            text-align: center;
+            font-size: 12px;
+            cursor: text;
+        }
+
+        .glyph > input.icon-input {
+            font-family: "Flaticon";
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .attribution .title {
+            margin-top: 2em;
+        }
+
+        .attribution textarea {
+            background-color: #fcfcfd;
+            padding: 1em;
+            border: none;
+            box-shadow: none;
+            border: 1px solid #DEDEE4;
+            border-radius: 4px;
+            resize: none;
             width: 100%;
+            height: 150px;
+            font-size: 0.8em;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+            -webkit-appearance: none;
         }
-    }
+
+        .iconsuse {
+            margin: 2em auto;
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        .iconsuse:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .iconsuse .image {
+            float: left;
+            width: 25%;
+            padding: 0 1em;
+        }
+
+        .iconsuse .image p {
+            margin-bottom: 1em;
+        }
+
+        .iconsuse .image span {
+            display: block;
+            font-size: 0.65em;
+            background-color: #222;
+            color: #fff;
+            border-radius: 4px;
+            padding: 0.5em;
+            color: #FFFF99;
+            margin-top: 1em;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        }
+
+        #footer {
+            text-align: center;
+            background-color: #4C5B5C;
+            color: #7c9192;
+            padding: 1em;
+        }
+
+        #footer a {
+            border: none;
+            color: #a9fd00;
+            font-weight: normal;
+        }
+
+        @media (max-width: 960px) {
+            .iconsuse .image {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .iconsuse .image {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body class="characters-off">
 
-    <header>
-        <a href="https://www.flaticon.com" target="_blank" class="logo">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 560.875 102.036" enable-background="new 0 0 560.875 102.036" xml:space="preserve">
+<header>
+    <a href="https://www.flaticon.com" target="_blank" class="logo">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 560.875 102.036"
+             enable-background="new 0 0 560.875 102.036" xml:space="preserve">
                 <defs>
                 </defs>
-                <g>
+            <g>
                     <g class="letters">
                         <path fill="#ffffff" d="M141.596,29.675c0-3.777,2.985-6.767,6.764-6.767h34.438c3.426,0,6.15,2.728,6.15,6.15
                         c0,3.43-2.724,6.149-6.15,6.149h-27.674v13.091h23.719c3.429,0,6.151,2.724,6.151,6.15c0,3.43-2.723,6.149-6.151,6.149h-23.719
@@ -340,145 +390,161 @@
                         c-3.257,0-5.188-1.581-7.034-3.953l-27.056-35.492v32.944c0,3.687-2.985,6.676-6.678,6.676c-3.683,0-6.673-2.989-6.673-6.676
                         V29.321z"></path>
                     </g>
-                    <g class="insignia">
+                <g class="insignia">
                         <path fill="#ffffff" d="M48.372,56.137h12.517l11.156-18.537H37.186L25.688,18.539h57.825L94.668,0H9.271
                         C5.925,0,2.842,1.801,1.198,4.716c-1.644,2.907-1.593,6.482,0.134,9.343l50.38,83.501c1.678,2.781,4.689,4.476,7.938,4.476
                         c3.246,0,6.257-1.695,7.935-4.476l2.898-4.804L48.372,56.137z"></path>
-                        <g class="i">
+                    <g class="i">
                             <path fill="#A9FD00" d="M93.575,18.539h0.031v0.004l21.652,0.004l2.705-4.488c1.727-2.861,1.778-6.436,0.133-9.343
                             C116.454,1.801,113.371,0,110.026,0h-5.294L93.575,18.539z"></path>
-                            <polygon fill="#A9FD00" points="88.291,27.356 64.725,66.486 75.519,84.404 109.942,27.356"></polygon>
+                        <polygon fill="#A9FD00"
+                                 points="88.291,27.356 64.725,66.486 75.519,84.404 109.942,27.356"></polygon>
                         </g>
                     </g>
                 </g>
             </svg>
-        </a>
-        <strong>Font Demo</strong>
-    </header>
+    </a>
+    <strong>Font Demo</strong>
+</header>
 
 
-    <section class="demo wrapper">
+<section class="demo wrapper">
 
-        <p class="title">Instructions</p>
+    <p class="title">Instructions</p>
 
-        <ul>
-            <li>
-                <span class="num">1</span>Copy the "Fonts" files and CSS files to your website CSS folder.
-            </li>
-            <li>
-                <span class="num">2</span>Add the CSS link to your website source code on header.
-                <code class="big">
-                    &lt;<span class="red">head</span>&gt;
-                    <br/><span class="dots">...</span>
-                    <br/>&lt;<span class="red">link</span> <span class="green">rel</span>=<span class="yellow">"stylesheet"</span> <span class="green">type</span>=<span class="yellow">"text/css"</span> <span class="green">href</span>=<span class="yellow">"your_website_domain/css_root/flaticon.css"</span>&gt;
-                    <br/><span class="dots">...</span>
-                    <br/>&lt;/<span class="red">head</span>&gt;
-                </code>
-            </li>
+    <ul>
+        <li>
+            <span class="num">1</span>Copy the "Fonts" files and CSS files to your website CSS folder.
+        </li>
+        <li>
+            <span class="num">2</span>Add the CSS link to your website source code on header.
+            <code class="big">
+                &lt;<span class="red">head</span>&gt;
+                <br/><span class="dots">...</span>
+                <br/>&lt;<span class="red">link</span> <span class="green">rel</span>=<span
+                    class="yellow">"stylesheet"</span> <span class="green">type</span>=<span
+                    class="yellow">"text/css"</span> <span class="green">href</span>=<span class="yellow">"your_website_domain/css_root/flaticon.css"</span>&gt;
+                <br/><span class="dots">...</span>
+                <br/>&lt;/<span class="red">head</span>&gt;
+            </code>
+        </li>
 
-            <li>
-                <p>
-                    <span class="num">3</span>Use the icon class on <code>"<span class="blue">display</span>:<span class="purple"> inline</span>"</code> elements:
-                    <br />
-                    Use example: <code>&lt;<span class="red">i</span> <span class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span class="red">i</span>&gt;</code> or <code>&lt;<span class="red">span</span> <span class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span class="red">span</span>&gt;</code>
-            </li>
-        </ul>
+        <li>
+            <p>
+                <span class="num">3</span>Use the icon class on <code>"<span class="blue">display</span>:<span
+                    class="purple"> inline</span>"</code> elements:
+                <br/>
+                Use example: <code>&lt;<span class="red">i</span> <span class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span
+                    class="red">i</span>&gt;</code> or <code>&lt;<span class="red">span</span> <span
+                    class="green">class</span>=<span class="yellow">&quot;flaticon-airplane49&quot;</span>&gt;&lt;/<span
+                    class="red">span</span>&gt;</code>
+        </li>
+    </ul>
 
-    </section>
-
-
-
-
-   <section id="glyphs">          
-    
-      
-        <div class="glyph"><div class="glyph-icon flaticon-startup"></div>
-            <div class="class-name">.flaticon-startup</div>
-            <div class="author-name">Author: <a data-file="001-startup" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-        <div class="glyph"><div class="glyph-icon flaticon-graphic-design"></div>
-            <div class="class-name">.flaticon-graphic-design</div>
-            <div class="author-name">Author: <a data-file="002-graphic-design" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-        <div class="glyph"><div class="glyph-icon flaticon-settings"></div>
-            <div class="class-name">.flaticon-settings</div>
-            <div class="author-name">Author: <a data-file="003-settings" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-        <div class="glyph"><div class="glyph-icon flaticon-idea"></div>
-            <div class="class-name">.flaticon-idea</div>
-            <div class="author-name">Author: <a data-file="004-idea" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-        <div class="glyph"><div class="glyph-icon flaticon-smartphone"></div>
-            <div class="class-name">.flaticon-smartphone</div>
-            <div class="author-name">Author: <a data-file="005-smartphone" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-        <div class="glyph"><div class="glyph-icon flaticon-head"></div>
-            <div class="class-name">.flaticon-head</div>
-            <div class="author-name">Author: <a data-file="006-head" href="http://www.freepik.com">Freepik</a> </div> 
-        </div>        
-        
-
-    </section>
+</section>
 
 
+<section id="glyphs">
 
-    <section class="attribution wrapper"   style="text-align:center;">
 
-      <div class="title">License and attribution:</div><div class="attrDiv">Font generated by <a href="https://www.flaticon.com">flaticon.com</a>. <div><p>Under <a href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="001-startup" href="http://www.freepik.com">Freepik</a></p>  </div>
-      </div>
-      <div class="title">Copy the Attribution License:</div>
+    <div class="glyph">
+        <div class="glyph-icon flaticon-startup"></div>
+        <div class="class-name">.flaticon-startup</div>
+        <div class="author-name">Author: <a data-file="001-startup" href="http://www.freepik.com">Freepik</a></div>
+    </div>
 
-    <textarea onclick="this.focus();this.select();">Font generated by &lt;a href=&quot;https://www.flaticon.com&quot;&gt;flaticon.com&lt;/a&gt;. <p>Under <a href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="001-startup" href="http://www.freepik.com">Freepik</a></p>  
+    <div class="glyph">
+        <div class="glyph-icon flaticon-graphic-design"></div>
+        <div class="class-name">.flaticon-graphic-design</div>
+        <div class="author-name">Author: <a data-file="002-graphic-design" href="http://www.freepik.com">Freepik</a>
+        </div>
+    </div>
+
+    <div class="glyph">
+        <div class="glyph-icon flaticon-settings"></div>
+        <div class="class-name">.flaticon-settings</div>
+        <div class="author-name">Author: <a data-file="003-settings" href="http://www.freepik.com">Freepik</a></div>
+    </div>
+
+    <div class="glyph">
+        <div class="glyph-icon flaticon-idea"></div>
+        <div class="class-name">.flaticon-idea</div>
+        <div class="author-name">Author: <a data-file="004-idea" href="http://www.freepik.com">Freepik</a></div>
+    </div>
+
+    <div class="glyph">
+        <div class="glyph-icon flaticon-smartphone"></div>
+        <div class="class-name">.flaticon-smartphone</div>
+        <div class="author-name">Author: <a data-file="005-smartphone" href="http://www.freepik.com">Freepik</a></div>
+    </div>
+
+    <div class="glyph">
+        <div class="glyph-icon flaticon-head"></div>
+        <div class="class-name">.flaticon-head</div>
+        <div class="author-name">Author: <a data-file="006-head" href="http://www.freepik.com">Freepik</a></div>
+    </div>
+
+
+</section>
+
+
+<section class="attribution wrapper" style="text-align:center;">
+
+    <div class="title">License and attribution:</div>
+    <div class="attrDiv">Font generated by <a href="https://www.flaticon.com">flaticon.com</a>.
+        <div><p>Under <a href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="001-startup"
+                                                                                       href="http://www.freepik.com">Freepik</a>
+        </p></div>
+    </div>
+    <div class="title">Copy the Attribution License:</div>
+
+    <textarea onclick="this.focus();this.select();">Font generated by &lt;a href=&quot;https://www.flaticon.com&quot;&gt;flaticon.com&lt;/a&gt;. <p>Under <a
+            href="http://creativecommons.org/licenses/by/3.0/">CC</a>: <a data-file="001-startup"
+                                                                          href="http://www.freepik.com">Freepik</a></p>
      </textarea>
 
-    </section>
+</section>
 
-    <section class="iconsuse">
+<section class="iconsuse">
 
-          <div class="title">Examples:</div>            
-             
-            <div class="image">
-                <p>
-                    <i class="glyph-icon flaticon-startup"></i> 
-                    <span>&lt;i class=&quot;flaticon-startup&quot;&gt;&lt;/i&gt;</span>
-                </p>
-            </div>
-            
-            <div class="image">
-                <p>
-                    <i class="glyph-icon flaticon-graphic-design"></i> 
-                    <span>&lt;i class=&quot;flaticon-graphic-design&quot;&gt;&lt;/i&gt;</span>
-                </p>
-            </div>
-            
-            <div class="image">
-                <p>
-                    <i class="glyph-icon flaticon-settings"></i> 
-                    <span>&lt;i class=&quot;flaticon-settings&quot;&gt;&lt;/i&gt;</span>
-                </p>
-            </div>
-            
-            <div class="image">
-                <p>
-                    <i class="glyph-icon flaticon-idea"></i> 
-                    <span>&lt;i class=&quot;flaticon-idea&quot;&gt;&lt;/i&gt;</span>
-                </p>
-            </div>
-                       
-        </div>
-                            
-    </section>
+    <div class="title">Examples:</div>
+
+    <div class="image">
+        <p>
+            <i class="glyph-icon flaticon-startup"></i>
+            <span>&lt;i class=&quot;flaticon-startup&quot;&gt;&lt;/i&gt;</span>
+        </p>
+    </div>
+
+    <div class="image">
+        <p>
+            <i class="glyph-icon flaticon-graphic-design"></i>
+            <span>&lt;i class=&quot;flaticon-graphic-design&quot;&gt;&lt;/i&gt;</span>
+        </p>
+    </div>
+
+    <div class="image">
+        <p>
+            <i class="glyph-icon flaticon-settings"></i>
+            <span>&lt;i class=&quot;flaticon-settings&quot;&gt;&lt;/i&gt;</span>
+        </p>
+    </div>
+
+    <div class="image">
+        <p>
+            <i class="glyph-icon flaticon-idea"></i>
+            <span>&lt;i class=&quot;flaticon-idea&quot;&gt;&lt;/i&gt;</span>
+        </p>
+    </div>
+
+    </div>
+
+</section>
 
 <div id="footer">
     <div>Generated by <a href="https://www.flaticon.com">flaticon.com</a>
     </div>
 </div>
-
 
 
 </body>

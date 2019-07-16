@@ -48,7 +48,6 @@ class pkg_t:
 
 class rest_t:
 	def __init__(self, name='', img='', rating='', url='/'):
-
 		self.name = name
 		self.img = img
 		self.rating = range(int(rating))

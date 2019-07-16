@@ -24,7 +24,8 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost', 'api.localhost', 'admin.localhost',
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost',
+                 'api.localhost', 'admin.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'api.foodsquare.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'api.foodsquare.net',
                  'admin.foodsquare.com']
@@ -109,14 +110,14 @@ WSGI_APPLICATION = 'Foodsquare.wsgi.application'
 # 	}
 # }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'FoodSquare'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': os.environ.get('DB_NAME', 'FoodSquare'),
+		'USER': os.environ.get('DB_USER', 'postgres'),
+		'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
+		'HOST': 'localhost',
+		'PORT': '5432',
+	}
 }
 
 # Password validation
@@ -179,7 +180,6 @@ SOCIALACCOUNT_PROVIDERS = \
 		  'LOCALE_FUNC': lambda request: 'kr_KR',
 		  'VERIFIED_EMAIL': False,
 		  'VERSION': 'v2.4'}}
-
 
 AUTH_USER_MODEL = 'accounts.User'
 

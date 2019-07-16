@@ -61,16 +61,16 @@
                                         <form action="/accept/{{ restaurant.id }}/" method="post"
                                               id="requestAcceptForm">
                                             {% csrf_token %}
-{#                                                <input type="submit" name="requestAccept" value="Approve"#}
-{#                                                   style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
+                                            {#                                                <input type="submit" name="requestAccept" value="Approve"#}
+                                            {#                                                   style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
                                             {% if restaurant.restaurant_key == '0' %}
                                                 <input type="submit" name="requestAccept" value="Approve"
-                                                   style="background-color: transparent; border: none; outline: none;color: tomato"/>
+                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>
                                                 <td><span class="label label-danger">Pending</span></td>
                                             {% else %}
-{#                                                <td><span class="label label-success">Registered</span></td>#}
+                                                {#                                                <td><span class="label label-success">Registered</span></td>#}
                                                 <input name="" value="View Log" disabled="disabled"
-                                                   style="background-color: transparent; border: none; outline: none;color: green"/>
+                                                       style="background-color: transparent; border: none; outline: none;color: green"/>
                                             {% endif %}
                                     </form>
                                     </td>

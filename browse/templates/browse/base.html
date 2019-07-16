@@ -15,8 +15,8 @@
     </script>
     <!--//meta tags ends here-->
     <!--booststrap-->
-{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">#}
-        <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">
+    {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">#}
+    <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
 
@@ -44,7 +44,7 @@
     <link href="{% static 'browse/toys_shop/index/css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
     <!-- Custom Theme files -->
 
-	<script type="application/x-javascript"> addEventListener("load", function () {
+    <script type="application/x-javascript"> addEventListener("load", function () {
 		setTimeout(hideURLbar, 0);
 	}, false);
 
@@ -57,77 +57,77 @@
             integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
             crossorigin="anonymous"></script>
 
-	<!--webfont-->
-	<link
-		href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
-		rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
-		type='text/css'>
+    <!--webfont-->
+    <link
+            href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic'
+            rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet'
+          type='text/css'>
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 
-	<!--Animation-->
-	<script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
-	<link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css' />
-	<script>
+    <!--Animation-->
+    <script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
+    <link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css'/>
+    <script>
 		new WOW().init();
-	</script>
-	<script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
-	<script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
-	<script type="text/javascript">
+    </script>
+    <script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
+    <script type="text/javascript">
 		jQuery(document).ready(function ($) {
 			$(".scroll").click(function (event) {
 				event.preventDefault();
-				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
 			});
 		});
-	</script>
+    </script>
 
     <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
 
-	<style>
-		.topBtn {
-			background-color: #000;
-			color: white;
-			padding: 16px;
-			font-size: 16px;
-			border: none;
-			cursor: pointer;
-			outline: none;
-		}
+    <style>
+        .topBtn {
+            background-color: #000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
 
-		.dropdown {
-			position: relative;
-			display: inline-block;
+        .dropdown {
+            position: relative;
+            display: inline-block;
 
-		}
+        }
 
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
-			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-		}
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
 
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-			width: 100%;
-		}
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
 
-		.dropdown-content a:hover {
-			background-color: #f1f1f1
-		}
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
 
-		.dropdown:hover .dropdown-content {
-			display: block;
-		}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
         .topBtn:hover {
             /* background-color: #3e8e41; */

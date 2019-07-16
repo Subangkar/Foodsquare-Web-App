@@ -3,46 +3,47 @@
 
 <head>
     {% if not loggedIn %}
-    <meta charset="UTF-8">
-    {% load static %}
+        <meta charset="UTF-8">
+        {% load static %}
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sign Up Form</title>
 
-    <!-- Font Icon -->
-    <link rel="stylesheet"
-        href="{% static 'accounts/colorlib-regform-7/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-    <link href="{% static 'accounts/css/button.css' %}" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Main css -->
-    <link rel="stylesheet" href="{% static 'accounts/colorlib-regform-7/css/style.css' %}">
-
-
-
-    <link rel="stylesheet" type="text/css"
-        href="{% static 'accounts/login_v4/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{% static 'accounts/login_v4/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <!-- Font Icon -->
+        <link rel="stylesheet"
+              href="{% static 'accounts/colorlib-regform-7/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+        <link href="{% static 'accounts/css/button.css' %}" rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Main css -->
+        <link rel="stylesheet" href="{% static 'accounts/colorlib-regform-7/css/style.css' %}">
 
 
-    <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/util.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/main.css' %}">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'accounts/login_v4/vendor/bootstrap/css/bootstrap.min.css' %}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'accounts/login_v4/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/util.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/main.css' %}">
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     {% else %}
-    <meta http-equiv='refresh' content='2; URL=/'>
+        <meta http-equiv='refresh' content='2; URL=/'>
     {% endif %}
 </head>
 
 <body>
-    {% if not loggedIn %}
+{% if not loggedIn %}
 
     {#<div class="main">#}
 
@@ -53,28 +54,28 @@
                 <div class="signup-form">
                     <h1 cass="form-title"><a href="/">Foodsquare</a></h2>
                         <script>
-                            var checkpass = function () {
-                                if (document.getElementById('name') == '') {
-                                    document.getElementById('name').style.backgroundColor = 'red'
-                                }
+							var checkpass = function () {
+								if (document.getElementById('name') == '') {
+									document.getElementById('name').style.backgroundColor = 'red'
+								}
 
-                                if (document.getElementById('password').value ==
-                                    document.getElementById('re_pass').value) {
-                                    document.getElementById('password').style.color = 'green';
-                                    document.getElementById('re_pass').style.color = 'green';
-                                    document.getElementById('password-message').innerHTML = '';
-                                    document.getElementById('password-message').style.color = 'green';
-                                    document.getElementById('signup').disabled = false
-                                    document.getElementById('signup').style.backgroundColor = 'green'
-                                } else {
-                                    document.getElementById('password').style.color = 'red';
-                                    document.getElementById('re_pass').style.color = 'red';
-                                    document.getElementById('password-message').innerHTML = 'NOT MATCHING';
-                                    document.getElementById('password-message').style.color = 'red';
-                                    document.getElementById('signup').disabled = true
-                                    document.getElementById('signup').style.backgroundColor = 'red'
-                                }
-                            }
+								if (document.getElementById('password').value ==
+									document.getElementById('re_pass').value) {
+									document.getElementById('password').style.color = 'green';
+									document.getElementById('re_pass').style.color = 'green';
+									document.getElementById('password-message').innerHTML = '';
+									document.getElementById('password-message').style.color = 'green';
+									document.getElementById('signup').disabled = false
+									document.getElementById('signup').style.backgroundColor = 'green'
+								} else {
+									document.getElementById('password').style.color = 'red';
+									document.getElementById('re_pass').style.color = 'red';
+									document.getElementById('password-message').innerHTML = 'NOT MATCHING';
+									document.getElementById('password-message').style.color = 'red';
+									document.getElementById('signup').disabled = true
+									document.getElementById('signup').style.backgroundColor = 'red'
+								}
+							}
 
                         </script>
 
@@ -84,33 +85,33 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="rest_key" placeholder="Your Restaurant Key" />
+                                <input type="text" name="rest_key" placeholder="Your Restaurant Key"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="text" name="branch_name"
-                                    placeholder="Your Branch Name" />
+                                       placeholder="Your Branch Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" placeholder="User Name" />
+                                <input type="text" name="username" placeholder="User Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" placeholder="Your Email" />
+                                <input type="email" name="email" placeholder="Your Email"/>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" placeholder="Password" onkeyup='checkpass();' />
+                                <input type="password" name="password" placeholder="Password" onkeyup='checkpass();'/>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="re_pass" placeholder="Repeat your password"
-                                    onkeyup='checkpass();' /><span></span>
+                                       onkeyup='checkpass();'/><span></span>
                             </div>
 
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" class="form-submit" value="Register" />
+                                <input type="submit" name="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
 
@@ -159,104 +160,117 @@
                                 <label for="Address Lookup"><i
                                         class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="addr" value="" id="addr_search_box" size="58"
-                                    placeholder="your restaurant Loaction" />
+                                       placeholder="your restaurant Loaction"/>
                             </div>
                             <div id="results"></div>
 
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="text" name="extra_details"
-                                    placeholder="Extra precision details beyond co-ordinates(optional)" />
+                                       placeholder="Extra precision details beyond co-ordinates(optional)"/>
                             </div>
-                            <br />
+                            <br/>
 
                             <div id="map"></div>
                         </div>
 
                         <script>
-                            $(document).ready(function () {
-                                $(window).keydown(function (event) {
-                                    if (event.keyCode == 13) {
-                                        // event.preventDefault();
-                                        return false;
-                                    }
-                                });
-                                $('#addr_search_box').bind("enterKey", function (e) {
-                                    var inp = document.getElementById("addr_search_box");
-                                    var xmlhttp = new XMLHttpRequest();
-                                    var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
-                                    xmlhttp.onreadystatechange = function () {
-                                        if (this.readyState == 4 && this.status == 200) {
-                                            var myArr = JSON.parse(this.responseText);
-                                            myFunction(myArr);
-                                        }
-                                    };
-                                    xmlhttp.open("GET", url, true);
-                                    xmlhttp.send();
-                                });
-                                function myFunction(arr) {
-                                    var out = "<br />";
-                                    var i;
+							$(document).ready(function () {
+								$(window).keydown(function (event) {
+									if (event.keyCode == 13) {
+										// event.preventDefault();
+										return false;
+									}
+								});
+								$('#addr_search_box').bind("enterKey", function (e) {
+									var inp = document.getElementById("addr_search_box");
+									var xmlhttp = new XMLHttpRequest();
+									var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+									xmlhttp.onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											var myArr = JSON.parse(this.responseText);
+											myFunction(myArr);
+										}
+									};
+									xmlhttp.open("GET", url, true);
+									xmlhttp.send();
+								});
 
-                                    if (arr.length > 0) {
-                                        for (i = 0; i < arr.length; i++) {
-                                            out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
-                                        }
-                                        document.getElementById('results').innerHTML = out;
-                                    }
-                                    else {
-                                        document.getElementById('results').innerHTML = "Sorry, no results...";
-                                    }
+								function myFunction(arr) {
+									var out = "<br />";
+									var i;
 
-                                }
-                                $('#addr_search_box').keyup(function (e) {
-                                    if (e.keyCode == 13) {
-                                        $(this).trigger("enterKey");
-                                    }
-                                });
-                            });
+									if (arr.length > 0) {
+										for (i = 0; i < arr.length; i++) {
+											out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
+										}
+										document.getElementById('results').innerHTML = out;
+									} else {
+										document.getElementById('results').innerHTML = "Sorry, no results...";
+									}
+
+								}
+
+								$('#addr_search_box').keyup(function (e) {
+									if (e.keyCode == 13) {
+										$(this).trigger("enterKey");
+									}
+								});
+							});
                         </script>
                         <script type="text/javascript">
 
-                            // New York
-                            var startlat = 40.75637123;
-                            var startlon = -73.98545321;
+							// New York
+							var startlat = 40.75637123;
+							var startlon = -73.98545321;
 
-                            var options = {
-                                center: [startlat, startlon],
-                                zoom: 9
-                            }
+							var options = {
+								center: [startlat, startlon],
+								zoom: 9
+							}
 
-                            document.getElementById('lat').value = startlat;
-                            document.getElementById('lon').value = startlon;
+							document.getElementById('lat').value = startlat;
+							document.getElementById('lon').value = startlon;
 
-                            var map = L.map('map', options);
-                            var nzoom = 12;
+							var map = L.map('map', options);
+							var nzoom = 12;
 
-                            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'OSM' }).addTo(map);
+							L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(map);
 
-                            var myMarker = L.marker([startlat, startlon], { title: "Coordinates", alt: "Coordinates", draggable: true }).addTo(map).on('dragend', function () {
-                                var lat = myMarker.getLatLng().lat.toFixed(8);
-                                var lon = myMarker.getLatLng().lng.toFixed(8);
-                                var czoom = map.getZoom();
-                                if (czoom < 18) { nzoom = czoom + 2; }
-                                if (nzoom > 18) { nzoom = 18; }
-                                if (czoom != 18) { map.setView([lat, lon], nzoom); } else { map.setView([lat, lon]); }
-                                document.getElementById('lat').value = lat;
-                                document.getElementById('lon').value = lon;
-                                myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
-                            });
+							var myMarker = L.marker([startlat, startlon], {
+								title: "Coordinates",
+								alt: "Coordinates",
+								draggable: true
+							}).addTo(map).on('dragend', function () {
+								var lat = myMarker.getLatLng().lat.toFixed(8);
+								var lon = myMarker.getLatLng().lng.toFixed(8);
+								var czoom = map.getZoom();
+								if (czoom < 18) {
+									nzoom = czoom + 2;
+								}
+								if (nzoom > 18) {
+									nzoom = 18;
+								}
+								if (czoom != 18) {
+									map.setView([lat, lon], nzoom);
+								} else {
+									map.setView([lat, lon]);
+								}
+								document.getElementById('lat').value = lat;
+								document.getElementById('lon').value = lon;
+								myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+							});
 
-                            function chooseAddr(lat1, lng1) {
-                                myMarker.closePopup();
-                                map.setView([lat1, lng1], 18);
-                                myMarker.setLatLng([lat1, lng1]);
-                                lat = lat1.toFixed(8);
-                                lon = lng1.toFixed(8);
-                                document.getElementById('lat').value = lat;
-                                document.getElementById('lon').value = lon;
-                                myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
-                            }
+							function chooseAddr(lat1, lng1) {
+								myMarker.closePopup();
+								map.setView([lat1, lng1], 18);
+								myMarker.setLatLng([lat1, lng1]);
+								lat = lat1.toFixed(8);
+								lon = lng1.toFixed(8);
+								document.getElementById('lat').value = lat;
+								document.getElementById('lon').value = lon;
+								myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+							}
 
 
                         </script>
@@ -265,8 +279,8 @@
                         <div class="flex-col-c p-t-20">
                             Don't have your restaurant account yet?
                             <b><u><a href="/accounts/manager_register/" class="txt2">
-                                        Open Now
-                                    </a></u></b>
+                                Open Now
+                            </a></u></b>
                         </div>
                     </div>
 
@@ -279,9 +293,9 @@
     <!-- JS -->
     <script src="{% static 'accounts/colorlib-regform-7/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'accounts/colorlib-regform-7/js/main.js' %}"></script>
-    {% else %}
+{% else %}
     <b>You are already signed in...</b>
-    {% endif %}
+{% endif %}
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
