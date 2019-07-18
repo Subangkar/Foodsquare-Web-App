@@ -83,8 +83,16 @@ class Payment(models.Model):
 		(ONLINE, 'Online'),
 	)
 
+	PAID = 'P'
+	DUE = 'D'
+	PAYMENT_STATUS = (
+		(PAID, 'Paid'),
+		(DUE, 'Due'),
+	)
+
 	price = models.FloatField(verbose_name="Total Price")
 	payment_type = models.CharField(verbose_name="Payment Type", max_length=1, choices=PAYMENT_TYPES, default=CASH)
+	payment_status = models.CharField(verbose_name="Payment Status", max_length=1, choices=PAYMENT_STATUS, default=DUE)
 
 	class Meta:
 		verbose_name = "Payment"

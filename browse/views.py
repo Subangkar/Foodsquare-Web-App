@@ -2,7 +2,7 @@
 import json
 
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
@@ -18,6 +18,10 @@ def viewRestaurants(request):
 # for debug purpose only
 def viewRaw(request):
 	return render(request, "browse/base-banner.html", {})
+
+
+def bkashPayment(request):
+	return JsonResponse({'ref': '12345'})
 
 
 class Index(TemplateView):
@@ -171,3 +175,5 @@ class RestaurantDetails(TemplateView):
 		if self.request.user.is_authenticated:
 			ctx['loggedIn'] = True
 		return ctx
+
+

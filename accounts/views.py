@@ -84,17 +84,25 @@ class ManagerLoginView(TemplateView):
 		password = request.POST.get('pass', False)
 		if username and password:
 			user = authenticate(request, username=username, password=password)
-			rest = Restaurant.objects.get(user=user)
-			if user is not None and user.is_manager and rest.restaurant_key != '0':
-				login(request, user)
-				print('Signing in: ' + str(request.user))
-				return redirect('/homepage')
-			elif rest.restaurant_key == '0':
-				return HttpResponse('Your account has not been approved yet')
-			elif not user.is_manager:
-				return HttpResponse('Not a Manager account')
+			if user.is_branch_manager:
+				if user is not None:
+					login(request, user)
+					print('Signing in: ' + str(request.user))
+					return redirect('/orders')
+				else:
+					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
 			else:
-				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+				rest = Restaurant.objects.get(user=user)
+				if user is not None and user.is_manager and rest.restaurant_key != '0':
+					login(request, user)
+					print('Signing in: ' + str(request.user))
+					return redirect('/homepage')
+				elif rest.restaurant_key == '0':
+					return HttpResponse('Your account has not been approved yet')
+				elif not user.is_manager:
+					return HttpResponse('Not a Manager account')
+				else:
+					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
 		else:
 			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
 

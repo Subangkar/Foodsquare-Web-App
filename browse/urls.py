@@ -17,6 +17,7 @@ urlpatterns = [
 	path('browse/restaurants/<int:id>/', views.RestaurantDetails.as_view(), name='restaurant_detail'),
 
 	path('order/checkout/', views.CheckoutView.as_view(), name='checkout'),
+	path('order/checkout/getBkashRef', views.bkashPayment, name='bkashRef'),
 
 ]
 

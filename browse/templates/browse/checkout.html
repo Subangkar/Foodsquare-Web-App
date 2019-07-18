@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
     <!--//price range-->
     <script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
     </script>
     <!--//meta tags ends here-->
 
@@ -54,14 +54,6 @@
                 <div style="display: flex;">
                     <h3>Chec<span>kout</span></h3>
 
-                    <div class="dropdown" style="padding-left: 70%">
-                        <button style=""><span> Branches Near You</span></button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                        </div>
-
-                    </div>
 
                 </div>
                 <h4>Your shopping cart contains: <span>3 Products</span></h4>
@@ -295,21 +287,68 @@
                                                 <form class="cc-form">
                                                     <div>
                                                         <h1>Proceed with bKash Payment</h1>
-                                                        <form action="">
-                                                            <input type="image"
-                                                                   src="{% static 'browse/images/bkash.png' %}"
-                                                                   alt="Submit"
-                                                                   style="width: 25%; height: 25%; outline: none">
-                                                        </form>
-                                                </form>
+                                                        {#                                                        <form action="">#}
+                                                        <input type="image" onclick="loadDoc()"
+                                                               src="{% static 'browse/images/bkash.png' %}"
+                                                               alt="Submit"
+                                                               style="width: 25%; height: 25%; outline: none">
+                                                        {#                                                            </input>#}
+                                                        {#                                                        </form>#}
+
+                                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+                                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                                                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+                                                        <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
+
+
+                                                        {#                                                </form>#}
+                                                        <script>
+
+                                                            function loadDoc() {
+                                                                event.preventDefault();
+                                                                var xhttp = new XMLHttpRequest();
+                                                                xhttp.onreadystatechange = function() {
+                                                                    if (this.readyState == 4 && this.status == 200) {
+                                                                        var response = JSON.parse(this.responseText);
+                                                                        $('#bkash_ref').modal();
+                                                                    }
+                                                                };
+                                                                xhttp.open("GET", "getBkashRef", true);
+                                                                xhttp.send();
+                                                            }
+                                                        </script>
+                                                    </div>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="bkash_ref" role="dialog">
+                                                        <div class="modal-dialog">
+
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
+                                                                    <p>
+                                                                        <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with ref. <font id="ref_no"></font> via bkash. You'll receive confrimation
+                                                                        once your payment is done.</font>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="modal-footer">
+
+                                                                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                                                                            style="width: 30%">Confirm Order
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>                                                    <div class="clearfix"></div>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
                 </form>
@@ -328,150 +367,150 @@
 
 {% block body-js %}
     <script type="text/javascript">
-		function getCookie(name) {
-			var cookieValue = null;
-			if (document.cookie && document.cookie !== '') {
-				var cookies = document.cookie.split(';');
-				for (var i = 0; i < cookies.length; i++) {
-					var cookie = cookies[i].trim();
-					// Does this cookie string begin with the name we want?
-					if (cookie.substring(0, name.length + 1) === (name + '=')) {
-						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-						break;
-					}
-				}
-			}
-			return cookieValue;
-		}
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
-		function csrfSafeMethod(method) {
-			// these HTTP methods do not require CSRF protection
-			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-		}
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
 
-		// { #var csrftoken = getCookie('csrftoken'); # }
+        // { #var csrftoken = getCookie('csrftoken'); # }
 
-		function displayCheckout() {
-			var cartArray = shoppingCart.listCart();
-			var output = "";
-			var format = ['rem1', 'rem2', 'rem3'];
-			j = 0;
-			// { #output += cartArray[0].rest_id; # }
-			for (var i in cartArray) {
-				console.log(">> " + cartArray[i]);
-				// { #output += "<tr>"# }
-				// { #	+ "<td>" + cartArray[i].id + "</td>"# }
-				// { #	+ "<td>" + cartArray[i].name + "</td>"# }
-				// { #	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"# }
-				// { #	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"# }
-				// { #	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"# }
-				// { #	+ "<td>" + cartArray[i].total + "</td>"# }
-				// { #	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
-				// { #	+ "</tr>"; # }
-				output += '<tr class=' + format[j % 3] + '>'
-					+ '<td class="invert">' + cartArray[i].id + '</td>'
-					// { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
-					+ '<td class="invert">' + cartArray[i].name + '</td>'
-					+ '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
-					+ '<td class="invert">' + cartArray[i].price + '</td>'
-					// { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
-					+ '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
-					+ '</tr>';
-				j++;
-			}
-			$('.checkout-form').html(output);
-			document.getElementById('item-list').value = itemListJSON();
-		}
+        function displayCheckout() {
+            var cartArray = shoppingCart.listCart();
+            var output = "";
+            var format = ['rem1', 'rem2', 'rem3'];
+            j = 0;
+            // { #output += cartArray[0].rest_id; # }
+            for (var i in cartArray) {
+                console.log(">> " + cartArray[i]);
+                // { #output += "<tr>"# }
+                // { #	+ "<td>" + cartArray[i].id + "</td>"# }
+                // { #	+ "<td>" + cartArray[i].name + "</td>"# }
+                // { #	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"# }
+                // { #	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"# }
+                // { #	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"# }
+                // { #	+ "<td>" + cartArray[i].total + "</td>"# }
+                // { #	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
+                // { #	+ "</tr>"; # }
+                output += '<tr class=' + format[j % 3] + '>'
+                    + '<td class="invert">' + cartArray[i].id + '</td>'
+                    // { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
+                    + '<td class="invert">' + cartArray[i].name + '</td>'
+                    + '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
+                    + '<td class="invert">' + cartArray[i].price + '</td>'
+                    // { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
+                    + '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
+                    + '</tr>';
+                j++;
+            }
+            $('.checkout-form').html(output);
+            document.getElementById('item-list').value = itemListJSON();
+        }
 
-		$('.checkout-form').on("click", ".close1", function (event) {
-			console.log(">> delete >");
-			var id = $(this).data('id');
-			shoppingCart.removeItemFromCartAll(id);
-			displayCheckout();
-			displayCart();
-		});
+        $('.checkout-form').on("click", ".close1", function (event) {
+            console.log(">> delete >");
+            var id = $(this).data('id');
+            shoppingCart.removeItemFromCartAll(id);
+            displayCheckout();
+            displayCart();
+        });
 
-		// -1
-		$('.checkout-form').on("click", ".value-minus", function (event) {
-			var id = $(this).data('id');
-			shoppingCart.removeItemFromCart(id);
-			displayCheckout();
-			displayCart();
-		});
-		// +1
-		$('.checkout-form').on("click", ".value-plus", function (event) {
-			var id = $(this).data('id');
-			shoppingCart.addItemToCart(id);
-			displayCheckout();
-			displayCart();
-		});
+        // -1
+        $('.checkout-form').on("click", ".value-minus", function (event) {
+            var id = $(this).data('id');
+            shoppingCart.removeItemFromCart(id);
+            displayCheckout();
+            displayCart();
+        });
+        // +1
+        $('.checkout-form').on("click", ".value-plus", function (event) {
+            var id = $(this).data('id');
+            shoppingCart.addItemToCart(id);
+            displayCheckout();
+            displayCart();
+        });
 
-		// Item count input
-		$('.show-cart').on("change", ".item-count", function (event) {
-			var id = $(this).data('id');
-			var count = Number($(this).val());
-			shoppingCart.setCountForItem(id, count);
-			displayCheckout();
-			displayCart();
-		});
+        // Item count input
+        $('.show-cart').on("change", ".item-count", function (event) {
+            var id = $(this).data('id');
+            var count = Number($(this).val());
+            shoppingCart.setCountForItem(id, count);
+            displayCheckout();
+            displayCart();
+        });
 
-		displayCheckout();
-		// { #document.getElementById('checkout-table-body').innerHTML = output; # }
-		// { #oQuickReply.swap('checkout-form-div'); # }
+        displayCheckout();
+        // { #document.getElementById('checkout-table-body').innerHTML = output; # }
+        // { #oQuickReply.swap('checkout-form-div'); # }
 
 
-		function postAjax(url, token, data, success, failure) {
-			// { #var params = typeof data == 'string' ? data : Object.keys(data).map(#}
-			// {
-			//     #	function (k) { # }
-			//     { #		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) # }
-			//     { # } #
-			// }
-			// { #).join('&'); # }
+        function postAjax(url, token, data, success, failure) {
+            // { #var params = typeof data == 'string' ? data : Object.keys(data).map(#}
+            // {
+            //     #	function (k) { # }
+            //     { #		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) # }
+            //     { # } #
+            // }
+            // { #).join('&'); # }
 
-			var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-			xhr.open('POST', url);
-			xhr.beforeSend = function (xhr, settings) {
-				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-					xhr.setRequestHeader("X-CSRFToken", token);
-				}
-				xhr.setRequestHeader("Content-type", "application/json");
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xhr.open('POST', url);
+            xhr.beforeSend = function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", token);
+                }
+                xhr.setRequestHeader("Content-type", "application/json");
 
-			};
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState > 3 && xhr.status === 200) {
-					success(xhr.responseText);
-				} else {
-					failure(xhr.responseText);
-				}
-			};
-			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-			// { #xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); # }
-			// { #xhr.conten# }
-			xhr.send(data);
-			return xhr;
-		}
+            };
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState > 3 && xhr.status === 200) {
+                    success(xhr.responseText);
+                } else {
+                    failure(xhr.responseText);
+                }
+            };
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            // { #xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); # }
+            // { #xhr.conten# }
+            xhr.send(data);
+            return xhr;
+        }
 
-		$(document).on('submit', '#checkout-form-submit', function (event) {
+        $(document).on('submit', '#checkout-form-submit', function (event) {
 
-			// { #event.preventDefault(); # }
-			var data = {
-				// { #myTextToPass: $('#sometext').val() # }
-				packagelist: $('#item-list').val(),
-				houseNo: $('#house-no').val(),
-				roadNo: $('#road-no').val(),
-				blockNo: $('#block-no').val(),
-				apartmentNo: $('#apartment-no').val(),
-				area: $('#area').val(),
-				mobileNo: $('#mobile-no').val()
-			};
-			// LOOK AT ME! BETWEEN HERE AND
-			// { #var token = $('input[name="csrfToken"]').attr('value'); # }
-			var token = getCookie('csrftoken');//$('input[name="csrfmiddlewaretoken"]').attr('value');
-			// { #var token = jQuery("[name=csrfmiddlewaretoken]").val(); # }
-			// { #console.log(token); # }
-			// { #postAjax("{% url 'browse:checkout' %}", token, JSON.stringify(data), function (data) { }, function (data) { }); # }
-		});
+            // { #event.preventDefault(); # }
+            var data = {
+                // { #myTextToPass: $('#sometext').val() # }
+                packagelist: $('#item-list').val(),
+                houseNo: $('#house-no').val(),
+                roadNo: $('#road-no').val(),
+                blockNo: $('#block-no').val(),
+                apartmentNo: $('#apartment-no').val(),
+                area: $('#area').val(),
+                mobileNo: $('#mobile-no').val()
+            };
+            // LOOK AT ME! BETWEEN HERE AND
+            // { #var token = $('input[name="csrfToken"]').attr('value'); # }
+            var token = getCookie('csrftoken');//$('input[name="csrfmiddlewaretoken"]').attr('value');
+            // { #var token = jQuery("[name=csrfmiddlewaretoken]").val(); # }
+            // { #console.log(token); # }
+            // { #postAjax("{% url 'browse:checkout' %}", token, JSON.stringify(data), function (data) { }, function (data) { }); # }
+        });
     </script>
     <!-- //Modal 1-->
     <!--js working-->
@@ -488,106 +527,106 @@
     <!--bootstrap working-->
     <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
     <script>
-		$(function () {
-			var creditly = Creditly.initialize(
-				'.creditly-wrapper .expiration-month-and-year',
-				'.creditly-wrapper .credit-card-number',
-				'.creditly-wrapper .security-code',
-				'.creditly-wrapper .card-type');
+        $(function () {
+            var creditly = Creditly.initialize(
+                '.creditly-wrapper .expiration-month-and-year',
+                '.creditly-wrapper .credit-card-number',
+                '.creditly-wrapper .security-code',
+                '.creditly-wrapper .card-type');
 
-			$(".creditly-card-form .submit").click(function (e) {
-				e.preventDefault();
-				var output = creditly.validate();
-				if (output) {
-					// Your validated credit card output
-					console.log(output);
-				}
-			});
-		});
+            $(".creditly-card-form .submit").click(function (e) {
+                e.preventDefault();
+                var output = creditly.validate();
+                if (output) {
+                    // Your validated credit card output
+                    console.log(output);
+                }
+            });
+        });
     </script>
     <!-- //credit-card -->
     <!-- start-smoth-scrolling -->
 
 
     <script>
-		$(document).ready(function () {
-			$('#horizontalTab').easyResponsiveTabs({
-				type: 'default', //Types: default, vertical, accordion
-				width: 'auto', //auto or any width like 600px
-				fit: true, // 100% fit in a container
-				closed: 'accordion', // Start closed if in accordion view
-				activate: function (event) { // Callback function if tab is switched
-					var $tab = $(this);
-					var $info = $('#tabInfo');
-					var $name = $('span', $info);
-					$name.text($tab.text());
-					$info.show();
-				}
-			});
-			$('#verticalTab').easyResponsiveTabs({
-				type: 'vertical',
-				width: 'auto',
-				fit: true
-			});
-		});
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true, // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $('#verticalTab').easyResponsiveTabs({
+                type: 'vertical',
+                width: 'auto',
+                fit: true
+            });
+        });
     </script>
 
     <!--//js working-->
     <!--closed-->
     <script>
-		$(document).ready(function (c) {
-			$('.close1').on('click', function (c) {
-				$('.rem1').fadeOut('slow', function (c) {
-					$('.rem1').remove();
-				});
-			});
-		});
+        $(document).ready(function (c) {
+            $('.close1').on('click', function (c) {
+                $('.rem1').fadeOut('slow', function (c) {
+                    $('.rem1').remove();
+                });
+            });
+        });
     </script>
     <script>
-		$(document).ready(function (c) {
-			$('.close2').on('click', function (c) {
-				$('.rem2').fadeOut('slow', function (c) {
-					$('.rem2').remove();
-				});
-			});
-		});
+        $(document).ready(function (c) {
+            $('.close2').on('click', function (c) {
+                $('.rem2').fadeOut('slow', function (c) {
+                    $('.rem2').remove();
+                });
+            });
+        });
     </script>
     <script>
-		$(document).ready(function (c) {
-			$('.close3').on('click', function (c) {
-				$('.rem3').fadeOut('slow', function (c) {
-					$('.rem3').remove();
-				});
-			});
-		});
+        $(document).ready(function (c) {
+            $('.close3').on('click', function (c) {
+                $('.rem3').fadeOut('slow', function (c) {
+                    $('.rem3').remove();
+                });
+            });
+        });
     </script>
     <!--//closed-->
 
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
-		});
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+        });
     </script>
     <!-- //here ends scrolling icon -->
 

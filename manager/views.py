@@ -31,7 +31,10 @@ class ProcessOrdersView(TemplateView):
 	def get_context_data(self, **kwargs):
 		# rests = Rest
 		branch = RestaurantBranch.objects.get(user=self.request.user)
-		obj_list = Order.objects.filter(branch=branch).order_by('status', '-time')
+		obj_list = Order.objects.filter(branch=branch)#.order_by('status', '-time')
+		print(branch)
+		print(obj_list)
+		print('-----')
 		return {'object_list': obj_list}
 
 

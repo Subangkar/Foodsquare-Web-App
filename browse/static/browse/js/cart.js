@@ -39,7 +39,7 @@ var shoppingCart = (function () {
 
 	// Add to cart
 	obj.addItemToCart = function (id, price, count, name, rest_id) {
-		
+
 		for (var item in cart) {
 			if (cart[item].id === id) {
 				cart[item].count++;
@@ -150,8 +150,11 @@ $('.add-to-cart').click(function (event) {
 	var id = $(this).data('id');
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
-
-	if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
+	var locInput = document.getElementById('delivery_area_srch').value;
+	if(locInput.trim() == ''){
+		$('#delivery_area_alert').modal();
+	}
+	else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
 		$.confirm({
 			title: 'Confirm!',
 			content: '"You Have Orders from Other Restaurant.\nREMOVE those to add current one to cart ?"',

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     {#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-    {#    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
+    {#    <meta name="keywords" content="Toys Shop Responsive web templACate, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
     {#				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>#}
 
     {% block head-includes %}
@@ -158,8 +158,8 @@
                                 <form action="/browse/restaurants/" method="GET">
                                     {% csrf_token %}
                                     <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                           id="delivery_input" style="background: transparent;">
-                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"></input>
+                                           id="delivery_input" autocomplete="off" style="background: transparent;">
+                                    <input type="hidden" class="delivery_area_srch" id="delivery_area_srch" name="delivery_area_srch"></input>
                                     <button class="hotelsearchButton" href="#">
                                         <i class="fa fa-search">
                                         </i>
