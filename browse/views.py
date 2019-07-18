@@ -1,4 +1,5 @@
 # Create your views here.
+import functools
 import json
 
 from django.db.models import Q
@@ -130,25 +131,61 @@ class CheckoutView(TemplateView):
 		                    '<body><h1> Your Order has been successfullt placed in queue</h1><br><br>Redirecting...</body')
 
 
+class RestBranch(Restaurant):
+	branch = None
+	is_branch = False
+
+	def addBranch(self, branch):
+		self.branch = branch
+		self.is_branch = self.branch is not None
+
+
+def branchesInRadius(coord):
+	rest_map = {}
+	rest_list = []
+	for r in RestaurantBranch.objects.all():
+		if r.restaurant.id in rest_map:
+			rest_map[r.restaurant.id].append(r)
+		else:
+			rest_map[r.restaurant.id] = [r]
+
+	for rest in rest_map.values():
+		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
+		if branches[0].distance(coord) > 4:
+			rest_list.append(RestBranch(branches[0].restaurant).addBranch(branch=None))
+		else:
+			rest_list.append(RestBranch(branches[0].restaurant).addBranch(branch=branches[0]))
+	return rest_list
+
+
 class RestaurantList(TemplateView):
+	"""[Renders list of branches in 4km radius]
+	Description:
+		If no such branch is in radius then None
+		Assuming, a restaurant with null key cannot have any branch
+	Returns:
+		[type] -- [description]
+	"""
 	template_name = 'browse/restaurants.html'
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
-		srch = self.request.GET.get('searchBy_dish_food')
-		srchByArea = self.request.GET.get('delivery_area_srch')
+		query = self.request.GET.get('searchBy_dish_food')
+		coord = self.request.GET.get('delivery_area_srch')
+
 		show = self.request.GET.get('show')
 		rest_list = []
 		print(pretty_request(self.request))
-		if srch is None:
+		if query is None:
 			rest_list = list(Restaurant.objects.exclude(restaurant_key='0'))
 		else:
 			if show == 'all':
-				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch))
+				rest_list = list(RestBranch(x) for x in
+				                 Restaurant.objects.exclude(restaurant_key='0').filter(
+					                 restaurant_name__icontains=query))
 			else:
-				rest_list = list(Restaurant.objects.exclude(restaurant_key='0').filter(restaurant_name__icontains=srch))
+				rest_list = branchesInRadius(coord=coord)
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list}
 		return ctx
@@ -167,7 +204,5 @@ class RestaurantDetails(TemplateView):
 
 		pkg_list = list(Package.objects.filter(restaurant=rest))
 		print(pkg_list)
-		ctx = {'loggedIn': False, 'item_list': pkg_list, 'restaurant': rest}
-		if self.request.user.is_authenticated:
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'restaurant': rest}
 		return ctx

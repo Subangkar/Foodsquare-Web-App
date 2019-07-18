@@ -34,10 +34,7 @@ class LoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -72,10 +69,7 @@ class ManagerLoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -109,10 +103,7 @@ class AdminLoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -146,10 +137,7 @@ class RegisterView(TemplateView):
 		ctx = super(RegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -191,10 +179,7 @@ class ManagerRegisterView(TemplateView):
 		ctx = super(ManagerRegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -240,10 +225,7 @@ class BranchRegisterView(TemplateView):
 		ctx = super(BranchRegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -266,7 +248,7 @@ class BranchRegisterView(TemplateView):
 				print(rest)
 
 				branch.user = user
-				branch.restaurant_id = rest
+				branch.restaurant = rest
 				# print(branch.restaurant_id)
 				branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
 				branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][

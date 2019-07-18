@@ -16,9 +16,7 @@ class IndexView(TemplateView):
 	template_name = 'manager/index.html'
 
 	def get_context_data(self, **kwargs):
-		context = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			context['loggedIn'] = True
+		context = {'loggedIn': self.request.user.is_authenticated}
 		return context
 
 	def post(self, request, *args, **kwargs):

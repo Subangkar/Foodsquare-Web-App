@@ -1,7 +1,11 @@
+import datetime
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+
+from browse.utils import distance
 
 
 class User(AbstractUser):
@@ -60,9 +64,15 @@ class RestaurantBranch(models.Model):
 	branch_mobilenum = models.CharField(max_length=20, default='')
 	branch_email = models.CharField(max_length=50, default='')
 
+	running = models.BooleanField(default=False)
+	opening_time = models.FloatField(verbose_name='Opening Time in 24h format', default=9.00)
+	closing_time = models.FloatField(verbose_name='Opening Time in 24h format', default=23.00)
+	# opening_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=datetime.now())
+	# closing_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=23.00)
+
 	# branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
 
-	restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+	restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = "Branch"
@@ -73,6 +83,13 @@ class RestaurantBranch(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("Branch_detail", kwargs={"pk": self.pk})
+
+	def is_open_now(self):
+		time_now = datetime.datetime.now().time().hour + datetime.datetime.now().time().minute / 60
+		return self.opening_time <= time_now <= self.closing_time and self.running
+
+	def distance(self, coordinates):
+		return distance(self.location_area, coordinates)
 
 
 class Payment(models.Model):

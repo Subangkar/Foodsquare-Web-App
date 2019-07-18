@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 
 from accounts.models import Restaurant
+from webAdmin.utils import uniqueKey
 
 
 class RestaurantListView(ListView):
@@ -27,6 +28,6 @@ class RestaurantListView(ListView):
 
 def requestAccept(request, id):
 	obj = Restaurant.objects.get(id=id)
-	obj.restaurant_key = '12345567789'
+	obj.restaurant_key = uniqueKey()
 	obj.save()
 	return redirect('/homepage/')

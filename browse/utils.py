@@ -1,10 +1,5 @@
 from math import sin, atan2, sqrt, cos
 
-from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from geopy.units import radians
 
 
@@ -51,4 +46,4 @@ def distance(p1, p2):
 	return distance
 
 
-print(distance("52.2296756,21.0122287", "52.406374,16.9251681"))
+# print(distance("52.2296756,21.0122287", "52.406374,16.9251681"))
