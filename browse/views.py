@@ -131,9 +131,27 @@ class CheckoutView(TemplateView):
 		                    '<body><h1> Your Order has been successfullt placed in queue</h1><br><br>Redirecting...</body')
 
 
-class RestBranch(Restaurant):
+class RestBranch:
 	branch = None
 	is_branch = False
+	user = None
+	restaurant_name = None
+	restaurant_key = None
+	trade_license = None
+	restaurantImg = None
+	id = None
+
+	def __init__(self, restaurant, branch=None):
+		self.user = restaurant.user
+		self.restaurant_name = restaurant.restaurant_name
+		self.restaurant_key = restaurant.restaurant_key
+		self.trade_license = restaurant.trade_license
+		self.restaurantImg = restaurant.restaurantImg
+		self.id = restaurant.id
+		self.pk = restaurant.pk
+		self.get_absolute_url = restaurant.get_absolute_url()
+
+		self.addBranch(branch=branch)
 
 	def addBranch(self, branch):
 		self.branch = branch
@@ -148,13 +166,18 @@ def branchesInRadius(coord):
 			rest_map[r.restaurant.id].append(r)
 		else:
 			rest_map[r.restaurant.id] = [r]
-
 	for rest in rest_map.values():
 		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
-		if branches[0].distance(coord) > 4:
-			rest_list.append(RestBranch(branches[0].restaurant).addBranch(branch=None))
-		else:
-			rest_list.append(RestBranch(branches[0].restaurant).addBranch(branch=branches[0]))
+		print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
+		if branches[0].distance(coord) < 4:
+			def_branch = branches[0]
+			for branch in branches:
+				if branch.is_open_now():
+					def_branch = branch
+					break
+			rest_list.append(RestBranch(def_branch.restaurant, branch=def_branch))
+	# else:
+	# 	rest_list.append(RestBranch(branches[0].restaurant, branch=None))
 	return rest_list
 
 
@@ -169,23 +192,28 @@ class RestaurantList(TemplateView):
 	template_name = 'browse/restaurants.html'
 
 	def get_context_data(self, **kwargs):
+		print(pretty_request(self.request))
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		query = self.request.GET.get('searchBy_dish_food')
 		coord = self.request.GET.get('delivery_area_srch')
-
 		show = self.request.GET.get('show')
-		rest_list = []
-		print(pretty_request(self.request))
-		if query is None:
-			rest_list = list(Restaurant.objects.exclude(restaurant_key='0'))
+		if coord is not None:
+			print(' @ ' + coord)
 		else:
-			if show == 'all':
-				rest_list = list(RestBranch(x) for x in
-				                 Restaurant.objects.exclude(restaurant_key='0').filter(
-					                 restaurant_name__icontains=query))
-			else:
-				rest_list = branchesInRadius(coord=coord)
+			show = 'all'
+
+		# rest_list = branchesInRadius(coord=coord)
+		if query is None and show != 'all':
+			rest_list = branchesInRadius(coord=coord)
+		elif query is None and show == 'all':
+			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0')])
+		elif show == 'all':
+			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0').filter(
+				restaurant_name__icontains=query)])
+		else:
+			rest_list = branchesInRadius(coord=coord)
+		print(rest_list)
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list}
 		return ctx

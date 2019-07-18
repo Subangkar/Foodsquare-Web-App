@@ -89,7 +89,7 @@ class RestaurantBranch(models.Model):
 		return self.opening_time <= time_now <= self.closing_time and self.running
 
 	def distance(self, coordinates):
-		return distance(self.location_area, coordinates)
+		return distance(self.branch_location, coordinates)
 
 
 class Payment(models.Model):
@@ -156,9 +156,9 @@ class Order(models.Model):
 	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
 
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
-	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True)
-	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True)
-	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False)
+	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True, blank=True)
+	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True, blank=True)
+	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False, blank=False)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
 
