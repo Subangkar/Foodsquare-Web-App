@@ -155,7 +155,19 @@ class Order(models.Model):
 
 	# houseNo = models.CharField(verbose_name="Delivery House No")
 	mobileNo = models.CharField(verbose_name="Mobile Number", max_length=15, null=False, blank=False, default='0')
-	status = models.CharField(verbose_name="Order Status", max_length=15, null=False, default='Pending')
+	# status = models.CharField(verbose_name="Order Status", max_length=15, null=False, default='Pending')
+
+	PENDING = 'PENDING'
+	PROCESSING = 'PROCESSING'
+	DELIVERED = 'DELIVERED'
+	ORDER_STATUS = (
+		(PENDING , 'PENDING'),
+		(PROCESSING , 'PROCESSING'),
+		(DELIVERED , 'DELIVERED')
+	)
+
+	payment_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
+
 
 	class Meta:
 		verbose_name = "Order"

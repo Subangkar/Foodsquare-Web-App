@@ -109,6 +109,7 @@ class CheckoutView(TemplateView):
 		if not (self.request.user.is_authenticated and self.request.user.is_customer):
 			return
 
+
 		pkg_list = json.loads(request.POST.get('item-list'))['pkg-list']
 		houseNo = request.POST.get('house-no')
 		roadNo = request.POST.get('road-no')
@@ -129,7 +130,15 @@ class CheckoutView(TemplateView):
 		for pkg in pkg_list:
 			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
 
+		#set payment_type + status
+		if request.POST.get('bkash_payment') is not None:
+			print('success')
+		elif request.POST.get('COD_payment') is not None:
+			print('failure')
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
+
+		return redirect(reverse('browse:package-list'))
+
 		return HttpResponse('<head><meta http-equiv="refresh" content="5;url=/" /></head>' +
 		                    '<body><h1> Your Order has been successfullt placed in queue</h1><br><br>Redirecting...</body')
 
