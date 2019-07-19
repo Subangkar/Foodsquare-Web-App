@@ -1,8 +1,8 @@
 from allauth.socialaccount.models import SocialAccount
-from accounts.models import User
+from accounts.models import User, Order
 from django.http import HttpResponse
 # Create your views here.
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from accounts.forms import UserForm, ProfileForm
 from accounts.utils import pretty_request
@@ -59,3 +59,10 @@ class EditProfileView(TemplateView):
 		# print(menuForm)
 		# return HttpResponse("<h1>Congrats</h1>")
 		pass
+
+
+
+class myOrdersList(ListView):
+	template_name = 'customer/trackOrder.html'
+	queryset = Order.objects.all()
+	context_object_name = 'Orders'

@@ -1,0 +1,70 @@
+{% extends 'customer/base.html' %}
+
+{% block header %}
+    <title>Foodsquare </title>
+{% endblock %}
+
+{% block slidebar %}
+    <li><a href="/homepage/" class="waves-effect waves-button"><span
+            class="menu-icon glyphicon glyphicon-home"></span>
+        <p>Orders</p>
+    </a></li>
+{% endblock %}
+
+{% block body-content %}
+    <div class="page-inner">
+        {% load static %}
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Order List</h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive project-stats">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Restaurant</th>
+
+                                <th>Time</th>
+                                <th>Order Status</th>
+                                <th>Payment Type</th>
+                                <th>Ref. No(if applicable)</th>
+                                <th>Payment status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in Orders %}
+
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.branch.branch_name }}</td>
+                                    <td>{{ order.time }} </td>
+                                    {% if order.ORDER_STATUS == "Pending" %}
+                                        <td><span class="label label-danger">Pending</span></td>
+                                    {% elif order.ORDER_STATUS == "Processing" %}
+                                        <td><span class="label label-info">Delivered</span></td>
+                                    {% elif order.ORDER_STATUS == "Delivered" %}
+                                        <td><span class="label label-success">Delivered</span></td>
+                                    {% endif %}
+                                    <td>{{ order.payment.payment_type }}</td>
+
+                                    <td> 1234</td>
+
+                                    <td>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

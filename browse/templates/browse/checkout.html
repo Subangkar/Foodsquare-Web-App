@@ -171,7 +171,7 @@
                                                     {#                                                <form method="post" id="checkout-form-submit">#}
                                                     {#                                                    {% csrf_token %}#}
                                                     {#                                                  <input type="text" name="test-text1" value="test1">#}
-                                                    <input type="submit" form="checkout-form-submit"
+                                                    <input type="submit" form="checkout-form-submit" name="COD_payment"
                                                            value="Complete Order"/>
                                                     {#                                                </form>#}
                                                 </div>
@@ -311,6 +311,9 @@
                                                                 xhttp.onreadystatechange = function() {
                                                                     if (this.readyState == 4 && this.status == 200) {
                                                                         var response = JSON.parse(this.responseText);
+                                                                        $('#ref_no').text(response.ref);
+
+                                                                        {#document.getElementById('ref_no').value = response.ref;#}
                                                                         $('#bkash_ref').modal();
                                                                     }
                                                                 };
@@ -321,28 +324,8 @@
                                                     </div>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="bkash_ref" role="dialog">
-                                                        <div class="modal-dialog">
 
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                                                <div class="modal-body">
-                                                                    <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
-                                                                    <p>
-                                                                        <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with ref. <font id="ref_no"></font> via bkash. You'll receive confrimation
-                                                                        once your payment is done.</font>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="modal-footer">
-
-                                                                    <button type="button" class="btn btn-success" data-dismiss="modal"
-                                                                            style="width: 30%">Confirm Order
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>                                                    <div class="clearfix"></div>
+                                                    <div class="clearfix"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -362,6 +345,29 @@
         </div> <!-- //top products -->
         </div>
     </section>
+    <div class="modal fade" id="bkash_ref" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
+                    <p>
+                        <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with ref. <span id="ref_no"></span> via bkash. You'll receive confrimation
+                            once your payment is done.</font>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" form="checkout-form-submit" class="btn btn-success" name="bkash_payment"
+                            style="width: 30%" value="Complete Order"/>
+{#                    <button type="button" class="btn btn-success" data-dismiss="modal" form=""#}
+{#                            style="width: 30%">Confirm Order#}
+{#                    </button>#}
+                </div>
+            </div>
+
+        </div>
+    </div>
     <!-- //show Now-->
 {% endblock %}
 
