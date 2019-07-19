@@ -158,7 +158,7 @@
                                 <form action="/browse/restaurants/" method="GET">
                                     {% csrf_token %}
                                     <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                           id="delivery_input" style="background: transparent;">
+                                           id="delivery_input" style="background: transparent;" autocomplete="off">
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
                                     <button class="hotelsearchButton" href="#">
                                         <i class="fa fa-search">

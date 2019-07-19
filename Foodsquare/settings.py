@@ -57,7 +57,6 @@ INSTALLED_APPS = [
 	'allauth.socialaccount.providers.google',
 	'sslserver',
 
-	'location_field.apps.DefaultConfig',
 	'django_hosts',
 ]
 

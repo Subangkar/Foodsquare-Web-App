@@ -110,7 +110,6 @@ class CheckoutView(TemplateView):
 		if not (self.request.user.is_authenticated and self.request.user.is_customer):
 			return
 
-
 		pkg_list = json.loads(request.POST.get('item-list'))['pkg-list']
 		houseNo = request.POST.get('house-no')
 		roadNo = request.POST.get('road-no')
@@ -131,7 +130,7 @@ class CheckoutView(TemplateView):
 		for pkg in pkg_list:
 			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
 
-		#set payment_type + status
+		# set payment_type + status
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
 		elif request.POST.get('COD_payment') is not None:
@@ -171,10 +170,10 @@ class RestBranch:
 		self.is_branch = self.branch is not None
 
 
-def branchesInRadius(coord):
+def branchesInRadius(coord, queryset):
 	rest_map = {}
 	rest_list = []
-	for r in RestaurantBranch.objects.all():
+	for r in queryset:
 		if r.restaurant.id in rest_map:
 			rest_map[r.restaurant.id].append(r)
 		else:
@@ -211,24 +210,36 @@ class RestaurantList(TemplateView):
 		query = self.request.GET.get('searchBy_dish_food')
 		coord = self.request.GET.get('delivery_area_srch')
 		show = self.request.GET.get('show')
-		if coord is not None:
-			print(' @ ' + coord)
-		else:
-			show = 'all'
 
-		# rest_list = branchesInRadius(coord=coord)
-		if query is None and show != 'all':
-			rest_list = branchesInRadius(coord=coord)
-		elif query is None and show == 'all':
-			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0')])
-		elif show == 'all':
-			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0').filter(
-				restaurant_name__icontains=query)])
+		if query is None:
+			query = ''
+
+		if coord is None:
+			show = 'all'
+		elif coord is not None and show is None:
+			show = 'near_me'
+			print(' @ ' + coord)
+
+		query_sql = \
+			'select distinct accounts_restaurantbranch.*\
+			from accounts_restaurantbranch\
+					join accounts_restaurant on accounts_restaurantbranch.restaurant_id = accounts_restaurant.id\
+					join browse_package on accounts_restaurant.id = browse_package.restaurant_id\
+			        join browse_ingredientlist on browse_package.id = browse_ingredientlist.pack_id_id\
+					join browse_ingredient on browse_ingredientlist.ingr_id_id = browse_ingredient.id\
+			where lower(browse_ingredient.name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(browse_package.pkg_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(accounts_restaurant.restaurant_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(accounts_restaurantbranch.branch_name) like \'%%\' || lower(\'' + query + '\') || \'%%\''
+
+		if show == 'all':
+			rest_list = list([RestBranch(x.restaurant) for x in RestaurantBranch.objects.raw(query_sql)])
 		else:
-			rest_list = branchesInRadius(coord=coord)
+			rest_list = branchesInRadius(coord=coord, queryset=RestaurantBranch.objects.raw(query_sql))
 		print(rest_list)
 
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list}
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list,
+		       'show_all': (show == 'all'), 'query': query}
 		return ctx
 
 
@@ -247,5 +258,3 @@ class RestaurantDetails(TemplateView):
 		print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'restaurant': rest}
 		return ctx
-
-

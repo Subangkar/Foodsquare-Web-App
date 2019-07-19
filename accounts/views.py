@@ -253,7 +253,7 @@ class BranchRegisterView(TemplateView):
 				branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
 				try:
 					branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
-					'suburb']
+						'suburb']
 				except Exception:
 					try:
 						branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][

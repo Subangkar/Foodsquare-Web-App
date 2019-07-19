@@ -45,5 +45,4 @@ def distance(p1, p2):
 	# print(distance)
 	return distance
 
-
 # print(distance("52.2296756,21.0122287", "52.406374,16.9251681"))
