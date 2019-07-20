@@ -33,19 +33,35 @@ var deliveryLocation = (function () {
 	obj.setlocation = function (coord) {
 		this.location = coord;
 		saveLocation();
+		console.log('set location');
+		console.log(this.location);
+		console.log(localStorage.getItem('deliveryLocation'));
 		return true;
 	};
 
 	// Clear location
 	obj.clearlocation = function () {
-		location = [];
+		location = '';
 		saveLocation();
 	};
 
 	return obj;
-})();
+});
 
 function updateLocation() {
-	loc = document.getElementById('hotelsearchButton').value;
+	// event.preventDefault();
+	console.log('here>>>>');
+	loc = document.getElementById('delivery_area_srch').value;
 	deliveryLocation.setlocation(loc);
+	console.log(localStorage.getItem('deliveryLocation'))
 }
+
+
+function setLocation() {
+	document.getElementById('delivery_area_srch').value = localStorage.getItem('deliveryLocation');
+	console.log("Value Set");
+	console.log(localStorage.getItem('deliveryLocation'))
+}
+
+
+setLocation();

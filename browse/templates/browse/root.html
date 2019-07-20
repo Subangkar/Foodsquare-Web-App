@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     {#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-    {#    <meta name="keywords" content="Toys Shop Responsive web templACate, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
+    {#    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
     {#				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>#}
 
     {% block head-includes %}
@@ -155,32 +155,36 @@
                                     }
                                 </style>
                                 <!-- <div class="autocomplete"> -->
-                                <form action="/browse/restaurants/" method="GET">
-                                    {% csrf_token %}
-                                    <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                           id="delivery_input" autocomplete="off" style="background: transparent;">
-                                    <input type="hidden" class="delivery_area_srch" id="delivery_area_srch" name="delivery_area_srch"></input>
-                                    <button class="hotelsearchButton" href="#">
+{#                                <form action="/browse/branches/" method="GET" onsubmit="updateLocation()">#}
+                                    {#                                    {% csrf_token %}#}
+                                    <input class="hotelsearchInput  " type="text" placeholder="Search" autocomplete="off"
+                                           id="delivery_input" style="background: transparent;">
+                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
+                                    {#                                    <input type="submit" onclick=updateLocation()>#}
+                                    <button type="button" class="hotelsearchButton" href="#" id="hotelsearchButton" onclick=updateLocation()>
                                         <i class="fa fa-search">
                                         </i>
                                     </button>
-                                </form>
+{#                                </form>#}
+                                <script src={% static 'browse/js/location.js' %}></script>
+
+
                                 <!-- </div> -->
-                                <!-- <div class="form-group"> 
-                                        <input id="myInput" type="text" name="myCountry" placeholder="Country"> 
+                                <!-- <div class="form-group">
+                                    <input id="myInput" type="text" name="myCountry" placeholder="Country">
                                     <label for="ac-demo" class="control-label">Autocomplete demo</label>
-                                    <input class="form-control" id="myInput" value="" type="text"
-                                        data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id"
-                                        data-item_label="cityName" autocomplete="off"> 
+                                <input class="form-control" id="myInput" value="" type="text"
+                                data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id"
+                                data-item_label="cityName" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-3">
+                                    <div class="form-group">
+                                    <label for="city-code" class="control-label">“Hidden” field</label>
+                                <input class="form-control" id="city-code" name="citycode" value=""
+                                type="number" readonly>
+                                <span class="help-block">This field should be hidden!</span>
                                 </div>
-                                 <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="city-code" class="control-label">“Hidden” field</label>
-                                                <input class="form-control" id="city-code" name="citycode" value=""
-                                                    type="number" readonly>
-                                                <span class="help-block">This field should be hidden!</span>
-                                            </div>
-                                        </div> -->
+                                </div> -->
 
 
                                 <script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
@@ -275,7 +279,7 @@
                         <input type="submit" class="btn btn-primary" value="Checkout"
                                id="cart-checkout-button">
                         <script>
-							console.log(document.getElementById('rest-id').value)
+                            console.log(document.getElementById('rest-id').value)
                         </script>
                     </form>
                     {#                    </a>#}
@@ -289,26 +293,26 @@
     <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
     {#    Notification#}
     <script>
-		function showSuccessNotification(name, timeout = 5000) {
-			$.notify(name, "success", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showSuccessNotification(name, timeout = 5000) {
+            $.notify(name, "success", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-		function showFailureNotification(name, timeout = 5000) {
-			$.notify(name, "error", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showFailureNotification(name, timeout = 5000) {
+            $.notify(name, "error", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-		function showWarningNotification(name, timeout = 5000) {
-			$.notify(name, "warn", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showWarningNotification(name, timeout = 5000) {
+            $.notify(name, "warn", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
     </script>
 
     {#    Cart#}

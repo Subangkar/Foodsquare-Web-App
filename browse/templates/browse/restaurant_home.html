@@ -267,52 +267,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% endblock %}
 {% block navbar %}
     <div class="container-fluid" style="background: #171a29">
+    {% if restaurant.is_branch %}
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-4">
-                <div>
-                    <div style="height: 3vh"></div>
-                    <div style=" color:white;">
-                        <h1>Pizza Inn</h1>
-                    </div>
-                    <div style="">
-                        <div style=" color:white;">
-                            <h3>Near BT Road Sweets, Dumdum
-                            </h3>
-                        </div>
-                    </div>
-                    <div>
+    {% else %}
+        <div class="row" style="height: 21vh">
+    {% endif %}
+<div class="col-md-1"></div>
+<div class="col-md-4">
+    <div>
+        <div style="height: 3vh"></div>
+        <div style=" color:white;">
+            <h1>Pizza Inn</h1>
+        </div>
+        {% if restaurant.is_branch %}
+            <div style="">
+                <div style=" color:white;">
+                    <h3>Near BT Road Sweets, Dumdum
+                    </h3>
+                </div>
+            </div>
+            <div>
 					<span style="background: #35728a;padding:6px;">
 						<font style="size: 5; color:white;"> Opens at 9am</font>
 						<font style="size: 5;color: white ">Closes at 6pm</font>
 					</span>
 
-                    </div>
-
-
-                </div>
             </div>
-            <div class="col-md-7" style="padding-top:2%;">
-                <div class="row" style="height: 70%;">
-
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-2" style="border-right: 1px solid white;padding-top: 2%; ">
-                        <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
-                    </div>
-                    <div class="col-md-2" style="border-right: 1px solid white;  ">
-                        <font style="color: white">Closed<br> for delivery </font>
-                    </div>
-                    <div class="col-md-2">
-                        <font style="color: white">60 mins <br> Delivery time </font>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+        {% endif %}
 
     </div>
+</div>
+<div class="col-md-7" style="padding-top:2%;">
+
+    <div class="row" style="height: 70%;">
+
+        <div class="col-md-6">
+        </div>
+        {% if restaurant.is_branch %}
+            <div class="col-md-2" style="border-right: 1px solid white;padding-top: 2%; ">
+                <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+            </div>
+            {#                        {% if  %}#}
+            <div class="col-md-2" style="border-right: 1px solid white;  ">
+                <font style="color: white">Closed<br> for delivery </font>
+            </div>
+            <div class="col-md-2">
+                <font style="color: white">60 mins <br> Delivery time </font>
+            </div>
+        {% else %}
+            <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+
+        {% endif %}
+    </div>
+
+</div>
+
+</div>
+
+</div>
 {% endblock %}
 {% block body-content %}
     <div>
@@ -528,21 +540,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <h3 class="heading text-center text-uppercase mb-5"> Food Gallery </h3>
 
                 <div class="inner_sec">
-                    <ul class="portfolio-categ filter">
-                        <li class="port-filter all active">
-                            <a href="#">All</a>
-                        </li>
-                        <li class="cat-item-1">
-                            <a href="#" title="Category 1">Veg</a>
-                        </li>
-                        <li class="cat-item-2">
-                            <a href="#" title="Category 2">Set Menu</a>
-                        </li>
-                        <li class="cat-item-3">
-                            <a href="#" title="Category 3">Desesrts</a>
-                        </li>
+                    <ul class="nav gallery_nav" style="padding-left: 40%;">
+                        {% for category in categories %}
+                            <li class="nav-item" >
+                                <a class="nav-link active" href="#">{{ category }}</a>
+                            </li>
+                        {% endfor %}
 
                     </ul>
+
+                    <h1 id="test"></h1>
+                    <script>
+                        $('ul.gallery_nav > li').click(function (e) {
+                            e.preventDefault();
+                            var getItem = $(this).text();
+                            $('ul.gallery_nav> li').removeClass('active');
+                            $(this).addClass('active');
+                            $('#test').text(getItem);
+                            $('.navbar-toggler').click();
+                        });
+                    </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
                         {% for item in item_list %}
@@ -584,7 +601,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     <button href="#" data-id="{{ item.id }}"
                                                             data-name="{{ item.pkg_name }}"
                                                             data-price="{{ item.price }}"
-                                                            data-restaurant-id="{{ item.restaurant.id }}"
+                                                            data-restaurant-id="{{ restaurant.branch.id }}"
                                                             class="add-to-cart toys-cart ptoys-cart">
                                                         <i class="fas fa-cart-plus"></i>
                                                     </button>
@@ -598,6 +615,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         {% endfor %}
                         {# Searched Product list show start #}
                     </div>
+
+                    {#                        </li>#}
+                    </ul>
 
                     <!-- <ul class="portfolio-area">
 
@@ -903,24 +923,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h3 class="heading text-center text-uppercase mb-5"> Newsletter </h3>
 
-		<div class="subscribe_inner">
-			<p class="mb-4">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. </p>
-			<form action="#" method="post">
-				<input type="email" placeholder="Enter your email address" required="">
-				<input type="submit" class="mt-3" value="Subscribe">
-			</form>
-			<div class="social mt-5">
-				<h4>Follow us</h4>
-				<ul class="d-flex mt-3 justify-content-center">
-					<li class="mx-2"><a href="#"><span class="fab fa-facebook"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-twitter-square"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fas fa-rss-square"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-linkedin"></span></a></li>
-					<li class="mx-2"><a href="#"><span class="fab fa-google-plus-square"></span></a></li>
-				</ul>
-			</div>
-		</div>
-
 	</div>
 	</section> -->
         <!-- //Newsletter -->
@@ -962,8 +964,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#renew_cart">Open Modal
-        </button>
 
         <!-- Modal -->
         <div class="modal fade" id="delivery_area_alert" role="dialog">
@@ -972,12 +972,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-body">
-                        <font style="font-weight: 600; font-size:20px;"> Input delivery location first</font>
+                        <font style="font-weight: 600; font-size:20px;"> Input delivery location and select your nearest branch</font>
                         <p>
-                            <font style="font-weight: 400; font-size:15px;">Your cart contains items from other
-                                restaurant.
-                                Would you like to reset your cart for adding
-                                items from this restaurant?</font>
+                            <font style="font-weight: 400; font-size:15px;">You can't order from restaurant page. Please select your nearest
+                                branch</font>
                         </p>
                     </div>
                     <div class="modal-footer">

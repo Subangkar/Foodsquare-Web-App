@@ -1,7 +1,11 @@
+import datetime
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+
+from browse.utils import distance
 
 
 class User(AbstractUser):
@@ -60,9 +64,15 @@ class RestaurantBranch(models.Model):
 	branch_mobilenum = models.CharField(max_length=20, default='')
 	branch_email = models.CharField(max_length=50, default='')
 
+	running = models.BooleanField(default=False)
+	opening_time = models.FloatField(verbose_name='Opening Time in 24h format', default=9.00)
+	closing_time = models.FloatField(verbose_name='Opening Time in 24h format', default=23.00)
+	# opening_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=datetime.now())
+	# closing_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=23.00)
+
 	# branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
 
-	restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+	restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = "Branch"
@@ -72,7 +82,14 @@ class RestaurantBranch(models.Model):
 		return self.branch_name
 
 	def get_absolute_url(self):
-		return reverse("Branch_detail", kwargs={"pk": self.pk})
+		return reverse("browse:Branch_detail", kwargs={"id": self.pk})
+
+	def is_open_now(self):
+		time_now = datetime.datetime.now().time().hour + datetime.datetime.now().time().minute / 60
+		return self.opening_time <= time_now <= self.closing_time and self.running
+
+	def distance(self, coordinates):
+		return distance(self.branch_location, coordinates)
 
 
 class Payment(models.Model):
@@ -93,6 +110,7 @@ class Payment(models.Model):
 	price = models.FloatField(verbose_name="Total Price")
 	payment_type = models.CharField(verbose_name="Payment Type", max_length=1, choices=PAYMENT_TYPES, default=CASH)
 	payment_status = models.CharField(verbose_name="Payment Status", max_length=1, choices=PAYMENT_STATUS, default=DUE)
+	bkash_ref = models.CharField(verbose_name="Bkash ref", max_length=30, null=True, blank=True)
 
 	class Meta:
 		verbose_name = "Payment"
@@ -147,9 +165,9 @@ class Order(models.Model):
 	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
 
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
-	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True)
-	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True)
-	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False)
+	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True, blank=True)
+	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True, blank=True)
+	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False, blank=False)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
 

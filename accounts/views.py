@@ -34,10 +34,7 @@ class LoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -72,10 +69,7 @@ class ManagerLoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -117,10 +111,7 @@ class AdminLoginView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -154,10 +145,7 @@ class RegisterView(TemplateView):
 		ctx = super(RegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -199,10 +187,7 @@ class ManagerRegisterView(TemplateView):
 		ctx = super(ManagerRegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -248,10 +233,7 @@ class BranchRegisterView(TemplateView):
 		ctx = super(BranchRegisterView, self).get_context_data(**kwargs)
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
-		ctx = {'loggedIn': False}
-		if self.request.user.is_authenticated:
-			print('Logged in: ' + str(self.request.user))
-			ctx['loggedIn'] = True
+		ctx = {'loggedIn': self.request.user.is_authenticated}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -264,32 +246,38 @@ class BranchRegisterView(TemplateView):
 		user = None
 		branch = RestaurantBranch()
 		try:
-
+			print(request.POST['rest_key'])
 			rest = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
+			print(rest)
 			if user_form.is_valid():
-				user = user_form.save(commit=False)
-				user.is_branch_manager = True
-				user.save()
-
-				print(rest)
-
-				branch.user = user
-				branch.restaurant_id = rest
-				# print(branch.restaurant_id)
 				branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
-				branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
+				try:
+					branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
 					'suburb']
+				except Exception:
+					try:
+						branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
+							'neighbourhood']
+					except Exception:
+						print("Location NOT Reversed")
 
 				branch.branch_name = request.POST['branch_name']
+				branch.restaurant = rest
 				print(branch.branch_name)
+
 				try:
 					branch.branch_location_details = request.POST['extra_details']
 				except Exception:
 					pass
 				# branch.location_area = ...
+
+				user = user_form.save(commit=False)
+				user.is_branch_manager = True
+				user.save()
+				branch.user = user
+
 				branch.save()
 				login(request, user)
-			# UserProfile.objects.create(user=user).save() # lagbe na i guess
 			else:
 				return HttpResponse("Invalid Form or pass")
 		except Exception as e:

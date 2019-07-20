@@ -29,7 +29,7 @@ class Package(models.Model):
 	available = models.BooleanField(default=True)
 	image = models.ImageField(upload_to='menu/', default='menu/default.png')
 	details = models.CharField(max_length=250, blank=True)
-
+	category =  models.CharField(max_length=50)
 	restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 	ingr_list = models.ManyToManyField(Ingredient, through='IngredientList')
