@@ -157,16 +157,20 @@
                                     }
                                 </style>
                                 <!-- <div class="autocomplete"> -->
-                                <form action="/browse/restaurants/" method="GET">
-                                    {#                                    {% csrf_token %}#}
-                                    <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                           id="delivery_input" style="background: transparent;" autocomplete="off">
-                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
-                                    <button class="hotelsearchButton" href="#">
-                                        <i class="fa fa-search">
-                                        </i>
-                                    </button>
-                                </form>
+                                {#                                <form action="/browse/restaurants/" method="GET">#}
+                                {#                                    {% csrf_token %}#}
+                                <input class="hotelsearchInput  " type="text" placeholder="Search"
+                                       id="delivery_input" style="background: transparent;" autocomplete="off">
+                                <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"
+                                       form="searchForm"/>
+                                <button class="hotelsearchButton" href="#">
+                                    <i class="fa fa-search">
+                                    </i>
+                                </button>
+                                {#                                </form>#}
+                                <script src={% static 'browse/js/location.js' %}></script>
+
+
                                 <!-- </div> -->
                                 <script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
                             </div>

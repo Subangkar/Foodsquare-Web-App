@@ -56,7 +56,7 @@
 
 
                 </div>
-                <h4>Your shopping cart contains: <span>3 Products</span></h4>
+{#                <h4>Your shopping cart contains: <span>3 Products</span></h4>#}
 
                 <form action="." method="post" id="checkout-form-submit">
                     {% csrf_token %}
@@ -77,7 +77,8 @@
                                 </thead>
                                 <tbody class="checkout-form" id="checkout-table-body">
                                 </tbody>
-                                <input type="hidden" id="item-list" name="item-list">
+                                <input type="hidden" id="item-list" name="item-list" form="checkout-form-submit">
+                                <input type="hidden" id="branch-id-hidden" name="branch-id" form="checkout-form-submit">
                             </table>
 
 
@@ -102,7 +103,6 @@
                     <div style="display: flex">
                         <div class="contact-list-grid">
                             <h3>Delivery Address</h3>
-                            <form id="infoForm" method="post">
                                 <div>
                                     <div class="form-group contact-forms" style="float: left; width:40%">
                                         <input form="checkout-form-submit" type="text" class="form-control"
@@ -132,7 +132,6 @@
                                                placeholder="Mobile No" id="mobile-no" name="mobile-no">
                                     </div>
                                 </div>
-                            </form>
                         </div>
 
                     </div>
@@ -312,7 +311,7 @@
                                                                     if (this.readyState == 4 && this.status == 200) {
                                                                         var response = JSON.parse(this.responseText);
                                                                         $('#ref_no').text(response.ref);
-
+                                                                        $('#bkash_ref_no').text(response.ref);
                                                                         {#document.getElementById('ref_no').value = response.ref;#}
                                                                         $('#bkash_ref').modal();
                                                                     }
@@ -355,6 +354,7 @@
                     <p>
                         <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with ref. <span id="ref_no"></span> via bkash. You'll receive confrimation
                             once your payment is done.</font>
+                        <input type="hidden" name="ref_no" id="bkash_ref_no" form="checkout-form-submit">
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -426,6 +426,7 @@
             }
             $('.checkout-form').html(output);
             document.getElementById('item-list').value = itemListJSON();
+            document.getElementById('branch-id-hidden').value = shoppingCart.listCart()[0].branch_id;
         }
 
         $('.checkout-form').on("click", ".close1", function (event) {

@@ -12,5 +12,7 @@ urlpatterns = [
 	path('add_menu/', views.AddMenuView.as_view(), name='add_menu'),
 
 	path('accounts/', include('accounts.urls'), name='accounts'),
+	path('delivery_option/', views.delivery_option, name='delivery_option'),
+
 ]
 

@@ -33,7 +33,7 @@ class ProcessOrdersView(TemplateView):
 		print(branch)
 		print(obj_list)
 		print('-----')
-		return {'object_list': obj_list}
+		return {'object_list': obj_list, 'branch':  branch}
 
 
 class EditRestaurantView(TemplateView):
@@ -112,3 +112,18 @@ class AddMenuView(TemplateView):
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
 		pass
+
+
+def delivery_option(request):
+	print(request)
+	id = request.POST.get('id')
+	status = request.POST.get('delivery_option')
+	print(id)
+	branch = RestaurantBranch.objects.get(id=id)
+	if status == 'close_delivery':
+		branch.running = False
+	else:
+		branch.running = True
+
+	branch.save()
+
