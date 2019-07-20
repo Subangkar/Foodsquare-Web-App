@@ -282,14 +282,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         {% if restaurant.is_branch %}
             <div style="">
                 <div style=" color:white;">
-                    <h3>Near BT Road Sweets, Dumdum
+                    <h3>{{ restaurant.branch.branch_location }}
                     </h3>
                 </div>
             </div>
             <div>
 					<span style="background: #35728a;padding:6px;">
-						<font style="size: 5; color:white;"> Opens at 9am</font>
-						<font style="size: 5;color: white ">Closes at 6pm</font>
+						<font style="size: 5; color:white;"> Opens at {{ restaurant.branch.opening_time }}</font>
+						<font style="size: 5;color: white ">Closes at {{ restaurant.branch.closing_time }}</font>
 					</span>
 
             </div>

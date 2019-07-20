@@ -175,6 +175,7 @@ class RestBranch:
 		self.id = restaurant.id
 		self.pk = restaurant.pk
 		self.get_absolute_url = restaurant.get_absolute_url()
+
 		if branch is not None:
 			self.is_branch = True
 			self.is_open_now = branch.is_open_now()

@@ -11,58 +11,63 @@
 
 
 {% block body-js %}
+
     <!-- price range (top products) -->
     <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
     <script>
-		//<![CDATA[
-		$(window).load(function () {
-			$("#slider-range").slider({
-				range: true,
-				min: 0,
-				max: 2000,
-				values: [10, 600],
-				slide: function (event, ui) {
-					$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-				}
-			});
-			$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 2000,
+                values: [10, 600],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
-		}); //]]>
+        }); //]]>
     </script>
     <!-- //price range (top products) -->
 
     <!-- start-smoth-scrolling -->
     <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
     <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+    <script src="{% static 'browse/js/cart.js' %}"></script>
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
 
 
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-		});
+        });
+
     </script>
+    <!-- jQuery library -->
+
     <!-- //here ends scrolling icon -->
 {% endblock %}
 
@@ -133,7 +138,7 @@
                                     <div class="men-pro-item">
                                         <div class="men-thumb-item">
                                             <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
-                                            style="height: 190px;width: 290px;">
+                                                 style="height: 190px;width: 290px;">
                                             <div class="men-cart-pro">
                                                 <div class="inner-men-cart-pro">
                                                     <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
@@ -185,5 +190,8 @@
             </div>
         </div>
     </section>
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
     <!-- //show Now-->
 {% endblock %}
