@@ -105,6 +105,8 @@
                                         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
                                 <script
                                         src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+                                <script src={% static 'browse/js/ajax_upload.js' %}></script>
                                 <link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
                                       rel="stylesheet">
                                 <!-- <link rel="stylesheet" href="{% static 'browse/css/myAutocomplete.css' %}"
@@ -156,7 +158,7 @@
                                 </style>
                                 <!-- <div class="autocomplete"> -->
                                 <form action="/browse/restaurants/" method="GET">
-                                    {% csrf_token %}
+                                    {#                                    {% csrf_token %}#}
                                     <input class="hotelsearchInput  " type="text" placeholder="Search"
                                            id="delivery_input" style="background: transparent;" autocomplete="off">
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
@@ -166,38 +168,9 @@
                                     </button>
                                 </form>
                                 <!-- </div> -->
-                                <!-- <div class="form-group"> 
-                                        <input id="myInput" type="text" name="myCountry" placeholder="Country"> 
-                                    <label for="ac-demo" class="control-label">Autocomplete demo</label>
-                                    <input class="form-control" id="myInput" value="" type="text"
-                                        data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id"
-                                        data-item_label="cityName" autocomplete="off"> 
-                                </div>
-                                 <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="city-code" class="control-label">“Hidden” field</label>
-                                                <input class="form-control" id="city-code" name="citycode" value=""
-                                                    type="number" readonly>
-                                                <span class="help-block">This field should be hidden!</span>
-                                            </div>
-                                        </div> -->
-
-
                                 <script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
-                                <!-- <button class="hotelsearchButton" href="#">
-                                    <i class="fa fa-search">
-                                        search
-                                    </i>
-                                </button> -->
                             </div>
                             <div style="float: right">
-                                {#							<form action="#" method="post" class="last">#}
-                                {#								<input type="hidden" name="cmd" value="_cart">#}
-                                {#								<input type="hidden" name="display" value="1">#}
-                                {#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
-                                {#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
-                                {#								</button>#}
-                                {#							</form>#}
                                 <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
                                         data-target="#cart">
                                     <span class="fas fa-cart-arrow-down"> Cart (<span
@@ -320,6 +293,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
 {% endblock %}
 

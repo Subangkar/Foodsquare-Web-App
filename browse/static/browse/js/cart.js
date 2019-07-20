@@ -151,10 +151,9 @@ $('.add-to-cart').click(function (event) {
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
 	var locInput = document.getElementById('delivery_area_srch').value;
-	if(locInput.trim() == ''){
+	if (locInput.trim() == '') {
 		$('#delivery_area_alert').modal();
-	}
-	else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
+	} else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
 		$.confirm({
 			title: 'Confirm!',
 			content: '"You Have Orders from Other Restaurant.\nREMOVE those to add current one to cart ?"',
@@ -211,7 +210,7 @@ function displayCart() {
 		document.getElementById("cart-checkout-button").disabled = true;
 		document.getElementById("cart-clear-button").disabled = true;
 	} else {
-		document.getElementById('rest-id').value=cartArray[0].rest_id;
+		document.getElementById('rest-id').value = cartArray[0].rest_id;
 		document.getElementById("cart-checkout-button").disabled = false;
 		document.getElementById("cart-clear-button").disabled = false;
 		for (var i in cartArray) {
