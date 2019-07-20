@@ -82,7 +82,7 @@ class RestaurantBranch(models.Model):
 		return self.branch_name
 
 	def get_absolute_url(self):
-		return reverse("Branch_detail", kwargs={"pk": self.pk})
+		return reverse("browse:Branch_detail", kwargs={"id": self.pk})
 
 	def is_open_now(self):
 		time_now = datetime.datetime.now().time().hour + datetime.datetime.now().time().minute / 60
@@ -110,6 +110,7 @@ class Payment(models.Model):
 	price = models.FloatField(verbose_name="Total Price")
 	payment_type = models.CharField(verbose_name="Payment Type", max_length=1, choices=PAYMENT_TYPES, default=CASH)
 	payment_status = models.CharField(verbose_name="Payment Status", max_length=1, choices=PAYMENT_STATUS, default=DUE)
+	bkash_ref = models.CharField(verbose_name="Bkash ref", max_length=30, null=True, blank=True)
 
 	class Meta:
 		verbose_name = "Payment"

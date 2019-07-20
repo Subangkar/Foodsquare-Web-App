@@ -47,6 +47,15 @@
                                     <input class="form-control" type="text" name="pkg_name">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Categoy name:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" name="category">
+                                    <p>(like beverages, Chinese) </p>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Add Ingredients:</label>
                                 <div class="col-lg-8">
@@ -67,42 +76,42 @@
                                     </datalist>
 
                                     <script>
-										$(document).ready(function () {
-											$(window).keydown(function (event) {
-												if (event.keyCode == 13) {
-													event.preventDefault();
-													return false;
-												}
-											});
-											$('#ingrd_input').bind("enterKey", function (e) {
-												$("ol").append("<li id=\"myId1\">" + $("#ingrd_input").val() + ' ' + "<a href=\"#\" class=\"remove\">X</a></li>");
-												$('#ingrd_input').val("");
-											});
-											$('#ingrd_input').keyup(function (e) {
-												if (e.keyCode == 13) {
-													$(this).trigger("enterKey");
-												}
-											});
-											$("#remove_li").click(function () {
-												$("li:last").remove();
-											});
-											$("ol").on('click', '.remove', function () {
-												$(this).parents('li').remove();
-											});
-											$("#submitForm").click(function () {
-												var str = ''
-												$('#added_ingrdList').each(function () {// id of ul
-													var li = $(this).find('li')//get each li in ul
-													li.each(function () {// id of ul
-														str += '\'' + $(this).text().trim().slice(0, -1).trim() + '\','
-													})
-													$('#ingrds').val(str.slice(0, -1))
+                                        $(document).ready(function () {
+                                            $(window).keydown(function (event) {
+                                                if (event.keyCode == 13) {
+                                                    event.preventDefault();
+                                                    return false;
+                                                }
+                                            });
+                                            $('#ingrd_input').bind("enterKey", function (e) {
+                                                $("ol").append("<li id=\"myId1\">" + $("#ingrd_input").val() + ' ' + "<a href=\"#\" class=\"remove\">X</a></li>");
+                                                $('#ingrd_input').val("");
+                                            });
+                                            $('#ingrd_input').keyup(function (e) {
+                                                if (e.keyCode == 13) {
+                                                    $(this).trigger("enterKey");
+                                                }
+                                            });
+                                            $("#remove_li").click(function () {
+                                                $("li:last").remove();
+                                            });
+                                            $("ol").on('click', '.remove', function () {
+                                                $(this).parents('li').remove();
+                                            });
+                                            $("#submitForm").click(function () {
+                                                var str = ''
+                                                $('#added_ingrdList').each(function () {// id of ul
+                                                    var li = $(this).find('li')//get each li in ul
+                                                    li.each(function () {// id of ul
+                                                        str += '\'' + $(this).text().trim().slice(0, -1).trim() + '\','
+                                                    })
+                                                    $('#ingrds').val(str.slice(0, -1))
 
 
-												})
-											});
+                                                })
+                                            });
 
-										});
+                                        });
                                     </script>
                                 </div>
                             </div>
