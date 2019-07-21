@@ -8,13 +8,13 @@
     <meta name="keywords" content="Cafe In Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
     </script>
 
     <link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css"/>
@@ -189,24 +189,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Banner Responsive slider -->
     <script src="{% static 'browse/Restaurant_homepage/js/responsiveslides.min.js' %}"></script>
     <script>
-        // You can also use "$(window).load(function() {"
-        $(function () {
-            // Slideshow 3
-            $("#slider3").responsiveSlides({
-                auto: true,
-                pager: false,
-                nav: true,
-                speed: 500,
-                namespace: "callbacks",
-                before: function () {
-                    $('.events').append("<li>before event fired.</li>");
-                },
-                after: function () {
-                    $('.events').append("<li>after event fired.</li>");
-                }
-            });
+		// You can also use "$(window).load(function() {"
+		$(function () {
+			// Slideshow 3
+			$("#slider3").responsiveSlides({
+				auto: true,
+				pager: false,
+				nav: true,
+				speed: 500,
+				namespace: "callbacks",
+				before: function () {
+					$('.events').append("<li>before event fired.</li>");
+				},
+				after: function () {
+					$('.events').append("<li>after event fired.</li>");
+				}
+			});
 
-        });
+		});
     </script>
     <!-- // Banner Responsive slider -->
 
@@ -214,7 +214,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.countup.js' %}"></script>
     <script>
-        $('.counter').countUp();
+		$('.counter').countUp();
     </script>
     <!-- //stats -->
 
@@ -226,32 +226,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
     <!-- start-smoth-scrolling -->
-{#    <script src="{% static 'browse/Restaurant_homepage/js/SmoothScroll.min.js' %}"></script>#}
+    {#    <script src="{% static 'browse/Restaurant_homepage/js/SmoothScroll.min.js' %}"></script>#}
     <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/move-top.js' %}"></script>
     <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/easing.js' %}"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-            });
-        });
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+			});
+		});
     </script>
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
-        $(document).ready(function () {
-            /*
-                var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-                };
-            */
+		$(document).ready(function () {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
 
-            $().UItoTop({easingType: 'easeOutQuart'});
+			$().UItoTop({easingType: 'easeOutQuart'});
 
-        });
+		});
     </script>
     <!-- //here ends scrolling icon -->
     <!-- start-smoth-scrolling -->
@@ -277,12 +277,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div>
         <div style="height: 3vh"></div>
         <div style=" color:white;">
-            <h1>Pizza Inn</h1>
+            <h1>{{ restaurant.restaurant_name }}</h1>
         </div>
         {% if restaurant.is_branch %}
             <div style="">
                 <div style=" color:white;">
-                    <h3>{{ restaurant.branch.branch_location }}
+                    <h3>{{ restaurant.branch.branch_name }}
                     </h3>
                 </div>
             </div>
@@ -541,11 +541,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <div class="inner_sec">
                     <ul class="nav gallery_nav" style="padding-left: 40%;">
-                        <li class="nav-item" >
+                        <li class="nav-item">
                             <a class="nav-link active" href="#">All</a>
                         </li>
                         {% for category in categories %}
-                            <li class="nav-item" >
+                            <li class="nav-item">
                                 <a class="nav-link active" href="#">{{ category }}</a>
                             </li>
                         {% endfor %}
@@ -553,18 +553,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
 
                     <script>
-                        $('ul.gallery_nav > li').click(function (e) {
-                            e.preventDefault();
-                            var getItem = $(this).text();
-                            $('ul.gallery_nav> li').removeClass('active');
-                            $(this).addClass('active');
-                            $('#test').text(getItem);
-                            $('.navbar-toggler').click();
-                            $(".filt").hide();
+						$('ul.gallery_nav > li').click(function (e) {
+							e.preventDefault();
+							var getItem = $(this).text();
+							$('ul.gallery_nav> li').removeClass('active');
+							$(this).addClass('active');
+							$('#test').text(getItem);
+							$('.navbar-toggler').click();
+							$(".filt").hide();
 
-                            $('.'+getItem.trim()).show();
+							$('.' + getItem.trim()).show();
 
-                        });
+						});
                     </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
@@ -587,7 +587,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 <div class="grid_meta">
                                                     <div class="product_price">
                                                         <h4>
-                                                            <a href="/browse/item/">{{ item.pkg_name }}</a>
+                                                            <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
                                                         </h4>
                                                         <div class="grid-price mt-2">
                                                             <span class="money ">BDT {{ item.price }}/=</span>
@@ -603,18 +603,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         {% endfor %}
                                                     </ul>
                                                 </div>
-                                                {% if restaurant.is_branch %}
-                                                    <div class="toys single-item hvr-outline-out">
-                                                        <button href="#" data-id="{{ item.id }}"
-                                                                data-name="{{ item.pkg_name }}"
-                                                                data-price="{{ item.price }}"
-                                                                data-restaurant-id="{{ restaurant.branch.id }}"
-                                                                class="add-to-cart toys-cart ptoys-cart">
-                                                            <i class="fas fa-cart-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                    </div>
-                                                {% endif %}
+                                                <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                     id="cart-div">
+                                                    <button href="#" data-id="{{ item.id }}"
+                                                            data-name="{{ item.pkg_name }}"
+                                                            data-price="{{ item.price }}"
+                                                            data-restaurant-id="{{ restaurant.branch.id }}"
+                                                            class="add-to-cart toys-cart ptoys-cart">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {% if restaurant.is_branch %}
+                                                <script>
+													document.getElementsByClassName('cart-div').style.visibility = "hidden";
+                                                </script>
+                                            {% endif %}
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -980,9 +984,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-body">
-                        <font style="font-weight: 600; font-size:20px;"> Input delivery location and select your nearest branch</font>
+                        <font style="font-weight: 600; font-size:20px;"> Input delivery location and select your nearest
+                            branch</font>
                         <p>
-                            <font style="font-weight: 400; font-size:15px;">You can't order from restaurant page. Please select your nearest
+                            <font style="font-weight: 400; font-size:15px;">You can't order from restaurant page. Please
+                                select your nearest
                                 branch</font>
                         </p>
                     </div>

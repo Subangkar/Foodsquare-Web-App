@@ -31,7 +31,7 @@ class ProcessOrdersView(TemplateView):
 		branch = RestaurantBranch.objects.get(user=self.request.user)
 		obj_list = Order.objects.filter(branch=branch)#.order_by('status', '-time')
 		print(branch)
-		print(obj_list)
+		# print(obj_list)
 		print('-----')
 		return {'object_list': obj_list, 'branch':  branch}
 

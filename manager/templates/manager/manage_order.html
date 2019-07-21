@@ -28,50 +28,50 @@
                 <script src ="{% static 'ajaxRequest.js' %}"></script>
 
                 <script>
-                    var csrftoken = getCookie('csrftoken');
-                    $.ajaxSetup({
-                        beforeSend: function(xhr, settings) {
-                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                            }
-                        }
-                    });
+					var csrftoken = getCookie('csrftoken');
+					$.ajaxSetup({
+						beforeSend: function(xhr, settings) {
+							if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+								xhr.setRequestHeader("X-CSRFToken", csrftoken);
+							}
+						}
+					});
 
 
-                    $(".delivery_status").click(function () {
+					$(".delivery_status").click(function () {
 
-                        branch_id = "{{ branch.id }}";
+						branch_id = "{{ branch.id }}";
 
-                        $.ajax({
-                            type:"POST",
-                            headers:{
-                                "X-CSRFToken": csrftoken
-                            },
-                            url: '/delivery_option/',
-                            data: {
-                                'delivery_option': this.id,
-                                'id': branch_id
-                            },
-                            dataType: 'json',
-                            success: function (data) {
+						$.ajax({
+							type:"POST",
+							headers:{
+								"X-CSRFToken": csrftoken
+							},
+							url: '/delivery_option/',
+							data: {
+								'delivery_option': this.id,
+								'id': branch_id
+							},
+							dataType: 'json',
+							success: function (data) {
 
 
-                                }
-                            });
+							}
+						});
 
-                    });
+					});
                 </script>
 
                 <script>
-                    var isOpen = "{{ branch.is_open_now }}";
+					var isOpen = "{{ branch.is_open_now }}";
 
-                    if(isOpen=="True"){
-                        document.getElementById('close_delivery').disabled = true;
+					if(isOpen=="True"){
+						document.getElementById('close_delivery').disabled = true;
 
-                    }else{
-                        document.getElementById('open_delivery').disabled = true;
+					}else{
+						document.getElementById('open_delivery').disabled = true;
 
-                    }
+					}
                 </script>
                 <div style="height: 5vh">
 
@@ -84,7 +84,7 @@
                                 <th>Order Id</th>
                                 <th>Customer</th>
                                 <th>Time</th>
-                                <th>Status</th>
+                                <th>Order Status</th>
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Approve/Reject</th>
@@ -97,24 +97,29 @@
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
-                                    {% if order.status == "Pending" %}
-                                        <td><span class="label label-danger">Pending</span></td>
-                                    {% elif order.status == "Processing" %}
-                                        <td><span class="label label-info">Delivered</span></td>
-                                    {% elif order.status == "Delivered" %}
-                                        <td><span class="label label-success">Delivered</span></td>
-                                    {% endif %}
-                                    <td>{{ order.payment.payment_type }}</td>
-                                    <td> 1234</td>
+                                    <td>
+                                        {% if order.order_status == "PENDING" %}
+                                            <span class="label label-danger">Pending</span>
+                                        {% elif order.order_status == "PROCESSING" %}
+                                            <span class="label label-info">Delivered</span>
+                                        {% elif order.order_status == "DELIVERED" %}
+                                            <span class="label label-success">Delivered</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if order.payment.payment_type == "C" %}
+                                            Cash
+                                        {% elif order.payment.payment_type == "O" %}
+                                            Online
+                                        {% endif %}
+                                    </td>
+                                    <td> {{ order.payment.bkash_ref }}</td>
 
                                     <td>
                                         <form action="/accept/{{ restaurant.id }}/" method="post"
                                               id="requestAcceptForm">
                                             {% csrf_token %}
-                                            {% if order.payment.payment_type == 'C' %}
-                                                <input type="submit" name="requestAccept" value="Confirm Payment"
-                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>
-                                            {% elif order.payment.payment_type == 'C' %}
+                                            {% if order.payment.payment_type == 'O' %}
                                                 <input type="submit" name="requestAccept" value="Confirm Payment"
                                                        style="background-color: transparent; border: none; outline: none;color: tomato"/>
                                             {% else %}

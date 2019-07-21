@@ -312,8 +312,8 @@
 																	if (this.readyState === 4 && this.status === 200) {
 																		var response = JSON.parse(this.responseText);
 																		$('#ref_no').text(response.ref);
-																		$('#bkash_ref_no').text(response.ref);
-																		{#document.getElementById('ref_no').value = response.ref;#}
+																		{#$('#bkash_ref_no').value = response.ref;#}
+																		document.getElementById('bkash_ref_no').value = response.ref;
 																		$('#bkash_ref').modal();
 																	}
 																};

@@ -193,7 +193,7 @@ class Order(models.Model):
 		verbose_name_plural = "Orders"
 
 	def __str__(self):
-		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.pkg_list
+		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment
 
 
 class OrderPackageList(models.Model):

@@ -146,14 +146,15 @@ class CheckoutView(TemplateView):
 
 			# random price are inserted
 			payment = Payment(price=total_price, payment_type=Payment.ONLINE,
-			                  bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE).save()
+			                  bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
 		elif request.POST.get('COD_payment') is not None:
 			print('failure')
-			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE).save()
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
 		else:
 			print('cash')
-			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE).save()
-
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
+		# print(payment)
+		payment.save()
 		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch, payment=payment)
 		order.save()
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
