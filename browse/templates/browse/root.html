@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-4 col-md-3 right-side-cart" align="right">
                         <style>
-                            .hotelsearchBox {
+                            .hotelsearchBox{
                                 position: absolute;
                                 top: -5%;
                                 left: 28%;
@@ -251,7 +251,7 @@
                         <input type="submit" class="btn btn-primary" value="Checkout"
                                id="cart-checkout-button">
                         <script>
-							console.log(document.getElementById('rest-id').value)
+                            console.log(document.getElementById('rest-id').value)
                         </script>
                     </form>
                     {#                    </a>#}
@@ -265,26 +265,26 @@
     <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
     {#    Notification#}
     <script>
-		function showSuccessNotification(name, timeout = 5000) {
-			$.notify(name, "success", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showSuccessNotification(name, timeout = 5000) {
+            $.notify(name, "success", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-		function showFailureNotification(name, timeout = 5000) {
-			$.notify(name, "error", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showFailureNotification(name, timeout = 5000) {
+            $.notify(name, "error", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-		function showWarningNotification(name, timeout = 5000) {
-			$.notify(name, "warn", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showWarningNotification(name, timeout = 5000) {
+            $.notify(name, "warn", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
     </script>
 
     {#    Cart#}

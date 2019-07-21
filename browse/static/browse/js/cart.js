@@ -151,7 +151,7 @@ $('.add-to-cart').click(function (event) {
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
 	var locInput = document.getElementById('delivery_area_srch').value;
-	if (locInput.trim() == '') {
+	if (locInput == '') {
 		$('#delivery_area_alert').modal();
 	} else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
 		$.confirm({
