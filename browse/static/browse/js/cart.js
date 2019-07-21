@@ -180,7 +180,7 @@ $('.add-to-cart').click(function (event) {
 			}
 		});
 	} else {
-		shoppingCart.addItemToCart(id, price, 1, name, rest_id)
+		shoppingCart.addItemToCart(id, price, 1, name, rest_id);
 		displayCart();
 		showSuccessNotification(name + " has been added to your cart.");
 	}
