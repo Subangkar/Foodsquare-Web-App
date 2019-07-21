@@ -136,23 +136,24 @@
             <!-- <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Restaurants </h3> -->
             <div style="height: 10vh"></div>
             <div class="wrap">
-                <form action="." id="searchForm" method="GET">
-                    <div class="search">
-                        <input class="awesomplete text" name="searchBy_dish_food"
-                               style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
-                               list="restaurant_list" value="{{ query }}"
-                               placeholder="Search by Dishes or Restaurants"/>
-                        <datalist id="restaurant_list">
-                            {% for restaurant in restaurants %}
-                                <option>{{ restaurant.restaurant_name }}</option>
-                            {% endfor %}
-                        </datalist>
-                        <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
+                {#                <form action="." id="searchForm" method="GET">#}
+                <div class="search">
+                    <input form="location-based-search"
+                           class="awesomplete text" name="searchBy_dish_food"
+                           style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
+                           list="restaurant_list" value="{{ query }}"
+                           placeholder="Search by Dishes or Restaurants"/>
+                    <datalist id="restaurant_list">
+                        {% for restaurant in restaurants %}
+                            <option>{{ restaurant.restaurant_name }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
+                    <button type="submit" class="searchButton" form="location-based-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                {#                </form>#}
 
             </div>
             <div style="height: 10vh"></div>
@@ -227,20 +228,22 @@
                     <div>
                         {% if show_all %}
                             <label class="radio_container">Shw only restaurants near me
-                                <input type="radio" name="show" value="near_me" form="searchForm">
+                                <input type="radio" name="show" value="near_me" form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="radio_container">Show all
-                                <input type="radio" name="show" value="all" form="searchForm" checked="checked">
+                                <input type="radio" name="show" value="all" form="location-based-search"
+                                       checked="checked">
                                 <span class="checkmark"></span>
                             </label>
                         {% else %}
                             <label class="radio_container">Shw only restaurants near me
-                                <input type="radio" checked="checked" name="show" value="near_me" form="searchForm">
+                                <input type="radio" checked="checked" name="show" value="near_me"
+                                       form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="radio_container">Show all
-                                <input type="radio" name="show" value="all" form="searchForm">
+                                <input type="radio" name="show" value="all" form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
                         {% endif %}

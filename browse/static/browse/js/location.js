@@ -83,7 +83,13 @@ function loadDeliveryLocation() {
 $('.hotelsearchBox').one("click", ".hotelsearchButton", function (event) {
 	event.preventDefault();
 	deliveryLocation.clearlocation();
-	deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
+	// // areas
+	// for (let i = 0; i < ; i++) {
+	// 	area
+	// }
+	locCoord = document.getElementById('delivery_area_srch').value;
+	locName = document.getElementById('delivery_input').value;
+	deliveryLocation.set(locCoord, locName);
 	$(this).trigger(event.type);
 });
 
