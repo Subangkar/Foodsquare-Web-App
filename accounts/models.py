@@ -186,7 +186,7 @@ class Order(models.Model):
 		(DELIVERED, 'DELIVERED')
 	)
 
-	payment_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
+	order_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
 
 	class Meta:
 		verbose_name = "Order"
