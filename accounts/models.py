@@ -143,10 +143,10 @@ class DeliveryMan(models.Model):
 class Delivery(models.Model):
 	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
-	charge = models.FloatField(verbose_name="Delivery Fees")
-	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=False, auto_now_add=False)
-	rating_user = models.IntegerField(verbose_name="User Rating")
-	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating")
+	charge = models.FloatField(verbose_name="Delivery Fees", default=50)
+	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=True, auto_now_add=False)
+	rating_user = models.IntegerField(verbose_name="User Rating", null=True)
+	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating", null=True)
 
 	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE)
 
@@ -165,9 +165,11 @@ class Order(models.Model):
 	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
 
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
-	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True, blank=True)
+	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True,
+	                             blank=True)
 	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True, blank=True)
-	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False, blank=False)
+	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False,
+	                           blank=False)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
 
@@ -179,13 +181,12 @@ class Order(models.Model):
 	PROCESSING = 'PROCESSING'
 	DELIVERED = 'DELIVERED'
 	ORDER_STATUS = (
-		(PENDING , 'PENDING'),
-		(PROCESSING , 'PROCESSING'),
-		(DELIVERED , 'DELIVERED')
+		(PENDING, 'PENDING'),
+		(PROCESSING, 'PROCESSING'),
+		(DELIVERED, 'DELIVERED')
 	)
 
 	payment_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
-
 
 	class Meta:
 		verbose_name = "Order"
