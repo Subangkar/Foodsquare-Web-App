@@ -553,17 +553,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <script>
                         $('ul.gallery_nav > li').click(function (e) {
                             e.preventDefault();
+                            $('.Pizza').hide();
                             var getItem = $(this).text();
                             $('ul.gallery_nav> li').removeClass('active');
                             $(this).addClass('active');
                             $('#test').text(getItem);
                             $('.navbar-toggler').click();
+                            $(".filt").show();
+                            {#$("."+getItem).hide();#}
+
                         });
                     </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
                         {% for item in item_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt {{ item.category }}">
                                 <div class="product-toys-info">
                                     <div class="men-pro-item">
                                         <div class="men-thumb-item">

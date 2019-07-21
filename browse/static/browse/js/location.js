@@ -2,7 +2,7 @@ var deliveryLocation = (function () {
 	// =============================
 	// Private methods and propeties
 	// =============================
-	let location_data = ['', ''];//coord, name
+	var location_data = ['', ''];//coord, name
 
 
 	// Save location
