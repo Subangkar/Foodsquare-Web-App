@@ -19,6 +19,8 @@ def getUniqueBkashRef(N=10):
 		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10))
 		if not Payment.objects.filter(bkash_ref=key).exists():
 			return key
+
+
 def viewRestaurants(request):
 	return render(request, "browse/restaurants.html", {})
 
@@ -42,7 +44,7 @@ class Index(TemplateView):
 		return ctx
 
 
-class Order(TemplateView):
+class OrderView(TemplateView):
 	template_name = 'browse/order.html'
 
 	def get_context_data(self, **kwargs):
@@ -132,27 +134,38 @@ class CheckoutView(TemplateView):
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery(address=area,
 		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo).save()
-		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch).save(commit=False)
 
+		total_price = 0
 		for pkg in pkg_list:
-			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
+			total_price += pkg['price'] * pkg['quantity']
 
-		#set payment_type + status
+		# set payment_type + status
 		payment = None
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
 
 			# random price are inserted
-			payment = Payment(payment=500, payment_type=Payment.ONLINE, bkash_ref=request.POST.get('ref_no')).save()
+			payment = Payment(price=total_price, payment_type=Payment.ONLINE,
+			                  bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE).save()
 		elif request.POST.get('COD_payment') is not None:
 			print('failure')
-			payment = Payment(payment=500, payment_type=Payment.CASH ).save()
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE).save()
+		else:
+			print('cash')
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE).save()
 
-		order.payment = payment
+		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch, payment=payment)
 		order.save()
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
+		# print(order)
+		for pkg in pkg_list:
+			print(Package.objects.get(id=pkg['id']))
+			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id'])).save()
 
-		return redirect(reverse('browse:package-list'))
+		return HttpResponse("Order Placed")
+
+
+# return redirect(reverse('browse:package-list'))
 
 
 class RestBranch:
@@ -272,8 +285,9 @@ class RestaurantBranchDetails(TemplateView):
 		categories = set([item.category for item in pkg_list])
 
 		print(pkg_list)
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories, 'restaurant': RestBranch(restaurant=branch.restaurant,
-																											   branch=branch)}
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
+		       'restaurant': RestBranch(restaurant=branch.restaurant,
+		                                branch=branch)}
 		return ctx
 
 
@@ -292,6 +306,7 @@ class RestaurantDetails(TemplateView):
 		pkg_list = list(Package.objects.filter(restaurant=rest))
 		categories = set([item.category for item in pkg_list])
 		# print(pkg_list)
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories, 'restaurant': RestBranch(restaurant=rest,
-																											   branch=None)}
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
+		       'restaurant': RestBranch(restaurant=rest,
+		                                branch=None)}
 		return ctx

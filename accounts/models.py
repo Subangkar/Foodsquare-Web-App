@@ -148,7 +148,7 @@ class Delivery(models.Model):
 	rating_user = models.IntegerField(verbose_name="User Rating", null=True)
 	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating", null=True)
 
-	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE)
+	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE, null=True)
 
 	class Meta:
 		verbose_name = "Delivery"
@@ -186,7 +186,7 @@ class Order(models.Model):
 		(DELIVERED, 'DELIVERED')
 	)
 
-	payment_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
+	order_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
 
 	class Meta:
 		verbose_name = "Order"
