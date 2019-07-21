@@ -541,6 +541,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <div class="inner_sec">
                     <ul class="nav gallery_nav" style="padding-left: 40%;">
+                        <li class="nav-item" >
+                            <a class="nav-link active" href="#">All</a>
+                        </li>
                         {% for category in categories %}
                             <li class="nav-item" >
                                 <a class="nav-link active" href="#">{{ category }}</a>
@@ -549,7 +552,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     </ul>
 
-                    <h1 id="test"></h1>
                     <script>
                         $('ul.gallery_nav > li').click(function (e) {
                             e.preventDefault();
@@ -558,12 +560,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             $(this).addClass('active');
                             $('#test').text(getItem);
                             $('.navbar-toggler').click();
+                            $(".filt").hide();
+
+                            $('.'+getItem.trim()).show();
+
                         });
                     </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
                         {% for item in item_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
                                 <div class="product-toys-info">
                                     <div class="men-pro-item">
                                         <div class="men-thumb-item">
@@ -597,16 +603,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         {% endfor %}
                                                     </ul>
                                                 </div>
-                                                <div class="toys single-item hvr-outline-out">
-                                                    <button href="#" data-id="{{ item.id }}"
-                                                            data-name="{{ item.pkg_name }}"
-                                                            data-price="{{ item.price }}"
-                                                            data-restaurant-id="{{ restaurant.branch.id }}"
-                                                            class="add-to-cart toys-cart ptoys-cart">
-                                                        <i class="fas fa-cart-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                {% if restaurant.is_branch %}
+                                                    <div class="toys single-item hvr-outline-out">
+                                                        <button href="#" data-id="{{ item.id }}"
+                                                                data-name="{{ item.pkg_name }}"
+                                                                data-price="{{ item.price }}"
+                                                                data-restaurant-id="{{ restaurant.branch.id }}"
+                                                                class="add-to-cart toys-cart ptoys-cart">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                    </div>
+                                                {% endif %}
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>

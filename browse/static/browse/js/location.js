@@ -2,7 +2,7 @@ var deliveryLocation = (function () {
 	// =============================
 	// Private methods and propeties
 	// =============================
-	let location_data = ['', ''];//coord, name
+	var location_data = ['', ''];//coord, name
 
 
 	// Save location
@@ -82,6 +82,14 @@ function loadDeliveryLocation() {
 
 $('.hotelsearchBox').one("click", ".hotelsearchButton", function (event) {
 	event.preventDefault();
+	var location_name = document.getElementById('delivery_input').value;
+	for (i = 0; i < arr.length; i++) {
+		if (arr[i].display_name.toUpperCase() == location_name.trim().toUpperCase()) {
+			document.getElementById('delivery_area_srch').value = arr[i].co_ordinates;
+		}else{
+			alert("not matched");
+		}
+	}
 	deliveryLocation.clearlocation();
 	// // areas
 	// for (let i = 0; i < ; i++) {

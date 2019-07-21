@@ -1,4 +1,4 @@
-function autocomplete(inp, hid, arr) {
+function autocomplete(inp, arr) {
 	// console.log(arr);
 	/*the autocomplete function takes two arguments,
 	the text field element and an array of possible autocompleted values:*/
@@ -37,7 +37,7 @@ function autocomplete(inp, hid, arr) {
 					/*insert the value for the autocomplete text field:*/
 					inp.value = this.getElementsByTagName("input")[0].value;
 
-					hid.value = this.getElementsByTagName("input")[1].value;
+					// hid.value = this.getElementsByTagName("input")[1].value;
 
 					/*close the list of autocompleted values,
 					(or any other open lists of autocompleted values:*/
@@ -216,6 +216,6 @@ var areas = [{
 	}, {'display_name': 'Tikatuli', 'actual_name': 'Gopibag', 'co_ordinates': '23.7194603,90.4205597113305'},]
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("delivery_input"), document.getElementById("delivery_area_srch"), areas);
+autocomplete(document.getElementById("delivery_input"), areas);
 
 

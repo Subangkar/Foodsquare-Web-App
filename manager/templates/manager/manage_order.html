@@ -106,26 +106,7 @@
                                     {% endif %}
                                     <td>{{ order.payment.payment_type }}</td>
                                     <td> 1234</td>
-                                    <td>
-                                        <!-- <script>
-										$(function () {
-											$("#requestAcceptForm").submit(function (event) {
-												// Stop form from submitting normally
-												event.preventDefault();
-												var reqForm = $(this);
-												// Send the data using post
-												var posting = $.post(reqForm.attr('action'), reqForm.serialize());
-												// if success:
-												posting.done(function (data) {
-													// success actions, maybe change submit button to 'friend added' or whatever
-												});
-												// if failure:
-												posting.fail(function (data) {
-													// 4xx or 5xx response, alert user about failure
-												});
-											});
-										});
-									</script>  -->
+
                                     <td>
                                         <form action="/accept/{{ restaurant.id }}/" method="post"
                                               id="requestAcceptForm">
