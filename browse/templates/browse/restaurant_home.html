@@ -614,9 +614,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     </button>
                                                 </div>
                                             </div>
-                                            {% if restaurant.is_branch %}
+                                            {% if not restaurant.is_branch %}
                                                 <script>
-													document.getElementsByClassName('cart-div').style.visibility = "hidden";
+													document.getElementById('cart-div').style.display = "none";
                                                 </script>
                                             {% endif %}
                                             <div class="clearfix"></div>

@@ -163,7 +163,7 @@ class CheckoutView(TemplateView):
 			print(Package.objects.get(id=pkg['id']))
 			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id'])).save()
 
-		return HttpResponse("Order Placed")
+		return redirect("/")
 
 
 # return redirect(reverse('browse:package-list'))

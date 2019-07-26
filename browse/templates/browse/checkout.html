@@ -170,7 +170,7 @@
                                                     {#                                                    {% csrf_token %}#}
                                                     {#                                                  <input type="text" name="test-text1" value="test1">#}
                                                     <input type="submit" form="checkout-form-submit" name="COD_payment"
-                                                           value="Complete Order"/>
+                                                           value="Complete Order" class="payment-detail-submit"/>
                                                     {#                                                </form>#}
                                                 </div>
 
@@ -360,7 +360,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" form="checkout-form-submit" class="btn btn-success" name="bkash_payment"
+                    <input type="submit" form="checkout-form-submit" class="btn btn-success payment-detail-submit" name="bkash_payment"
                            style="width: 30%" value="Complete Order"/>
                     {#                    <button type="button" class="btn btn-success" data-dismiss="modal" form=""#}
                     {#                            style="width: 30%">Confirm Order#}
@@ -465,6 +465,18 @@
 			shoppingCart.setCountForItem(id, count);
 			displayCheckout();
 			displayCart();
+		});
+
+		$('.payment-detail-submit').one('submit',function (event) {
+            event.preventDefault();
+            shoppingCart.clearCart();
+            $(this).trigger(event.type);
+		});
+
+		$('.payment-detail-submit').one('click',function (event) {
+            event.preventDefault();
+            shoppingCart.clearCart();
+            $(this).trigger(event.type);
 		});
 
 		displayCheckout();
