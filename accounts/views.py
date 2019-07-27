@@ -101,6 +101,37 @@ class ManagerLoginView(TemplateView):
 			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
 
 
+class DeliveryLoginView(TemplateView):
+	template_name = 'accounts/Delivery_Login.html'
+
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/orders')
+		else:
+			return super().get(request, *args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = {'loggedIn': self.request.user.is_authenticated}
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		print(pretty_request(request))
+		username = request.POST.get('username', False)
+		password = request.POST.get('pass', False)
+		if username and password:
+			user = authenticate(request, username=username, password=password)
+			if user.is_delivery_man:
+				if user is not None:
+					login(request, user)
+					print('Signing in: ' + str(request.user))
+					return redirect('/orders')
+				else:
+					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+
+		else:
+			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+
+
 class AdminLoginView(TemplateView):
 	template_name = 'accounts/Manager_Login.html'
 
@@ -218,6 +249,42 @@ class ManagerRegisterView(TemplateView):
 		rest.user = user
 		rest.save()
 		return redirect('/homepage')
+
+
+class DeliveryRegister(TemplateView):
+	template_name = 'accounts/Delivery_Registration_Form.html'
+
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/orders')
+		else:
+			return super().get(request, *args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = super(DeliveryRegister, self).get_context_data(**kwargs)
+		ctx['user_form'] = UserForm(prefix='user')
+		# ctx['profile_form'] = ProfileForm(prefix='profile')
+		ctx = {'loggedIn': self.request.user.is_authenticated}
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		print(pretty_request(request))
+
+		if request.POST.get('password') != request.POST.get('re_pass'):
+			return
+
+		user_form = UserForm(request.POST)
+		user = None
+		if user_form.is_valid():
+			user = user_form.save(commit=False)
+			user.is_delivery_man = True
+			user.save()
+			login(request, user)
+		# UserProfile.objects.create(user=user).save() # lagbe na i guess
+		else:
+			return HttpResponse("Invalid Form or pass")
+
+		return redirect('/orders')
 
 
 class BranchRegisterView(TemplateView):
