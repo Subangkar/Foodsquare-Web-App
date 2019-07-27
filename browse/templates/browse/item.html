@@ -16,11 +16,6 @@
                             <div class="flexslider1">
                                 <ul class="slides">
                                     {% for img in item_img %}
-                                        {#										<li data-thumb="{% static img %}">#}
-                                        {#											<div class="thumb-image"><img src="{% static img %}"#}
-                                        {#											                              data-imagezoom="true" class="img-fluid"#}
-                                        {#											                              alt=" "></div>#}
-                                        {#										</li>#}
                                         <li data-thumb="/media/{{ item.image }}">
                                             <div class="thumb-image"><img src="/media/{{ item.image }}"
                                                                           data-imagezoom="true" class="img-fluid"
@@ -32,179 +27,248 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8 single-right-left simpleCart_shelfItem">
+                    <div class="col-lg-4 single-right-left simpleCart_shelfItem">
                         <h3>{{ item.pkg_name }}</h3>
                         <h4>{{ item.restaurant.restaurant_name }}</h4>
                         <p><span class="item_price">BDT {{ item.price }}</span>
                             <del>{{ item.price }}</del>
                         </p>
-                        <div class="rating1">
-                            <ul class="stars">
-                                {% for i in rating %}
-                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                {% endfor %}
+                        <div class="container">
+                            <style>
+                                .rate {
+                                    float: left;
+                                    height: 46px;
+                                    padding: 0 10px;
+                                }
+                                .rate:not(:checked) > input {
+                                    position:absolute;
+                                    top:-9999px;
+                                }
+                                .rate:not(:checked) > label {
+                                    float:right;
+                                    width:1em;
+                                    overflow:hidden;
+                                    white-space:nowrap;
+                                    cursor:pointer;
+                                    font-size:30px;
+                                    color:#ccc;
+                                }
+                                .rate:not(:checked) > label:before {
+                                    content: '★ ';
+                                }
+                                .rate > input:checked ~ label {
+                                    color: #ffc700;
+                                }
+                                .rate:not(:checked) > label:hover,
+                                .rate:not(:checked) > label:hover ~ label {
+                                    color: #deb217;
+                                }
+                                .rate > input:checked + label:hover,
+                                .rate > input:checked + label:hover ~ label,
+                                .rate > input:checked ~ label:hover,
+                                .rate > input:checked ~ label:hover ~ label,
+                                .rate > label:hover ~ input:checked ~ label {
+                                    color: #c59b08;
+                                }
+                            </style>
+                            <div class="row">
+                                <div  class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>What you'll get</h6>
+                                    <ul>
+                                        {% for ing in ing_list %}
+                                            <li>{{ ing }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
 
-                                {#								<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>#}
-                                {#								<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>#}
-                                {#								<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>#}
-                                {#								<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>#}
-                                {#								<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>#}
-                            </ul>
+                            </div>
+
                         </div>
-                        <div class="description">
-                            <h5>Check delivery, payment options and charges at your location</h5>
-                            <form action="#" method="post">
-                                <input class="form-control" type="text" name="Email" placeholder="Please enter..."
-                                       required="">
-                                <input type="submit" value="Check">
-                            </form>
-                        </div>
-                        {#						<div class="color-quality">#}
-                        {#							<div class="color-quality-right">#}
-                        {#								<h5>Size :</h5>#}
-                        {#								<select id="country1" onchange="change_country(this.value)"#}
-                        {#								        class="frm-field required sect">#}
-                        {#									<option value="null">2 Feet</option>#}
-                        {#									<option value="null">3 Feet</option>#}
-                        {#									<option value="null">4 Feet</option>#}
-                        {#									<option value="null">5 Feet</option>#}
-                        {#								</select>#}
-                        {#							</div>#}
-                        {#						</div>#}
-                        {#						<div class="occasional">#}
-                        {#							<h5>Types :</h5>#}
-                        {#							<div class="colr ert">#}
-                        {#								<label class="radio"><input type="radio" name="radio" checked=""><i></i> Soft Teddy Bear#}
-                        {#									(Black)</label>#}
-                        {#							</div>#}
-                        {#							<div class="colr">#}
-                        {#								<label class="radio"><input type="radio" name="radio"><i></i>Soft Teddy Bear#}
-                        {#									(Brown)</label>#}
-                        {#							</div>#}
-                        {#							<div class="colr">#}
-                        {#								<label class="radio"><input type="radio" name="radio"><i></i>Pink Teddy Bear#}
-                        {#									(Pink)</label>#}
-                        {#							</div>#}
-                        {#							<div class="clearfix"></div>#}
-                        {#						</div>#}
-                        {#						<div class="occasion-cart">#}
-                        {#							<div class="toys single-item singlepage">#}
-                        {#								<form action="#" method="post">#}
-                        {#									<input type="hidden" name="cmd" value="_cart">#}
-                        {#									<input type="hidden" name="add" value="1">#}
-                        {#									<input type="hidden" name="toys_item" value="Farenheit">#}
-                        {#									<input type="hidden" name="amount" value="575.00">#}
-                        {#									<button type="submit" class="toys-cart ptoys-cart add">#}
-                        {#										Add to Cart#}
-                        {#									</button>#}
-                        {#								</form>#}
-                        {#							</div>#}
-                        {#						</div>#}
-                        <ul class="footer-social text-left mt-lg-4 mt-3">
-                            <li>Share On :</li>
-                            <li class="mx-1">
-                                <a href="#">
-                                    <span class="fab fa-facebook-f"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="#">
-                                    <span class="fab fa-twitter"></span>
-                                </a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="#">
-                                    <span class="fab fa-google-plus-g"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="#">
-                                    <span class="fab fa-linkedin-in"></span>
-                                </a>
-                            </li>
-                            <li class="mx-1">
-                                <a href="#">
-                                    <span class="fas fa-rss"></span>
-                                </a>
-                            </li>
-                        </ul>
+
+
+
                     </div>
-                    <div class="clearfix"></div>
-                    <!--/tabs-->
-                    <div class="responsive_tabs">
-                        <div id="horizontalTab">
-                            <ul class="resp-tabs-list">
-                                <li>Description</li>
-                                <li>Ingredients</li>
-                                <li>Reviews</li>
-                            </ul>
-                            <div class="resp-tabs-container">
-                                <br>
-                                {# Description #}
-                                <!--/tab_one-->
-                                <div class="tab1">
-                                    <div class="single_page">
-                                        <h6>{{ item.pkg_name }}</h6>
-                                        <p class="para">{{ item.details }}</p>
-                                    </div>
-                                </div>
-                                <!--//tab_one-->
-                                {# Ingredients #}
-                                <div class="tab3">
-                                    <div class="single_page">
-                                        <h6>{{ item.pkg_name }}</h6>
-                                        <ul>
-                                            {% for ing in ing_list %}
-                                                <li>{{ ing }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                {#	Reviews	#}
-                                <div class="tab2">
-                                    <div class="single_page">
-                                        <div class="bootstrap-tab-text-grids">
-                                            <div class="bootstrap-tab-text-grid">
-                                                <div class="bootstrap-tab-text-grid-left">
-                                                    <img src="{% static reviewer_img %}" alt=" "
-                                                         class="img-fluid">
-                                                </div>
-                                                <div class="bootstrap-tab-text-grid-right">
-                                                    <ul>
-                                                        <li><a href="#">Admin</a></li>
-                                                        <li><a href="#"><i class="fa fa-reply-all"
-                                                                           aria-hidden="true"></i> Reply</a></li>
-                                                    </ul>
-                                                    <p>
-                                                        Very Tasty
-                                                    </p>
-                                                </div>
-                                                <div class="clearfix"></div>
+                    <div class="col-lg-4">
+                        <style>
+                            .glyphicon { margin-right:5px;}
+                            .rating .glyphicon {font-size: 22px;}
+                            .rating-num { margin-top:0px;font-size: 54px; }
+                            .progress { margin-bottom: 5px;}
+                            .progress-bar { text-align: left; }
+                            .rating-desc .col-md-3 {padding-right: 0px;}
+                            .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
+                        </style>
+
+                        {#                        <div class="container">#}
+                        <div class="row">
+                            <div class="">
+                                <div class="well well-sm">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 text-center">
+                                            <h1 class="rating-num">
+                                                4.0</h1>
+                                            <div >
+                                                <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star-empty"></span>
                                             </div>
-                                            <div class="add-review">
-                                                <h4>add a review</h4>
-                                                <form action="#" method="post">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <input type="text" name="Name" required="">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="email" name="Email" required="">
+                                            <div>
+                                                <span class="glyphicon glyphicon-user"></span>1,050,008 total
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="row rating-desc">
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                    <span class="glyphicon glyphicon-star"></span>5
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                    <div class="progress progress-striped">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                            <span class="sr-only">80%</span>
                                                         </div>
                                                     </div>
-                                                    <textarea name="Message" required=""></textarea>
-                                                    <input type="submit" value="SEND">
-                                                </form>
+                                                </div>
+                                                <!-- end 5 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                    <span class="glyphicon glyphicon-star"></span>4
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                            <span class="sr-only">60%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end 4 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                    <span class="glyphicon glyphicon-star"></span>3
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                            <span class="sr-only">40%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end 3 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                    <span class="glyphicon glyphicon-star"></span>2
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                                            <span class="sr-only">20%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end 2 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                    <span class="glyphicon glyphicon-star"></span>1
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                            <span class="sr-only">15%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end 1 -->
                                             </div>
+                                            <!-- end row -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {#                        </div>#}
                     </div>
+                    <div class="clearfix"></div>
+                    <!--/tabs-->
                     <!--//tabs-->
+
+
                 </div>
+                <div style="height: 5vh;"></div>
+                <div class="row">
+                    <div class="add-review">
+
+                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+                        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                        <!------ Include the above in your HEAD tag ---------->
+
+
+                        <div class="card" style="width: 70%">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>
+                                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+
+                                        </p>
+                                        <div class="clearfix"></div>
+                                        <p>Lorem klj sfdlks flkjslf ksdfjkl dfjlska jfdlkdasjflkdasjf lsajfdlaksjflsdk
+                                            lkasdfjklasjflkdasjflkasjf lsakjfdjsdklf jadslkfdjsaldkfj dsalkfj lkjfsl</p>
+                                        <div style="position: absolute; bottom: 0%; right: 3%;">
+                                            <a class="float-bottom btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div style="height: 2vh;"></div>
+
+                <div class="row">
+                    <div class="card" style="width: 70%">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" rows="2" id="comment"></textarea>
+                            </div>
+
+
+                        </div>
+                        <div style="position: relative; bottom: 6%; left: 83%;">
+                            <button type="button" class="btn btn-info">Submit Review</button>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+
+        </div>
         </div>
     </section>
 
@@ -215,20 +279,20 @@
     <!-- price range (top products) -->
     <script src="{% static '/browse/toys_shop/js/jquery-ui.js' %}"></script>
     <script>
-		//<![CDATA[
-		$(window).load(function () {
-			$("#slider-range").slider({
-				range: true,
-				min: 0,
-				max: 9000,
-				values: [50, 6000],
-				slide: function (event, ui) {
-					$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-				}
-			});
-			$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 9000,
+                values: [50, 6000],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
-		}); //]]>
+        }); //]]>
     </script>
     <!-- //price range (top products) -->
     <!-- single -->
@@ -237,70 +301,70 @@
     <!-- script for responsive tabs -->
     <script src="{% static '/browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
     <script>
-		$(document).ready(function () {
-			$('#horizontalTab').easyResponsiveTabs({
-				type: 'default', //Types: default, vertical, accordion
-				width: 'auto', //auto or any width like 600px
-				fit: true, // 100% fit in a container
-				closed: 'accordion', // Start closed if in accordion view
-				activate: function (event) { // Callback function if tab is switched
-					var $tab = $(this);
-					var $info = $('#tabInfo');
-					var $name = $('span', $info);
-					$name.text($tab.text());
-					$info.show();
-				}
-			});
-			$('#verticalTab').easyResponsiveTabs({
-				type: 'vertical',
-				width: 'auto',
-				fit: true
-			});
-		});
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true, // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $('#verticalTab').easyResponsiveTabs({
+                type: 'vertical',
+                width: 'auto',
+                fit: true
+            });
+        });
     </script>
     <!-- FlexSlider -->
     <script src="{% static '/browse/toys_shop/js/jquery.flexslider.js' %}"></script>
     <script>
-		// Can also be used with $(document).ready()
-		$(window).load(function () {
-			$('.flexslider1').flexslider({
-				animation: "slide",
-				controlNav: "thumbnails"
-			});
-		});
+        // Can also be used with $(document).ready()
+        $(window).load(function () {
+            $('.flexslider1').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
     </script>
     <!-- //FlexSlider-->
     <!-- start-smoth-scrolling -->
     <script src="{% static '/browse/toys_shop/js/move-top.js' %}"></script>
     <script src="{% static '/browse/toys_shop/js/easing.js' %}"></script>
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
 
 
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-		});
+        });
     </script>
     <!-- //here ends scrolling icon -->
     <!-- //smooth-scrolling-of-move-up -->

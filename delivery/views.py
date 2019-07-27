@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from accounts.forms import UserForm, RestaurantForm
 
 from accounts.models import *
+from accounts.utils import pretty_request
 from browse.forms import PackageForm
 from browse.models import Ingredient, IngredientList
 
@@ -29,10 +30,10 @@ class AcceptOrdersView(TemplateView):
 	def get_context_data(self, **kwargs):
 		# rests = Rest
 		obj_list = Order.objects.all()
-		# print(obj_list)
-		branch = 1
-		print('-----')
-		return {'object_list': obj_list, 'branch':  branch}
+		# # print(obj_list)
+		# branch = 1
+		# print('-----')
+		return {'object_list': obj_list}
 
 
 class EditProfileView(TemplateView):
@@ -45,22 +46,9 @@ class EditProfileView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditProfileView, self).get_context_data(**kwargs)
 		print(pretty_request(self.request))
-		try:
-			obj = dict()
-			context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
-			context['socialacnt'] = False
+		context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
 
-		except Exception as e:
-			obj = dict()
-			obj = SocialAccount.objects.get(user_id=self.request.user.id).extra_data
-			context['socialacnt'] = True
-			try:  # for facebook
-				obj['avatar'] = obj['picture']
-				del obj['picture']
-			except Exception as e1:
-				pass
-			context['userprofile'] = obj
-			print(context)
+
 		return context
 
 	def post(self, request, *args, **kwargs):
@@ -87,3 +75,6 @@ class EditProfileView(TemplateView):
 		# return HttpResponse("<h1>Congrats</h1>")
 		pass
 
+
+def acceptDelivery(request):
+	return None
