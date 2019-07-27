@@ -246,7 +246,7 @@ class RestaurantList(TemplateView):
 		if query is None:
 			query = ''
 
-		if coord is None:
+		if coord is None or not coord:
 			show = 'all'
 		elif coord is not None and show is None:
 			show = 'near_me'

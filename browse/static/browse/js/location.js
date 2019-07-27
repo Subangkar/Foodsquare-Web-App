@@ -27,20 +27,6 @@ var deliveryLocation = (function () {
 	var obj = {};
 
 	// Add to location
-	obj.setlocation = function (coord) {
-		location_data[0] = coord;
-		saveLocation();
-		return true;
-	};
-
-	// Add to location
-	obj.setlocationName = function (name) {
-		location_data[1] = name;
-		saveLocation();
-		return true;
-	};
-
-	// Add to location
 	obj.set = function (coord, name) {
 		location_data = [coord, name];
 		saveLocation();
@@ -48,20 +34,9 @@ var deliveryLocation = (function () {
 	};
 
 	// Clear location
-	obj.clearlocation = function () {
+	obj.clear = function () {
 		location_data = ['', ''];
 		saveLocation();
-	};
-
-	// Load
-	obj.getlocation = function () {
-		loadlocation();
-		return location_data[0];
-	};
-
-	obj.getlocationName = function () {
-		loadlocation();
-		return location_data[1];
 	};
 
 	// Load
@@ -78,34 +53,36 @@ var deliveryLocation = (function () {
 function loadDeliveryLocation() {
 	document.getElementById('delivery_area_srch').value = deliveryLocation.get()[0];
 	document.getElementById('delivery_input').value = deliveryLocation.get()[1];
+	console.log("Location loaded: " + deliveryLocation.get()[0] + " - " + deliveryLocation.get()[1]);
 }
 
-$('.hotelsearchBox').one("click", ".hotelsearchButton", function (event) {
+var is_searched = false;
+$('.hotelsearchBox').off("click submit", ".hotelsearchButton").on("click submit", ".hotelsearchButton", function (event) {
+	if (is_searched) return;
 	event.preventDefault();
-	var location_name = document.getElementById('delivery_input').value;
-	for (i = 0; i < arr.length; i++) {
-		if (arr[i].display_name.toUpperCase() == location_name.trim().toUpperCase()) {
-			document.getElementById('delivery_area_srch').value = arr[i].co_ordinates;
-		}else{
-			alert("not matched");
-		}
+	const location_name = document.getElementById('delivery_input').value;
+	if (!location_name) {
+		deliveryLocation.clear();
+		return true;
 	}
-	deliveryLocation.clearlocation();
-	// // areas
-	// for (let i = 0; i < ; i++) {
-	// 	area
-	// }
-	locCoord = document.getElementById('delivery_area_srch').value;
-	locName = document.getElementById('delivery_input').value;
-	deliveryLocation.set(locCoord, locName);
-	$(this).trigger(event.type);
-});
-
-$('.hotelsearchBox').one("submit", ".hotelsearchButton", function (event) {
-	event.preventDefault();
-	deliveryLocation.clearlocation();
+	var isValid = false;
+	areas.forEach(function (value, index, array) {
+		if (value.display_name.toUpperCase() === location_name.trim().toUpperCase()) {
+			document.getElementById('delivery_area_srch').value = value.co_ordinates;
+			console.log('updating to ' + location_name);
+			return isValid = true;
+		}
+	});
+	if (!isValid && location_name) {
+		alert("Not a valid location !!!");
+		return false;
+	}
 	deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
+	is_searched = true;
 	$(this).trigger(event.type);
 });
 
+$('#delivery_input').keyup(function (event) {
+	if (event.keyCode === 13) $('.hotelsearchButton').click();
+});
 loadDeliveryLocation();
