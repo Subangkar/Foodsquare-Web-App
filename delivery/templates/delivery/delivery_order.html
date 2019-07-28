@@ -63,8 +63,12 @@
                                         {#                                                       style="background-color: transparent; border: none; outline: none;color: green"/>#}
                                         {#                                            {% endif %}#}
                                         {#                                        </form>#}
-                                        <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
+                                        {% if order.order_status == 'PROCESSING'%}
+                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
+                                        {% elif order.order_status == 'DELIVERING'%}
 
+                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Delievred</button>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 <script>
