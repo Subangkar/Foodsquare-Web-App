@@ -6,5 +6,5 @@ from manager.models import Menu
 class MenuForm(ModelForm):
 	class Meta:
 		model = Menu
-		fields = ('menu_name', 'price', 'menu_img')
+		fields = ('menu_name', 'price', 'menu_img', 'category')
 

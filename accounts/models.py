@@ -12,6 +12,7 @@ class User(AbstractUser):
 	is_customer = models.BooleanField('Customer Account', default=False)
 	is_manager = models.BooleanField('Manager Account', default=False)
 	is_branch_manager = models.BooleanField('Branch Manager Account', default=False)
+	is_delivery_man = models.BooleanField('Delivery Account', default=False)
 	backend = 'django.contrib.auth.backends.ModelBackend'
 
 	class Meta:
@@ -128,6 +129,8 @@ class DeliveryMan(models.Model):
 	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
 	address = models.CharField(verbose_name="Permanent Address", max_length=50)
 	nid = models.CharField(verbose_name="National ID No.", max_length=50)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 
 	class Meta:
 		verbose_name = "DeliveryMan"
@@ -179,10 +182,12 @@ class Order(models.Model):
 
 	PENDING = 'PENDING'
 	PROCESSING = 'PROCESSING'
+	DELIVERING = 'DELIVERING'
 	DELIVERED = 'DELIVERED'
 	ORDER_STATUS = (
 		(PENDING, 'PENDING'),
 		(PROCESSING, 'PROCESSING'),
+		(PROCESSING, 'DELIVERING'),
 		(DELIVERED, 'DELIVERED')
 	)
 

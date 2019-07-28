@@ -87,8 +87,10 @@ class PackageDetails(TemplateView):
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		# comments = PackageReview.objects.filter(package=pkg)
+		comments = None
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list, 'rating': range(5)}
+		       'ing_list': ing_list, 'rating': range(5), 'comments': comments}
 		return ctx
 
 
@@ -311,3 +313,41 @@ class RestaurantDetails(TemplateView):
 		       'restaurant': RestBranch(restaurant=rest,
 		                                branch=None)}
 		return ctx
+
+#
+# def reactSubmit(request):
+# 	print(request)
+# 	if not request.user.is_authenticated:
+# 		return
+# 	pkg_id = request.POST.get('pkg-id')
+# 	react = request.POST.get('react')
+# 	post_id = request.POST.get('comment-id')
+# 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+# 	user = request.user
+# 	post = PackageReview.objects.get(id=post_id)
+# 	like = (react == 'like')
+# 	dislike = (react == 'dislike')
+# 	if Reacts.objects.exists(post=post, user=user):
+# 		react = Reacts.objects.get(post=post, user=user)
+# 	else:
+# 		react = Reacts(post=post, user=user)
+# 	if like:
+# 		react.liked = like
+# 	if dislike:
+# 		react.disliked = dislike
+# 	react.save()
+# 	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
+#
+#
+# def postSubmit(request):
+# 	print(request)
+# 	pkg_id = request.POST.get('pkg-id')
+# 	comment = request.POST.get('comment')
+# 	package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+# 	user = request.user
+# 	if PackageReview.objects.exists(package=package, user=user):
+# 		post = PackageReview.objects.get(package=package, user=user)
+# 		post.desc = comment
+# 		post.save()
+# 	else:
+# 		PackageReview(desc=comment, package=package, user=user).save()

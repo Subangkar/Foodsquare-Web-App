@@ -25,9 +25,11 @@ SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost',
-                 'api.localhost', 'admin.localhost','delivery.localhost',
-                 'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'api.foodsquare.com',
-                 'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'api.foodsquare.net',
+                 'api.localhost', 'admin.localhost', 'delivery.localhost',
+                 'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'delivery.foodsquare.com',
+                 'api.foodsquare.com',
+                 'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
+                 'api.foodsquare.net',
                  'admin.foodsquare.com']
 
 # Application definition

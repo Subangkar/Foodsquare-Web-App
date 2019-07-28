@@ -97,7 +97,7 @@ class AddMenuView(TemplateView):
 			request.POST or None, request.FILES or None)
 		# print(menu_form)
 		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
-
+		print(menu_form)
 		if menu_form.is_valid():
 			menu = menu_form.save(commit=False)
 			menu.restaurant = restaurant
@@ -110,7 +110,7 @@ class AddMenuView(TemplateView):
 			return HttpResponse("<h1>Menu Added Up</h1>")
 
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
 		pass
 
 

@@ -265,6 +265,8 @@ class DeliveryRegister(TemplateView):
 		ctx['user_form'] = UserForm(prefix='user')
 		# ctx['profile_form'] = ProfileForm(prefix='profile')
 		ctx = {'loggedIn': self.request.user.is_authenticated}
+		ctx['locations'] = [x.location_area for x in RestaurantBranch.objects.raw("select * from accounts_restaurantbranch \
+		where location_area notnull and location_area!=\'\'")]
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -272,13 +274,19 @@ class DeliveryRegister(TemplateView):
 
 		if request.POST.get('password') != request.POST.get('re_pass'):
 			return
-
+		nid = request.POST.get('nid')
+		contact = request.POST.get('contact')
+		area = request.POST.get('area')
 		user_form = UserForm(request.POST)
+		if contact is None or area is None:
+			contact = '01854478314'
+			area = 'Khilgaon'
 		user = None
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
 			user.is_delivery_man = True
 			user.save()
+			DeliveryMan(user=user, nid=nid, name=user.username, contact=contact, address=area).save()
 			login(request, user)
 		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:

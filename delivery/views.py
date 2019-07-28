@@ -28,11 +28,7 @@ class AcceptOrdersView(TemplateView):
 	template_name = 'delivery/delivery_order.html'
 
 	def get_context_data(self, **kwargs):
-		# rests = Rest
-		obj_list = Order.objects.all()
-		# # print(obj_list)
-		# branch = 1
-		# print('-----')
+		obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
 		return {'object_list': obj_list}
 
 
@@ -46,7 +42,7 @@ class EditProfileView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditProfileView, self).get_context_data(**kwargs)
 		print(pretty_request(self.request))
-		context['userprofile'] = User.objects.get(id=self.request.user.id).userprofile
+		context['userprofile'] = User.objects.get(id=self.request.user.id).deliveryman
 
 
 		return context
