@@ -1,6 +1,6 @@
 import re
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 
 from django.views.generic import TemplateView
@@ -36,7 +36,6 @@ class EditProfileView(TemplateView):
 	template_name = 'customer/EditProfile.html'
 
 	def get(self, request, *args, **kwargs):
-
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
@@ -72,4 +71,21 @@ class EditProfileView(TemplateView):
 
 
 def acceptDelivery(request):
-	return None
+	print(request)
+	order_id = request.POST.get('order_id')
+	deliveryman = DeliveryMan.objects.get(user=request.user)
+	print(order_id)
+	print(deliveryman)
+	status = request.POST.get('delivery_option')
+	order = Order.objects.get(id=order_id)
+	if status == 'take':
+		order.order_status = order.DELIVERING
+		order.delivery.deliveryman = deliveryman
+		order.save()
+	elif status == 'deliver':
+		order.order_status = order.DELIVERED
+		order.delivery.deliveryman = deliveryman
+		order.save()
+	return JsonResponse({"accepted": True})
+
+# def acceptDelivered(request):

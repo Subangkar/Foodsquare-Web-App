@@ -1,6 +1,6 @@
 import re
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 
 from django.views.generic import TemplateView
@@ -29,11 +29,11 @@ class ProcessOrdersView(TemplateView):
 	def get_context_data(self, **kwargs):
 		# rests = Rest
 		branch = RestaurantBranch.objects.get(user=self.request.user)
-		obj_list = Order.objects.filter(branch=branch)#.order_by('status', '-time')
+		obj_list = Order.objects.filter(branch=branch)  # .order_by('status', '-time')
 		print(branch)
 		# print(obj_list)
 		print('-----')
-		return {'object_list': obj_list, 'branch':  branch}
+		return {'object_list': obj_list, 'branch': branch}
 
 
 class EditRestaurantView(TemplateView):
@@ -127,3 +127,10 @@ def DeliveryAvailability(request):
 
 	branch.save()
 
+
+def acceptOrder(request):
+	order_id = request.POST.get('order_id')
+	order = Order.objects.get(id=order_id)
+	order.order_status = order.PROCESSING
+	order.save()
+	return JsonResponse({'order': 'placed'})

@@ -150,7 +150,7 @@
                                 <div style="width: 212%;">
                                     <button type="button" class="btn btn-primary dropdown-toggle" type="button" id="addrBtn" data-toggle="dropdown" form="infoForm">Address
                                     </button>
-                                    <input type="hidden" id="addrVal">
+                                    <input type="hidden" id="addrVal" name="area" form="infoForm">
                                     <ul class="dropdown-menu" id="address_dropdown">
                                         {% for location in locations %}
                                             <li><a href="#">{{ location }}</a></li>

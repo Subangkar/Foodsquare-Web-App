@@ -135,7 +135,7 @@ class CheckoutView(TemplateView):
 
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery(address=area,
-		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo).save()
+		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
 
 		total_price = 0
 		for pkg in pkg_list:
@@ -157,6 +157,7 @@ class CheckoutView(TemplateView):
 			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
 		# print(payment)
 		payment.save()
+		delivery.save()
 		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch, payment=payment)
 		order.save()
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
