@@ -49,22 +49,80 @@
                                             Online
                                         {% endif %}
                                     </td>
-{#                                    <td> {{ order.payment.bkash_ref }}</td>#}
+                                    {#                                    <td> {{ order.payment.bkash_ref }}</td>#}
 
                                     <td>
-                                        <form action="/accept/{{ restaurant.id }}/" method="post"
-                                              id="requestAcceptForm">
-                                            {% csrf_token %}
-                                            {% if order.payment.payment_type == 'O' %}
-                                                <input type="submit" name="requestAccept" value="Confirm Payment"
-                                                     id="confirm_delivery"  style="background-color: transparent; border: none; outline: none;color: tomato"/>
-                                            {% else %}
-                                                <input name="" value="Processed" disabled="disabled"
-                                                       style="background-color: transparent; border: none; outline: none;color: green"/>
-                                            {% endif %}
-                                        </form>
+                                        {#                                        <form action="/accept/{{ restaurant.id }}/" method="post"#}
+                                        {#                                              id="requestAcceptForm">#}
+                                        {#                                            {% csrf_token %}#}
+                                        {#                                            {% if order.payment.payment_type == 'O' %}#}
+                                        {#                                                <input type="submit" name="requestAccept" value="Confirm Payment"#}
+                                        {#                                                     id="confirm_delivery"  style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
+                                        {#                                            {% else %}#}
+                                        {#                                                <input name="" value="Processed" disabled="disabled"#}
+                                        {#                                                       style="background-color: transparent; border: none; outline: none;color: green"/>#}
+                                        {#                                            {% endif %}#}
+                                        {#                                        </form>#}
+                                        <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
+
                                     </td>
                                 </tr>
+                                <script>
+                                    var csrftoken = getCookie('csrftoken');
+                                    $.ajaxSetup({
+                                        beforeSend: function(xhr, settings) {
+                                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                            }
+                                        }
+                                    });
+
+                                    $(".delivery_status").click(function () {
+
+                                        {#ekhane deliveryman er id hobe#}
+
+                                        $.ajax({
+                                            type:"POST",
+                                            headers:{
+                                                "X-CSRFToken": csrftoken
+                                            },
+                                            url: '/applyForDelivery/',
+                                            data: {
+                                                'order_id': {{ order.id }} ,
+                                                'deliveryMan_id' : {{ user.id }},
+                                                'delivery_option': this.id
+                                            },
+                                            dataType: 'json',
+                                            success: function (data) {
+                                                console.log(data)
+                                                alert('Your request for delivery granted.Please collect asap');
+                                            }
+                                        });
+
+                                    });
+                                    {#$(".delivery_status").click(function () {#}
+                                    {##}
+                                    {#ekhane deliveryman er id hobe#}
+                                    {##}
+                                    {#    $.ajax({#}
+                                    {#        type:"POST",#}
+                                    {#        headers:{#}
+                                    {#            "X-CSRFToken": csrftoken#}
+                                    {#        },#}
+                                    {#        url: '/delivery_availability/',#}
+                                    {#        data: {#}
+                                    {#            'delivery_option': this.id,#}
+                                    {#            'id': branch_id#}
+                                    {#        },#}
+                                    {#        dataType: 'json',#}
+                                    {#        success: function (data) {#}
+                                    {##}
+                                    {#        }#}
+                                    {#    });#}
+                                    {##}
+                                    {#});#}
+                                </script>
+
                             {% endfor %}
 
                             </tbody>
@@ -73,59 +131,6 @@
                 </div>
                 <script src ="{% static 'ajaxRequest.js' %}"></script>
 
-                <script>
-                    var csrftoken = getCookie('csrftoken');
-                    $.ajaxSetup({
-                        beforeSend: function(xhr, settings) {
-                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                            }
-                        }
-                    });
-
-                    $("#confirm_deliver").click(function () {
-
-                        {#ekhane deliveryman er id hobe#}
-
-                        $.ajax({
-                            type:"POST",
-                            headers:{
-                                "X-CSRFToken": csrftoken
-                            },
-                            url: '/applyForDelivery/',
-                            data: {
-                                'order_id': {{ order.id }} ,
-                                'deliveryMan_id' : {{ user.id }}
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                                alert('Your request for delivery granted.Please collect asap');
-                            }
-                        });
-
-                    });
-                    $(".delivery_status").click(function () {
-
-                        {#ekhane deliveryman er id hobe#}
-
-                        $.ajax({
-                            type:"POST",
-                            headers:{
-                                "X-CSRFToken": csrftoken
-                            },
-                            url: '/delivery_availability/',
-                            data: {
-                                'delivery_option': this.id,
-                                'id': branch_id
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-
-                            }
-                        });
-
-                    });
-                </script>
 
                 <script>
                     var isOpen = "{{ branch.is_open_now }}";
