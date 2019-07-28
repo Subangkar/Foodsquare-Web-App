@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     {% if not loggedIn %}
@@ -31,6 +31,15 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/util.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'accounts/login_v4/css/main.css' %}">
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
     {% else %}
         <meta http-equiv='refresh' content='2; URL=/'>
     {% endif %}
@@ -47,75 +56,133 @@
             <div class="signup-content ">
                 <div class="signup-form">
                     <h1 cass="form-title"><a href="/">Foodsquare</a></h2>
-                        <h1 class="form-title">Join To Deliver Food</h1>
                         <script>
-							var checkpass = function () {
-								if (document.getElementById('name') == '') {
-									document.getElementById('name').style.backgroundColor = 'red'
-								}
+                            var checkpass = function () {
+                                if (document.getElementById('name') == '') {
+                                    document.getElementById('name').style.backgroundColor = 'red'
+                                }
 
-								if (document.getElementById('password').value ==
-									document.getElementById('re_pass').value) {
-									document.getElementById('password').style.color = 'green';
-									document.getElementById('re_pass').style.color = 'green';
-									document.getElementById('password-message').innerHTML = '';
-									document.getElementById('password-message').style.color = 'green';
-									document.getElementById('signup').disabled = false
-									document.getElementById('signup').style.backgroundColor = 'green'
-								} else {
-									document.getElementById('password').style.color = 'red';
-									document.getElementById('re_pass').style.color = 'red';
-									document.getElementById('password-message').innerHTML = 'NOT MATCHING';
-									document.getElementById('password-message').style.color = 'red';
-									document.getElementById('signup').disabled = true
-									document.getElementById('signup').style.backgroundColor = 'red'
-								}
-							}
-							}
+                                if (document.getElementById('password').value ==
+                                    document.getElementById('re_pass').value) {
+                                    document.getElementById('password').style.color = 'green';
+                                    document.getElementById('re_pass').style.color = 'green';
+                                    document.getElementById('password-message').innerHTML = '';
+                                    document.getElementById('password-message').style.color = 'green';
+                                    document.getElementById('signup').disabled = false
+                                    document.getElementById('signup').style.backgroundColor = 'green'
+                                } else {
+                                    document.getElementById('password').style.color = 'red';
+                                    document.getElementById('re_pass').style.color = 'red';
+                                    document.getElementById('password-message').innerHTML = 'NOT MATCHING';
+                                    document.getElementById('password-message').style.color = 'red';
+                                    document.getElementById('signup').disabled = true
+                                    document.getElementById('signup').style.backgroundColor = 'red'
+                                }
+                            }
+
                         </script>
-                        <form method="POST" class="register-form" id="register-form">
-                            {% csrf_token %}
 
+
+                        <h1 class="form-title">Open Your Restaurant Branch</h1>
+                        <form method="POST" class="register-form" id="infoForm">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="rest_key" placeholder="Your Restaurant Key"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="branch_name"
+                                       placeholder="Your Branch Name"/>
+                            </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="username" placeholder="User Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Email"/>
+                                <input type="email" name="email" placeholder="Your Email"/>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"
-                                       onkeyup='checkpass();'/>
+                                <input type="password" name="password" placeholder="Password" onkeyup='checkpass();'/>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"
-                                       onkeyup='checkpass();'/><span id='password-message'></span>
+                                <input type="password" name="re_pass" placeholder="Repeat your password"
+                                       onkeyup='checkpass();'/><span></span>
                             </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
-                                    statements in <a href="#" class="term-service">Terms of service</a></label>
-                            </div>
+
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
 
-
                 </div>
+                <div>
+
+                    <div class="address_container">
+                        <style type="text/css">
+                            .address_container {
+                                width: 95%;
+                                max-width: 980px;
+                                padding: 1% 2%;
+                                margin: 0 auto;
+                            }
 
 
-            </div>
+                        </style>
+
+                        <b>Address Lookup</b>
+                        <div>
+
+                            <div class="dropdown">
+                                <div>
+
+                                    <button type="button" class="btn btn-primary dropdown-toggle" type="button" id="addrBtn" data-toggle="dropdown" form="infoForm">Address
+                                    </button>
+                                    <input type="hidden" id="addrVal">
+                                    <ul class="dropdown-menu" id="address_dropdown">
+                                        {% for location in locations %}
+                                            <li><a href="#">{{ location }}</a></li>
+                                        {% endfor %}
+                                        {#                                        <li><a href="#">HTML</a></li>#}
+                                        {#                                        <li><a href="#">CSS</a></li>#}
+                                        {#                                        <li><a href="#">JavaScript</a></li>#}
+
+                                    </ul>
+                                </div>
+                                <br/>
+
+                            </div>
+
+                            <script>
+                                $("#address_dropdown a").click(function(e){
+                                    e.preventDefault(); // cancel the link behaviour
+                                    var selText = $(this).text();
+                                    $("#addrBtn").text(selText);
+                                    $("#addrVal").val(selText);
+
+                                });
+                            </script>
+                            <!-- <div style="height: 50vh;">
+                        </div> -->
+                            <div class="flex-col-c p-t-20">
+                                Don't have your restaurant account yet?
+                                <b><u><a href="/accounts/manager_register/" class="txt2">
+                                    Open Now
+                                </a></u></b>
+                            </div>
+                        </div>
+
+                    </div>
 
     </section>
 
     {#</div>#}
 
     <!-- JS -->
-    <script src="{% static 'accounts/colorlib-regform-7/vendor/jquery/jquery.min.js' %}"></script>
+    {#    <script src="{% static 'accounts/colorlib-regform-7/vendor/jquery/jquery.min.js' %}"></script>#}
     <script src="{% static 'accounts/colorlib-regform-7/js/main.js' %}"></script>
 {% else %}
     <b>You are already signed in...</b>

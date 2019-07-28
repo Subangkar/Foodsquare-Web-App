@@ -44,31 +44,30 @@ class EditProfileView(TemplateView):
 		print(pretty_request(self.request))
 		context['userprofile'] = User.objects.get(id=self.request.user.id).deliveryman
 
-
 		return context
 
 	def post(self, request, *args, **kwargs):
-		print(request)
-		oldUser = User.objects.get(id=request.user.id)
-		user_form = UserForm(request.POST, oldUser)
-		profile = oldUser.userprofile
-		profile.user = oldUser
-		profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
-		print(profile_form)
-		if profile_form.is_valid():
-			profile_form.save()
-			print('Registering : ' + str(request.user))
-			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-		# if user_form.is_valid():
-		# user = user_form.save(commit=False)
-		# user.save()
-
-		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		# menuForm = MenuForm(request.POST or None, request.FILES or None)
-		# menuForm.save()
-		# print(menuForm)
-		# return HttpResponse("<h1>Congrats</h1>")
+		# print(request)
+		# oldUser = User.objects.get(id=request.user.id)
+		# user_form = UserForm(request.POST, oldUser)
+		# profile = oldUser.userprofile
+		# profile.user = oldUser
+		# profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
+		# print(profile_form)
+		# if profile_form.is_valid():
+		# 	profile_form.save()
+		# 	print('Registering : ' + str(request.user))
+		# 	return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+		# # if user_form.is_valid():
+		# # user = user_form.save(commit=False)
+		# # user.save()
+		#
+		# else:
+		# 	return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+		# # menuForm = MenuForm(request.POST or None, request.FILES or None)
+		# # menuForm.save()
+		# # print(menuForm)
+		# # return HttpResponse("<h1>Congrats</h1>")
 		pass
 
 
