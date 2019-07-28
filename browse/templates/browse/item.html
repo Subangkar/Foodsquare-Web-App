@@ -216,33 +216,71 @@
                         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
                         <!------ Include the above in your HEAD tag ---------->
 
+                        {% for comment in comments %}
+                            <div class="card" style="width: 70%">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                            <p class="text-secondary text-center">15 Minutes Ago</p>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p>
+                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
 
-                        <div class="card" style="width: 70%">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                        <p class="text-secondary text-center">15 Minutes Ago</p>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <p>
-                                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                                            </p>
+                                            <div class="clearfix"></div>
+                                            <p>Lorem klj sfdlks flkjslf ksdfjkl dfjlska jfdlkdasjflkdasjf lsajfdlaksjflsdk
+                                                lkasdfjklasjflkdasjflkasjf lsakjfdjsdklf jadslkfdjsaldkfj dsalkfj lkjfsl</p>
+                                            <div style="position: absolute; bottom: 0%; right: 3%;">
+                                                <a class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count">10 </font> </a>
+                                                <a class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count">10 </font></a>
 
-                                        </p>
-                                        <div class="clearfix"></div>
-                                        <p>Lorem klj sfdlks flkjslf ksdfjkl dfjlska jfdlkdasjflkdasjf lsajfdlaksjflsdk
-                                            lkasdfjklasjflkdasjflkasjf lsakjfdjsdklf jadslkfdjsaldkfj dsalkfj lkjfsl</p>
-                                        <div style="position: absolute; bottom: 0%; right: 3%;">
-                                            <a class="float-bottom btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                            </div>
+                                            {% if loggedIn %}
+                                                <script>
+                                                    var csrftoken = getCookie('csrftoken');
+                                                    $.ajaxSetup({
+                                                        beforeSend: function(xhr, settings) {
+                                                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                            }
+                                                        }
+                                                    });
 
+
+                                                    $(".react").click(function () {
+
+
+                                                        $.ajax({
+                                                            type:"POST",
+                                                            headers:{
+                                                                "X-CSRFToken": csrftoken
+                                                            },
+                                                            url: '/reactOn/',
+                                                            data: {
+                                                                'comment-id': {{ comment.id }},
+                                                                'pkg-id': {{ item.id }},
+                                                                'react' : this.id
+
+                                                            },
+                                                            dataType: 'json',
+                                                            success: function (data) {
+
+
+                                                            }
+                                                        });
+
+                                                    });
+                                                </script>
+                                            {% endif %}
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
-
-                        </div>
-
+                        {% endfor %}
                     </div>
 
                 </div>
@@ -259,9 +297,46 @@
 
                         </div>
                         <div style="position: relative; bottom: 6%; left: 83%;">
-                            <button type="button" class="btn btn-info">Submit Review</button>
+                            <button type="button" class="btn btn-info" id="submit_review">Submit Review</button>
 
                         </div>
+
+                        <script>
+                            var csrftoken = getCookie('csrftoken');
+                            $.ajaxSetup({
+                                beforeSend: function(xhr, settings) {
+                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                    }
+                                }
+                            });
+
+
+                            $("#submit_review").click(function () {
+                                {% if loggedIn %}
+                                $.ajax({
+                                    type:"POST",
+                                    headers:{
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    url: '/submitReview/',
+                                    data: {
+                                        'pkg-id': {{ item.id }},
+                                        'comment' : $('#comment').val()
+
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+
+
+                                    }
+                                });
+                                {% else %}
+                                    alert('Please log in to post review');
+                                {% endif %}
+
+                            });
+                        </script>
                     </div>
 
                 </div>
