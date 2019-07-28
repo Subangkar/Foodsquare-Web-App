@@ -33,7 +33,7 @@ class AcceptOrdersView(TemplateView):
 
 
 class EditProfileView(TemplateView):
-	template_name = 'customer/EditProfile.html'
+	template_name = 'delivery/EditProfile.html'
 
 	def get(self, request, *args, **kwargs):
 		return super(self.__class__, self).get(request, *args, **kwargs)
