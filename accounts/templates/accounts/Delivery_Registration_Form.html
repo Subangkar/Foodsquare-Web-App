@@ -83,38 +83,48 @@
                         </script>
 
 
-                        <h1 class="form-title">Open Your Restaurant Branch</h1>
+                        <h1 class="form-title">Join to Deliver Food</h1>
                         <form method="POST" class="register-form" id="infoForm">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="rest_key" placeholder="Your Restaurant Key"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="text" name="branch_name"
-                                       placeholder="Your Branch Name"/>
-                            </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="username" placeholder="User Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" placeholder="Your Email"/>
+                                <input type="email" name="email" id="email" placeholder="Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="nid" id="nid" placeholder="NID No"/>
+                            </div>
+                            {#                            <div class="form-group">#}
+                            {#                                <label for="email"><i class="zmdi zmdi-email"></i></label>#}
+                            {#                                <input type="text" name="area" id="area" placeholder="Area"/>#}
+                            {#                            </div>#}
+                            {#                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="contact" id="contact" placeholder="Contact"/>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" placeholder="Password" onkeyup='checkpass();'/>
+                                <input type="password" name="password" id="password" placeholder="Password"
+                                       onkeyup='checkpass();'/>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" placeholder="Repeat your password"
-                                       onkeyup='checkpass();'/><span></span>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"
+                                       onkeyup='checkpass();'/><span id='password-message'></span>
                             </div>
-
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
+                                    statements in <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
 
@@ -133,12 +143,11 @@
 
                         </style>
 
-                        <b>Address Lookup</b>
+                        <b>Address Input</b>
                         <div>
 
                             <div class="dropdown">
-                                <div>
-
+                                <div style="width: 212%;">
                                     <button type="button" class="btn btn-primary dropdown-toggle" type="button" id="addrBtn" data-toggle="dropdown" form="infoForm">Address
                                     </button>
                                     <input type="hidden" id="addrVal">
@@ -146,9 +155,6 @@
                                         {% for location in locations %}
                                             <li><a href="#">{{ location }}</a></li>
                                         {% endfor %}
-                                        {#                                        <li><a href="#">HTML</a></li>#}
-                                        {#                                        <li><a href="#">CSS</a></li>#}
-                                        {#                                        <li><a href="#">JavaScript</a></li>#}
 
                                     </ul>
                                 </div>
@@ -167,12 +173,12 @@
                             </script>
                             <!-- <div style="height: 50vh;">
                         </div> -->
-                            <div class="flex-col-c p-t-20">
-                                Don't have your restaurant account yet?
-                                <b><u><a href="/accounts/manager_register/" class="txt2">
-                                    Open Now
-                                </a></u></b>
-                            </div>
+{#                            <div class="flex-col-c p-t-20">#}
+{#                                Don't have your restaurant account yet?#}
+{#                                <b><u><a href="/accounts/manager_register/" class="txt2">#}
+{#                                    Open Now#}
+{#                                </a></u></b>#}
+{#                            </div>#}
                         </div>
 
                     </div>
