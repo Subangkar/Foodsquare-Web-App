@@ -4,12 +4,6 @@
     <title>Foodsquare </title>
 {% endblock %}
 
-{% block slidebar %}
-    <li><a href="/homepage/" class="waves-effect waves-button"><span
-            class="menu-icon glyphicon glyphicon-home"></span>
-        <p>My Orders</p>
-    </a></li>
-{% endblock %}
 
 {% block body-content %}
     <div class="page-inner">
@@ -18,10 +12,7 @@
             <div class="panel panel-white">
                 <div class="panel-heading">
                     <h4 class="panel-title">Order List</h4>
-                    <div style="padding-left:74%; ">
-                        <button type="button" class="btn btn-danger delivery_status" id="close_delivery">Not Available For Delivery</button>
-                        <button type="button" class="btn btn-success delivery_status" id="open_delivery">Available For Delivery</button>
-                    </div>
+
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -35,28 +26,43 @@
                             <thead>
                             <tr>
                                 <th>Order Id</th>
-                                <th>Rest. Branch</th>
+                                <th>Restaurant</th>
                                 <th>Customer</th>
-                                <th>Order Time/th>
+                                <th>Order Time</th>
                                 <th>Payment Type</th>
-                                <th>Delivery</th>
+                                <th>Delivery Status</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for order in object_list %}
 
                                 <tr>
-                                    <td>{{ order.id }}</td>
-                                    <td> branch name </td>
 
+                                    <td>{{ order.id }}</td>
+                                    <td>{{  order.branch.restaurant }} {{ order.branch}}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
-
-                                    <td>{{ order.payment.payment_type }}</td>
-                                    <td> 1234</td>
+                                    <td>
+                                        {% if order.payment.payment_type == "C" %}
+                                            Cash
+                                        {% elif order.payment.payment_type == "O" %}
+                                            Online
+                                        {% endif %}
+                                    </td>
+                                    <td> {{ order.payment.bkash_ref }}</td>
 
                                     <td>
-                                        <button type="button" class="btn btn-danger" id="confirm_deliver">Confrim Delivery</button>
+                                        <form action="/accept/{{ restaurant.id }}/" method="post"
+                                              id="requestAcceptForm">
+                                            {% csrf_token %}
+                                            {% if order.payment.payment_type == 'O' %}
+                                                <input type="submit" name="requestAccept" value="Confirm Payment"
+                                                     id="confirm_delivery"  style="background-color: transparent; border: none; outline: none;color: tomato"/>
+                                            {% else %}
+                                                <input name="" value="Processed" disabled="disabled"
+                                                       style="background-color: transparent; border: none; outline: none;color: green"/>
+                                            {% endif %}
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -88,11 +94,12 @@
                             },
                             url: '/applyForDelivery/',
                             data: {
-                                'id': branch_id
+                                'order_id': {{ order.id }} ,
+                                'deliveryMan_id' : {{ user.id }}
                             },
                             dataType: 'json',
                             success: function (data) {
-
+                                alert('Your request for delivery granted.Please collect asap');
                             }
                         });
 

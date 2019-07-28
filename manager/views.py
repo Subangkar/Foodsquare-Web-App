@@ -114,7 +114,7 @@ class AddMenuView(TemplateView):
 		pass
 
 
-def delivery_option(request):
+def DeliveryAvailability(request):
 	print(request)
 	id = request.POST.get('id')
 	status = request.POST.get('delivery_option')
