@@ -3,639 +3,589 @@
 
 {% block header %}
 
-    <title>Foodsquare | Checkout</title>
+	<title>Foodsquare | Checkout</title>
 
-    <!--price range-->
-    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
-    <!--//price range-->
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
+	<!--price range-->
+	<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
+	<!--//price range-->
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!--//meta tags ends here-->
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!--//meta tags ends here-->
 
-    <!--checkout-->
-    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/checkout.css' %}">
-    <!--//checkout-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+	<!--checkout-->
+	<link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/checkout.css' %}">
+	<!--//checkout-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link href="{% static 'browse/toys_shop/css/easy-responsive-tabs.css' %}" rel='stylesheet' type='text/css'/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<link href="{% static 'browse/toys_shop/css/easy-responsive-tabs.css' %}" rel='stylesheet' type='text/css'/>
 
 {% endblock %}
 
 
 {% block body-content %}
 
-    <div class="using-border py-3">
-        <div class="inner_breadcrumb  ml-4">
-            <ul class="short_ls">
-                <li>
-                    <a href="{% static 'browse/toys_shop/index.html' %}">Home</a>
-                    <span>/ /</span>
-                </li>
-                <li>Checkout</li>
-            </ul>
-        </div>
-    </div>
-    <!-- //short-->
-    <!--Checkout-->
-    <!-- //banner -->
-    <!-- top Products -->
-    <section>
-        <div style="margin: 2%">
-            <div>
-                <div style="display: flex;">
-                    <h3>Chec<span>kout</span></h3>
+	<div class="using-border py-3">
+		<div class="inner_breadcrumb  ml-4">
+			<ul class="short_ls">
+				<li>
+					<a href="{% static 'browse/toys_shop/index.html' %}">Home</a>
+					<span>/ /</span>
+				</li>
+				<li>Checkout</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //short-->
+	<!--Checkout-->
+	<!-- //banner -->
+	<!-- top Products -->
+	<section>
+		<div style="margin: 2%">
+			<div>
+				<div style="display: flex;">
+					<h3>Chec<span>kout</span></h3>
 
 
-                </div>
-                <h4>Your shopping cart contains: <span>3 Products</span></h4>
+				</div>
+				{#                <h4>Your shopping cart contains: <span>3 Products</span></h4>#}
 
-                <form action="." method="post" id="checkout-form-submit">
-                    {% csrf_token %}
-                    <div class="privacy about" style="display: flex; border: 5px">
+				<form action="." method="post" id="checkout-form-submit">
+					{% csrf_token %}
+					<div class="privacy about" style="display: flex; border: 5px">
+
+						<div class="col-md-6 checkout-right" id="checkout-form-div">
+							<table class="timetable_sub">
+								<thead>
+								<tr>
+									<th>ID No.</th>
+									<th>Item Name</th>
+									<th>Quantity</th>
+									{#                                <th>Product Name</th>#}
+									<th>Price</th>
+									<th>Remove</th>
+								</tr>
+								</thead>
+								<tbody class="checkout-form" id="checkout-table-body">
+								</tbody>
+								<input type="hidden" id="item-list" name="item-list" form="checkout-form-submit">
+								<input type="hidden" id="branch-id-hidden" name="branch-id" form="checkout-form-submit">
+							</table>
 
 
-                        <div class="col-md-6 checkout-right" id="checkout-form-div">
-                            <table class="timetable_sub">
-                                <thead>
-                                <tr>
-                                    <th>ID No.</th>
-                                    <th>Item Name</th>
-                                    <th>Quantity</th>
-                                    {#                                <th>Product Name</th>#}
-                                    <th>Price</th>
-                                    <th>Remove</th>
-                                </tr>
-                                </thead>
-                                <tbody class="checkout-form" id="checkout-table-body">
-                                </tbody>
-                                <input type="hidden" id="item-list" name="item-list">
-                            </table>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-4 checkout-left-basket">
+							<h4>Continue to basket</h4>
+							<ul class="checkout-basket">
+								{#                                <li>Product1 <i>-</i> <span>$675.00 </span></li>#}
+								{#                                <li>Product2 <i>-</i> <span>$325.00 </span></li>#}
+								{#                                <li>Product3 <i>-</i> <span>$405.00 </span></li>#}
+								{#                                <li>Total Service Charges <i>-</i> <span>$55.00</span></li>#}
+								{#                                <li>Total <i>-</i> <span>$1405.00</span></li>#}
+							</ul>
+						</div>
+					</div>
 
+					<div style=" height: 10vh">
+						<hr style="border: 2px dashed  ">
+					</div>
 
-                        </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4 checkout-left-basket">
-                            <h4>Continue to basket</h4>
-                            <ul>
-                                <li>Product1 <i>-</i> <span>$675.00 </span></li>
-                                <li>Product2 <i>-</i> <span>$325.00 </span></li>
-                                <li>Product3 <i>-</i> <span>$405.00 </span></li>
-                                <li>Total Service Charges <i>-</i> <span>$55.00</span></li>
-                                <li>Total <i>-</i> <span>$1405.00</span></li>
-                            </ul>
-                        </div>
-                    </div>
+					<div style="display: flex">
+						<div class="contact-list-grid">
+							<h3>Delivery Address</h3>
+							<div>
+								<div class="form-group contact-forms" style="float: left; width:40%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="House No" id="house-no" name="house-no">
+								</div>
+								<div class="form-group contact-forms" style="float: right; width:40%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="Street/Road No" id="road-no" name="road-no">
+								</div>
 
-                    <div style=" height: 10vh">
-                        <hr style="border: 2px dashed  ">
-                    </div>
+								<div class="form-group contact-forms" style="float: left; width:40%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="(Optional) Block/Sector" id="block-no" name="block-no">
+								</div>
+								<div class="form-group contact-forms" style="float: right; width:40%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="(Optional) Apartment No" id="apartment-no"
+									       name="apartment-no">
+								</div>
+								<div class="form-group contact-forms" style="float: left; width:50%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="Area(e.g. New Market, Azimpur)" id="area" name="area">
+								</div>
 
-                    <div style="display: flex">
-                        <div class="contact-list-grid">
-                            <h3>Delivery Address</h3>
-                            <form id="infoForm" method="post">
-                                <div>
-                                    <div class="form-group contact-forms" style="float: left; width:40%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="House No" id="house-no" name="house-no">
-                                    </div>
-                                    <div class="form-group contact-forms" style="float: right; width:40%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="Street/Road No" id="road-no" name="road-no">
-                                    </div>
+								<div class="form-group contact-forms" style="float: right; width:30%">
+									<input form="checkout-form-submit" type="text" class="form-control"
+									       placeholder="Mobile No" id="mobile-no" name="mobile-no">
+								</div>
+							</div>
+						</div>
 
-                                    <div class="form-group contact-forms" style="float: left; width:40%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="(Optional) Block/Sector" id="block-no" name="block-no">
-                                    </div>
-                                    <div class="form-group contact-forms" style="float: right; width:40%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="(Optional) Apartment No" id="apartment-no"
-                                               name="apartment-no">
-                                    </div>
-                                    <div class="form-group contact-forms" style="float: left; width:50%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="Area(e.g. New Market, Azimpur)" id="area" name="area">
-                                    </div>
+					</div>
 
-                                    <div class="form-group contact-forms" style="float: right; width:30%">
-                                        <input form="checkout-form-submit" type="text" class="form-control"
-                                               placeholder="Mobile No" id="mobile-no" name="mobile-no">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+					<div style=" height: 10vh">
+						<hr style="border: 2px  solid ">
+					</div>
 
-                    </div>
+					<div>
+						<h3>Pay<span>ment</span></h3>
+						<!--/tabs-->
+						<div class="responsive_tabs">
+							<div id="horizontalTab">
+								<ul class="resp-tabs-list">
+									<li>Cash on delivery (COD)</li>
 
-                    <div style=" height: 10vh">
-                        <hr style="border: 2px  solid ">
-                    </div>
-
-                    <div>
-                        <h3>Pay<span>ment</span></h3>
-                        <!--/tabs-->
-                        <div class="responsive_tabs">
-                            <div id="horizontalTab">
-                                <ul class="resp-tabs-list">
-                                    <li>Cash on delivery (COD)</li>
-                                    <li>Credit/Debit</li>
-                                    <li>Online Banking</li>
-                                    <li>Mobile Banking</li>
-                                </ul>
-                                <div class="resp-tabs-container">
-                                    <!--/tab_one-->
-                                    <div class="tab1">
-                                        <div class="pay_info">
-                                            <div class="vertical_post check_box_agile">
-                                                <h5>COD</h5>
-                                                <div class="checkbox">
-                                                    <div class="check_box_one cashon_delivery">
-                                                        <label class="anim">
-                                                            <input type="checkbox" class="checkbox">
-                                                            <span> We also accept Credit/Debit card on delivery. Please
+									<li>Mobile Banking</li>
+								</ul>
+								<div class="resp-tabs-container">
+									<!--/tab_one-->
+									<div class="tab1">
+										<div class="pay_info">
+											<div class="vertical_post check_box_agile">
+												<h5>COD</h5>
+												<div class="checkbox">
+													<div class="check_box_one cashon_delivery">
+														<label class="anim">
+															<input type="checkbox" class="checkbox">
+															<span> We also accept Credit/Debit card on delivery. Please
                                                             Check with the agent.</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="pay_info">
-                                                    {#                                                <form method="post" id="checkout-form-submit">#}
-                                                    {#                                                    {% csrf_token %}#}
-                                                    {#                                                  <input type="text" name="test-text1" value="test1">#}
-                                                    <input type="submit" form="checkout-form-submit" name="COD_payment"
-                                                           value="Complete Order"/>
-                                                    {#                                                </form>#}
-                                                </div>
+														</label>
+													</div>
+												</div>
+												<div class="pay_info">
+													{#                                                <form method="post" id="checkout-form-submit">#}
+													{#                                                    {% csrf_token %}#}
+													{#                                                  <input type="text" name="test-text1" value="test1">#}
+													<input type="submit" form="checkout-form-submit" name="COD_payment"
+													       value="Complete Order" class="payment-detail-submit"/>
+													{#                                                </form>#}
+												</div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--//tab_one-->
-                                    <div class="tab2">
-                                        <div class="pay_info">
-                                            <form action="#" method="post" class="creditly-card-form agileinfo_form">
-                                                <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                                                    <div class="credit-card-wrapper">
-                                                        <div class="first-row form-group">
-                                                            <div class="controls">
-                                                                <label class="control-label">Name on Card</label>
-                                                                <input class="billing-address-name form-control"
-                                                                       type="text"
-                                                                       name="name" placeholder="John Smith">
-                                                            </div>
-                                                            <div class="w3_agileits_card_number_grids">
-                                                                <div class="w3_agileits_card_number_grid_left">
-                                                                    <div class="controls">
-                                                                        <label class="control-label">Card Number</label>
-                                                                        <input
-                                                                                class="number credit-card-number form-control"
-                                                                                type="text" name="number"
-                                                                                inputmode="numeric"
-                                                                                autocomplete="cc-number"
-                                                                                autocompletetype="cc-number"
-                                                                                x-autocompletetype="cc-number"
-                                                                                placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="w3_agileits_card_number_grid_right">
-                                                                    <div class="controls">
-                                                                        <label class="control-label">CVV</label>
-                                                                        <input class="security-code form-control" Â·
-                                                                               inputmode="numeric" type="text"
-                                                                               name="security-code"
-                                                                               placeholder="&#149;&#149;&#149;">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="clear"></div>
-                                                            </div>
-                                                            <div class="controls">
-                                                                <label class="control-label">Expiration Date</label>
-                                                                <input class="expiration-month-and-year form-control"
-                                                                       type="text" name="expiration-month-and-year"
-                                                                       placeholder="MM / YY">
-                                                            </div>
-                                                        </div>
-                                                        <button class="submit"><span>Make a payment </span></button>
-                                                    </div>
-                                                </section>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="tab3">
-                                        <div class="pay_info">
-                                            <div class="vertical_post">
-                                                <form action="#" method="post">
-                                                    <h5>Select From Popular Banks</h5>
-                                                    <div class="swit-radio">
-                                                        <div class="check_box_one">
-                                                            <div class="radio_one"><label><input type="radio"
-                                                                                                 name="radio"
-                                                                                                 checked=""><i></i>Syndicate
-                                                                Bank</label></div>
-                                                        </div>
-                                                        <div class="check_box_one">
-                                                            <div class="radio_one"><label><input type="radio"
-                                                                                                 name="radio"><i></i>Bank
-                                                                of
-                                                                Baroda</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="check_box_one">
-                                                            <div class="radio_one"><label><input type="radio"
-                                                                                                 name="radio"><i></i>Canara
-                                                                Bank</label></div>
-                                                        </div>
-                                                        <div class="check_box_one">
-                                                            <div class="radio_one"><label><input type="radio"
-                                                                                                 name="radio"><i></i>ICICI
-                                                                Bank</label></div>
-                                                        </div>
-                                                        <div class="check_box_one">
-                                                            <div class="radio_one"><label><input type="radio"
-                                                                                                 name="radio"><i></i>State
-                                                                Bank Of
-                                                                India</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                    <h5>Or SELECT OTHER BANK</h5>
-                                                    <div class="section_room_pay">
-                                                        <select class="year">
-                                                            <option value="">=== Other Banks ===</option>
-                                                            <option value="ALB-NA">Allahabad Bank NetBanking</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="submit" value="PAY NOW">
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab4">
-                                        <div class="row pay_info">
+											</div>
+										</div>
+									</div>
 
-                                            <div class="col-md-6">
-                                                <form class="cc-form">
-                                                    <div>
-                                                        <h1>Proceed with bKash Payment</h1>
-                                                        {#                                                        <form action="">#}
-                                                        <input type="image" onclick="loadDoc()"
-                                                               src="{% static 'browse/images/bkash.png' %}"
-                                                               alt="Submit"
-                                                               style="width: 25%; height: 25%; outline: none">
-                                                        {#                                                            </input>#}
-                                                        {#                                                        </form>#}
+									<div class="tab4">
+										<div class="row pay_info">
 
-                                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-                                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-                                                        <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
+											<div class="col-md-6">
+{#												<form class="cc-form">#}
+													<div>
+														<h1>Proceed with bKash Payment</h1>
+														{#                                                        <form action="">#}
+														<input type="image" onclick="loadDoc()"
+														       src="{% static 'browse/images/bkash.png' %}"
+														       alt="Submit"
+														       style="width: 25%; height: 25%; outline: none">
+														{#                                                            </input>#}
+														{#                                                        </form>#}
+														<div>
+															<h3>Pay To: 017784687436</h3>
+														</div>
+														<link rel="stylesheet"
+														      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+														<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+														<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+														<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+														<script type="text/javascript"
+														        src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
 
 
-                                                        {#                                                </form>#}
-                                                        <script>
+														{#                                                </form>#}
+														<script>
 
-                                                            function loadDoc() {
-                                                                event.preventDefault();
-                                                                var xhttp = new XMLHttpRequest();
-                                                                xhttp.onreadystatechange = function() {
-                                                                    if (this.readyState == 4 && this.status == 200) {
-                                                                        var response = JSON.parse(this.responseText);
-                                                                        $('#ref_no').text(response.ref);
+															function loadDoc() {
+																event.preventDefault();
+																var xhttp = new XMLHttpRequest();
+																xhttp.onreadystatechange = function () {
+																	if (this.readyState === 4 && this.status === 200) {
+																		var response = JSON.parse(this.responseText);
+																		$('#ref_no').text(response.ref);
+																		{#$('#bkash_ref_no').value = response.ref;#}
+																		document.getElementById('bkash_ref_no').value = response.ref;
+																		$('#bkash_ref').modal();
+																	}
+																};
+																xhttp.open("GET", "getBkashRef", true);
+																xhttp.send();
+															}
+														</script>
+													</div>
 
-                                                                        {#document.getElementById('ref_no').value = response.ref;#}
-                                                                        $('#bkash_ref').modal();
-                                                                    }
-                                                                };
-                                                                xhttp.open("GET", "getBkashRef", true);
-                                                                xhttp.send();
-                                                            }
-                                                        </script>
-                                                    </div>
+													<!-- Modal -->
 
-                                                    <!-- Modal -->
-
-                                                    <div class="clearfix"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+													<div class="clearfix"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
 
-                </form>
+				</form>
 
-            </div>
-        </div>
+			</div>
+		</div>
 
-        </div>
-        </div>
+		</div>
+		</div>
 
-        </div> <!-- //top products -->
-        </div>
-    </section>
-    <div class="modal fade" id="bkash_ref" role="dialog">
-        <div class="modal-dialog">
+		</div> <!-- //top products -->
+		</div>
+	</section>
+	<div class="modal fade" id="bkash_ref" role="dialog">
+		<div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-body">
-                    <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
-                    <p>
-                        <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with ref. <span id="ref_no"></span> via bkash. You'll receive confrimation
-                            once your payment is done.</font>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" form="checkout-form-submit" class="btn btn-success" name="bkash_payment"
-                            style="width: 30%" value="Complete Order"/>
-{#                    <button type="button" class="btn btn-success" data-dismiss="modal" form=""#}
-{#                            style="width: 30%">Confirm Order#}
-{#                    </button>#}
-                </div>
-            </div>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<font style="font-weight: 600; font-size:20px;"> Complete your order</font>
+					<p>
+						<font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with
+							ref. <span id="ref_no"></span> via bkash. You'll receive confrimation
+							once your payment is done.</font>
+						<input type="hidden" name="ref_no" id="bkash_ref_no" form="checkout-form-submit">
+					</p>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" form="checkout-form-submit" class="btn btn-success payment-detail-submit"
+					       name="bkash_payment"
+					       style="width: 30%" value="Complete Order"/>
+					{#                    <button type="button" class="btn btn-success" data-dismiss="modal" form=""#}
+					{#                            style="width: 30%">Confirm Order#}
+					{#                    </button>#}
+				</div>
+			</div>
 
-        </div>
-    </div>
-    <!-- //show Now-->
+		</div>
+	</div>
+	<!-- //show Now-->
 {% endblock %}
 
 {% block body-js %}
-    <script type="text/javascript">
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
+	<script type="text/javascript">
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
 
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
+		function csrfSafeMethod(method) {
+			// these HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
 
-        // { #var csrftoken = getCookie('csrftoken'); # }
+		// { #var csrftoken = getCookie('csrftoken'); # }
 
-        function displayCheckout() {
-            var cartArray = shoppingCart.listCart();
-            var output = "";
-            var format = ['rem1', 'rem2', 'rem3'];
-            j = 0;
-            // { #output += cartArray[0].rest_id; # }
-            for (var i in cartArray) {
-                console.log(">> " + cartArray[i]);
-                // { #output += "<tr>"# }
-                // { #	+ "<td>" + cartArray[i].id + "</td>"# }
-                // { #	+ "<td>" + cartArray[i].name + "</td>"# }
-                // { #	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"# }
-                // { #	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"# }
-                // { #	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"# }
-                // { #	+ "<td>" + cartArray[i].total + "</td>"# }
-                // { #	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
-                // { #	+ "</tr>"; # }
-                output += '<tr class=' + format[j % 3] + '>'
-                    + '<td class="invert">' + cartArray[i].id + '</td>'
-                    // { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
-                    + '<td class="invert">' + cartArray[i].name + '</td>'
-                    + '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
-                    + '<td class="invert">' + cartArray[i].price + '</td>'
-                    // { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
-                    + '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
-                    + '</tr>';
-                j++;
-            }
-            $('.checkout-form').html(output);
-            document.getElementById('item-list').value = itemListJSON();
-        }
+		function displayCheckout() {
+			var cartArray = shoppingCart.listCart();
+			var output = "";
+			{#<input type="hidden" id="checkout-form-branch-id" name="branch-id">#}
 
-        $('.checkout-form').on("click", ".close1", function (event) {
-            console.log(">> delete >");
-            var id = $(this).data('id');
-            shoppingCart.removeItemFromCartAll(id);
-            displayCheckout();
-            displayCart();
-        });
+			{#output+="<input type=\"hidden\" id=\"checkout-form-branch-id\" name=\"branch-id\">\n";#}
+			var format = ['rem1', 'rem2', 'rem3'];
+			j = 0;
+			// { #output += cartArray[0].rest_id; # }
+			for (var i in cartArray) {
+				console.log(">> " + cartArray[i]);
+				// { #output += "<tr>"# }
+				// { #	+ "<td>" + cartArray[i].id + "</td>"# }
+				// { #	+ "<td>" + cartArray[i].name + "</td>"# }
+				// { #	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"# }
+				// { #	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"# }
+				// { #	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"# }
+				// { #	+ "<td>" + cartArray[i].total + "</td>"# }
+				// { #	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
+				// { #	+ "</tr>"; # }
+				output += '<tr class=' + format[j % 3] + '>'
+					+ '<td class="invert">' + cartArray[i].id + '</td>'
+					// { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
+					+ '<td class="invert">' + cartArray[i].name + '</td>'
+					+ '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
+					+ '<td class="invert">' + cartArray[i].price + 'x ' + cartArray[i].count + '  </td>'
+					// { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
+					+ '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
+					+ '</tr>';
+				j++;
+			}
+			$('.checkout-form').html(output);
+			document.getElementById('item-list').value = itemListJSON();
+			document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
+			console.log(cartArray[0]);
+		}
 
-        // -1
-        $('.checkout-form').on("click", ".value-minus", function (event) {
-            var id = $(this).data('id');
-            shoppingCart.removeItemFromCart(id);
-            displayCheckout();
-            displayCart();
-        });
-        // +1
-        $('.checkout-form').on("click", ".value-plus", function (event) {
-            var id = $(this).data('id');
-            shoppingCart.addItemToCart(id);
-            displayCheckout();
-            displayCart();
-        });
-
-        // Item count input
-        $('.show-cart').on("change", ".item-count", function (event) {
-            var id = $(this).data('id');
-            var count = Number($(this).val());
-            shoppingCart.setCountForItem(id, count);
-            displayCheckout();
-            displayCart();
-        });
-
-        displayCheckout();
-        // { #document.getElementById('checkout-table-body').innerHTML = output; # }
-        // { #oQuickReply.swap('checkout-form-div'); # }
+		function displayBasket() {
+			var cartArray = shoppingCart.listCart();
+			var output = "";
 
 
-        function postAjax(url, token, data, success, failure) {
-            // { #var params = typeof data == 'string' ? data : Object.keys(data).map(#}
-            // {
-            //     #	function (k) { # }
-            //     { #		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) # }
-            //     { # } #
-            // }
-            // { #).join('&'); # }
+			{#<li>Product1 <i>-</i> <span>$675.00 </span></li>#}
+			{#<li>Total Service Charges <i>-</i> <span>$55.00</span></li>#}
+			var total = 0.0;
+			for (var i in cartArray) {
+				console.log(">> " + cartArray[i]);
+				output += '<li>' + cartArray[i].name + ' <i>-</i> <span>BDT '+(cartArray[i].price*cartArray[i].count)+' </span></li>';
+				total += (cartArray[i].price * cartArray[i].count);
+				j++;
+			}
+			output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * 0.1) + '</span></li>';
+			output += '<li>Total <i>-</i> <span>BDT ' + total*1.1 + '</span></li>';
+			$('.checkout-basket').html(output);
+		}
 
-            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-            xhr.open('POST', url);
-            xhr.beforeSend = function (xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", token);
-                }
-                xhr.setRequestHeader("Content-type", "application/json");
+		$('.checkout-form').on("click", ".close1", function (event) {
+			console.log(">> delete >");
+			var id = $(this).data('id');
+			shoppingCart.removeItemFromCartAll(id);
+			displayCheckout();
+			displayBasket();
+			displayCart();
+		});
 
-            };
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState > 3 && xhr.status === 200) {
-                    success(xhr.responseText);
-                } else {
-                    failure(xhr.responseText);
-                }
-            };
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            // { #xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); # }
-            // { #xhr.conten# }
-            xhr.send(data);
-            return xhr;
-        }
+		// -1
+		$('.checkout-form').on("click", ".value-minus", function (event) {
+			var id = $(this).data('id');
+			shoppingCart.removeItemFromCart(id);
+			displayCheckout();
+			displayBasket();
+			displayCart();
+		});
+		// +1
+		$('.checkout-form').on("click", ".value-plus", function (event) {
+			var id = $(this).data('id');
+			shoppingCart.addItemToCart(id);
+			displayCheckout();
+			displayBasket();
+			displayCart();
+		});
 
-        $(document).on('submit', '#checkout-form-submit', function (event) {
+		// Item count input
+		$('.show-cart').on("change", ".item-count", function (event) {
+			var id = $(this).data('id');
+			var count = Number($(this).val());
+			shoppingCart.setCountForItem(id, count);
+			displayCheckout();
+			displayBasket();
+			displayCart();
+		});
 
-            // { #event.preventDefault(); # }
-            var data = {
-                // { #myTextToPass: $('#sometext').val() # }
-                packagelist: $('#item-list').val(),
-                houseNo: $('#house-no').val(),
-                roadNo: $('#road-no').val(),
-                blockNo: $('#block-no').val(),
-                apartmentNo: $('#apartment-no').val(),
-                area: $('#area').val(),
-                mobileNo: $('#mobile-no').val()
-            };
-            // LOOK AT ME! BETWEEN HERE AND
-            // { #var token = $('input[name="csrfToken"]').attr('value'); # }
-            var token = getCookie('csrftoken');//$('input[name="csrfmiddlewaretoken"]').attr('value');
-            // { #var token = jQuery("[name=csrfmiddlewaretoken]").val(); # }
-            // { #console.log(token); # }
-            // { #postAjax("{% url 'browse:checkout' %}", token, JSON.stringify(data), function (data) { }, function (data) { }); # }
-        });
-    </script>
-    <!-- //Modal 1-->
-    <!--js working-->
-    <!--//js working-->
-    <!-- cart-js -->
-    <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
-    <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    <!--bootstrap working-->
-    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
-    <script>
-        $(function () {
-            var creditly = Creditly.initialize(
-                '.creditly-wrapper .expiration-month-and-year',
-                '.creditly-wrapper .credit-card-number',
-                '.creditly-wrapper .security-code',
-                '.creditly-wrapper .card-type');
+		$('.payment-detail-submit').one('submit', function (event) {
+			event.preventDefault();
+			shoppingCart.clearCart();
+			$(this).trigger(event.type);
+		});
 
-            $(".creditly-card-form .submit").click(function (e) {
-                e.preventDefault();
-                var output = creditly.validate();
-                if (output) {
-                    // Your validated credit card output
-                    console.log(output);
-                }
-            });
-        });
-    </script>
-    <!-- //credit-card -->
-    <!-- start-smoth-scrolling -->
+		$('.payment-detail-submit').one('click', function (event) {
+			event.preventDefault();
+			shoppingCart.clearCart();
+			$(this).trigger(event.type);
+		});
+
+		displayCheckout();
+		displayBasket();
+		// { #document.getElementById('checkout-table-body').innerHTML = output; # }
+		// { #oQuickReply.swap('checkout-form-div'); # }
 
 
-    <script>
-        $(document).ready(function () {
-            $('#horizontalTab').easyResponsiveTabs({
-                type: 'default', //Types: default, vertical, accordion
-                width: 'auto', //auto or any width like 600px
-                fit: true, // 100% fit in a container
-                closed: 'accordion', // Start closed if in accordion view
-                activate: function (event) { // Callback function if tab is switched
-                    var $tab = $(this);
-                    var $info = $('#tabInfo');
-                    var $name = $('span', $info);
-                    $name.text($tab.text());
-                    $info.show();
-                }
-            });
-            $('#verticalTab').easyResponsiveTabs({
-                type: 'vertical',
-                width: 'auto',
-                fit: true
-            });
-        });
-    </script>
+		function postAjax(url, token, data, success, failure) {
+			// { #var params = typeof data == 'string' ? data : Object.keys(data).map(#}
+			// {
+			//     #	function (k) { # }
+			//     { #		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) # }
+			//     { # } #
+			// }
+			// { #).join('&'); # }
 
-    <!--//js working-->
-    <!--closed-->
-    <script>
-        $(document).ready(function (c) {
-            $('.close1').on('click', function (c) {
-                $('.rem1').fadeOut('slow', function (c) {
-                    $('.rem1').remove();
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function (c) {
-            $('.close2').on('click', function (c) {
-                $('.rem2').fadeOut('slow', function (c) {
-                    $('.rem2').remove();
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function (c) {
-            $('.close3').on('click', function (c) {
-                $('.rem3').fadeOut('slow', function (c) {
-                    $('.rem3').remove();
-                });
-            });
-        });
-    </script>
-    <!--//closed-->
+			var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open('POST', url);
+			xhr.beforeSend = function (xhr, settings) {
+				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", token);
+				}
+				xhr.setRequestHeader("Content-type", "application/json");
 
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <!-- start-smoth-scrolling -->
-    <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
+			};
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState > 3 && xhr.status === 200) {
+					success(xhr.responseText);
+				} else {
+					failure(xhr.responseText);
+				}
+			};
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			// { #xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); # }
+			// { #xhr.conten# }
+			xhr.send(data);
+			return xhr;
+		}
 
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-        });
-    </script>
-    <!-- //here ends scrolling icon -->
+		$(document).on('submit', '#checkout-form-submit', function (event) {
 
-    <!-- //bootstrap working-->
-    <!-- //here ends scrolling icon -->
+			// { #event.preventDefault(); # }
+			var data = {
+				// { #myTextToPass: $('#sometext').val() # }
+				packagelist: $('#item-list').val(),
+				houseNo: $('#house-no').val(),
+				roadNo: $('#road-no').val(),
+				blockNo: $('#block-no').val(),
+				apartmentNo: $('#apartment-no').val(),
+				area: $('#area').val(),
+				mobileNo: $('#mobile-no').val()
+			};
+			// LOOK AT ME! BETWEEN HERE AND
+			// { #var token = $('input[name="csrfToken"]').attr('value'); # }
+			var token = getCookie('csrftoken');//$('input[name="csrfmiddlewaretoken"]').attr('value');
+			// { #var token = jQuery("[name=csrfmiddlewaretoken]").val(); # }
+			// { #console.log(token); # }
+			// { #postAjax("{% url 'browse:checkout' %}", token, JSON.stringify(data), function (data) { }, function (data) { }); # }
+		});
+	</script>
+	<!-- //Modal 1-->
+	<!--js working-->
+	<!--//js working-->
+	<!-- cart-js -->
+	{#    <script>#}
+	{#        console.log('setting rest id');#}
+	{#        console.log(shoppingCart.listCart()[0].rest_id);#}
+	{#		document.getElementById('checkout-form-branch-id').value = shoppingCart.listCart()[0].rest_id;#}
+	{#    </script>#}
+	<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
+	<script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
+	<script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+	<script src="{% static 'browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
+	<!-- start-smoth-scrolling -->
+	<script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
+	<script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
+	<!--bootstrap working-->
+	<script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
+	<script>
+		$(function () {
+			var creditly = Creditly.initialize(
+				'.creditly-wrapper .expiration-month-and-year',
+				'.creditly-wrapper .credit-card-number',
+				'.creditly-wrapper .security-code',
+				'.creditly-wrapper .card-type');
+
+			$(".creditly-card-form .submit").click(function (e) {
+				e.preventDefault();
+				var output = creditly.validate();
+				if (output) {
+					// Your validated credit card output
+					console.log(output);
+				}
+			});
+		});
+	</script>
+	<!-- //credit-card -->
+	<!-- start-smoth-scrolling -->
+
+
+	<script>
+		$(document).ready(function () {
+			$('#horizontalTab').easyResponsiveTabs({
+				type: 'default', //Types: default, vertical, accordion
+				width: 'auto', //auto or any width like 600px
+				fit: true, // 100% fit in a container
+				closed: 'accordion', // Start closed if in accordion view
+				activate: function (event) { // Callback function if tab is switched
+					var $tab = $(this);
+					var $info = $('#tabInfo');
+					var $name = $('span', $info);
+					$name.text($tab.text());
+					$info.show();
+				}
+			});
+			$('#verticalTab').easyResponsiveTabs({
+				type: 'vertical',
+				width: 'auto',
+				fit: true
+			});
+		});
+	</script>
+
+	<!--//js working-->
+	<!--closed-->
+	<script>
+		$(document).ready(function (c) {
+			$('.close1').on('click', function (c) {
+				$('.rem1').fadeOut('slow', function (c) {
+					$('.rem1').remove();
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function (c) {
+			$('.close2').on('click', function (c) {
+				$('.rem2').fadeOut('slow', function (c) {
+					$('.rem2').remove();
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function (c) {
+			$('.close3').on('click', function (c) {
+				$('.rem3').fadeOut('slow', function (c) {
+					$('.rem3').remove();
+				});
+			});
+		});
+	</script>
+	<!--//closed-->
+
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+	<!-- here stars scrolling icon -->
+	<script>
+		$(document).ready(function () {
+
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+		});
+	</script>
+	<!-- //here ends scrolling icon -->
+
+	<!-- //bootstrap working-->
+	<!-- //here ends scrolling icon -->
 {% endblock %}

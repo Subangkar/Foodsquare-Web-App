@@ -4,237 +4,210 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    {#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-    {#    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
-    {#				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>#}
+	<meta charset="UTF-8">
+	{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+	{#    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
+	{#				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>#}
 
-    {% block head-includes %}
+	{% block head-includes %}
 
-    {% endblock %}
+	{% endblock %}
 
-    {% block header %}
+	{% block header %}
 
-    {% endblock %}
+	{% endblock %}
 </head>
 
 <body>
 <div class="header-outs" id="home">
 
-    <div class="header-bar">
-        {% block topbar %}
-            <div class="container-fluid">
-                <div class="hedder-up row">
-                    <div class="col-lg-3 col-md-3 logo-head">
-                        <a href="/">
-                            <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
-                        </a>
-                    </div>
-                    <div style="width: 40%;">
-                    </div>
-                    <div class="col-lg-4 col-md-3 right-side-cart" align="right">
-                        <style>
-                            .hotelsearchBox {
-                                position: absolute;
-                                top: -5%;
-                                left: 28%;
-                                transform: translate(-100%, 0%);
-                                background: #2f3640;
-                                /* height: 40px; */
-                                border-radius: 40px;
-                                padding: 10px;
+	<div class="header-bar">
+		{% block topbar %}
+			<div class="container-fluid">
+				<div class="hedder-up row">
+					<div class="col-lg-3 col-md-3 logo-head">
+						<a href="/">
+							<h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
+						</a>
+					</div>
+					<div style="width: 40%;">
+					</div>
+					<div class="col-lg-4 col-md-3 right-side-cart" align="right">
+						<style>
+							.hotelsearchBox {
+								position: absolute;
+								top: -5%;
+								left: 28%;
+								transform: translate(-100%, 0%);
+								background: #2f3640;
+								/* height: 40px; */
+								border-radius: 40px;
+								padding: 10px;
 
-                            }
+							}
 
-                            .hotelsearchBox:hover .hotelsearchInput {
-                                width: 240px;
-                                padding: 0 6px;
-                            }
+							.hotelsearchBox:hover .hotelsearchInput {
+								width: 240px;
+								padding: 0 6px;
+							}
 
-                            .hotelsearchBox:hover .hotelsearchButton {
-                                background: white;
-                                color: #2f3640;
-                            }
+							.hotelsearchBox:hover .hotelsearchButton {
+								background: white;
+								color: #2f3640;
+							}
 
-                            .hotelsearchBox:hover .autocomplete-items {
-                                visibility: visible;
+							.hotelsearchBox:hover .autocomplete-items {
+								visibility: visible;
 
-                            }
+							}
 
-                            .hotelsearchButton {
-                                color: white;
-                                float: right;
-                                width: 40px;
-                                height: 40px;
-                                border-radius: 50%;
-                                background: #2f3640;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                transition: 0.4s;
-                            }
+							.hotelsearchButton {
+								color: white;
+								float: right;
+								width: 40px;
+								height: 40px;
+								border-radius: 50%;
+								background: #2f3640;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								transition: 0.4s;
+							}
 
-                            .hotelsearchInput {
-                                border: none;
-                                background: none;
-                                outline: none;
-                                float: left;
-                                padding: 0;
-                                color: white;
-                                font-size: 16px;
-                                transition: 0.4s;
-                                line-height: 40px;
-                                width: 0px;
+							.hotelsearchInput {
+								border: none;
+								background: none;
+								outline: none;
+								float: left;
+								padding: 0;
+								color: white;
+								font-size: 16px;
+								transition: 0.4s;
+								line-height: 40px;
+								width: 0px;
 
-                            }
+							}
 
-                            @media screen and (max-width: 620px) {
-                                .hotelsearchBox:hover > .hotelsearchInput {
-                                    width: 150px;
-                                    padding: 0 6px;
-                                }
-                            }
-                        </style>
-
-
-                        <div class="cart-icons">
-                            <div class="hotelsearchBox" style="float: left">
+							@media screen and (max-width: 620px) {
+								.hotelsearchBox:hover > .hotelsearchInput {
+									width: 150px;
+									padding: 0 6px;
+								}
+							}
+						</style>
 
 
-                                <script
-                                        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                                <script
-                                        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-                                <link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
-                                      rel="stylesheet">
-                                <!-- <link rel="stylesheet" href="{% static 'browse/css/myAutocomplete.css' %}"
+						<div class="cart-icons">
+							<div class="hotelsearchBox" style="float: left">
+
+
+								<script
+										src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+								<script
+										src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+								<script src={% static 'browse/js/ajax_upload.js' %}></script>
+								<link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+								      rel="stylesheet">
+								<!-- <link rel="stylesheet" href="{% static 'browse/css/myAutocomplete.css' %}"
                                     type="text/css" /> -->
-                                <style>
-                                    .autocomplete {
-                                        position: relative;
-                                        display: inline-block;
-                                    }
+								<style>
+									.autocomplete {
+										position: relative;
+										display: inline-block;
+									}
 
 
-                                    .autocomplete-items {
-                                        /* transform: translate(-100%, 0%); */
-                                        position: absolute;
-                                        border: 1px solid #d4d4d4;
-                                        border-bottom: none;
-                                        border-top: none;
-                                        z-index: 99;
-                                        /*position the autocomplete items to be the same width as the container:*/
-                                        top: 100%;
-                                        left: 20px;
-                                        right: 0;
-                                        width: 80%;
-                                        text-align: left;
-                                        border-radius: 5px;
-                                        visibility: hidden;
-                                    }
+									.autocomplete-items {
+										/* transform: translate(-100%, 0%); */
+										position: absolute;
+										border: 1px solid #d4d4d4;
+										border-bottom: none;
+										border-top: none;
+										z-index: 99;
+										/*position the autocomplete items to be the same width as the container:*/
+										top: 100%;
+										left: 20px;
+										right: 0;
+										width: 80%;
+										text-align: left;
+										border-radius: 5px;
+										visibility: hidden;
+									}
 
-                                    .autocomplete-items div {
-                                        /* transform: translate(-100%, 0%); */
-                                        padding: 10px;
-                                        cursor: pointer;
-                                        background: black;
-                                        /* background-color: transparent; */
-                                        border-bottom: 1px solid #d4d4d4;
-                                        color: crimson;
-                                    }
+									.autocomplete-items div {
+										/* transform: translate(-100%, 0%); */
+										padding: 10px;
+										cursor: pointer;
+										background: black;
+										/* background-color: transparent; */
+										border-bottom: 1px solid #d4d4d4;
+										color: crimson;
+									}
 
-                                    /*when hovering an item:*/
-                                    .autocomplete-items div:hover {
-                                        background-color: #e9e9e9;
-                                    }
+									/*when hovering an item:*/
+									.autocomplete-items div:hover {
+										background-color: #e9e9e9;
+									}
 
-                                    /*when navigating through the items using the arrow keys:*/
-                                    .autocomplete-active {
-                                        background-color: #e9e9e9 !important;
-                                        color: #da3333;
-                                    }
-                                </style>
-                                <!-- <div class="autocomplete"> -->
-                                <form action="/browse/restaurants/" method="GET">
-                                    {% csrf_token %}
-                                    <input class="hotelsearchInput  " type="text" placeholder="Search"
-                                           id="delivery_input" style="background: transparent;">
-                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
-                                    <button class="hotelsearchButton" href="#">
-                                        <i class="fa fa-search">
-                                        </i>
-                                    </button>
-                                </form>
-                                <!-- </div> -->
-                                <!-- <div class="form-group"> 
-                                        <input id="myInput" type="text" name="myCountry" placeholder="Country"> 
-                                    <label for="ac-demo" class="control-label">Autocomplete demo</label>
-                                    <input class="form-control" id="myInput" value="" type="text"
-                                        data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id"
-                                        data-item_label="cityName" autocomplete="off"> 
-                                </div>
-                                 <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="city-code" class="control-label">“Hidden” field</label>
-                                                <input class="form-control" id="city-code" name="citycode" value=""
-                                                    type="number" readonly>
-                                                <span class="help-block">This field should be hidden!</span>
-                                            </div>
-                                        </div> -->
+									/*when navigating through the items using the arrow keys:*/
+									.autocomplete-active {
+										background-color: #e9e9e9 !important;
+										color: #da3333;
+									}
+								</style>
+								<!-- <div class="autocomplete"> -->
+								<form action="/browse/restaurants/" method="GET" id="location-based-search">
+									{#                                    {% csrf_token %}#}
+									<input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
+									       id="delivery_input" style="background: transparent;" autocomplete="off">
+									<input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
+									<button class="hotelsearchButton" href="#" id="hotelsearchButton">
+										<i class="fa fa-search">
+										</i>
+									</button>
+								</form>
 
-
-                                <script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
-                                <!-- <button class="hotelsearchButton" href="#">
-                                    <i class="fa fa-search">
-                                        search
-                                    </i>
-                                </button> -->
-                            </div>
-                            <div style="float: right">
-                                {#							<form action="#" method="post" class="last">#}
-                                {#								<input type="hidden" name="cmd" value="_cart">#}
-                                {#								<input type="hidden" name="display" value="1">#}
-                                {#								<button class="top_toys_cart topBtn" type="submit" name="submit" value="">#}
-                                {#									<span class="fas fa-cart-arrow-down"> Cart</span>#}
-                                {#								</button>#}
-                                {#							</form>#}
-                                <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-                                        data-target="#cart">
+								<!-- </div> -->
+							</div>
+							<div style="float: right">
+								<button class="top_toys_cart topBtn" type="button" data-toggle="modal"
+								        data-target="#cart">
                                     <span class="fas fa-cart-arrow-down"> Cart (<span
-                                            class="total-count"></span>)</span>
-                                </button>
+		                                    class="total-count"></span>)</span>
+								</button>
 
-                            </div>
+							</div>
 
-                            <div class="dropdown" style="float: right">
-                                {% if not loggedIn %}
-                                    <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
-                                    <div class="dropdown-content">
-                                        <a href={% url 'accounts:login' %}>Login</a>
-                                        <a href={% url 'accounts:register' %}>Register</a>
-                                    </div>
-                                {% else %}
-                                    <button class="topBtn"><span class="far fa-user">
+							<div class="dropdown" style="float: right">
+								{% if not loggedIn %}
+									<button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+									<div class="dropdown-content">
+										<a href={% url 'accounts:login' %}>Login</a>
+										<a href={% url 'accounts:register' %}>Register</a>
+									</div>
+								{% else %}
+									<button class="topBtn"><span class="far fa-user">
                                         {{ request.user.username|upper }}</span></button>
-                                    <div class="dropdown-content">
-                                        <a href="/customer/editProfile/">Profile</a>
-                                        <a href={% url 'accounts:logout' %}>Logout</a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
+									<div class="dropdown-content">
+										<a href="/customer/editProfile/">Profile</a>
+										<a href={% url 'accounts:logout' %}>Logout</a>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
 
-                </div>
-            </div>
-        {% endblock %}
-        {% block navbar %}
+				</div>
+			</div>
+		{% endblock %}
+		{% block navbar %}
 
-        {% endblock %}
-    </div>
-    {% block body-header %}
+		{% endblock %}
+	</div>
+	{% block body-header %}
 
-    {% endblock %}
+	{% endblock %}
 </div>
 
 {% block body-content %}
@@ -250,45 +223,45 @@
 
 {% block shopping-cart %}
 
-    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-         style="padding-top: 100px;">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="show-cart table">
+	<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+	     style="padding-top: 100px;">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table class="show-cart table">
 
-                    </table>
-                    <div align="right">Total price: BDT <span class="total-cart"></span></div>
-                </div>
-                <div class="modal-footer">
-                    <button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    {#                    <a href={% url 'browse:checkout' %}>#}
-                    <form action="{% url 'browse:checkout' %}" method="get">
-                        <input type="hidden" id="rest-id" name="rest-id">
-                        <input type="submit" class="btn btn-primary" value="Checkout"
-                               id="cart-checkout-button">
-                        <script>
+					</table>
+					<div align="right">Total price: BDT <span class="total-cart"></span></div>
+				</div>
+				<div class="modal-footer">
+					<button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					{#                    <a href={% url 'browse:checkout' %}>#}
+					<form action="{% url 'browse:checkout' %}" method="get">
+						<input type="hidden" id="rest-id" name="rest-id">
+						<input type="submit" class="btn btn-primary" value="Checkout"
+						       id="cart-checkout-button">
+						<script>
 							console.log(document.getElementById('rest-id').value)
-                        </script>
-                    </form>
-                    {#                    </a>#}
-                </div>
-            </div>
-        </div>
-    </div>
+						</script>
+					</form>
+					{#                    </a>#}
+				</div>
+			</div>
+		</div>
+	</div>
 
-    {#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
-    {#    Notification #}
-    <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
-    {#    Notification#}
-    <script>
+	{#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
+	{#    Notification #}
+	<script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+	{#    Notification#}
+	<script>
 		function showSuccessNotification(name, timeout = 5000) {
 			$.notify(name, "success", {
 				position: "right",
@@ -309,17 +282,24 @@
 				autoHideDelay: timeout
 			});
 		}
-    </script>
+	</script>
 
-    {#    Cart#}
-    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
-    <script src="{% static 'browse/js/cart.js' %}"></script>
-    {#    Cart#}
+	{#    Cart#}
+	<link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
+	<script src="{% static 'browse/js/cart.js' %}"></script>
+	{#    Cart#}
 
 {% endblock %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+{##}
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
+
+<script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
+<script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
 {% endblock %}
 

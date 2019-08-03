@@ -37,24 +37,26 @@
                             </thead>
                             <tbody>
                             {% for order in Orders %}
-
                                 <tr>
                                     <td>{{ order.id }}</td>
-                                    <td>{{ order.branch.branch_name }}</td>
+                                    <td>{{ order.branch.restaurant.restaurant_name }} ,{{ order.branch.branch_name }}</td>
                                     <td>{{ order.time }} </td>
-                                    {% if order.ORDER_STATUS == "Pending" %}
-                                        <td><span class="label label-danger">Pending</span></td>
-                                    {% elif order.ORDER_STATUS == "Processing" %}
-                                        <td><span class="label label-info">Delivered</span></td>
-                                    {% elif order.ORDER_STATUS == "Delivered" %}
-                                        <td><span class="label label-success">Delivered</span></td>
-                                    {% endif %}
+                                    <td>
+                                        {% if order.order_status == "PENDING" %}
+                                            <span class="label label-danger">Pending</span>
+                                        {% elif order.order_status == "PROCESSING" %}
+                                            <span class="label label-info">Delivered</span>
+                                        {% elif order.order_status == "DELIVERED" %}
+                                            <span class="label label-success">Delivered</span>
+                                        {% endif %}
+                                    </td>
+
                                     <td>{{ order.payment.payment_type }}</td>
 
-                                    <td> 1234</td>
+                                    <td> {{ order.payment.bkash_ref }}</td>
 
-                                    <td>
-                                    </td>
+                                    <td>{{ order.payment.payment_status }}</td>
+
                                 </tr>
                             {% endfor %}
 

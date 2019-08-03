@@ -12,6 +12,7 @@ class User(AbstractUser):
 	is_customer = models.BooleanField('Customer Account', default=False)
 	is_manager = models.BooleanField('Manager Account', default=False)
 	is_branch_manager = models.BooleanField('Branch Manager Account', default=False)
+	is_delivery_man = models.BooleanField('Delivery Account', default=False)
 	backend = 'django.contrib.auth.backends.ModelBackend'
 
 	class Meta:
@@ -82,7 +83,7 @@ class RestaurantBranch(models.Model):
 		return self.branch_name
 
 	def get_absolute_url(self):
-		return reverse("Branch_detail", kwargs={"pk": self.pk})
+		return reverse("browse:Branch_detail", kwargs={"id": self.pk})
 
 	def is_open_now(self):
 		time_now = datetime.datetime.now().time().hour + datetime.datetime.now().time().minute / 60
@@ -110,6 +111,7 @@ class Payment(models.Model):
 	price = models.FloatField(verbose_name="Total Price")
 	payment_type = models.CharField(verbose_name="Payment Type", max_length=1, choices=PAYMENT_TYPES, default=CASH)
 	payment_status = models.CharField(verbose_name="Payment Status", max_length=1, choices=PAYMENT_STATUS, default=DUE)
+	bkash_ref = models.CharField(verbose_name="Bkash ref", max_length=30, null=True, blank=True)
 
 	class Meta:
 		verbose_name = "Payment"
@@ -127,6 +129,8 @@ class DeliveryMan(models.Model):
 	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
 	address = models.CharField(verbose_name="Permanent Address", max_length=50)
 	nid = models.CharField(verbose_name="National ID No.", max_length=50)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 
 	class Meta:
 		verbose_name = "DeliveryMan"
@@ -142,12 +146,12 @@ class DeliveryMan(models.Model):
 class Delivery(models.Model):
 	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
-	charge = models.FloatField(verbose_name="Delivery Fees")
-	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=False, auto_now_add=False)
-	rating_user = models.IntegerField(verbose_name="User Rating")
-	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating")
+	charge = models.FloatField(verbose_name="Delivery Fees", default=50)
+	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=True, auto_now_add=False)
+	rating_user = models.IntegerField(verbose_name="User Rating", null=True)
+	rating_deliveryman = models.IntegerField(verbose_name="Delivery Man Rating", null=True)
 
-	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE)
+	deliveryman = models.ForeignKey(DeliveryMan, verbose_name="Delivery Man", on_delete=models.CASCADE, null=True)
 
 	class Meta:
 		verbose_name = "Delivery"
@@ -164,9 +168,11 @@ class Order(models.Model):
 	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
 
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
-	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True, blank=True)
+	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True,
+	                             blank=True)
 	payment = models.ForeignKey(Payment, verbose_name="Payment Info", on_delete=models.CASCADE, null=True, blank=True)
-	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False, blank=False)
+	branch = models.ForeignKey(RestaurantBranch, verbose_name="Branch", on_delete=models.CASCADE, null=False,
+	                           blank=False)
 
 	pkg_list = models.ManyToManyField("browse.Package", through='OrderPackageList', verbose_name="Packages in Order")
 
@@ -176,22 +182,23 @@ class Order(models.Model):
 
 	PENDING = 'PENDING'
 	PROCESSING = 'PROCESSING'
+	DELIVERING = 'DELIVERING'
 	DELIVERED = 'DELIVERED'
 	ORDER_STATUS = (
-		(PENDING , 'PENDING'),
-		(PROCESSING , 'PROCESSING'),
-		(DELIVERED , 'DELIVERED')
+		(PENDING, 'PENDING'),
+		(PROCESSING, 'PROCESSING'),
+		(PROCESSING, 'DELIVERING'),
+		(DELIVERED, 'DELIVERED')
 	)
 
-	payment_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
-
+	order_status = models.CharField(verbose_name="Order Status", max_length=15, choices=ORDER_STATUS, default=PENDING)
 
 	class Meta:
 		verbose_name = "Order"
 		verbose_name_plural = "Orders"
 
 	def __str__(self):
-		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.pkg_list
+		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment
 
 
 class OrderPackageList(models.Model):

@@ -1,6 +1,6 @@
 import re
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 
 from django.views.generic import TemplateView
@@ -29,11 +29,11 @@ class ProcessOrdersView(TemplateView):
 	def get_context_data(self, **kwargs):
 		# rests = Rest
 		branch = RestaurantBranch.objects.get(user=self.request.user)
-		obj_list = Order.objects.filter(branch=branch)#.order_by('status', '-time')
+		obj_list = Order.objects.filter(branch=branch)  # .order_by('status', '-time')
 		print(branch)
-		print(obj_list)
+		# print(obj_list)
 		print('-----')
-		return {'object_list': obj_list}
+		return {'object_list': obj_list, 'branch': branch}
 
 
 class EditRestaurantView(TemplateView):
@@ -97,7 +97,7 @@ class AddMenuView(TemplateView):
 			request.POST or None, request.FILES or None)
 		# print(menu_form)
 		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
-
+		print(menu_form)
 		if menu_form.is_valid():
 			menu = menu_form.save(commit=False)
 			menu.restaurant = restaurant
@@ -110,5 +110,27 @@ class AddMenuView(TemplateView):
 			return HttpResponse("<h1>Menu Added Up</h1>")
 
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
 		pass
+
+
+def DeliveryAvailability(request):
+	print(request)
+	id = request.POST.get('id')
+	status = request.POST.get('delivery_option')
+	print(id)
+	branch = RestaurantBranch.objects.get(id=id)
+	if status == 'close_delivery':
+		branch.running = False
+	else:
+		branch.running = True
+
+	branch.save()
+
+
+def acceptOrder(request):
+	order_id = request.POST.get('order_id')
+	order = Order.objects.get(id=order_id)
+	order.order_status = order.PROCESSING
+	order.save()
+	return JsonResponse({'order': 'placed'})

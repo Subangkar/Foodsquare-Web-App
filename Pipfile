@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+autopep8 = "*"
 
 [packages]
 django = "*"
@@ -12,12 +13,11 @@ django-allauth = "*"
 django-debug-toolbar = "*"
 django-extensions = "*"
 django-hosts = "*"
-django-location-field = "*"
-django-phonenumber-field = "*"
 django-sslserver = "*"
 djangorestframework = "*"
-phonenumbers = "*"
 pillow = "*"
+psycopg2 = "*"
+geopy = "*"
 
 [requires]
 python_version = "3.7"

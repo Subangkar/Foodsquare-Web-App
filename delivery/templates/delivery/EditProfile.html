@@ -1,0 +1,105 @@
+{% extends 'delivery/base.html' %}
+
+{% block header %}
+    <title>Foodsquare | Home</title>
+{% endblock %}
+
+
+{% block body-content %}
+    <div class="page-inner">
+
+        <div style="height: 50px"></div>
+        <div id="main-wrapper">
+            <div class="container"></div>
+            <div class="container">
+                <h1>Edit Profile</h1>
+                <hr>
+                <div class="row">
+                    <!-- left column -->
+                    <script language="javascript">
+                        function changeImage() {
+                            document.getElementById("profile_pic_upload").src = document.getElementById("imgChangeBtn").value;
+                        }
+                    </script>
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                        {% csrf_token %}
+                        <div class="col-md-3">
+                            <div class="text-center">
+
+                                <img src={{ userprofile.avatar.url }} class="avatar " style="width : 100%;height:
+                                100%"
+                                alt="avatar" id="profile_pic_upload">
+
+                                <h6>Upload a different photo...</h6>
+                                <input type="file" name="avatar" class="form-control" id="imgChangeBtn"
+                                       onchange="changeImage()">
+                            </div>
+                        </div>
+
+                        <!-- edit form column -->
+                        <div class="col-md-9 personal-info">
+                            {#                            <div class="alert alert-info alert-dismissable">#}
+                            {#                                <a class="panel-close close" data-dismiss="alert">×</a>#}
+                            {#                                <i class="fa fa-coffee"></i>#}
+                            {#                                This is an <strong>.alert</strong>. #}
+                            {#                            </div>#}
+                            <h3>Personal info</h3>
+
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">First name:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" name="Name"
+                                           value={{ userprofile.name }}>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Address:</label>
+                                <div class="addressDropDown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">CSS</a></li>
+                                        <li><a href="#">JavaScript</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Username:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" value={{ request.user.username }}
+                                            name="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Password:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" value="11111122333" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Confirm password:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" value="11111122333" name="re_pass">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                    <input type="submit" class="btn btn-primary" value="Save Changes">
+                                    <span></span>
+                                    <input type="reset" class="btn btn-default" value="Cancel">
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+    </div>
+{% endblock %}

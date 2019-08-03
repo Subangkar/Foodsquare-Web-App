@@ -11,6 +11,15 @@ from accounts.models import *  # Delivery, Order
 from browse.models import *
 from browse.utils import *
 
+from accounts.models import Payment
+
+
+def getUniqueBkashRef(N=10):
+	while True:
+		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10))
+		if not Payment.objects.filter(bkash_ref=key).exists():
+			return key
+
 
 def viewRestaurants(request):
 	return render(request, "browse/restaurants.html", {})
@@ -22,7 +31,7 @@ def viewRaw(request):
 
 
 def bkashPayment(request):
-	return JsonResponse({'ref': '12345'})
+	return JsonResponse({'ref': getUniqueBkashRef()})
 
 
 class Index(TemplateView):
@@ -35,7 +44,7 @@ class Index(TemplateView):
 		return ctx
 
 
-class Order(TemplateView):
+class OrderView(TemplateView):
 	template_name = 'browse/order.html'
 
 	def get_context_data(self, **kwargs):
@@ -78,8 +87,10 @@ class PackageDetails(TemplateView):
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		# comments = PackageReview.objects.filter(package=pkg)
+		comments = None
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list, 'rating': range(5)}
+		       'ing_list': ing_list, 'rating': range(5), 'comments': comments}
 		return ctx
 
 
@@ -110,7 +121,6 @@ class CheckoutView(TemplateView):
 		if not (self.request.user.is_authenticated and self.request.user.is_customer):
 			return
 
-
 		pkg_list = json.loads(request.POST.get('item-list'))['pkg-list']
 		houseNo = request.POST.get('house-no')
 		roadNo = request.POST.get('road-no')
@@ -125,23 +135,41 @@ class CheckoutView(TemplateView):
 
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery(address=area,
-		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo).save()
-		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch).save()
+		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
 
+		total_price = 0
 		for pkg in pkg_list:
-			OrderPackageList(order=order, package=Package.objects.get(id=pkg.id)).save()
+			total_price += pkg['price'] * pkg['quantity']
 
-		#set payment_type + status
+		# set payment_type + status
+		payment = None
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
+
+			# random price are inserted
+			payment = Payment(price=total_price, payment_type=Payment.ONLINE,
+			                  bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
 		elif request.POST.get('COD_payment') is not None:
 			print('failure')
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
+		else:
+			print('cash')
+			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
+		# print(payment)
+		payment.save()
+		delivery.save()
+		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch, payment=payment)
+		order.save()
 		# return JsonResponse(json.loads(request.POST.get('item-list')))
+		# print(order)
+		for pkg in pkg_list:
+			print(Package.objects.get(id=pkg['id']))
+			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id'])).save()
 
-		return redirect(reverse('browse:package-list'))
+		return redirect("/")
 
-		return HttpResponse('<head><meta http-equiv="refresh" content="5;url=/" /></head>' +
-		                    '<body><h1> Your Order has been successfullt placed in queue</h1><br><br>Redirecting...</body')
+
+# return redirect(reverse('browse:package-list'))
 
 
 class RestBranch:
@@ -164,6 +192,12 @@ class RestBranch:
 		self.pk = restaurant.pk
 		self.get_absolute_url = restaurant.get_absolute_url()
 
+		if branch is not None:
+			self.is_branch = True
+			self.is_open_now = branch.is_open_now()
+			# print(branch.get_absolute_url())
+			self.get_absolute_url = branch.get_absolute_url()
+
 		self.addBranch(branch=branch)
 
 	def addBranch(self, branch):
@@ -171,17 +205,17 @@ class RestBranch:
 		self.is_branch = self.branch is not None
 
 
-def branchesInRadius(coord):
+def branchesInRadius(coord, queryset):
 	rest_map = {}
 	rest_list = []
-	for r in RestaurantBranch.objects.all():
+	for r in queryset:
 		if r.restaurant.id in rest_map:
 			rest_map[r.restaurant.id].append(r)
 		else:
 			rest_map[r.restaurant.id] = [r]
 	for rest in rest_map.values():
 		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
-		print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
+		# print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
 		if branches[0].distance(coord) < 4:
 			def_branch = branches[0]
 			for branch in branches:
@@ -211,24 +245,53 @@ class RestaurantList(TemplateView):
 		query = self.request.GET.get('searchBy_dish_food')
 		coord = self.request.GET.get('delivery_area_srch')
 		show = self.request.GET.get('show')
-		if coord is not None:
-			print(' @ ' + coord)
-		else:
-			show = 'all'
 
-		# rest_list = branchesInRadius(coord=coord)
-		if query is None and show != 'all':
-			rest_list = branchesInRadius(coord=coord)
-		elif query is None and show == 'all':
-			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0')])
-		elif show == 'all':
-			rest_list = list([RestBranch(x) for x in Restaurant.objects.exclude(restaurant_key='0').filter(
-				restaurant_name__icontains=query)])
+		if query is None:
+			query = ''
+
+		if coord is None or not coord:
+			show = 'all'
+		elif coord is not None and show is None:
+			show = 'near_me'
+			print(' @ ' + coord)
+
+		query_sql = \
+			'select distinct accounts_restaurantbranch.*\
+			from accounts_restaurantbranch\
+					join accounts_restaurant on accounts_restaurantbranch.restaurant_id = accounts_restaurant.id\
+					join browse_package on accounts_restaurant.id = browse_package.restaurant_id\
+			        join browse_ingredientlist on browse_package.id = browse_ingredientlist.pack_id_id\
+					join browse_ingredient on browse_ingredientlist.ingr_id_id = browse_ingredient.id\
+			where lower(browse_ingredient.name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(browse_package.pkg_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(accounts_restaurant.restaurant_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
+				or lower(accounts_restaurantbranch.branch_name) like \'%%\' || lower(\'' + query + '\') || \'%%\''
+
+		if show == 'all':
+			rest_list = list([RestBranch(x.restaurant) for x in RestaurantBranch.objects.raw(query_sql)])
 		else:
-			rest_list = branchesInRadius(coord=coord)
+			rest_list = branchesInRadius(coord=coord, queryset=RestaurantBranch.objects.raw(query_sql))
 		print(rest_list)
 
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list}
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list,
+		       'show_all': (show == 'all'), 'query': query}
+		return ctx
+
+
+class RestaurantBranchDetails(TemplateView):
+	template_name = 'browse/restaurant_home.html'
+
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+		branch = RestaurantBranch.objects.get(id=kwargs['id'])
+		pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
+		categories = set([item.category for item in pkg_list])
+
+		print(pkg_list)
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
+		       'restaurant': RestBranch(restaurant=branch.restaurant,
+		                                branch=branch)}
 		return ctx
 
 
@@ -241,11 +304,51 @@ class RestaurantDetails(TemplateView):
 		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
 		# entry_name = self.request.GET.get('menu_search')
 		# price_range = self.request.GET.get('range')
-		rest = Restaurant.objects.get(id=kwargs['id'])
 
+		rest = Restaurant.objects.get(id=kwargs['id'])
+		# branch = RestaurantBranch.objects.get(id=kwargs['id'])
 		pkg_list = list(Package.objects.filter(restaurant=rest))
-		print(pkg_list)
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'restaurant': rest}
+		categories = set([item.category for item in pkg_list])
+		# print(pkg_list)
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
+		       'restaurant': RestBranch(restaurant=rest,
+		                                branch=None)}
 		return ctx
 
-
+#
+# def reactSubmit(request):
+# 	print(request)
+# 	if not request.user.is_authenticated:
+# 		return
+# 	pkg_id = request.POST.get('pkg-id')
+# 	react = request.POST.get('react')
+# 	post_id = request.POST.get('comment-id')
+# 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+# 	user = request.user
+# 	post = PackageReview.objects.get(id=post_id)
+# 	like = (react == 'like')
+# 	dislike = (react == 'dislike')
+# 	if Reacts.objects.exists(post=post, user=user):
+# 		react = Reacts.objects.get(post=post, user=user)
+# 	else:
+# 		react = Reacts(post=post, user=user)
+# 	if like:
+# 		react.liked = like
+# 	if dislike:
+# 		react.disliked = dislike
+# 	react.save()
+# 	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
+#
+#
+# def postSubmit(request):
+# 	print(request)
+# 	pkg_id = request.POST.get('pkg-id')
+# 	comment = request.POST.get('comment')
+# 	package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+# 	user = request.user
+# 	if PackageReview.objects.exists(package=package, user=user):
+# 		post = PackageReview.objects.get(package=package, user=user)
+# 		post.desc = comment
+# 		post.save()
+# 	else:
+# 		PackageReview(desc=comment, package=package, user=user).save()

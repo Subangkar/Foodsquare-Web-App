@@ -151,10 +151,9 @@ $('.add-to-cart').click(function (event) {
 	var name = $(this).data('name');
 	var price = Number($(this).data('price'));
 	var locInput = document.getElementById('delivery_area_srch').value;
-	if(locInput.trim() == ''){
+	if (locInput == '') {
 		$('#delivery_area_alert').modal();
-	}
-	else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
+	} else if (shoppingCart.listCart().length && shoppingCart.listCart()[0].rest_id !== rest_id) {
 		$.confirm({
 			title: 'Confirm!',
 			content: '"You Have Orders from Other Restaurant.\nREMOVE those to add current one to cart ?"',
@@ -181,7 +180,7 @@ $('.add-to-cart').click(function (event) {
 			}
 		});
 	} else {
-		shoppingCart.addItemToCart(id, price, 1, name, rest_id)
+		shoppingCart.addItemToCart(id, price, 1, name, rest_id);
 		displayCart();
 		showSuccessNotification(name + " has been added to your cart.");
 	}
@@ -203,6 +202,10 @@ function itemListJSON() {
 	return JSON.stringify({'pkg-list': arr});
 }
 
+// <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+//         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+//         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 function displayCart() {
 	var cartArray = shoppingCart.listCart();
 	var output = "";
@@ -211,7 +214,7 @@ function displayCart() {
 		document.getElementById("cart-checkout-button").disabled = true;
 		document.getElementById("cart-clear-button").disabled = true;
 	} else {
-		document.getElementById('rest-id').value=cartArray[0].rest_id;
+		document.getElementById('rest-id').value = cartArray[0].rest_id;
 		document.getElementById("cart-checkout-button").disabled = false;
 		document.getElementById("cart-clear-button").disabled = false;
 		for (var i in cartArray) {

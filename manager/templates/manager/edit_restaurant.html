@@ -27,14 +27,14 @@
             <div class="container">
                 <font style="font-weight: 600; font-size: 15px">Your restaurant key
                     is {{ restaurant.restaurant_key }}</font>
-                <h1>Edit Profile</h1>
+                <h1>Edit Restaurant Profile</h1>
                 <hr>
                 <div class="row">
                     <!-- left column -->
                     <script language="javascript">
-						function changeImage() {
-							document.getElementById("profile_pic_upload").src = document.getElementById("imgChangeBtn").value;
-						}
+                        function changeImage() {
+                            document.getElementById("profile_pic_upload").src = document.getElementById("imgChangeBtn").value;
+                        }
                     </script>
                     <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                         {% csrf_token %}
@@ -58,6 +58,18 @@
                                 This is an <strong>.alert</strong>. Use this to show important messages to the user.
                             </div>
                             <h3>Restaurant info</h3>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Opens At:</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" type="text" name="opens_at" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Closes At:</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" type="text" name="closes_at" value=''>
+                                </div>
+                            </div>
 
 
                             <div class="form-group">
