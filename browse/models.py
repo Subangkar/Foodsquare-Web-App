@@ -36,6 +36,9 @@ class Package(models.Model):
 
 	ingr_list = models.ManyToManyField(Ingredient, through='IngredientList')
 
+	ratings = models.ManyToManyField(User, through='PackageRating', related_name='rating_user')
+	comments = models.ManyToManyField(User, through='PackageComment', related_name='comment_user')
+
 	class Meta:
 		verbose_name = "Package"
 		verbose_name_plural = "Packages"
@@ -58,40 +61,48 @@ class IngredientList(models.Model):
 	def get_absolute_url(self):
 		return reverse("IngredientList_detail", kwargs={"pk": self.pk})
 
-#
-# class PackageRating(models.Model):
-# 	rating = models.IntegerField('Rating', default=5)
-# 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
-# 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-# 	def get_absolute_url(self):
-# 		return reverse("browse:PackageRating", kwargs={"id": self.pk})
-#
-#
-# class PackageReview(models.Model):
-# 	rating = models.FloatField('')
-# 	desc = models.CharField('User Comment', max_length=250)
-# 	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
-# 	# likes = models.IntegerField(verbose_name='Number of Likes', default=0)
-# 	# dislikes = models.IntegerField(verbose_name='Number of Dislikes', default=0)
-# 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
-# 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-# 	reacts = models.ManyToManyField(User, through='Reacts')
-#
-# 	# def get_absolute_url(self):
-# 	# 	return reverse("browse:PackageReview", kwargs={"id": self.pk})
-#
-#
-# class Reacts(models.Model):
-# 	post = models.ForeignKey(PackageReview, on_delete=models.CASCADE)
-# 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-# 	liked = models.BooleanField(verbose_name='Liked', default=False)
-# 	disliked = models.BooleanField(verbose_name='Disliked', default=False)
-#
-# 	class Meta:
-# 		verbose_name = "React"
-# 		verbose_name_plural = "Reacts"
-#
-# 	# def get_absolute_url(self):
-# 	# 	return reverse("browse:ReactCount", kwargs={"id": self.pk})
+
+class PackageRating(models.Model):
+	rating = models.IntegerField('Rating', null=False)
+	package = models.ForeignKey(Package, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	class Meta:
+		verbose_name = "Package Rating"
+		verbose_name_plural = "Package Ratings"
+		unique_together = [['package', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:PackageRating", kwargs={"id": self.pk})
+
+
+class PackageComment(models.Model):
+	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)
+	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
+	package = models.ForeignKey(Package, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_author_user')
+	reacts = models.ManyToManyField(User, through='PackageCommentReact', related_name='react_user')
+
+	class Meta:
+		verbose_name = "Package Comment"
+		verbose_name_plural = "Package Comments"
+		unique_together = [['package', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:PackageComment", kwargs={"id": self.pk})
+
+
+class PackageCommentReact(models.Model):
+	post = models.ForeignKey(PackageComment, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	liked = models.BooleanField(verbose_name='Liked', default=False)
+	disliked = models.BooleanField(verbose_name='Disliked', default=False)
+
+	class Meta:
+		verbose_name = "Package Comment React"
+		verbose_name_plural = "Package Comment Reacts"
+		unique_together = [['post', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:PackageCommentReact", kwargs={"id": self.pk})

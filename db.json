@@ -1,1 +1,2632 @@
-[{"model": "contenttypes.contenttype", "pk": 1, "fields": {"app_label": "admin", "model": "logentry"}}, {"model": "contenttypes.contenttype", "pk": 2, "fields": {"app_label": "auth", "model": "permission"}}, {"model": "contenttypes.contenttype", "pk": 3, "fields": {"app_label": "auth", "model": "group"}}, {"model": "contenttypes.contenttype", "pk": 4, "fields": {"app_label": "contenttypes", "model": "contenttype"}}, {"model": "contenttypes.contenttype", "pk": 5, "fields": {"app_label": "sessions", "model": "session"}}, {"model": "contenttypes.contenttype", "pk": 6, "fields": {"app_label": "sites", "model": "site"}}, {"model": "contenttypes.contenttype", "pk": 7, "fields": {"app_label": "browse", "model": "ingredient"}}, {"model": "contenttypes.contenttype", "pk": 8, "fields": {"app_label": "browse", "model": "ingredientlist"}}, {"model": "contenttypes.contenttype", "pk": 9, "fields": {"app_label": "browse", "model": "package"}}, {"model": "contenttypes.contenttype", "pk": 10, "fields": {"app_label": "accounts", "model": "user"}}, {"model": "contenttypes.contenttype", "pk": 11, "fields": {"app_label": "accounts", "model": "delivery"}}, {"model": "contenttypes.contenttype", "pk": 12, "fields": {"app_label": "accounts", "model": "deliveryman"}}, {"model": "contenttypes.contenttype", "pk": 13, "fields": {"app_label": "accounts", "model": "order"}}, {"model": "contenttypes.contenttype", "pk": 14, "fields": {"app_label": "accounts", "model": "payment"}}, {"model": "contenttypes.contenttype", "pk": 15, "fields": {"app_label": "accounts", "model": "restaurant"}}, {"model": "contenttypes.contenttype", "pk": 16, "fields": {"app_label": "accounts", "model": "userprofile"}}, {"model": "contenttypes.contenttype", "pk": 17, "fields": {"app_label": "accounts", "model": "restaurantbranch"}}, {"model": "contenttypes.contenttype", "pk": 18, "fields": {"app_label": "accounts", "model": "orderpackagelist"}}, {"model": "contenttypes.contenttype", "pk": 19, "fields": {"app_label": "manager", "model": "menu"}}, {"model": "contenttypes.contenttype", "pk": 20, "fields": {"app_label": "account", "model": "emailaddress"}}, {"model": "contenttypes.contenttype", "pk": 21, "fields": {"app_label": "account", "model": "emailconfirmation"}}, {"model": "contenttypes.contenttype", "pk": 22, "fields": {"app_label": "socialaccount", "model": "socialaccount"}}, {"model": "contenttypes.contenttype", "pk": 23, "fields": {"app_label": "socialaccount", "model": "socialapp"}}, {"model": "contenttypes.contenttype", "pk": 24, "fields": {"app_label": "socialaccount", "model": "socialtoken"}}, {"model": "sessions.session", "pk": "4hsqpbqhlnoe7l4ft799ybb1rzppzedt", "fields": {"session_data": "ZDAzODllODc2ZWQyYWM4YmU0MTFiY2I4MTFmNTY0MGMzNzM3N2NjODp7Il9hdXRoX3VzZXJfaWQiOiIxNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiNTg1MzhmM2JkMzc4N2VjZDFjNTJiYzg2ZDIzMDIwNzBkMzY5ZDUwZCJ9", "expire_date": "2019-08-11T07:54:01.045Z"}}, {"model": "sessions.session", "pk": "5g7fd9sk3hnhr9szfud4idgxgwsj1ipr", "fields": {"session_data": "NDUyNTEyNjNjMmE0MjE0OGNkYzlkMGE1N2M3YmQzMGJmZTcyODRkZDp7Il9hdXRoX3VzZXJfaWQiOiIxMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiOWIwMzJhMjU4MGMyYWE1MTRjMzQ5MDA4Y2JiYzgwOTFkMmU0ZGVlYSJ9", "expire_date": "2019-08-11T05:57:55.150Z"}}, {"model": "sessions.session", "pk": "86l49fqjmz85uyfa8rocx62sq5zisxgd", "fields": {"session_data": "MDZiMjNhMzZjMDUyZmMzNDk2NzgxOGMyNDExNmViY2Q5ZjkxNzJhYjp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NzBlZmY0MWY5NjkyZjIyYWQwYWEwOTIyY2UwYmIyMTdhMDliNzg5In0=", "expire_date": "2019-08-01T14:20:43.066Z"}}, {"model": "sessions.session", "pk": "b19t97xez12scnlxedgr2fj72vmjwy3m", "fields": {"session_data": "NmFmNWIxODUyOWUxYjYzMTljNTBmNDU2NDY0MjhjOWFkY2RmMjkyMzp7Il9hdXRoX3VzZXJfaWQiOiIxMCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWQzMDU0NDdmNzcxYjVlOGNjNTE2YjEwODIzZmI0NGQ5ZmNiNjlkZSJ9", "expire_date": "2019-08-11T06:32:41.964Z"}}, {"model": "sessions.session", "pk": "bil33lc87g61fg48l0au84u9cjugo6sh", "fields": {"session_data": "Nzg5Njg1OWEyYWNmOWQ5MGQxZTEyMzZmNzE1YzM4Njc4YTI3ZjhkNTp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkNWY5OWM4YTcwYjU5ZTBhNmNjNGIwMjgyMjczNzQ2OWEzNzU3MTIxIn0=", "expire_date": "2019-08-11T07:36:29.567Z"}}, {"model": "sessions.session", "pk": "lmcdimij3dsv0iw346t6qlojngpn0dvb", "fields": {"session_data": "MzU0Y2NjM2YyYTJiMTYxNzY5ZTRjMmUzZGNjNjBmMmRhYWExZGMzYjp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJJUTRueDBieENCTnBsYTNwczNDWWNOcGZqc2plcGRrSiIsIl9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzNTZhODYyMjUwZTlmOWIwYTIyMTYzOGM2NTllMTI2OWE3ZGM1MmJkIn0=", "expire_date": "2019-08-01T12:09:08.148Z"}}, {"model": "sessions.session", "pk": "mq6flounjou2q4y0bndk8ttm3k9tqzli", "fields": {"session_data": "YmRiZWMwNmUyNGVlNDFkZjNhZTIxNjgyM2RlYzdiYTY0ZDY1ZTY3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNmE4NGRhNWM0MWM3OTBkMmIxMzYxNjZmNjdjOGFiMDA1MjRhN2ViIn0=", "expire_date": "2019-08-01T10:52:26.709Z"}}, {"model": "sessions.session", "pk": "ndtv7w72c7uhlomwfy9gpshazbenclk4", "fields": {"session_data": "MDQ1Y2JjNTAxOWU0ODQxYjQ4MTZmNDRhZTFhNDU3NzM1NmYyZGZkMDp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJPczhwUjRwM3FCcXhXUzVJam9GS0NISHBRaHJyZDRLcSIsIl9hdXRoX3VzZXJfaWQiOiIxNyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZThhYTk2ODQzMzM3ZjQ5NTE0NTUzMDYyMjg4NDlmMDRmYjM2YzRhMiJ9", "expire_date": "2019-08-11T08:05:10.989Z"}}, {"model": "sessions.session", "pk": "sw223k58tlsjxqvh6ebh1pi5rzff8qd9", "fields": {"session_data": "ODY4MzU1MDE5OWRiN2ZkM2M2NjMxYThjNzRkYzllMDY4MTU4NDQzZTp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJWYkRLOVRXMHFMdGhyQ2t4R1FTdXJOeFFXVlNENEgxbyIsIl9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzNTZhODYyMjUwZTlmOWIwYTIyMTYzOGM2NTllMTI2OWE3ZGM1MmJkIn0=", "expire_date": "2019-08-11T06:29:40.010Z"}}, {"model": "sessions.session", "pk": "va0f7lodmumvv58yponfa2ycjjimssvs", "fields": {"session_data": "MDI2MzQzZGFlNjBkZWVlM2YwYzE2YWMxNWM1NzhjYWZmMWZkYmRiNTp7Il9hdXRoX3VzZXJfaWQiOiIxMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZDNkYmRiZTZiNDY4MWM0OGU2NjQ1NGI0ZmRiMjExNjA1NGFhMGRjNyJ9", "expire_date": "2019-08-11T06:53:40.227Z"}}, {"model": "sessions.session", "pk": "vuoifw6ctawuj9reawvgxrh2lsd5f8rd", "fields": {"session_data": "NDRiZmY0YjMxMjI0ZjFlNzQ3ODBlMTI2ZTNkYTRjYWQ5ZTAwZmUxMjp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJlUkRSbkFqRWw4SkxPMW5adzJEb1FmVnZ3QUozUkFCMyJ9", "expire_date": "2019-08-11T05:57:33.778Z"}}, {"model": "sessions.session", "pk": "wj6g521h6ifgvgflxak73dlmgghrj2g8", "fields": {"session_data": "YmRiZWMwNmUyNGVlNDFkZjNhZTIxNjgyM2RlYzdiYTY0ZDY1ZTY3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNmE4NGRhNWM0MWM3OTBkMmIxMzYxNjZmNjdjOGFiMDA1MjRhN2ViIn0=", "expire_date": "2019-08-11T07:05:18.211Z"}}, {"model": "sites.site", "pk": 1, "fields": {"domain": "foodsquare.com", "name": "foodsquare.com"}}, {"model": "sites.site", "pk": 2, "fields": {"domain": "foodsquare.net", "name": "foodsquare.net"}}, {"model": "sites.site", "pk": 3, "fields": {"domain": "localhost", "name": "localhost"}}, {"model": "browse.ingredient", "pk": 1, "fields": {"name": " chicken "}}, {"model": "browse.ingredient", "pk": 2, "fields": {"name": " cheese "}}, {"model": "browse.ingredient", "pk": 3, "fields": {"name": " bun "}}, {"model": "browse.ingredient", "pk": 4, "fields": {"name": " mushroom "}}, {"model": "browse.ingredient", "pk": 5, "fields": {"name": " toast "}}, {"model": "browse.ingredient", "pk": 6, "fields": {"name": " bbq sauce "}}, {"model": "browse.ingredient", "pk": 7, "fields": {"name": ""}}, {"model": "browse.package", "pk": 1, "fields": {"pkg_name": "Chicken Cheese Burger", "for_n_persons": 1, "price": 150, "available": true, "image": "menu/cuisine2_FzB67OG.jpg", "details": "", "category": "Burger", "restaurant": 3}}, {"model": "browse.package", "pk": 2, "fields": {"pkg_name": "Chicken Cheese Mushroom Burger", "for_n_persons": 1, "price": 220, "available": true, "image": "menu/cuisine6_0ydCUzy.jpg", "details": "", "category": "Burger", "restaurant": 1}}, {"model": "browse.package", "pk": 3, "fields": {"pkg_name": "Chicken Cheeseroom", "for_n_persons": 1, "price": 220, "available": true, "image": "menu/cuisine1_9VgMe85.jpg", "details": "Good for Mushroom lovers", "category": "Burger", "restaurant": 4}}, {"model": "browse.package", "pk": 4, "fields": {"pkg_name": "Chicken Fries", "for_n_persons": 1, "price": 120, "available": true, "image": "menu/p1.jpg", "details": "", "category": "Chicken", "restaurant": 2}}, {"model": "browse.package", "pk": 5, "fields": {"pkg_name": "BBQ Pizza", "for_n_persons": 2, "price": 780, "available": true, "image": "menu/pizza_ERDOOzx.jpg", "details": "12''", "category": "Pizza", "restaurant": 3}}, {"model": "browse.package", "pk": 6, "fields": {"pkg_name": "Mexican Pizza", "for_n_persons": 1, "price": 690, "available": true, "image": "menu/cuisine1_qJHsrKq.jpg", "details": "10''", "category": "Pizza", "restaurant": 3}}, {"model": "browse.package", "pk": 7, "fields": {"pkg_name": "Pizza King Special Pizza", "for_n_persons": 3, "price": 800, "available": true, "image": "menu/Pizza_7bhcpTl.jpg", "details": "10\" - 1000 BDT - 5 persons; 12\" - 1200 BDT - 6 persons", "category": "Pizza", "restaurant": 6}}, {"model": "browse.ingredientlist", "pk": 1, "fields": {"pack_id": 1, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 2, "fields": {"pack_id": 1, "ingr_id": 2}}, {"model": "browse.ingredientlist", "pk": 3, "fields": {"pack_id": 1, "ingr_id": 3}}, {"model": "browse.ingredientlist", "pk": 4, "fields": {"pack_id": 2, "ingr_id": 3}}, {"model": "browse.ingredientlist", "pk": 5, "fields": {"pack_id": 2, "ingr_id": 2}}, {"model": "browse.ingredientlist", "pk": 6, "fields": {"pack_id": 2, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 7, "fields": {"pack_id": 2, "ingr_id": 4}}, {"model": "browse.ingredientlist", "pk": 8, "fields": {"pack_id": 3, "ingr_id": 3}}, {"model": "browse.ingredientlist", "pk": 9, "fields": {"pack_id": 3, "ingr_id": 2}}, {"model": "browse.ingredientlist", "pk": 10, "fields": {"pack_id": 3, "ingr_id": 4}}, {"model": "browse.ingredientlist", "pk": 11, "fields": {"pack_id": 3, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 12, "fields": {"pack_id": 4, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 13, "fields": {"pack_id": 4, "ingr_id": 5}}, {"model": "browse.ingredientlist", "pk": 14, "fields": {"pack_id": 5, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 15, "fields": {"pack_id": 5, "ingr_id": 6}}, {"model": "browse.ingredientlist", "pk": 16, "fields": {"pack_id": 5, "ingr_id": 2}}, {"model": "browse.ingredientlist", "pk": 17, "fields": {"pack_id": 5, "ingr_id": 4}}, {"model": "browse.ingredientlist", "pk": 18, "fields": {"pack_id": 6, "ingr_id": 2}}, {"model": "browse.ingredientlist", "pk": 19, "fields": {"pack_id": 6, "ingr_id": 1}}, {"model": "browse.ingredientlist", "pk": 20, "fields": {"pack_id": 7, "ingr_id": 7}}, {"model": "accounts.payment", "pk": 1, "fields": {"price": 880.0, "payment_type": "O", "payment_status": "D", "bkash_ref": "aVGlGuv2NB"}}, {"model": "accounts.delivery", "pk": 1, "fields": {"address": "1854", "address_desc": ", Shantibag, Shantibag, ", "charge": 50.0, "time": "2019-07-28T06:31:03.671Z", "rating_user": null, "rating_deliveryman": null, "deliveryman": null}}, {"model": "accounts.orderpackagelist", "pk": 1, "fields": {"order": 1, "package": 3}}, {"model": "socialaccount.socialapp", "pk": 1, "fields": {"provider": "facebook", "name": "facebook", "client_id": "2213513975398382", "secret": "13ff209e35f44dba1091ac0754eae339", "key": "", "sites": [1]}}, {"model": "auth.permission", "pk": 1, "fields": {"name": "Can add log entry", "content_type": 1, "codename": "add_logentry"}}, {"model": "auth.permission", "pk": 2, "fields": {"name": "Can change log entry", "content_type": 1, "codename": "change_logentry"}}, {"model": "auth.permission", "pk": 3, "fields": {"name": "Can delete log entry", "content_type": 1, "codename": "delete_logentry"}}, {"model": "auth.permission", "pk": 4, "fields": {"name": "Can view log entry", "content_type": 1, "codename": "view_logentry"}}, {"model": "auth.permission", "pk": 5, "fields": {"name": "Can add permission", "content_type": 2, "codename": "add_permission"}}, {"model": "auth.permission", "pk": 6, "fields": {"name": "Can change permission", "content_type": 2, "codename": "change_permission"}}, {"model": "auth.permission", "pk": 7, "fields": {"name": "Can delete permission", "content_type": 2, "codename": "delete_permission"}}, {"model": "auth.permission", "pk": 8, "fields": {"name": "Can view permission", "content_type": 2, "codename": "view_permission"}}, {"model": "auth.permission", "pk": 9, "fields": {"name": "Can add group", "content_type": 3, "codename": "add_group"}}, {"model": "auth.permission", "pk": 10, "fields": {"name": "Can change group", "content_type": 3, "codename": "change_group"}}, {"model": "auth.permission", "pk": 11, "fields": {"name": "Can delete group", "content_type": 3, "codename": "delete_group"}}, {"model": "auth.permission", "pk": 12, "fields": {"name": "Can view group", "content_type": 3, "codename": "view_group"}}, {"model": "auth.permission", "pk": 13, "fields": {"name": "Can add content type", "content_type": 4, "codename": "add_contenttype"}}, {"model": "auth.permission", "pk": 14, "fields": {"name": "Can change content type", "content_type": 4, "codename": "change_contenttype"}}, {"model": "auth.permission", "pk": 15, "fields": {"name": "Can delete content type", "content_type": 4, "codename": "delete_contenttype"}}, {"model": "auth.permission", "pk": 16, "fields": {"name": "Can view content type", "content_type": 4, "codename": "view_contenttype"}}, {"model": "auth.permission", "pk": 17, "fields": {"name": "Can add session", "content_type": 5, "codename": "add_session"}}, {"model": "auth.permission", "pk": 18, "fields": {"name": "Can change session", "content_type": 5, "codename": "change_session"}}, {"model": "auth.permission", "pk": 19, "fields": {"name": "Can delete session", "content_type": 5, "codename": "delete_session"}}, {"model": "auth.permission", "pk": 20, "fields": {"name": "Can view session", "content_type": 5, "codename": "view_session"}}, {"model": "auth.permission", "pk": 21, "fields": {"name": "Can add site", "content_type": 6, "codename": "add_site"}}, {"model": "auth.permission", "pk": 22, "fields": {"name": "Can change site", "content_type": 6, "codename": "change_site"}}, {"model": "auth.permission", "pk": 23, "fields": {"name": "Can delete site", "content_type": 6, "codename": "delete_site"}}, {"model": "auth.permission", "pk": 24, "fields": {"name": "Can view site", "content_type": 6, "codename": "view_site"}}, {"model": "auth.permission", "pk": 25, "fields": {"name": "Can add Ingredient", "content_type": 7, "codename": "add_ingredient"}}, {"model": "auth.permission", "pk": 26, "fields": {"name": "Can change Ingredient", "content_type": 7, "codename": "change_ingredient"}}, {"model": "auth.permission", "pk": 27, "fields": {"name": "Can delete Ingredient", "content_type": 7, "codename": "delete_ingredient"}}, {"model": "auth.permission", "pk": 28, "fields": {"name": "Can view Ingredient", "content_type": 7, "codename": "view_ingredient"}}, {"model": "auth.permission", "pk": 29, "fields": {"name": "Can add IngredientList", "content_type": 8, "codename": "add_ingredientlist"}}, {"model": "auth.permission", "pk": 30, "fields": {"name": "Can change IngredientList", "content_type": 8, "codename": "change_ingredientlist"}}, {"model": "auth.permission", "pk": 31, "fields": {"name": "Can delete IngredientList", "content_type": 8, "codename": "delete_ingredientlist"}}, {"model": "auth.permission", "pk": 32, "fields": {"name": "Can view IngredientList", "content_type": 8, "codename": "view_ingredientlist"}}, {"model": "auth.permission", "pk": 33, "fields": {"name": "Can add Package", "content_type": 9, "codename": "add_package"}}, {"model": "auth.permission", "pk": 34, "fields": {"name": "Can change Package", "content_type": 9, "codename": "change_package"}}, {"model": "auth.permission", "pk": 35, "fields": {"name": "Can delete Package", "content_type": 9, "codename": "delete_package"}}, {"model": "auth.permission", "pk": 36, "fields": {"name": "Can view Package", "content_type": 9, "codename": "view_package"}}, {"model": "auth.permission", "pk": 37, "fields": {"name": "Can add User", "content_type": 10, "codename": "add_user"}}, {"model": "auth.permission", "pk": 38, "fields": {"name": "Can change User", "content_type": 10, "codename": "change_user"}}, {"model": "auth.permission", "pk": 39, "fields": {"name": "Can delete User", "content_type": 10, "codename": "delete_user"}}, {"model": "auth.permission", "pk": 40, "fields": {"name": "Can view User", "content_type": 10, "codename": "view_user"}}, {"model": "auth.permission", "pk": 41, "fields": {"name": "Can add Delivery", "content_type": 11, "codename": "add_delivery"}}, {"model": "auth.permission", "pk": 42, "fields": {"name": "Can change Delivery", "content_type": 11, "codename": "change_delivery"}}, {"model": "auth.permission", "pk": 43, "fields": {"name": "Can delete Delivery", "content_type": 11, "codename": "delete_delivery"}}, {"model": "auth.permission", "pk": 44, "fields": {"name": "Can view Delivery", "content_type": 11, "codename": "view_delivery"}}, {"model": "auth.permission", "pk": 45, "fields": {"name": "Can add DeliveryMan", "content_type": 12, "codename": "add_deliveryman"}}, {"model": "auth.permission", "pk": 46, "fields": {"name": "Can change DeliveryMan", "content_type": 12, "codename": "change_deliveryman"}}, {"model": "auth.permission", "pk": 47, "fields": {"name": "Can delete DeliveryMan", "content_type": 12, "codename": "delete_deliveryman"}}, {"model": "auth.permission", "pk": 48, "fields": {"name": "Can view DeliveryMan", "content_type": 12, "codename": "view_deliveryman"}}, {"model": "auth.permission", "pk": 49, "fields": {"name": "Can add Order", "content_type": 13, "codename": "add_order"}}, {"model": "auth.permission", "pk": 50, "fields": {"name": "Can change Order", "content_type": 13, "codename": "change_order"}}, {"model": "auth.permission", "pk": 51, "fields": {"name": "Can delete Order", "content_type": 13, "codename": "delete_order"}}, {"model": "auth.permission", "pk": 52, "fields": {"name": "Can view Order", "content_type": 13, "codename": "view_order"}}, {"model": "auth.permission", "pk": 53, "fields": {"name": "Can add Payment", "content_type": 14, "codename": "add_payment"}}, {"model": "auth.permission", "pk": 54, "fields": {"name": "Can change Payment", "content_type": 14, "codename": "change_payment"}}, {"model": "auth.permission", "pk": 55, "fields": {"name": "Can delete Payment", "content_type": 14, "codename": "delete_payment"}}, {"model": "auth.permission", "pk": 56, "fields": {"name": "Can view Payment", "content_type": 14, "codename": "view_payment"}}, {"model": "auth.permission", "pk": 57, "fields": {"name": "Can add Restaurant", "content_type": 15, "codename": "add_restaurant"}}, {"model": "auth.permission", "pk": 58, "fields": {"name": "Can change Restaurant", "content_type": 15, "codename": "change_restaurant"}}, {"model": "auth.permission", "pk": 59, "fields": {"name": "Can delete Restaurant", "content_type": 15, "codename": "delete_restaurant"}}, {"model": "auth.permission", "pk": 60, "fields": {"name": "Can view Restaurant", "content_type": 15, "codename": "view_restaurant"}}, {"model": "auth.permission", "pk": 61, "fields": {"name": "Can add user profile", "content_type": 16, "codename": "add_userprofile"}}, {"model": "auth.permission", "pk": 62, "fields": {"name": "Can change user profile", "content_type": 16, "codename": "change_userprofile"}}, {"model": "auth.permission", "pk": 63, "fields": {"name": "Can delete user profile", "content_type": 16, "codename": "delete_userprofile"}}, {"model": "auth.permission", "pk": 64, "fields": {"name": "Can view user profile", "content_type": 16, "codename": "view_userprofile"}}, {"model": "auth.permission", "pk": 65, "fields": {"name": "Can add Branch", "content_type": 17, "codename": "add_restaurantbranch"}}, {"model": "auth.permission", "pk": 66, "fields": {"name": "Can change Branch", "content_type": 17, "codename": "change_restaurantbranch"}}, {"model": "auth.permission", "pk": 67, "fields": {"name": "Can delete Branch", "content_type": 17, "codename": "delete_restaurantbranch"}}, {"model": "auth.permission", "pk": 68, "fields": {"name": "Can view Branch", "content_type": 17, "codename": "view_restaurantbranch"}}, {"model": "auth.permission", "pk": 69, "fields": {"name": "Can add OrderPackageList", "content_type": 18, "codename": "add_orderpackagelist"}}, {"model": "auth.permission", "pk": 70, "fields": {"name": "Can change OrderPackageList", "content_type": 18, "codename": "change_orderpackagelist"}}, {"model": "auth.permission", "pk": 71, "fields": {"name": "Can delete OrderPackageList", "content_type": 18, "codename": "delete_orderpackagelist"}}, {"model": "auth.permission", "pk": 72, "fields": {"name": "Can view OrderPackageList", "content_type": 18, "codename": "view_orderpackagelist"}}, {"model": "auth.permission", "pk": 73, "fields": {"name": "Can add menu", "content_type": 19, "codename": "add_menu"}}, {"model": "auth.permission", "pk": 74, "fields": {"name": "Can change menu", "content_type": 19, "codename": "change_menu"}}, {"model": "auth.permission", "pk": 75, "fields": {"name": "Can delete menu", "content_type": 19, "codename": "delete_menu"}}, {"model": "auth.permission", "pk": 76, "fields": {"name": "Can view menu", "content_type": 19, "codename": "view_menu"}}, {"model": "auth.permission", "pk": 77, "fields": {"name": "Can add email address", "content_type": 20, "codename": "add_emailaddress"}}, {"model": "auth.permission", "pk": 78, "fields": {"name": "Can change email address", "content_type": 20, "codename": "change_emailaddress"}}, {"model": "auth.permission", "pk": 79, "fields": {"name": "Can delete email address", "content_type": 20, "codename": "delete_emailaddress"}}, {"model": "auth.permission", "pk": 80, "fields": {"name": "Can view email address", "content_type": 20, "codename": "view_emailaddress"}}, {"model": "auth.permission", "pk": 81, "fields": {"name": "Can add email confirmation", "content_type": 21, "codename": "add_emailconfirmation"}}, {"model": "auth.permission", "pk": 82, "fields": {"name": "Can change email confirmation", "content_type": 21, "codename": "change_emailconfirmation"}}, {"model": "auth.permission", "pk": 83, "fields": {"name": "Can delete email confirmation", "content_type": 21, "codename": "delete_emailconfirmation"}}, {"model": "auth.permission", "pk": 84, "fields": {"name": "Can view email confirmation", "content_type": 21, "codename": "view_emailconfirmation"}}, {"model": "auth.permission", "pk": 85, "fields": {"name": "Can add social account", "content_type": 22, "codename": "add_socialaccount"}}, {"model": "auth.permission", "pk": 86, "fields": {"name": "Can change social account", "content_type": 22, "codename": "change_socialaccount"}}, {"model": "auth.permission", "pk": 87, "fields": {"name": "Can delete social account", "content_type": 22, "codename": "delete_socialaccount"}}, {"model": "auth.permission", "pk": 88, "fields": {"name": "Can view social account", "content_type": 22, "codename": "view_socialaccount"}}, {"model": "auth.permission", "pk": 89, "fields": {"name": "Can add social application", "content_type": 23, "codename": "add_socialapp"}}, {"model": "auth.permission", "pk": 90, "fields": {"name": "Can change social application", "content_type": 23, "codename": "change_socialapp"}}, {"model": "auth.permission", "pk": 91, "fields": {"name": "Can delete social application", "content_type": 23, "codename": "delete_socialapp"}}, {"model": "auth.permission", "pk": 92, "fields": {"name": "Can view social application", "content_type": 23, "codename": "view_socialapp"}}, {"model": "auth.permission", "pk": 93, "fields": {"name": "Can add social application token", "content_type": 24, "codename": "add_socialtoken"}}, {"model": "auth.permission", "pk": 94, "fields": {"name": "Can change social application token", "content_type": 24, "codename": "change_socialtoken"}}, {"model": "auth.permission", "pk": 95, "fields": {"name": "Can delete social application token", "content_type": 24, "codename": "delete_socialtoken"}}, {"model": "auth.permission", "pk": 96, "fields": {"name": "Can view social application token", "content_type": 24, "codename": "view_socialtoken"}}, {"model": "accounts.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$150000$onw3uLzAMPwD$PzlwPeoRhsxDZLcydN5/xPNHjrU/ZsdkopT7xmlMmFU=", "last_login": "2019-07-28T07:05:18.195Z", "is_superuser": true, "username": "admin", "first_name": "", "last_name": "", "email": "admin@localhost.com", "is_staff": true, "is_active": true, "date_joined": "2019-07-18T10:52:14.475Z", "is_customer": false, "is_manager": false, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 2, "fields": {"password": "pbkdf2_sha256$150000$64e6TpgYzBns$nE9k5nJ3j0ANq6W2chovS95uRcypLpK+9tWwkLB0W0k=", "last_login": "2019-07-18T11:54:00.317Z", "is_superuser": false, "username": "takeoutadmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T10:54:45.694Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 3, "fields": {"password": "pbkdf2_sha256$150000$js3pNBu91zKa$pi1V5TFzQzee+bhdaLn0IcQEjZnJWcs9C9zqNrkcNBQ=", "last_login": "2019-07-18T12:01:34.995Z", "is_superuser": false, "username": "kfcadmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T11:14:03.452Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 4, "fields": {"password": "pbkdf2_sha256$150000$Hu9xSOPPeFzA$ta0isUQFCKzCbzLuu7tYGvoXDs2RVjExozZoer1VoAI=", "last_login": "2019-07-28T07:36:29.564Z", "is_superuser": false, "username": "pizzainnadmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T11:17:28.745Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 5, "fields": {"password": "pbkdf2_sha256$150000$BhQjYBtRX0Mu$yP+E6K7z740eDafUHSqbXB/frih7Y9QnzrxI7+wMIIM=", "last_login": "2019-07-18T14:20:43.060Z", "is_superuser": false, "username": "mrburgeradmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T11:55:57.020Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 6, "fields": {"password": "pbkdf2_sha256$150000$MDOwc8OYhS8Z$3mwqGqgS0LwSu7NmWsuUgP5uyvsnjKqR8F0wE2WJvB8=", "last_login": "2019-07-28T06:29:39.997Z", "is_superuser": false, "username": "saquib", "first_name": "", "last_name": "", "email": "saquib@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T12:09:07.927Z", "is_customer": true, "is_manager": false, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 9, "fields": {"password": "pbkdf2_sha256$150000$s5mnVPmydZhL$j+7W6Z2WdFPNpu+gAsxU0jx5Iac9XarqNmWgjTeenqY=", "last_login": "2019-07-18T13:49:10.257Z", "is_superuser": false, "username": "takeoutdmdadmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T13:49:09.724Z", "is_customer": false, "is_manager": false, "is_branch_manager": true, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 10, "fields": {"password": "pbkdf2_sha256$150000$cuxkbEuVpEKT$dHwL2wqejBSPQuYa8KDC4Jd17S+UqCJZrHn4CqNJ8nA=", "last_login": "2019-07-28T06:32:41.955Z", "is_superuser": false, "username": "mrburgerkhilgaonadmin", "first_name": "", "last_name": "", "email": "a@b.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-18T13:52:42.480Z", "is_customer": false, "is_manager": false, "is_branch_manager": true, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 11, "fields": {"password": "pbkdf2_sha256$150000$0e1QPuPRnmmv$5rv0iw1+nLVFZL50b3H0Q/g/sSphAaIbu8zKg2LNk3k=", "last_login": "2019-07-28T06:48:40.998Z", "is_superuser": false, "username": "mahim", "first_name": "", "last_name": "", "email": "mahim@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T05:57:54.864Z", "is_customer": false, "is_manager": false, "is_branch_manager": false, "is_delivery_man": true, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 12, "fields": {"password": "pbkdf2_sha256$150000$JjTd8GLEh1Qu$Pru205t4TssuY2yhRAoCwP8nDznkwm2IKSKIXisbKnY=", "last_login": "2019-07-28T06:53:40.224Z", "is_superuser": false, "username": "rayhan", "first_name": "", "last_name": "", "email": "rayhan@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T06:38:32.964Z", "is_customer": false, "is_manager": false, "is_branch_manager": false, "is_delivery_man": true, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 13, "fields": {"password": "pbkdf2_sha256$150000$gzyr9pc9W6Za$4/KcwdkZ2OWYmDGs+UzOYrLD/BD1eAIoXZpCQDe4HWQ=", "last_login": "2019-07-28T06:59:30.006Z", "is_superuser": false, "username": "the_pabulum", "first_name": "", "last_name": "", "email": "thepabulum.123@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T06:59:29.180Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 14, "fields": {"password": "pbkdf2_sha256$150000$RVIsP2StnoaM$Zlnupj/jLC8XZvjZGT9GYQ1PPdO9HOX/bwFF5Hy26+w=", "last_login": "2019-07-28T07:11:53.197Z", "is_superuser": false, "username": "the_pabulum_dhanmondi", "first_name": "", "last_name": "", "email": "pabulum.dhanmondi@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T07:11:53.002Z", "is_customer": false, "is_manager": false, "is_branch_manager": true, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 15, "fields": {"password": "pbkdf2_sha256$150000$SpHrzDm0nSt7$4g9J1NIgIFygkUhB+wbRuHJ9VGSYbT9dC8+P49ggLRc=", "last_login": "2019-07-28T07:54:01.042Z", "is_superuser": false, "username": "pizzaking", "first_name": "", "last_name": "", "email": "pizzaking@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T07:35:54.491Z", "is_customer": false, "is_manager": true, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 16, "fields": {"password": "pbkdf2_sha256$150000$W9PpJylH3tYI$XKqdoHANKj6MnIqaBCzMQpuEO392vjK2bH8EvCyXjnA=", "last_login": "2019-07-28T07:41:17.760Z", "is_superuser": false, "username": "pizzakinglalbagh", "first_name": "", "last_name": "", "email": "pizzakinglalbagh@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T07:41:17.616Z", "is_customer": false, "is_manager": false, "is_branch_manager": true, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.user", "pk": 17, "fields": {"password": "pbkdf2_sha256$150000$tIC0JTcfNVI9$aDt1BN4Xk4/FamNr/+FhKpcjKJo00oTyn5yc25sA50o=", "last_login": "2019-07-28T08:05:10.985Z", "is_superuser": false, "username": "Mohaimin", "first_name": "", "last_name": "", "email": "mohaimin@gmail.com", "is_staff": false, "is_active": true, "date_joined": "2019-07-28T08:05:10.727Z", "is_customer": true, "is_manager": false, "is_branch_manager": false, "is_delivery_man": false, "groups": [], "user_permissions": []}}, {"model": "accounts.userprofile", "pk": 1, "fields": {"user": 6, "first_name": null, "last_name": null, "address": null, "avatar": "avatars/default.png"}}, {"model": "accounts.userprofile", "pk": 2, "fields": {"user": 17, "first_name": null, "last_name": null, "address": null, "avatar": "avatars/default.png"}}, {"model": "accounts.restaurant", "pk": 1, "fields": {"user": 2, "restaurant_name": "Takeout", "restaurant_key": "JR7eQXWaGI", "trade_license": "7129249", "restaurantImg": "restaurant_img/ZfGPFAmEKdE.jpg"}}, {"model": "accounts.restaurant", "pk": 2, "fields": {"user": 3, "restaurant_name": "KFC", "restaurant_key": "28qab5v7H7", "trade_license": "01223923912", "restaurantImg": "restaurant_img/c36c366d3309d8bdb44c9a19a7a2e38f.jpg"}}, {"model": "accounts.restaurant", "pk": 3, "fields": {"user": 4, "restaurant_name": "Pizza Inn", "restaurant_key": "ejRIn2phre", "trade_license": "023893933", "restaurantImg": "restaurant_img/logo_465x320.png"}}, {"model": "accounts.restaurant", "pk": 4, "fields": {"user": 5, "restaurant_name": "Mr. Burger", "restaurant_key": "peaQRoc6Gb", "trade_license": "03423721738", "restaurantImg": "restaurant_img/download.png"}}, {"model": "accounts.restaurant", "pk": 5, "fields": {"user": 13, "restaurant_name": "The Pabulum", "restaurant_key": "mdUvztG9U8", "trade_license": "11263", "restaurantImg": "restaurant_img/thepabulum.JPG"}}, {"model": "accounts.restaurant", "pk": 6, "fields": {"user": 15, "restaurant_name": "Pizzza King", "restaurant_key": "dkKCr9W0HU", "trade_license": "116273", "restaurantImg": "restaurant_img/Pizza_King.jpg"}}, {"model": "accounts.restaurantbranch", "pk": 1, "fields": {"user": 9, "branch_name": "Dhanmondi", "branch_location": "23.74458820,90.37204430", "branch_location_details": "", "location_area": "Lalmatia", "branch_phonenum": "", "branch_mobilenum": "", "branch_email": "", "running": false, "opening_time": 9.0, "closing_time": 23.0, "restaurant": 1}}, {"model": "accounts.restaurantbranch", "pk": 2, "fields": {"user": 10, "branch_name": "Khilgaon", "branch_location": "23.75232600,90.42021880", "branch_location_details": "", "location_area": "Khilgaon", "branch_phonenum": "", "branch_mobilenum": "", "branch_email": "", "running": false, "opening_time": 9.0, "closing_time": 23.0, "restaurant": 4}}, {"model": "accounts.restaurantbranch", "pk": 3, "fields": {"user": 14, "branch_name": "Dhanmondi", "branch_location": "23.74670206,90.37745118", "branch_location_details": "", "location_area": "Dhanmondi R/A", "branch_phonenum": "", "branch_mobilenum": "", "branch_email": "", "running": false, "opening_time": 9.0, "closing_time": 23.0, "restaurant": 5}}, {"model": "accounts.restaurantbranch", "pk": 4, "fields": {"user": 16, "branch_name": "Lalbagh", "branch_location": "40.75637123,-73.98545321", "branch_location_details": "", "location_area": "Manhattan", "branch_phonenum": "", "branch_mobilenum": "", "branch_email": "", "running": false, "opening_time": 9.0, "closing_time": 23.0, "restaurant": 6}}, {"model": "accounts.deliveryman", "pk": 2, "fields": {"name": "Mahim", "contactNum": "01854478314", "address": "New Market", "nid": "123456", "user": 11, "avatar": "avatars/default.png"}}, {"model": "accounts.deliveryman", "pk": 4, "fields": {"name": "Rayhan", "contactNum": "01854478314", "address": "Khilgaon", "nid": "420420", "user": 12, "avatar": "avatars/default.png"}}, {"model": "accounts.order", "pk": 1, "fields": {"time": "2019-07-28T06:31:03.811Z", "user": 6, "delivery": null, "payment": 1, "branch": 2, "mobileNo": "+8801854478314", "order_status": "PENDING"}}, {"model": "admin.logentry", "pk": 1, "fields": {"action_time": "2019-07-18T10:53:33.113Z", "user": 1, "content_type": 23, "object_id": "1", "object_repr": "facebook", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"sites\"]}}]"}}]
+[
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sites",
+    "model": "site"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "browse",
+    "model": "ingredient"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "browse",
+    "model": "ingredientlist"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "browse",
+    "model": "package"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "accounts",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "accounts",
+    "model": "delivery"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "accounts",
+    "model": "deliveryman"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "accounts",
+    "model": "order"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "accounts",
+    "model": "payment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "accounts",
+    "model": "restaurant"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "accounts",
+    "model": "userprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "accounts",
+    "model": "restaurantbranch"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "accounts",
+    "model": "orderpackagelist"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 19,
+  "fields": {
+    "app_label": "manager",
+    "model": "menu"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "account",
+    "model": "emailaddress"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "account",
+    "model": "emailconfirmation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialaccount"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialapp"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 24,
+  "fields": {
+    "app_label": "socialaccount",
+    "model": "socialtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 25,
+  "fields": {
+    "app_label": "browse",
+    "model": "packagerating"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 26,
+  "fields": {
+    "app_label": "browse",
+    "model": "packagecomment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 27,
+  "fields": {
+    "app_label": "browse",
+    "model": "packagecommentreact"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2i1qya78q570c9b164uetzqn42fvjgfa",
+  "fields": {
+    "session_data": "MDI2MzQzZGFlNjBkZWVlM2YwYzE2YWMxNWM1NzhjYWZmMWZkYmRiNTp7Il9hdXRoX3VzZXJfaWQiOiIxMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZDNkYmRiZTZiNDY4MWM0OGU2NjQ1NGI0ZmRiMjExNjA1NGFhMGRjNyJ9",
+    "expire_date": "2019-08-11T10:13:39.621Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4ushk789cq8kadl82wkkt9hzgmofewqe",
+  "fields": {
+    "session_data": "Y2MwNTBkYmExNWUzNjdmOTA2NjFmNzc4ZWU2OGI1ZjI5YTBjODQ0MDp7Il9hdXRoX3VzZXJfaWQiOiIyNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYTVjMTI0ZmNmNjViNWRlZjIzODExMDM5OTFhZTJhZTEwNDI2MTQzNCJ9",
+    "expire_date": "2019-08-11T11:07:23.258Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7xmw9gq6qatd6zbumpm303h7ic09485y",
+  "fields": {
+    "session_data": "M2ZkNmViOWMwYTBkNjUxZDJiNDY0ZmQxM2NkZDU4NGE3ODFhNTAxNjp7Il9hdXRoX3VzZXJfaWQiOiIyNCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMzZhNWNmNTQ2OTExOTk3ZjFhMTAyZTY2NjY1MmY4YTU0NWUxOThlMiJ9",
+    "expire_date": "2019-08-11T11:05:18.628Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "86l49fqjmz85uyfa8rocx62sq5zisxgd",
+  "fields": {
+    "session_data": "MDZiMjNhMzZjMDUyZmMzNDk2NzgxOGMyNDExNmViY2Q5ZjkxNzJhYjp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NzBlZmY0MWY5NjkyZjIyYWQwYWEwOTIyY2UwYmIyMTdhMDliNzg5In0=",
+    "expire_date": "2019-08-01T14:20:43.066Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bil33lc87g61fg48l0au84u9cjugo6sh",
+  "fields": {
+    "session_data": "Nzg5Njg1OWEyYWNmOWQ5MGQxZTEyMzZmNzE1YzM4Njc4YTI3ZjhkNTp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkNWY5OWM4YTcwYjU5ZTBhNmNjNGIwMjgyMjczNzQ2OWEzNzU3MTIxIn0=",
+    "expire_date": "2019-08-11T07:36:29.567Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "g07wbqx7ggxmj40cl18vl3f4x5zv4i7h",
+  "fields": {
+    "session_data": "OGVmODVmMGNlOGZkYWQyNmViODI3ZTkzYzRjOTY1MTVkMDI5ZDQ3OTp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJUYU81d3poa2dZVFBUNm01aTZ3R2xWWVFibUdvNkxkayIsInNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwiMWtOUVViM1Y1OUVrIl0sIl9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzNTZhODYyMjUwZTlmOWIwYTIyMTYzOGM2NTllMTI2OWE3ZGM1MmJkIn0=",
+    "expire_date": "2019-08-11T11:09:02.003Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lmcdimij3dsv0iw346t6qlojngpn0dvb",
+  "fields": {
+    "session_data": "MzU0Y2NjM2YyYTJiMTYxNzY5ZTRjMmUzZGNjNjBmMmRhYWExZGMzYjp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJJUTRueDBieENCTnBsYTNwczNDWWNOcGZqc2plcGRrSiIsIl9hdXRoX3VzZXJfaWQiOiI2IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzNTZhODYyMjUwZTlmOWIwYTIyMTYzOGM2NTllMTI2OWE3ZGM1MmJkIn0=",
+    "expire_date": "2019-08-01T12:09:08.148Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ndtv7w72c7uhlomwfy9gpshazbenclk4",
+  "fields": {
+    "session_data": "MDQ1Y2JjNTAxOWU0ODQxYjQ4MTZmNDRhZTFhNDU3NzM1NmYyZGZkMDp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJPczhwUjRwM3FCcXhXUzVJam9GS0NISHBRaHJyZDRLcSIsIl9hdXRoX3VzZXJfaWQiOiIxNyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZThhYTk2ODQzMzM3ZjQ5NTE0NTUzMDYyMjg4NDlmMDRmYjM2YzRhMiJ9",
+    "expire_date": "2019-08-11T08:05:10.989Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vuoifw6ctawuj9reawvgxrh2lsd5f8rd",
+  "fields": {
+    "session_data": "NGE5ZTIzNzA1NDAzNmU1MGE2YjI0MTIzM2JlMzk3YjhjZjg3YTY5ZDp7ImFsbGF1dGhfZmFjZWJvb2tfbm9uY2UiOiJlUkRSbkFqRWw4SkxPMW5adzJEb1FmVnZ3QUozUkFCMyIsInNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwidURYVElCbG9OVVk2Il19",
+    "expire_date": "2019-08-11T10:36:29.545Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wj6g521h6ifgvgflxak73dlmgghrj2g8",
+  "fields": {
+    "session_data": "YmRiZWMwNmUyNGVlNDFkZjNhZTIxNjgyM2RlYzdiYTY0ZDY1ZTY3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNmE4NGRhNWM0MWM3OTBkMmIxMzYxNjZmNjdjOGFiMDA1MjRhN2ViIn0=",
+    "expire_date": "2019-08-11T07:05:18.211Z"
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "foodsquare.com",
+    "name": "foodsquare.com"
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 2,
+  "fields": {
+    "domain": "foodsquare.net",
+    "name": "foodsquare.net"
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 3,
+  "fields": {
+    "domain": "localhost",
+    "name": "localhost"
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 1,
+  "fields": {
+    "name": " chicken "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 2,
+  "fields": {
+    "name": " cheese "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 3,
+  "fields": {
+    "name": " bun "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 4,
+  "fields": {
+    "name": " mushroom "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 5,
+  "fields": {
+    "name": " toast "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 6,
+  "fields": {
+    "name": " bbq sauce "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 7,
+  "fields": {
+    "name": ""
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 8,
+  "fields": {
+    "name": " mayonnaise "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 9,
+  "fields": {
+    "name": " tomato "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 10,
+  "fields": {
+    "name": " chowmein "
+  }
+},
+{
+  "model": "browse.ingredient",
+  "pk": 11,
+  "fields": {
+    "name": " shrimp "
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 1,
+  "fields": {
+    "pkg_name": "Chicken Cheese Burger",
+    "for_n_persons": 1,
+    "price": 150,
+    "available": true,
+    "image": "menu/cuisine2_FzB67OG.jpg",
+    "details": "",
+    "category": "Burger",
+    "restaurant": 3
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 2,
+  "fields": {
+    "pkg_name": "Chicken Cheese Mushroom Burger",
+    "for_n_persons": 1,
+    "price": 220,
+    "available": true,
+    "image": "menu/cuisine6_0ydCUzy.jpg",
+    "details": "",
+    "category": "Burger",
+    "restaurant": 1
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 3,
+  "fields": {
+    "pkg_name": "Chicken Cheeseroom",
+    "for_n_persons": 1,
+    "price": 220,
+    "available": true,
+    "image": "menu/cuisine1_9VgMe85.jpg",
+    "details": "Good for Mushroom lovers",
+    "category": "Burger",
+    "restaurant": 4
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 4,
+  "fields": {
+    "pkg_name": "Chicken Fries",
+    "for_n_persons": 1,
+    "price": 120,
+    "available": true,
+    "image": "menu/p1.jpg",
+    "details": "",
+    "category": "Chicken",
+    "restaurant": 2
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 5,
+  "fields": {
+    "pkg_name": "BBQ Pizza",
+    "for_n_persons": 2,
+    "price": 780,
+    "available": true,
+    "image": "menu/pizza_ERDOOzx.jpg",
+    "details": "12''",
+    "category": "Pizza",
+    "restaurant": 3
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 6,
+  "fields": {
+    "pkg_name": "Mexican Pizza",
+    "for_n_persons": 1,
+    "price": 690,
+    "available": true,
+    "image": "menu/cuisine1_qJHsrKq.jpg",
+    "details": "10''",
+    "category": "Pizza",
+    "restaurant": 3
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 7,
+  "fields": {
+    "pkg_name": "Pizza King Special Pizza",
+    "for_n_persons": 3,
+    "price": 800,
+    "available": true,
+    "image": "menu/Pizza_7bhcpTl.jpg",
+    "details": "10\" - 1000 BDT - 5 persons; 12\" - 1200 BDT - 6 persons",
+    "category": "Pizza",
+    "restaurant": 6
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 8,
+  "fields": {
+    "pkg_name": "Naga Burger Chicken",
+    "for_n_persons": 1,
+    "price": 200,
+    "available": true,
+    "image": "menu/default.png",
+    "details": "Extra spicy",
+    "category": "Burger",
+    "restaurant": 6
+  }
+},
+{
+  "model": "browse.package",
+  "pk": 9,
+  "fields": {
+    "pkg_name": "Chicken Chowmein Special",
+    "for_n_persons": 1,
+    "price": 240,
+    "available": true,
+    "image": "menu/default.png",
+    "details": "2 Person available",
+    "category": "Chowmein",
+    "restaurant": 7
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 1,
+  "fields": {
+    "pack_id": 1,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 2,
+  "fields": {
+    "pack_id": 1,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 3,
+  "fields": {
+    "pack_id": 1,
+    "ingr_id": 3
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 4,
+  "fields": {
+    "pack_id": 2,
+    "ingr_id": 3
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 5,
+  "fields": {
+    "pack_id": 2,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 6,
+  "fields": {
+    "pack_id": 2,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 7,
+  "fields": {
+    "pack_id": 2,
+    "ingr_id": 4
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 8,
+  "fields": {
+    "pack_id": 3,
+    "ingr_id": 3
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 9,
+  "fields": {
+    "pack_id": 3,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 10,
+  "fields": {
+    "pack_id": 3,
+    "ingr_id": 4
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 11,
+  "fields": {
+    "pack_id": 3,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 12,
+  "fields": {
+    "pack_id": 4,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 13,
+  "fields": {
+    "pack_id": 4,
+    "ingr_id": 5
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 14,
+  "fields": {
+    "pack_id": 5,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 15,
+  "fields": {
+    "pack_id": 5,
+    "ingr_id": 6
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 16,
+  "fields": {
+    "pack_id": 5,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 17,
+  "fields": {
+    "pack_id": 5,
+    "ingr_id": 4
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 18,
+  "fields": {
+    "pack_id": 6,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 19,
+  "fields": {
+    "pack_id": 6,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 20,
+  "fields": {
+    "pack_id": 7,
+    "ingr_id": 7
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 21,
+  "fields": {
+    "pack_id": 8,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 22,
+  "fields": {
+    "pack_id": 8,
+    "ingr_id": 3
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 23,
+  "fields": {
+    "pack_id": 8,
+    "ingr_id": 8
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 24,
+  "fields": {
+    "pack_id": 8,
+    "ingr_id": 9
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 25,
+  "fields": {
+    "pack_id": 9,
+    "ingr_id": 10
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 26,
+  "fields": {
+    "pack_id": 9,
+    "ingr_id": 1
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 27,
+  "fields": {
+    "pack_id": 9,
+    "ingr_id": 4
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 28,
+  "fields": {
+    "pack_id": 9,
+    "ingr_id": 11
+  }
+},
+{
+  "model": "accounts.payment",
+  "pk": 7,
+  "fields": {
+    "price": 200.0,
+    "payment_type": "O",
+    "payment_status": "D",
+    "bkash_ref": "YdhMexkEob"
+  }
+},
+{
+  "model": "accounts.payment",
+  "pk": 8,
+  "fields": {
+    "price": 2250.0,
+    "payment_type": "C",
+    "payment_status": "D",
+    "bkash_ref": null
+  }
+},
+{
+  "model": "accounts.payment",
+  "pk": 9,
+  "fields": {
+    "price": 1000.0,
+    "payment_type": "O",
+    "payment_status": "D",
+    "bkash_ref": "xTVZguTZ1f"
+  }
+},
+{
+  "model": "accounts.delivery",
+  "pk": 6,
+  "fields": {
+    "address": "Dhanmondi",
+    "address_desc": ", 13/1, Mirpur Road, ",
+    "charge": 50.0,
+    "time": "2019-07-28T09:45:03.341Z",
+    "rating_user": null,
+    "rating_deliveryman": null,
+    "deliveryman": null
+  }
+},
+{
+  "model": "accounts.delivery",
+  "pk": 7,
+  "fields": {
+    "address": "Newmarket",
+    "address_desc": ", 11, Dhanmondi, ",
+    "charge": 50.0,
+    "time": "2019-07-28T09:47:10.710Z",
+    "rating_user": null,
+    "rating_deliveryman": null,
+    "deliveryman": null
+  }
+},
+{
+  "model": "accounts.delivery",
+  "pk": 8,
+  "fields": {
+    "address": "new",
+    "address_desc": ", 12, 12, ",
+    "charge": 50.0,
+    "time": "2019-07-28T11:09:59.826Z",
+    "rating_user": null,
+    "rating_deliveryman": null,
+    "deliveryman": null
+  }
+},
+{
+  "model": "accounts.delivery",
+  "pk": 9,
+  "fields": {
+    "address": "1854",
+    "address_desc": ", Shantibag, Shantibag, ",
+    "charge": 50.0,
+    "time": "2019-07-28T11:10:41.039Z",
+    "rating_user": null,
+    "rating_deliveryman": null,
+    "deliveryman": null
+  }
+},
+{
+  "model": "socialaccount.socialapp",
+  "pk": 1,
+  "fields": {
+    "provider": "facebook",
+    "name": "facebook",
+    "client_id": "2213513975398382",
+    "secret": "13ff209e35f44dba1091ac0754eae339",
+    "key": "",
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add site",
+    "content_type": 6,
+    "codename": "add_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change site",
+    "content_type": 6,
+    "codename": "change_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete site",
+    "content_type": 6,
+    "codename": "delete_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view site",
+    "content_type": 6,
+    "codename": "view_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add Ingredient",
+    "content_type": 7,
+    "codename": "add_ingredient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change Ingredient",
+    "content_type": 7,
+    "codename": "change_ingredient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete Ingredient",
+    "content_type": 7,
+    "codename": "delete_ingredient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view Ingredient",
+    "content_type": 7,
+    "codename": "view_ingredient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add IngredientList",
+    "content_type": 8,
+    "codename": "add_ingredientlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change IngredientList",
+    "content_type": 8,
+    "codename": "change_ingredientlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete IngredientList",
+    "content_type": 8,
+    "codename": "delete_ingredientlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view IngredientList",
+    "content_type": 8,
+    "codename": "view_ingredientlist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add Package",
+    "content_type": 9,
+    "codename": "add_package"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change Package",
+    "content_type": 9,
+    "codename": "change_package"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete Package",
+    "content_type": 9,
+    "codename": "delete_package"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view Package",
+    "content_type": 9,
+    "codename": "view_package"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add User",
+    "content_type": 10,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change User",
+    "content_type": 10,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete User",
+    "content_type": 10,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view User",
+    "content_type": 10,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add Delivery",
+    "content_type": 11,
+    "codename": "add_delivery"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change Delivery",
+    "content_type": 11,
+    "codename": "change_delivery"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete Delivery",
+    "content_type": 11,
+    "codename": "delete_delivery"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view Delivery",
+    "content_type": 11,
+    "codename": "view_delivery"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add DeliveryMan",
+    "content_type": 12,
+    "codename": "add_deliveryman"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change DeliveryMan",
+    "content_type": 12,
+    "codename": "change_deliveryman"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete DeliveryMan",
+    "content_type": 12,
+    "codename": "delete_deliveryman"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view DeliveryMan",
+    "content_type": 12,
+    "codename": "view_deliveryman"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add Order",
+    "content_type": 13,
+    "codename": "add_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change Order",
+    "content_type": 13,
+    "codename": "change_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete Order",
+    "content_type": 13,
+    "codename": "delete_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view Order",
+    "content_type": 13,
+    "codename": "view_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add Payment",
+    "content_type": 14,
+    "codename": "add_payment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change Payment",
+    "content_type": 14,
+    "codename": "change_payment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete Payment",
+    "content_type": 14,
+    "codename": "delete_payment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view Payment",
+    "content_type": 14,
+    "codename": "view_payment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add Restaurant",
+    "content_type": 15,
+    "codename": "add_restaurant"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change Restaurant",
+    "content_type": 15,
+    "codename": "change_restaurant"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete Restaurant",
+    "content_type": 15,
+    "codename": "delete_restaurant"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view Restaurant",
+    "content_type": 15,
+    "codename": "view_restaurant"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add user profile",
+    "content_type": 16,
+    "codename": "add_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change user profile",
+    "content_type": 16,
+    "codename": "change_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete user profile",
+    "content_type": 16,
+    "codename": "delete_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view user profile",
+    "content_type": 16,
+    "codename": "view_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add Branch",
+    "content_type": 17,
+    "codename": "add_restaurantbranch"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change Branch",
+    "content_type": 17,
+    "codename": "change_restaurantbranch"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete Branch",
+    "content_type": 17,
+    "codename": "delete_restaurantbranch"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view Branch",
+    "content_type": 17,
+    "codename": "view_restaurantbranch"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "Can add OrderPackageList",
+    "content_type": 18,
+    "codename": "add_orderpackagelist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "Can change OrderPackageList",
+    "content_type": 18,
+    "codename": "change_orderpackagelist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "Can delete OrderPackageList",
+    "content_type": 18,
+    "codename": "delete_orderpackagelist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "Can view OrderPackageList",
+    "content_type": 18,
+    "codename": "view_orderpackagelist"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 73,
+  "fields": {
+    "name": "Can add menu",
+    "content_type": 19,
+    "codename": "add_menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 74,
+  "fields": {
+    "name": "Can change menu",
+    "content_type": 19,
+    "codename": "change_menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 75,
+  "fields": {
+    "name": "Can delete menu",
+    "content_type": 19,
+    "codename": "delete_menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 76,
+  "fields": {
+    "name": "Can view menu",
+    "content_type": 19,
+    "codename": "view_menu"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 77,
+  "fields": {
+    "name": "Can add email address",
+    "content_type": 20,
+    "codename": "add_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 78,
+  "fields": {
+    "name": "Can change email address",
+    "content_type": 20,
+    "codename": "change_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 79,
+  "fields": {
+    "name": "Can delete email address",
+    "content_type": 20,
+    "codename": "delete_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 80,
+  "fields": {
+    "name": "Can view email address",
+    "content_type": 20,
+    "codename": "view_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 81,
+  "fields": {
+    "name": "Can add email confirmation",
+    "content_type": 21,
+    "codename": "add_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 82,
+  "fields": {
+    "name": "Can change email confirmation",
+    "content_type": 21,
+    "codename": "change_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 83,
+  "fields": {
+    "name": "Can delete email confirmation",
+    "content_type": 21,
+    "codename": "delete_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 84,
+  "fields": {
+    "name": "Can view email confirmation",
+    "content_type": 21,
+    "codename": "view_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 85,
+  "fields": {
+    "name": "Can add social account",
+    "content_type": 22,
+    "codename": "add_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 86,
+  "fields": {
+    "name": "Can change social account",
+    "content_type": 22,
+    "codename": "change_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 87,
+  "fields": {
+    "name": "Can delete social account",
+    "content_type": 22,
+    "codename": "delete_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 88,
+  "fields": {
+    "name": "Can view social account",
+    "content_type": 22,
+    "codename": "view_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 89,
+  "fields": {
+    "name": "Can add social application",
+    "content_type": 23,
+    "codename": "add_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 90,
+  "fields": {
+    "name": "Can change social application",
+    "content_type": 23,
+    "codename": "change_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 91,
+  "fields": {
+    "name": "Can delete social application",
+    "content_type": 23,
+    "codename": "delete_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 92,
+  "fields": {
+    "name": "Can view social application",
+    "content_type": 23,
+    "codename": "view_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 93,
+  "fields": {
+    "name": "Can add social application token",
+    "content_type": 24,
+    "codename": "add_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 94,
+  "fields": {
+    "name": "Can change social application token",
+    "content_type": 24,
+    "codename": "change_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 95,
+  "fields": {
+    "name": "Can delete social application token",
+    "content_type": 24,
+    "codename": "delete_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 96,
+  "fields": {
+    "name": "Can view social application token",
+    "content_type": 24,
+    "codename": "view_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 97,
+  "fields": {
+    "name": "Can add Package Rating",
+    "content_type": 25,
+    "codename": "add_packagerating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 98,
+  "fields": {
+    "name": "Can change Package Rating",
+    "content_type": 25,
+    "codename": "change_packagerating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 99,
+  "fields": {
+    "name": "Can delete Package Rating",
+    "content_type": 25,
+    "codename": "delete_packagerating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 100,
+  "fields": {
+    "name": "Can view Package Rating",
+    "content_type": 25,
+    "codename": "view_packagerating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 101,
+  "fields": {
+    "name": "Can add Package Comment",
+    "content_type": 26,
+    "codename": "add_packagecomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 102,
+  "fields": {
+    "name": "Can change Package Comment",
+    "content_type": 26,
+    "codename": "change_packagecomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 103,
+  "fields": {
+    "name": "Can delete Package Comment",
+    "content_type": 26,
+    "codename": "delete_packagecomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 104,
+  "fields": {
+    "name": "Can view Package Comment",
+    "content_type": 26,
+    "codename": "view_packagecomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 105,
+  "fields": {
+    "name": "Can add Package Comment React",
+    "content_type": 27,
+    "codename": "add_packagecommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 106,
+  "fields": {
+    "name": "Can change Package Comment React",
+    "content_type": 27,
+    "codename": "change_packagecommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 107,
+  "fields": {
+    "name": "Can delete Package Comment React",
+    "content_type": 27,
+    "codename": "delete_packagecommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 108,
+  "fields": {
+    "name": "Can view Package Comment React",
+    "content_type": 27,
+    "codename": "view_packagecommentreact"
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$onw3uLzAMPwD$PzlwPeoRhsxDZLcydN5/xPNHjrU/ZsdkopT7xmlMmFU=",
+    "last_login": "2019-07-28T11:05:46.997Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@localhost.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-07-18T10:52:14.475Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$64e6TpgYzBns$nE9k5nJ3j0ANq6W2chovS95uRcypLpK+9tWwkLB0W0k=",
+    "last_login": "2019-07-18T11:54:00.317Z",
+    "is_superuser": false,
+    "username": "takeoutadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T10:54:45.694Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$js3pNBu91zKa$pi1V5TFzQzee+bhdaLn0IcQEjZnJWcs9C9zqNrkcNBQ=",
+    "last_login": "2019-07-18T12:01:34.995Z",
+    "is_superuser": false,
+    "username": "kfcadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T11:14:03.452Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$Hu9xSOPPeFzA$ta0isUQFCKzCbzLuu7tYGvoXDs2RVjExozZoer1VoAI=",
+    "last_login": "2019-07-28T07:36:29.564Z",
+    "is_superuser": false,
+    "username": "pizzainnadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T11:17:28.745Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$BhQjYBtRX0Mu$yP+E6K7z740eDafUHSqbXB/frih7Y9QnzrxI7+wMIIM=",
+    "last_login": "2019-07-18T14:20:43.060Z",
+    "is_superuser": false,
+    "username": "mrburgeradmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T11:55:57.020Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$MDOwc8OYhS8Z$3mwqGqgS0LwSu7NmWsuUgP5uyvsnjKqR8F0wE2WJvB8=",
+    "last_login": "2019-07-28T11:09:01.999Z",
+    "is_superuser": false,
+    "username": "saquib",
+    "first_name": "",
+    "last_name": "",
+    "email": "saquib@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T12:09:07.927Z",
+    "is_customer": true,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$s5mnVPmydZhL$j+7W6Z2WdFPNpu+gAsxU0jx5Iac9XarqNmWgjTeenqY=",
+    "last_login": "2019-07-18T13:49:10.257Z",
+    "is_superuser": false,
+    "username": "takeoutdmdadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T13:49:09.724Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$cuxkbEuVpEKT$dHwL2wqejBSPQuYa8KDC4Jd17S+UqCJZrHn4CqNJ8nA=",
+    "last_login": "2019-07-28T06:32:41.955Z",
+    "is_superuser": false,
+    "username": "mrburgerkhilgaonadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-18T13:52:42.480Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$0e1QPuPRnmmv$5rv0iw1+nLVFZL50b3H0Q/g/sSphAaIbu8zKg2LNk3k=",
+    "last_login": "2019-07-28T09:50:09.482Z",
+    "is_superuser": false,
+    "username": "mahim",
+    "first_name": "",
+    "last_name": "",
+    "email": "mahim@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T05:57:54.864Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$JjTd8GLEh1Qu$Pru205t4TssuY2yhRAoCwP8nDznkwm2IKSKIXisbKnY=",
+    "last_login": "2019-07-28T10:13:39.608Z",
+    "is_superuser": false,
+    "username": "rayhan",
+    "first_name": "",
+    "last_name": "",
+    "email": "rayhan@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T06:38:32.964Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$gzyr9pc9W6Za$4/KcwdkZ2OWYmDGs+UzOYrLD/BD1eAIoXZpCQDe4HWQ=",
+    "last_login": "2019-07-28T06:59:30.006Z",
+    "is_superuser": false,
+    "username": "the_pabulum",
+    "first_name": "",
+    "last_name": "",
+    "email": "thepabulum.123@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T06:59:29.180Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVIsP2StnoaM$Zlnupj/jLC8XZvjZGT9GYQ1PPdO9HOX/bwFF5Hy26+w=",
+    "last_login": "2019-07-28T07:11:53.197Z",
+    "is_superuser": false,
+    "username": "the_pabulum_dhanmondi",
+    "first_name": "",
+    "last_name": "",
+    "email": "pabulum.dhanmondi@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T07:11:53.002Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$SpHrzDm0nSt7$4g9J1NIgIFygkUhB+wbRuHJ9VGSYbT9dC8+P49ggLRc=",
+    "last_login": "2019-07-28T07:54:01.042Z",
+    "is_superuser": false,
+    "username": "pizzaking",
+    "first_name": "",
+    "last_name": "",
+    "email": "pizzaking@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T07:35:54.491Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$W9PpJylH3tYI$XKqdoHANKj6MnIqaBCzMQpuEO392vjK2bH8EvCyXjnA=",
+    "last_login": "2019-07-28T09:48:54.896Z",
+    "is_superuser": false,
+    "username": "pizzakinglalbagh",
+    "first_name": "",
+    "last_name": "",
+    "email": "pizzakinglalbagh@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T07:41:17.616Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$tIC0JTcfNVI9$aDt1BN4Xk4/FamNr/+FhKpcjKJo00oTyn5yc25sA50o=",
+    "last_login": "2019-07-28T08:05:10.985Z",
+    "is_superuser": false,
+    "username": "Mohaimin",
+    "first_name": "",
+    "last_name": "",
+    "email": "mohaimin@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:05:10.727Z",
+    "is_customer": true,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$VJGASYPlSAcS$SgiY1RxxcqqGGhBOV3BLYFdc9XIfSrcypQFVElnG/Fs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "john",
+    "first_name": "",
+    "last_name": "",
+    "email": "abc@localhost.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:45:48.656Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$tWI4UKXvhInK$bx0iP/Ej73ZlbJF/YbwVCPMDvHrEG7Dcz/Jslg5uk2g=",
+    "last_login": "2019-07-28T08:57:24.323Z",
+    "is_superuser": false,
+    "username": "pizzaguy",
+    "first_name": "",
+    "last_name": "",
+    "email": "pizzaguy@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:46:11.236Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$150oEpK6337A$1agRcaQ1EOF0XU2X4XF/O5J0aelphxAEGcSQ1y5ANTA=",
+    "last_login": "2019-07-28T08:55:36.163Z",
+    "is_superuser": false,
+    "username": "pizzaguydhanmondi",
+    "first_name": "",
+    "last_name": "",
+    "email": "pizzaguydhanmondi@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:48:36.308Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 21,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$IWOAbq0cUYxq$CsoXqCl3ljvXCIPfqnbEe2FY2AmeYabe1of8/0fEStQ=",
+    "last_login": "2019-07-28T08:48:51.461Z",
+    "is_superuser": false,
+    "username": "delivery2",
+    "first_name": "",
+    "last_name": "",
+    "email": "abc@localhost.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:48:51.324Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 22,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$1mxRy6XAeDPg$H1HDQcBA9/J29XuntfmKVbYLXZTjjwhSidg5pb4M5K0=",
+    "last_login": "2019-07-28T08:52:38.969Z",
+    "is_superuser": false,
+    "username": "kane",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:52:38.819Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 23,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$ttHy3fJDG7N4$Afb8sbzTOhpBn/rnegmL7UsNEX1totpMXFS86DQWveU=",
+    "last_login": "2019-07-28T08:54:51.775Z",
+    "is_superuser": false,
+    "username": "carry",
+    "first_name": "",
+    "last_name": "",
+    "email": "a@b.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T08:54:51.656Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$o5ql5HCCEWBw$c4KDO1bGVyRQ6jywUKtfb1x1B84xuPFkJLgcYLOEfoA=",
+    "last_login": "2019-07-28T11:05:18.536Z",
+    "is_superuser": false,
+    "username": "abdadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "abd@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T11:05:18.234Z",
+    "is_customer": false,
+    "is_manager": true,
+    "is_branch_manager": false,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$PYNHvLVH54Nb$V1bBU9Hyg92GAlnc5ydWs0dzlReSjk/U08PXRBPHUk4=",
+    "last_login": "2019-07-28T11:07:23.255Z",
+    "is_superuser": false,
+    "username": "malibagh",
+    "first_name": "",
+    "last_name": "",
+    "email": "abc@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T11:07:23.131Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": true,
+    "is_delivery_man": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 26,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$NKi8RjEyRvow$AdAZk2TMj2JiTYmCef9JgxEVLcrHpQgcZruDm1hkkPg=",
+    "last_login": "2019-07-28T11:13:33.804Z",
+    "is_superuser": false,
+    "username": "qazwsxedc",
+    "first_name": "",
+    "last_name": "",
+    "email": "abc@localhost.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-07-28T11:13:33.651Z",
+    "is_customer": false,
+    "is_manager": false,
+    "is_branch_manager": false,
+    "is_delivery_man": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 6,
+    "first_name": null,
+    "last_name": null,
+    "address": null,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 17,
+    "first_name": null,
+    "last_name": null,
+    "address": null,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "restaurant_name": "Takeout",
+    "restaurant_key": "JR7eQXWaGI",
+    "trade_license": "7129249",
+    "restaurantImg": "restaurant_img/ZfGPFAmEKdE.jpg"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "restaurant_name": "KFC",
+    "restaurant_key": "28qab5v7H7",
+    "trade_license": "01223923912",
+    "restaurantImg": "restaurant_img/c36c366d3309d8bdb44c9a19a7a2e38f.jpg"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "restaurant_name": "Pizza Inn",
+    "restaurant_key": "ejRIn2phre",
+    "trade_license": "023893933",
+    "restaurantImg": "restaurant_img/logo_465x320.png"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "restaurant_name": "Mr. Burger",
+    "restaurant_key": "peaQRoc6Gb",
+    "trade_license": "03423721738",
+    "restaurantImg": "restaurant_img/download.png"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 5,
+  "fields": {
+    "user": 13,
+    "restaurant_name": "The Pabulum",
+    "restaurant_key": "mdUvztG9U8",
+    "trade_license": "11263",
+    "restaurantImg": "restaurant_img/thepabulum.JPG"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 6,
+  "fields": {
+    "user": 15,
+    "restaurant_name": "Pizzza King",
+    "restaurant_key": "dkKCr9W0HU",
+    "trade_license": "116273",
+    "restaurantImg": "restaurant_img/Pizza_King.jpg"
+  }
+},
+{
+  "model": "accounts.restaurant",
+  "pk": 7,
+  "fields": {
+    "user": 19,
+    "restaurant_name": "Pizza guy",
+    "restaurant_key": "84dSLl0h98",
+    "trade_license": "118273",
+    "restaurantImg": "restaurant_img/pizzaguy.png"
+  }
+},
+{
+  "model": "accounts.restaurantbranch",
+  "pk": 1,
+  "fields": {
+    "user": 9,
+    "branch_name": "Dhanmondi",
+    "branch_location": "23.74458820,90.37204430",
+    "branch_location_details": "",
+    "location_area": "Lalmatia",
+    "branch_phonenum": "",
+    "branch_mobilenum": "",
+    "branch_email": "",
+    "running": false,
+    "opening_time": 9.0,
+    "closing_time": 23.0,
+    "restaurant": 1
+  }
+},
+{
+  "model": "accounts.restaurantbranch",
+  "pk": 2,
+  "fields": {
+    "user": 10,
+    "branch_name": "Khilgaon",
+    "branch_location": "23.75232600,90.42021880",
+    "branch_location_details": "",
+    "location_area": "Khilgaon",
+    "branch_phonenum": "",
+    "branch_mobilenum": "",
+    "branch_email": "",
+    "running": false,
+    "opening_time": 9.0,
+    "closing_time": 23.0,
+    "restaurant": 4
+  }
+},
+{
+  "model": "accounts.restaurantbranch",
+  "pk": 3,
+  "fields": {
+    "user": 14,
+    "branch_name": "Dhanmondi",
+    "branch_location": "23.75232600,90.42021880",
+    "branch_location_details": "",
+    "location_area": "Dhanmondi",
+    "branch_phonenum": "",
+    "branch_mobilenum": "",
+    "branch_email": "",
+    "running": false,
+    "opening_time": 9.0,
+    "closing_time": 23.0,
+    "restaurant": 5
+  }
+},
+{
+  "model": "accounts.restaurantbranch",
+  "pk": 4,
+  "fields": {
+    "user": 16,
+    "branch_name": "Lalbagh",
+    "branch_location": "23.74458820,90.37204430",
+    "branch_location_details": "",
+    "location_area": "Dhanmondi",
+    "branch_phonenum": "",
+    "branch_mobilenum": "",
+    "branch_email": "",
+    "running": false,
+    "opening_time": 9.0,
+    "closing_time": 23.0,
+    "restaurant": 6
+  }
+},
+{
+  "model": "accounts.restaurantbranch",
+  "pk": 5,
+  "fields": {
+    "user": 20,
+    "branch_name": "Dhanmondi",
+    "branch_location": "23.74707065,90.37574651",
+    "branch_location_details": "",
+    "location_area": "Dhanmondi",
+    "branch_phonenum": "",
+    "branch_mobilenum": "",
+    "branch_email": "",
+    "running": false,
+    "opening_time": 9.0,
+    "closing_time": 23.0,
+    "restaurant": 7
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 2,
+  "fields": {
+    "name": "Mahim",
+    "contactNum": "01854478314",
+    "address": "Dhanmondi",
+    "nid": "123456",
+    "user": 11,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 4,
+  "fields": {
+    "name": "Rayhan",
+    "contactNum": "01854478314",
+    "address": "Khilgaon",
+    "nid": "420420",
+    "user": 12,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 5,
+  "fields": {
+    "name": "delivery2",
+    "contactNum": "01854478314",
+    "address": "Khilgaon",
+    "nid": "12345",
+    "user": 21,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 6,
+  "fields": {
+    "name": "kane",
+    "contactNum": "01854478314",
+    "address": "Khilgaon",
+    "nid": "1234",
+    "user": 22,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 7,
+  "fields": {
+    "name": "carry",
+    "contactNum": "1223435225",
+    "address": "Dhanmondi",
+    "nid": "123",
+    "user": 23,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.deliveryman",
+  "pk": 8,
+  "fields": {
+    "name": "qazwsxedc",
+    "contactNum": "1771371373",
+    "address": "Dilkusha",
+    "nid": "11361356",
+    "user": 26,
+    "avatar": "avatars/default.png"
+  }
+},
+{
+  "model": "accounts.order",
+  "pk": 7,
+  "fields": {
+    "time": "2019-07-28T09:51:41.651Z",
+    "user": 17,
+    "delivery": 7,
+    "payment": 7,
+    "branch": 4,
+    "mobileNo": "01552392227",
+    "order_status": "DELIVERED"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2019-07-18T10:53:33.113Z",
+    "user": 1,
+    "content_type": 23,
+    "object_id": "1",
+    "object_repr": "facebook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"sites\"]}}]"
+  }
+}
+]
