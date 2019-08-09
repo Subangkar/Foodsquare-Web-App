@@ -75,6 +75,9 @@ class RestaurantBranch(models.Model):
 
 	restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
+	ratings = models.ManyToManyField(User, through='browse.BranchRating', related_name='branch_rating_user')
+	comments = models.ManyToManyField(User, through='browse.BranchComment', related_name='branch_comment_user')
+
 	class Meta:
 		verbose_name = "Branch"
 		verbose_name_plural = "Branches"

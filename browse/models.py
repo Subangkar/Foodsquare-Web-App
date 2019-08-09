@@ -36,8 +36,8 @@ class Package(models.Model):
 
 	ingr_list = models.ManyToManyField(Ingredient, through='IngredientList')
 
-	ratings = models.ManyToManyField(User, through='PackageRating', related_name='rating_user')
-	comments = models.ManyToManyField(User, through='PackageComment', related_name='comment_user')
+	ratings = models.ManyToManyField(User, through='PackageRating', related_name='package_rating_user')
+	comments = models.ManyToManyField(User, through='PackageComment', related_name='package_comment_user')
 
 	class Meta:
 		verbose_name = "Package"
@@ -80,8 +80,8 @@ class PackageComment(models.Model):
 	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)
 	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
-	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_author_user')
-	reacts = models.ManyToManyField(User, through='PackageCommentReact', related_name='react_user')
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='package_comment_author_user')
+	reacts = models.ManyToManyField(User, through='PackageCommentReact', related_name='package_react_user')
 
 	class Meta:
 		verbose_name = "Package Comment"
@@ -106,3 +106,49 @@ class PackageCommentReact(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("browse:PackageCommentReact", kwargs={"id": self.pk})
+
+
+class BranchRating(models.Model):
+	rating = models.IntegerField('Rating', null=False)
+	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	class Meta:
+		verbose_name = "Branch Rating"
+		verbose_name_plural = "Branch Ratings"
+		unique_together = [['branch', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:BranchRating", kwargs={"id": self.pk})
+
+
+class BranchComment(models.Model):
+	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)
+	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
+	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='branch_comment_author_user')
+	reacts = models.ManyToManyField(User, through='BranchCommentReact', related_name='branch_react_user')
+
+	class Meta:
+		verbose_name = "Branch Comment"
+		verbose_name_plural = "Branch Comments"
+		unique_together = [['branch', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:BranchComment", kwargs={"id": self.pk})
+
+
+class BranchCommentReact(models.Model):
+	post = models.ForeignKey(BranchComment, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	liked = models.BooleanField(verbose_name='Liked', default=False)
+	disliked = models.BooleanField(verbose_name='Disliked', default=False)
+
+	class Meta:
+		verbose_name = "Branch Comment React"
+		verbose_name_plural = "Branch Comment Reacts"
+		unique_together = [['post', 'user']]
+
+	def get_absolute_url(self):
+		return reverse("browse:BranchCommentReact", kwargs={"id": self.pk})
