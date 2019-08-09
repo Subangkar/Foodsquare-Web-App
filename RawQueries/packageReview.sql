@@ -67,3 +67,16 @@ select comment.package_id,
           and disliked.disliked = true)             as ndislikes
 from browse_packagecomment comment
 where comment.user_id = 1;
+
+
+-- like count of a post
+select count(liked.user_id)
+from browse_packagecommentreact liked
+where liked.post_id = 1
+  and liked.liked = true;
+
+-- dislike count of a post
+select count(disliked.user_id)
+from browse_packagecommentreact disliked
+where disliked.post_id = 1
+  and disliked.disliked = true;
