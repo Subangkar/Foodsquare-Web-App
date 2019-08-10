@@ -24,6 +24,7 @@ def get_rating_count_package(pkg_id):
 		ratings[i.rating] = i.count
 	return ratings
 
+
 def get_rating_package(pkg_id):
 	""":returns average rating of package"""
 	results = namedtuplefetchall(

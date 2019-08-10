@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
-from accounts.models import Restaurant, User
+from accounts.models import Restaurant, User, RestaurantBranch
 
 
 # from browse.views import PackageDetails
@@ -10,8 +10,6 @@ from accounts.models import Restaurant, User
 
 class Ingredient(models.Model):
 	name = models.CharField(max_length=50)
-
-	# category = models.CharField(max_length=50)
 
 	class Meta:
 		verbose_name = "Ingredient"
@@ -38,6 +36,9 @@ class Package(models.Model):
 
 	ratings = models.ManyToManyField(User, through='PackageRating', related_name='package_rating_user')
 	comments = models.ManyToManyField(User, through='PackageComment', related_name='package_comment_user')
+
+	branch_details = models.ManyToManyField('accounts.RestaurantBranch', through='PackageBranchDetails',
+	                                        related_name='branch_details')
 
 	class Meta:
 		verbose_name = "Package"
@@ -152,3 +153,83 @@ class BranchCommentReact(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("browse:BranchCommentReact", kwargs={"id": self.pk})
+
+
+# ------------------------- Offers ------------------------------
+
+class PackageBranchDetails(models.Model):
+	"""
+	Package Details Info for a Branch
+	Keeps whether a package is available at a branch and
+	Offer details associated with that package in that branch
+
+		available: true if this branch has the package currently
+	"""
+	package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='branch_specific_details')
+	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
+
+	available = models.BooleanField(default=True)
+	NONE = 'N'
+	DISCOUNT = 'D'
+	BUY_N_GET_N = 'B'
+	OFFER_TYPES = ((NONE, 'None'), (DISCOUNT, 'Discount'), (BUY_N_GET_N, 'Buy N Get N'))
+	offer_type = models.CharField(verbose_name="Offer Type", max_length=1, choices=OFFER_TYPES, default=NONE)
+	offer_start_date = models.DateField(verbose_name="Offer starting date", null=True)
+	offer_expire_date = models.DateField(verbose_name="Offer expiry date", null=True, blank=True)
+	offer_discount = models.IntegerField(verbose_name="Discount amount", default=0)
+	offer_buy_n = models.IntegerField(verbose_name="Buy N", default=1)
+	offer_get_n = models.IntegerField(verbose_name="Get N", default=0)
+
+	class Meta:
+		verbose_name = "Package Details of Branch"
+		verbose_name_plural = "Packages Details of Branches"
+		unique_together = [['package', 'branch']]
+
+	def has_any_offer(self):
+		from datetime import date
+		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
+
+	@staticmethod
+	def add_package_to_all_branches(restaurant, package):
+		branches = RestaurantBranch.objects.filter(restaurant=restaurant)
+		for branch in branches:
+			PackageBranchDetails.objects.create(package=package, branch=branch)
+
+
+class UserOffer(models.Model):
+	"""
+	Keeps offers from branch manger to specific user
+	Generates a code for a user which will be used to avail the offer
+
+		used(Boolean): refers whether this offer has been used by user for at least once
+
+		offer_count(int): refers to how many times this offer can be availed
+
+		offer_code(str): unique code to submit during order to avail the offer
+	"""
+
+	def uniqueKey(self, N=5):
+		import random
+		import string
+		while True:
+			code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=N))
+			if not UserOffer.objects.filter(offer_code=code).exists():
+				return code
+
+	user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='branch_specific_offer')
+	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
+
+	used = models.BooleanField(default=False)
+	offer_start_date = models.DateField(verbose_name="Offer starting date", auto_now_add=True)
+	offer_expire_date = models.DateField(verbose_name="Offer expiry date", null=True, blank=True)
+	offer_discount = models.IntegerField(verbose_name="Discount amount", default=0)
+	offer_count = models.IntegerField(default=1)
+	offer_code = models.CharField(max_length=5, default=uniqueKey)
+
+	class Meta:
+		verbose_name = "User Offer Details of Branch"
+		verbose_name_plural = "Users Offer Details of Branches"
+
+	def is_available_now(self):
+		from datetime import date
+		return self.offer_count and self.offer_start_date <= date.today() <= self.offer_expire_date
