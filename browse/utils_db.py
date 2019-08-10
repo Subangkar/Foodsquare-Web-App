@@ -3,6 +3,9 @@ from collections import namedtuple, defaultdict
 from django.db import connection
 
 
+# ------------------ util functions --------------------------
+
+
 def namedtuplefetchall(query, param_list):
 	"""Return all rows from a cursor as a namedtuple"""
 	with connection.cursor() as cursor:
@@ -10,6 +13,9 @@ def namedtuplefetchall(query, param_list):
 		desc = cursor.description
 		nt_result = namedtuple('Result', [col[0] for col in desc])
 		return [nt_result(*row) for row in cursor.fetchall()]
+
+
+# ------------------- Review Ratings -------------------------
 
 
 def get_rating_count_package(pkg_id):
