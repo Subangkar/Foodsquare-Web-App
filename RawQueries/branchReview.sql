@@ -1,6 +1,7 @@
 -- all comments and rating for branch with current user @ top
 select comment.branch_id,
-       comment.user_id,
+       account.username                 as user_name,
+       account.id                       as user_id,
        rate.rating,
        comment.comment,
        comment.time,
@@ -15,12 +16,14 @@ select comment.branch_id,
 from browse_branchcomment comment
          left join browse_branchrating rate on rate.branch_id = comment.branch_id and
                                                rate.user_id = comment.user_id
+         join accounts_user account on comment.user_id = account.id
 where comment.user_id = 1
   and comment.branch_id = 2
 UNION
 DISTINCT
 select comment.branch_id,
-       comment.user_id,
+       account.username                 as user_name,
+       account.id                       as user_id,
        rate.rating,
        comment.comment,
        comment.time,
@@ -35,6 +38,7 @@ select comment.branch_id,
 from browse_branchcomment comment
          left join browse_branchrating rate on rate.branch_id = comment.branch_id and
                                                rate.user_id = comment.user_id
+         join accounts_user account on comment.user_id = account.id
 where comment.user_id != 1
   and comment.branch_id = 2
 order by time desc;

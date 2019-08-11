@@ -11,7 +11,8 @@ group by rating;
 
 -- all comments and rating with current user @ top
 select comment.package_id,
-       comment.user_id,
+       account.username                 as user_name,
+       account.id                       as user_id,
        rate.rating,
        comment.comment,
        comment.time,
@@ -26,11 +27,14 @@ select comment.package_id,
 from browse_packagecomment comment
          left join browse_packagerating rate on rate.package_id = comment.package_id and
                                                 rate.user_id = comment.user_id
-where comment.user_id = 1 and comment.package_id = 2
+         join accounts_user account on comment.user_id = account.id
+where comment.user_id = 1
+  and comment.package_id = 2
 UNION
 DISTINCT
 select comment.package_id,
-       comment.user_id,
+       account.username                 as user_name,
+       account.id                       as user_id,
        rate.rating,
        comment.comment,
        comment.time,
@@ -45,7 +49,9 @@ select comment.package_id,
 from browse_packagecomment comment
          left join browse_packagerating rate on rate.package_id = comment.package_id and
                                                 rate.user_id = comment.user_id
-where comment.user_id != 1 and comment.package_id = 2
+         join accounts_user account on comment.user_id = account.id
+where comment.user_id != 1
+  and comment.package_id = 2
 order by time desc;
 
 -- -- better for single user

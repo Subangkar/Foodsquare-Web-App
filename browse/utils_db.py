@@ -41,28 +41,12 @@ def get_rating_package(pkg_id):
 
 
 def get_reviews_package(user_id, pkg_id):
-	"""returns list of comments as tuple (package_id, user_id, rating, comment, time, nlikes, ndislikes)"""
-	results = namedtuplefetchall('select comment.package_id,\
-		comment.user_id,\
-		rate.rating,\
-		comment.comment,\
-		comment.time,\
-		(select count(liked.user_id)\
-		from browse_packagecommentreact liked\
-		where liked.post_id = comment.id\
-			and liked.liked = true)		 as nlikes,\
-		(select count(disliked.user_id)\
-		from browse_packagecommentreact disliked\
-		where disliked.post_id = comment.id\
-			and disliked.disliked = true) as ndislikes\
-	from browse_packagecomment comment\
-				left join browse_packagerating rate on rate.package_id = comment.package_id and\
-													rate.user_id = comment.user_id\
-	where comment.user_id = %s and comment.package_id = %s\
-	UNION\
-	DISTINCT\
-	select comment.package_id,\
-			comment.user_id,\
+	"""returns list of comments as tuple (package_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
+	with current user @ top """
+	results = namedtuplefetchall(
+		'select comment.package_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
 			rate.rating,\
 			comment.comment,\
 			comment.time,\
@@ -74,11 +58,33 @@ def get_reviews_package(user_id, pkg_id):
 			from browse_packagecommentreact disliked\
 			where disliked.post_id = comment.id\
 				and disliked.disliked = true) as ndislikes\
-	from browse_packagecomment comment\
+		from browse_packagecomment comment\
 				left join browse_packagerating rate on rate.package_id = comment.package_id and\
 													rate.user_id = comment.user_id\
-	where comment.user_id != %s and comment.package_id = %s\
-	order by time desc', [user_id, pkg_id, user_id, pkg_id])
+				join accounts_user account on comment.user_id = account.id\
+		where comment.user_id = %s and comment.package_id = %s\
+		UNION\
+		DISTINCT\
+		select comment.package_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
+			rate.rating,\
+			comment.comment,\
+			comment.time,\
+			(select count(liked.user_id)\
+			from browse_packagecommentreact liked\
+			where liked.post_id = comment.id\
+				and liked.liked = true)		 as nlikes,\
+			(select count(disliked.user_id)\
+			from browse_packagecommentreact disliked\
+			where disliked.post_id = comment.id\
+				and disliked.disliked = true) as ndislikes\
+		from browse_packagecomment comment\
+				left join browse_packagerating rate on rate.package_id = comment.package_id and\
+													rate.user_id = comment.user_id\
+				join accounts_user account on comment.user_id = account.id\
+		where comment.user_id != %s and comment.package_id = %s\
+		order by time desc', [user_id, pkg_id, user_id, pkg_id])
 	return results
 
 
@@ -111,29 +117,34 @@ def get_rating_branch(branch_id):
 
 
 def get_reviews_branch(user_id, branch_id):
-	"""returns list of comments as tuple (branch_id, user_id, rating, comment, time, nlikes, ndislikes)"""
-	results = namedtuplefetchall('select comment.branch_id,\
-		comment.user_id,\
-		rate.rating,\
-		comment.comment,\
-		comment.time,\
-		(select count(liked.user_id)\
-		from browse_branchcommentreact liked\
-		where liked.post_id = comment.id\
-			and liked.liked = true)       as nlikes,\
-		(select count(disliked.user_id)\
+	"""returns list of comments as tuple (branch_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
+	with current user @ top """
+	results = namedtuplefetchall(
+		'select comment.branch_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
+			rate.rating,\
+			comment.comment,\
+			comment.time,\
+			(select count(liked.user_id)\
+			from browse_branchcommentreact liked\
+			where liked.post_id = comment.id\
+				and liked.liked = true)       as nlikes,\
+			(select count(disliked.user_id)\
 		from browse_branchcommentreact disliked\
 		where disliked.post_id = comment.id\
 			and disliked.disliked = true) as ndislikes\
-	from browse_branchcomment comment\
-		left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
-												rate.user_id = comment.user_id\
-	where comment.user_id = %s\
-		and comment.branch_id = %s\
-	UNION\
-	DISTINCT\
-	select comment.branch_id,\
-			comment.user_id,\
+		from browse_branchcomment comment\
+				left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
+														rate.user_id = comment.user_id\
+				join accounts_user account on comment.user_id = account.id\
+		where comment.user_id = %s\
+			and comment.branch_id = %s\
+		UNION\
+		DISTINCT\
+		select comment.branch_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
 			rate.rating,\
 			comment.comment,\
 			comment.time,\
@@ -145,12 +156,13 @@ def get_reviews_branch(user_id, branch_id):
 			from browse_branchcommentreact disliked\
 			where disliked.post_id = comment.id\
 				and disliked.disliked = true) as ndislikes\
-	from browse_branchcomment comment\
-			left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
-													rate.user_id = comment.user_id\
-	where comment.user_id != %s\
-		and comment.branch_id = %s\
-	order by time desc', [user_id, branch_id, user_id, branch_id])
+		from browse_branchcomment comment\
+				left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
+														rate.user_id = comment.user_id\
+				join accounts_user account on comment.user_id = account.id\
+		where comment.user_id != %s\
+			and comment.branch_id = %s\
+		order by time desc', [user_id, branch_id, user_id, branch_id])
 	return results
 
 
@@ -166,26 +178,20 @@ def post_rating_package(user, pkg_id, rating):
 	""" create or update user rating on package """
 	from browse.models import PackageRating
 	from browse.models import Package
-	package = Package.objects.exclude(user=user).get(id=pkg_id)
-	if PackageRating.objects.exists(package=package, user=user):
-		post = PackageRating.objects.get(package=package, user=user)
-		post.rating = rating
-		post.save()
-	else:
-		PackageRating(rating=rating, package=package, user=user).save()
+	package = Package.objects.get(id=pkg_id)
+	post = PackageRating.objects.get_or_create(package=package, user=user)
+	post.rating = rating
+	post.save()
 
 
 def post_comment_package(user, pkg_id, comment):
 	""" create or update user comment on package """
 	from browse.models import PackageComment
 	from browse.models import Package
-	package = Package.objects.exclude(user=user).get(id=pkg_id)
-	if PackageComment.objects.exists(package=package, user=user):
-		post = PackageComment.objects.get(package=package, user=user)
-		post.comment = comment
-		post.save()
-	else:
-		PackageComment(comment=comment, package=package, user=user).save()
+	package = Package.objects.get(id=pkg_id)
+	post = PackageComment.objects.get_or_create(package=package, user=user)
+	post.comment = comment
+	post.save()
 
 
 def post_comment_react_package(user, comment_id, react):
@@ -194,10 +200,7 @@ def post_comment_react_package(user, comment_id, react):
 	post = PackageCommentReact.objects.get(id=comment_id)
 	like = (react == 'like')
 	dislike = (react == 'dislike')
-	if PackageCommentReact.objects.exists(post=post, user=user):
-		react = PackageCommentReact.objects.get(post=post, user=user)
-	else:
-		react = PackageCommentReact(post=post, user=user)
+	react = PackageCommentReact.objects.get_or_create(post=post, user=user)
 	if like:
 		react.liked = like
 	if dislike:
@@ -209,26 +212,20 @@ def post_rating_branch(user, branch_id, rating):
 	""" create or update user rating on branch """
 	from browse.models import BranchRating
 	from accounts.models import RestaurantBranch
-	branch = RestaurantBranch.objects.exclude(user=user).get(id=branch_id)
-	if BranchRating.objects.exists(branch=branch, user=user):
-		post = BranchRating.objects.get(branch=branch, user=user)
-		post.rating = rating
-		post.save()
-	else:
-		BranchRating(rating=rating, branch=branch, user=user).save()
+	branch = RestaurantBranch.objects.get(id=branch_id)
+	post = BranchRating.objects.get_or_create(branch=branch, user=user)
+	post.rating = rating
+	post.save()
 
 
 def post_comment_branch(user, branch_id, comment):
 	""" create or update user comment on branch """
 	from browse.models import BranchComment
 	from accounts.models import RestaurantBranch
-	branch = RestaurantBranch.objects.exclude(user=user).get(id=branch_id)
-	if BranchComment.objects.exists(branch=branch, user=user):
-		post = BranchComment.objects.get(branch=branch, user=user)
-		post.comment = comment
-		post.save()
-	else:
-		BranchComment(comment=comment, branch=branch, user=user).save()
+	branch = RestaurantBranch.objects.get(id=branch_id)
+	post = BranchComment.objects.get_or_create(branch=branch, user=user)
+	post.comment = comment
+	post.save()
 
 
 def post_comment_react_branch(user, comment_id, react):
@@ -237,10 +234,7 @@ def post_comment_react_branch(user, comment_id, react):
 	post = BranchCommentReact.objects.get(id=comment_id)
 	like = (react == 'like')
 	dislike = (react == 'dislike')
-	if BranchCommentReact.objects.exists(post=post, user=user):
-		react = BranchCommentReact.objects.get(post=post, user=user)
-	else:
-		react = BranchCommentReact(post=post, user=user)
+	react = BranchCommentReact.objects.get_or_create(post=post, user=user)
 	if like:
 		react.liked = like
 	if dislike:
