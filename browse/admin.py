@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Package)
 admin.site.register(Ingredient)
 admin.site.register(IngredientList)
+admin.site.register(PackageRating)

@@ -25,7 +25,7 @@
                         {% csrf_token %}
                         <div class="col-md-3">
                             <div class="text-center">
-                                <img src="" class="avatar " name style="width : 100%;height: 100%" alt="menu image">
+                                <img src="/media/{{ item.image }}" class="avatar " name style="width : 100%;height: 100%" alt="menu image">
                                 <h6>Upload a different photo...</h6>
 
                                 <input type="file" name="image" class="form-control">
@@ -40,18 +40,17 @@
 {#                                This is an <strong>.alert</strong>. Use this to show important messages to the user.#}
 {#                            </div>#}
                             <h3>Menu info</h3>
-
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Menu name:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" name="pkg_name">
+                                    <input class="form-control" type="text" name="pkg_name" value="{{ item.pkg_name }}">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Categoy name:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" name="category">
+                                    <input class="form-control" type="text" name="category" value="{{ item.category }}">
                                     <p>(like beverages, Chinese) </p>
                                 </div>
                             </div>
@@ -59,10 +58,7 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Add Ingredients:</label>
                                 <div class="col-lg-8">
-                                    <div>
-                                        <ol style="display: inline" id="added_ingrdList">
-                                        </ol>
-                                    </div>
+
 
                                     <input type="hidden" name="ingrds" id="ingrds">
 
@@ -70,12 +66,19 @@
                                            style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
                                            list="ingredient_list"/>
                                     <datalist id="ingredient_list">
-                                        {% for ingrd in ingredient_list %}
+                                        {% for ingrd in ing_list %}
                                             <option>{{ ingrd.name }}</option>
                                         {% endfor %}
                                     </datalist>
-
+                                    <div>
+                                        <ol style="display: inline" id="added_ingrdList">
+                                            {% for ing in ing_list %}
+                                                <li id=myId1>  {{ ing }} <a href=# class=remove>X</a></li>
+                                            {% endfor %}
+                                        </ol>
+                                    </div>
                                     <script>
+
                                         $(document).ready(function () {
                                             $(window).keydown(function (event) {
                                                 if (event.keyCode == 13) {
@@ -99,13 +102,14 @@
                                                 $(this).parents('li').remove();
                                             });
                                             $("#submitForm").click(function () {
-                                                var str = ''
+                                                var str = '';
                                                 $('#added_ingrdList').each(function () {// id of ul
-                                                    var li = $(this).find('li')//get each li in ul
+                                                    var li = $(this).find('li');//get each li in ul
                                                     li.each(function () {// id of ul
-                                                        str += '\'' + $(this).text().trim().slice(0, -1).trim() + '\','
-                                                    })
-                                                    $('#ingrds').val(str.slice(0, -1))
+                                                        str += '\'' + $(this).text().trim().slice(0, -1).trim() + '\',';
+                                                    });
+                                                    console.log(str);
+                                                    $('#ingrds').val(str.slice(0, -1));
 
 
                                                 })
@@ -121,7 +125,7 @@
                                 <div class="col-lg-8">
                                     <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
                                            type="text"
-                                           name="price">
+                                           name="price" value={{ item.price }}>
                                 </div>
                             </div>
 
@@ -130,7 +134,7 @@
                                 <div class="col-lg-8">
                                     <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
                                            type="text"
-                                           name="for_n_persons">
+                                           name="for_n_persons" value={{ item.for_n_persons }}>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -138,7 +142,7 @@
                                 <div class="col-lg-8">
                                     <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
                                            type="text"
-                                           name="offer">%
+                                           name="offer" > %
 
                                 </div>
                             </div>
@@ -147,14 +151,14 @@
                                 <div class="col-lg-8">
                                     <input style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
                                            type="text"
-                                           name="details">
+                                           name="details" value={{ item.details }}>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-8">
-                                    <input type="submit" class="btn btn-primary" value="Add item" id="submitForm">
+                                    <input type="submit" class="btn btn-primary" value="Update Item" id="submitForm">
                                     <span></span>
                                     <input type="reset" class="btn btn-default" value="Cancel">
                                 </div>

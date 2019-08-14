@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from accounts.forms import RestaurantForm
 from accounts.models import *
 from browse.forms import PackageForm
-from browse.models import Ingredient, IngredientList, PackageBranchDetails
+from browse.models import Ingredient, IngredientList, PackageBranchDetails, Package
 
 
 class IndexView(TemplateView):
@@ -101,6 +101,48 @@ class AddMenuView(TemplateView):
 		pass
 
 
+class EditMenuView(TemplateView):
+	template_name = 'manager/edit_menu.html'
+
+	def get(self, request, *args, **kwargs):
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		id = kwargs['id']
+		pkg = Package.objects.get(id=id)
+		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		# comments = PackageReview.objects.filter(package=pkg)
+		user_id = self.request.user.id if self.request.user.is_authenticated else 0
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
+			   'ing_list': ing_list
+			   }
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		id = kwargs['id']
+
+		pkg = Package.objects.get(id=id)
+		restaurant = User.objects.get(id=self.request.user.id).restaurant
+		print(request.POST)
+		menu_form = PackageForm(request.POST or None, request.FILES or None , instance=pkg)
+		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
+		print(menu_form)
+		if menu_form.is_valid():
+			menu = menu_form.save(commit=False)
+			menu.restaurant = restaurant
+			print(menu)
+			menu.save()
+			for tmp in ingrd_list:
+				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
+				IngredientList.objects.get_or_create(pack_id=menu, ingr_id=ingrd)
+			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
+			return HttpResponse("<h1>Menu Added Up</h1>")
+
+		else:
+			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
+		pass
+
 def DeliveryAvailability(request):
 	print(request)
 	id = request.POST.get('id')
@@ -121,3 +163,14 @@ def acceptOrder(request):
 	order.order_status = order.PROCESSING
 	order.save()
 	return JsonResponse({'order': 'placed'})
+
+
+class ViewMenusView(TemplateView):
+	template_name = 'manager/manage_menus.html'
+
+	def get_context_data(self, **kwargs):
+		restaurant = User.objects.get(id=self.request.user.id).restaurant
+		obj_list = Package.objects.filter(restaurant=restaurant)  # .order_by('status', '-time')
+		print(obj_list)
+		print('-----')
+		return {'menu_list': obj_list}

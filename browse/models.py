@@ -193,7 +193,7 @@ class PackageBranchDetails(models.Model):
 	def add_package_to_all_branches(restaurant, package):
 		branches = RestaurantBranch.objects.filter(restaurant=restaurant)
 		for branch in branches:
-			PackageBranchDetails.objects.create(package=package, branch=branch)
+			PackageBranchDetails.objects.get_or_create(package=package, branch=branch)
 
 
 class UserOffer(models.Model):
