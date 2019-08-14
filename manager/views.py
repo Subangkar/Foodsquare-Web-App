@@ -108,23 +108,30 @@ class EditMenuView(TemplateView):
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
+		""" Prevent Accessing Other Restaurants Package """
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
-		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		if not pkg.is_editable(self.request.user):
+			pkg = None
+			ing_list = None
+		else:
+			ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-			   'ing_list': ing_list
-			   }
+		       'ing_list': ing_list
+		       }
 		return ctx
 
 	def post(self, request, *args, **kwargs):
 		id = kwargs['id']
 
 		pkg = Package.objects.get(id=id)
+		if not pkg.is_editable(self.request.user):
+			return HttpResponse("<h1>Access Error: Not permitted to edit for current user<h1>")
 		restaurant = User.objects.get(id=self.request.user.id).restaurant
 		print(request.POST)
-		menu_form = PackageForm(request.POST or None, request.FILES or None , instance=pkg)
+		menu_form = PackageForm(request.POST or None, request.FILES or None, instance=pkg)
 		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
 		print(menu_form)
 		if menu_form.is_valid():
@@ -142,6 +149,7 @@ class EditMenuView(TemplateView):
 		else:
 			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
 		pass
+
 
 def DeliveryAvailability(request):
 	print(request)

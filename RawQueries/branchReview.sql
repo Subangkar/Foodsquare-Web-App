@@ -1,5 +1,6 @@
 -- all comments and rating for branch with current user @ top
 select comment.branch_id,
+       comment.id                       as comment_id,
        account.username                 as user_name,
        account.id                       as user_id,
        rate.rating,
@@ -22,6 +23,7 @@ where comment.user_id = 1
 UNION
 DISTINCT
 select comment.branch_id,
+       comment.id                       as comment_id,
        account.username                 as user_name,
        account.id                       as user_id,
        rate.rating,

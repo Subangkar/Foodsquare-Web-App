@@ -17,7 +17,7 @@ from browse.utils_db import *
 
 def getUniqueBkashRef(N=10):
 	while True:
-		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10))
+		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=N))
 		if not Payment.objects.filter(bkash_ref=key).exists():
 			return key
 

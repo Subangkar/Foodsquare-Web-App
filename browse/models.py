@@ -50,6 +50,12 @@ class Package(models.Model):
 	def get_absolute_url(self):
 		return reverse("browse:package-details", kwargs={"id": self.pk})
 
+	def get_absolute_edit_url(self):
+		return reverse("manager:edit_menu", kwargs={"id": self.pk})
+
+	def is_editable(self, user):
+		return user.is_authenticated and user.is_manager and user.restaurant.id == self.restaurant.id
+
 
 class IngredientList(models.Model):
 	pack_id = models.ForeignKey(Package, on_delete=models.CASCADE)

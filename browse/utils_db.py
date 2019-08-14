@@ -41,10 +41,11 @@ def get_rating_package(pkg_id):
 
 
 def get_reviews_package(user_id, pkg_id):
-	"""returns list of comments as tuple (package_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
+	"""returns list of comments as tuple (package_id, comment_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
 	with current user @ top """
 	results = namedtuplefetchall(
 		'select comment.package_id,\
+			comment.id                       as comment_id,\
 			account.username                 as user_name,\
 			account.id                       as user_id,\
 			rate.rating,\
@@ -117,10 +118,11 @@ def get_rating_branch(branch_id):
 
 
 def get_reviews_branch(user_id, branch_id):
-	"""returns list of comments as tuple (branch_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
+	"""returns list of comments as tuple (branch_id, comment_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
 	with current user @ top """
 	results = namedtuplefetchall(
 		'select comment.branch_id,\
+			comment.id                       as comment_id,\
 			account.username                 as user_name,\
 			account.id                       as user_id,\
 			rate.rating,\
@@ -195,17 +197,18 @@ def post_comment_package(user, pkg_id, comment):
 
 
 def post_comment_react_package(user, comment_id, react):
-	""" create or update react on existing post of any user on package """
+	"""
+	create or update react on existing post of any user on package
+	:returns updated (likes_count, dislikes_count) of that post
+	"""
 	from browse.models import PackageCommentReact
 	post = PackageCommentReact.objects.get(id=comment_id)
-	like = (react == 'like')
-	dislike = (react == 'dislike')
-	react = PackageCommentReact.objects.get_or_create(post=post, user=user)
-	if like:
-		react.liked = like
-	if dislike:
-		react.disliked = dislike
-	react.save()
+	if react in ['like', 'dislike']:
+		react = PackageCommentReact.objects.get_or_create(post=post, user=user)
+		react.liked = (react == 'like')
+		react.disliked = (react == 'dislike')
+		react.save()
+	return get_react_count_package(post)
 
 
 def post_rating_branch(user, branch_id, rating):
@@ -229,14 +232,15 @@ def post_comment_branch(user, branch_id, comment):
 
 
 def post_comment_react_branch(user, comment_id, react):
-	""" create or update react on existing post of any user on branch """
+	"""
+	create or update react on existing post of any user on branch
+	:returns updated (likes_count, dislikes_count) of that post
+	"""
 	from browse.models import BranchCommentReact
 	post = BranchCommentReact.objects.get(id=comment_id)
-	like = (react == 'like')
-	dislike = (react == 'dislike')
-	react = BranchCommentReact.objects.get_or_create(post=post, user=user)
-	if like:
-		react.liked = like
-	if dislike:
-		react.disliked = dislike
-	react.save()
+	if react in ['like', 'dislike']:
+		react = BranchCommentReact.objects.get_or_create(post=post, user=user)
+		react.liked = (react == 'like')
+		react.disliked = (react == 'dislike')
+		react.save()
+	return get_react_count_branch(post)
