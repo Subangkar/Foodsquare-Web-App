@@ -41,30 +41,33 @@ def get_rating_package(pkg_id):
 
 
 def get_reviews_package(user_id, pkg_id):
-	"""returns list of comments as tuple (package_id, user_id, rating, comment, time, nlikes, ndislikes)"""
-	results = namedtuplefetchall('select  comment.id,\
-		comment.package_id,\
-		comment.user_id,\
-		rate.rating,\
-		comment.comment,\
-		comment.time,\
-		(select count(liked.user_id)\
-		from browse_packagecommentreact liked\
-		where liked.post_id = comment.id\
-			and liked.liked = true)		 as nlikes,\
-		(select count(disliked.user_id)\
-		from browse_packagecommentreact disliked\
-		where disliked.post_id = comment.id\
-			and disliked.disliked = true) as ndislikes\
-	from browse_packagecomment comment\
+	"""returns list of comments as tuple (package_id, user_name, user_id, rating, comment, time, nlikes, ndislikes)
+	with current user @ top """
+	results = namedtuplefetchall(
+		'select comment.package_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
+			rate.rating,\
+			comment.comment,\
+			comment.time,\
+			(select count(liked.user_id)\
+			from browse_packagecommentreact liked\
+			where liked.post_id = comment.id\
+				and liked.liked = true)		 as nlikes,\
+			(select count(disliked.user_id)\
+			from browse_packagecommentreact disliked\
+			where disliked.post_id = comment.id\
+				and disliked.disliked = true) as ndislikes\
+		from browse_packagecomment comment\
 				left join browse_packagerating rate on rate.package_id = comment.package_id and\
 													rate.user_id = comment.user_id\
-	where comment.user_id = %s and comment.package_id = %s\
-	UNION\
-	DISTINCT\
-	select comment.id,\
-			comment.package_id,\
-			comment.user_id,\
+				join accounts_user account on comment.user_id = account.id\
+		where comment.user_id = %s and comment.package_id = %s\
+		UNION\
+		DISTINCT\
+		select comment.package_id,\
+			account.username                 as user_name,\
+			account.id                       as user_id,\
 			rate.rating,\
 			comment.comment,\
 			comment.time,\
@@ -194,10 +197,7 @@ def post_comment_package(user, pkg_id, comment):
 def post_comment_react_package(user, comment_id, react):
 	""" create or update react on existing post of any user on package """
 	from browse.models import PackageCommentReact
-	from browse.models import PackageComment
-
-	# print(PackageCommentReact.objects.all())
-	post = PackageComment.objects.get(id=comment_id)
+	post = PackageCommentReact.objects.get(id=comment_id)
 	like = (react == 'like')
 	dislike = (react == 'dislike')
 	react = PackageCommentReact.objects.get_or_create(post=post, user=user)
