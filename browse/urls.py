@@ -7,6 +7,7 @@ app_name = 'browse'
 urlpatterns = [
 	path('', views.Index.as_view(), name='home'),
 	path('browse/', views.OrderView.as_view(), name='package-list'),
+	path('browse/filter/', views.FilteredProducts, name='rating_filter'),
 
 	path('browse/restaurants/', views.RestaurantList.as_view(), name='restaurants'),
 	path('browse/branches/', views.RestaurantList.as_view(), name='branches'),

@@ -387,3 +387,11 @@ def submitBranchRating(request):
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_branch(user, branch_id, rating)
 	return
+
+
+def FilteredProducts(request):
+	entry_name = request.GET.get('menu_search')
+	price_range = request.GET.get('range')
+	pkg_list = Package.objects.all()
+
+	return render(request, 'browse/product_list.html', {'item_list': pkg_list})

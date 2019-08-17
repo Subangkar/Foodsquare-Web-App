@@ -67,6 +67,7 @@ def get_reviews_package(user_id, pkg_id):
 		UNION\
 		DISTINCT\
 		select comment.package_id,\
+			comment.id                       as comment_id,\
 			account.username                 as user_name,\
 			account.id                       as user_id,\
 			rate.rating,\

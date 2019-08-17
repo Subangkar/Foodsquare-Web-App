@@ -35,7 +35,7 @@
     <!-- start-smoth-scrolling -->
     <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
     <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-{#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
+    {#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
     <script>
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -128,70 +128,122 @@
                         <!-- //price range -->
                         <!--preference -->
                     </form>
-                </div>
-                <div class="left-ads-display col-lg-9">
-                    <div class="row">
-                        {# Searched Product list show start #}
-                        {% for item in item_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-                                <div class="product-toys-info">
-                                    <div class="men-pro-item">
-                                        <div class="men-thumb-item">
-                                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
-                                                 style="height: 190px;width: 290px;">
-                                            <div class="men-cart-pro">
-                                                <div class="inner-men-cart-pro">
-                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                        View</a>
-                                                </div>
-                                            </div>
-                                            <span class="product-new-top">20% off</span>
-                                        </div>
-                                        <div class="item-info-product">
-                                            <div class="info-product-price">
-                                                <div class="grid_meta">
-                                                    <div class="product_price">
-                                                        <h4>
-                                                            <a href={{ item.get_absolute_url }}>{{ item.pkg_name }}</a>
-                                                        </h4>
-                                                        <div class="grid-price mt-2">
-                                                            <span class="money ">BDT {{ item.price }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="stars">
-                                                        {% for star in rating %}
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fas fa-star"></i>
-                                                                </a>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-{#                                                <div class="toys single-item hvr-outline-out">#}
-{#                                                    <button href="#" data-id="{{ item.id }}"#}
-{#                                                            data-name="{{ item.pkg_name }}"#}
-{#                                                            data-price="{{ item.price }}"#}
-{#                                                            data-restaurant-id="{{ item.restaurant.id }}"#}
-{#                                                            class="add-to-cart toys-cart ptoys-cart">#}
-{#                                                        <i class="fas fa-cart-plus"></i>#}
-{#                                                    </button>#}
-{#                                                </div>#}
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {# Searched Product list show start #}
+
+
+                    <div class="customer-rev left-side">
+                        <h3 class="agileits-sear-head">Customer Review</h3>
+                        <ul>
+                            <form action="/rating_range" method="get" id="rating_form">
+
+                            </form>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "12345" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>5.0</span>
+
+                            </li>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "1234" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "5" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "1234" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "5" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="4" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "123" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "45" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="3" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "12" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "345" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+                            <li>
+
+                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "1" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "2345" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <div class="left-ads-display col-lg-9 product_list">
+                    {% include "browse/product_list.html" %}
+                </div>
+                <button id="test">
+                    test ing
+                </button>
+                <script>
+                    $("#test").click(function() {
+                        $.ajax({
+                            method: "GET",
+                            url: 'filter/',
+                            data: {
+
+                            },
+                            responseTime: 200,
+
+                            success: function (data) {
+                                console.log(data);
+                                document.getElementsByClassName('product_list').innerHTML = data;
+
+                                $('.product_list').empty().append(data) ;
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </section>
-{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
-{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
-{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+    {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+    {#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
     <!-- //show Now-->
 {% endblock %}
