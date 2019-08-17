@@ -90,11 +90,11 @@ class PackageDetails(TemplateView):
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
-		comments = 	get_reviews_package(user_id, id)
+		comments = get_reviews_package(user_id, id)
 		print(get_rating_count_package(id))
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list,  'comments': comments, 'ratings': get_rating_count_package(id),
-			   'avg_rating' : get_rating_package(id)}
+		       'ing_list': ing_list, 'comments': comments, 'ratings': get_rating_count_package(id),
+		       'avg_rating': get_rating_package(id)}
 		return ctx
 
 
@@ -319,6 +319,7 @@ class RestaurantDetails(TemplateView):
 		                                branch=None), 'rating': get_rating_restaurant(kwargs['id'])}
 		return ctx
 
+
 #
 def reactSubmit(request, id):
 	print(request)
@@ -331,20 +332,6 @@ def reactSubmit(request, id):
 	user = request.user
 	post_comment_react_package(user, post_id, react)
 	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
-
-#
-# def postSubmit(request):
-# 	print(request)
-# 	pkg_id = request.POST.get('pkg-id')
-# 	comment = request.POST.get('comment')
-# 	package = Package.objects.exclude(user=request.user).get(id=pkg_id)
-# 	user = request.user
-# 	if PackageReview.objects.exists(package=package, user=user):
-# 		post = PackageReview.objects.get(package=package, user=user)
-# 		post.desc = comment
-# 		post.save()
-# 	else:
-# 		PackageReview(desc=comment, package=package, user=user).save()
 
 
 def submitReview(request, id):
@@ -384,7 +371,6 @@ def submitBranchRating(request):
 	rating = request.POST.get('rating')
 	user = request.user
 
-	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_branch(user, branch_id, rating)
 	return
 
@@ -392,6 +378,8 @@ def submitBranchRating(request):
 def FilteredProducts(request):
 	entry_name = request.GET.get('menu_search')
 	price_range = request.GET.get('range')
-	pkg_list = Package.objects.all()
+	pkg_list = get_named_package(entry_name)
+	pkg_list &= get_rated_package(5)
+	pkg_list &= get_price_range_package(0, 300)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
