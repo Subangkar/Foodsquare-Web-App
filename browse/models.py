@@ -263,3 +263,32 @@ class UserOffer(models.Model):
 	def is_available_now(self):
 		from datetime import date
 		return self.offer_count and self.offer_start_date <= date.today() <= self.offer_expire_date
+
+	@staticmethod
+	def add_offer(branch_id, customer_id, start_date, end_date, discount, count):
+		user = User.objects.get(id=customer_id)
+		branch = RestaurantBranch.objects.get(id=branch_id)
+		UserOffer(user=user, branch=branch, offer_start_date=start_date, offer_expire_date=end_date,
+		          offer_discount=discount, offer_count=count).save()
+
+	@staticmethod
+	def running_offers_to_customer(branch_id, customer_id):
+		from datetime import date
+		return UserOffer.objects.filter(branch_id=branch_id, user_id=customer_id, offer_start_date__gte=date.today(),
+		                                offer_expire_date__lte=date.today(), offer_count__gt=0)
+
+	@staticmethod
+	def running_offers(branch_id):
+		from datetime import date
+		return UserOffer.objects.filter(branch_id=branch_id, offer_start_date__gte=date.today(),
+		                                offer_expire_date__lte=date.today(), offer_count__gt=0)
+
+	@staticmethod
+	def has_any_active_offer(branch_id, user_id):
+		from datetime import date
+		return UserOffer.objects.filter(branch_id=branch_id, user_id=user_id, offer_start_date__gte=date.today(),
+		                                offer_expire_date__lte=date.today(), offer_count__gt=0).exists()
+
+	@staticmethod
+	def had_any_active_offer(branch_id, user_id):
+		return UserOffer.objects.filter(branch_id=branch_id, user_id=user_id).exists()
