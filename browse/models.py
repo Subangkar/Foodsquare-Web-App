@@ -175,10 +175,12 @@ class PackageBranchDetails(models.Model):
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
 
 	available = models.BooleanField(default=True)
+
 	NONE = 'N'
 	DISCOUNT = 'D'
 	BUY_N_GET_N = 'B'
 	OFFER_TYPES = ((NONE, 'None'), (DISCOUNT, 'Discount'), (BUY_N_GET_N, 'Buy N Get N'))
+
 	offer_type = models.CharField(verbose_name="Offer Type", max_length=1, choices=OFFER_TYPES, default=NONE)
 	offer_start_date = models.DateField(verbose_name="Offer starting date", null=True)
 	offer_expire_date = models.DateField(verbose_name="Offer expiry date", null=True, blank=True)
@@ -201,10 +203,32 @@ class PackageBranchDetails(models.Model):
 		for branch in branches:
 			PackageBranchDetails.objects.get_or_create(package=package, branch=branch)
 
+	def set_discount_offer(self, start_date, end_date, discount_val):
+		self.offer_start_date = start_date
+		self.offer_expire_date = end_date
+		self.offer_discount = discount_val
+		self.offer_type = PackageBranchDetails.DISCOUNT
+		self.save()
+
+	def set_buy_get_offer(self, start_date, end_date, buy_n, get_n):
+		self.offer_start_date = start_date
+		self.offer_expire_date = end_date
+		self.offer_buy_n = buy_n
+		self.offer_get_n = get_n
+		self.offer_type = PackageBranchDetails.BUY_N_GET_N
+		self.save()
+
+	def clear_offer(self):
+		self.offer_type = self.NONE
+		self.save()
+
+	def get_absolute_url(self):
+		return reverse('manager:package-branch-details', kwargs={"pk": self.pk})
+
 
 class UserOffer(models.Model):
 	"""
-	Keeps offers from branch manger to specific user
+	Stores offers from branch manger to specific user
 	Generates a code for a user which will be used to avail the offer
 
 		used(Boolean): refers whether this offer has been used by user for at least once
