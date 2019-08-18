@@ -56,6 +56,9 @@ class Package(models.Model):
 	def is_editable(self, user):
 		return user.is_authenticated and user.is_manager and user.restaurant.id == self.restaurant.id
 
+	def is_available_in_any_branch(self):
+		return self.available and any(pkg.available for pkg in PackageBranchDetails.objects.filter(package=self))
+
 
 class IngredientList(models.Model):
 	pack_id = models.ForeignKey(Package, on_delete=models.CASCADE)
@@ -193,9 +196,15 @@ class PackageBranchDetails(models.Model):
 		verbose_name_plural = "Packages Details of Branches"
 		unique_together = [['package', 'branch']]
 
+	def __str__(self):
+		return self.package.pkg_name + ", " + str(self.package.price) + ", " + str(self.available)
+
 	def has_any_offer(self):
 		from datetime import date
 		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
+
+	def is_available(self):
+		return self.available and self.package.available
 
 	@staticmethod
 	def add_package_to_all_branches(restaurant, package):

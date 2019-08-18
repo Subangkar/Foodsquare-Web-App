@@ -312,29 +312,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             height: 46px;
                             padding: 0 10px;
                         }
+
                         .rate:not(:checked) > input {
-                            position:absolute;
-                            top:-9999px;
+                            position: absolute;
+                            top: -9999px;
                         }
+
                         .rate:not(:checked) > label {
-                            float:right;
-                            width:1em;
-                            overflow:hidden;
-                            white-space:nowrap;
-                            cursor:pointer;
-                            font-size:30px;
-                            color:#ccc;
+                            float: right;
+                            width: 1em;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            cursor: pointer;
+                            font-size: 30px;
+                            color: #ccc;
                         }
+
                         .rate:not(:checked) > label:before {
                             content: '★ ';
                         }
+
                         .rate > input:checked ~ label {
                             color: #ffc700;
                         }
+
                         .rate:not(:checked) > label:hover,
                         .rate:not(:checked) > label:hover ~ label {
                             color: #deb217;
                         }
+
                         .rate > input:checked + label:hover,
                         .rate > input:checked + label:hover ~ label,
                         .rate > input:checked ~ label:hover,
@@ -344,27 +350,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         }
                     </style>
 
-                    <div  class="  rate">
-                        <input type="radio" id="star5" name="rate" value="5" />
+                    <div class="  rate">
+                        <input type="radio" id="star5" name="rate" value="5"/>
                         <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4" />
+                        <input type="radio" id="star4" name="rate" value="4"/>
                         <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3" />
+                        <input type="radio" id="star3" name="rate" value="3"/>
                         <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2" />
+                        <input type="radio" id="star2" name="rate" value="2"/>
                         <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1" />
+                        <input type="radio" id="star1" name="rate" value="1"/>
                         <label for="star1" title="text">1 star</label>
                     </div>
                     <script>
-                        $('.rate input').on('change', function() {
+                        $('.rate input').on('change', function () {
                             var rate_val = $("input[type='radio'][name='rate']:checked").val();
                             var csrftoken = getCookie('csrftoken');
                             {% if loggedIn %}
 
                                 $.ajax({
-                                    type:"POST",
-                                    headers:{
+                                    type: "POST",
+                                    headers: {
                                         "X-CSRFToken": csrftoken
                                     },
                                     url: 'submitRating/',
@@ -374,7 +380,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         {% else %}
                                             'restaurant-id': {{ restaurant.id }},
                                         {% endif %}
-                                        'rating' : rate_val
+                                        'rating': rate_val
 
                                     },
                                     dataType: 'json',
@@ -658,64 +664,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
-                        {% for item in item_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
-                                <div class="product-toys-info">
-                                    <div class="men-pro-item">
-                                        <div class="men-thumb-item">
-                                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
-                                            <div class="men-cart-pro">
-                                                <div class="inner-men-cart-pro">
-                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                        View</a>
-                                                </div>
-                                            </div>
-                                            <span class="product-new-top">20% off</span>
-                                        </div>
-                                        <div class="item-info-product">
-                                            <div class="info-product-price">
-                                                <div class="grid_meta">
-                                                    <div class="product_price">
-                                                        <h4>
-                                                            <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
-                                                        </h4>
-                                                        <div class="grid-price mt-2">
-                                                            <span class="money ">BDT {{ item.price }}/=</span>
-                                                        </div>
+                        {% for pkg_details in item_list %}
+                            {% with item=pkg_details.package %}
+                                <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
+                                    <div class="product-toys-info">
+                                        <div class="men-pro-item">
+                                            <div class="men-thumb-item">
+                                                <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
+                                                     alt="">
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                            View</a>
                                                     </div>
-                                                    <ul class="stars">
-                                                        {% for star in item.rating %}
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fas fa-star"></i>
-                                                                </a>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
                                                 </div>
-                                                <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
-                                                     id="cart-div">
-                                                    <button href="#" data-id="{{ item.id }}"
-                                                            data-name="{{ item.pkg_name }}"
-                                                            data-price="{{ item.price }}"
-                                                            data-restaurant-id="{{ restaurant.branch.id }}"
-                                                            class="add-to-cart toys-cart ptoys-cart">
-                                                        <i class="fas fa-cart-plus"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="product-new-top">20% off</span>
                                             </div>
-                                            {% if not restaurant.is_branch %}
-                                                <script>
-                                                    document.getElementById('cart-div').style.display = "none";
-                                                </script>
-                                            {% endif %}
-                                            <div class="clearfix"></div>
+                                            <div class="item-info-product">
+                                                <div class="info-product-price">
+                                                    <div class="grid_meta">
+                                                        <div class="product_price">
+                                                            <h4>
+                                                                <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
+                                                            </h4>
+                                                            <div class="grid-price mt-2">
+                                                                <span class="money ">BDT {{ item.price }}/=</span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="stars">
+                                                            {% for star in item.rating %}
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fas fa-star"></i>
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                         id="cart-div">
+                                                        <button href="#" data-id="{{ item.id }}"
+                                                                data-name="{{ item.pkg_name }}"
+                                                                data-price="{{ item.price }}"
+                                                                data-restaurant-id="{{ restaurant.branch.id }}"
+                                                                class="add-to-cart toys-cart ptoys-cart">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                {% if not restaurant.is_branch %}
+                                                    <script>
+                                                        document.getElementById('cart-div').style.display = "none";
+                                                    </script>
+                                                {% endif %}
+                                                <div class="clearfix"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endwith %}
                         {% endfor %}
-                        {# Searched Product list show start #}
+                        {# Searched Product list show end #}
                     </div>
 
                     {#                        </li>#}

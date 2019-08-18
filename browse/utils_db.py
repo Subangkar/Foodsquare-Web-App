@@ -279,3 +279,58 @@ def get_price_range_package(low=0.0, high=90000.0):
 	from browse.models import Package
 	from django.db.models import Q
 	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high))
+
+
+# ----------- Branch/Restaurant Packages ----------------------
+
+def get_available_packages_branch(branch_id):
+	"""
+	:return: list PackageBranchDetails of packages currently available in this branch
+	"""
+	from browse.models import PackageBranchDetails
+	packages = PackageBranchDetails.objects.filter(branch_id=branch_id)
+	return filter(lambda x: x.is_available(), packages)
+
+
+def get_available_offer_packages_branch(branch_id):
+	"""
+	:return: list PackageBranchDetails of packages with offer in this branch
+	"""
+	from browse.models import PackageBranchDetails
+	packages = PackageBranchDetails.objects.filter(branch_id=branch_id)
+	return filter(lambda x: x.has_any_offer(), packages)
+
+
+def get_searched_packages_branch(branch_id, search_key):
+	"""
+	:return: list PackageBranchDetails of available packages satisfying provided parameter in this branch
+	"""
+	from browse.models import PackageBranchDetails
+	from django.db.models import Q
+	packages = PackageBranchDetails.objects.filter(Q(branch_id=branch_id) &
+	                                               (Q(package__pkg_name__icontains=search_key) |
+	                                                Q(package__category__icontains=search_key) |
+	                                                Q(package__ingr_list__name__icontains=search_key))).distinct()
+	return filter(lambda pkg: pkg.is_available(), packages)
+
+
+def get_available_packages_restaurant(rest_id):
+	"""
+	:return: list PackageBranchDetails of packages currently available in any branch of provided restaurant
+	"""
+	from browse.models import PackageBranchDetails
+	packages = PackageBranchDetails.objects.filter(branch__restaurant__id=rest_id)
+	return filter(lambda x: x.package.is_available_in_any_branch(), packages)
+
+
+def get_searched_packages_restaurant(rest_id, search_key):
+	"""
+	:return: list PackageBranchDetails of available packages in any branch of provided restaurant satisfying provided parameter
+	"""
+	from browse.models import PackageBranchDetails
+	from django.db.models import Q
+	packages = PackageBranchDetails.objects.filter(Q(branch__restaurant__id=rest_id) &
+	                                               (Q(package__pkg_name__icontains=search_key) |
+	                                                Q(package__category__icontains=search_key) |
+	                                                Q(package__ingr_list__name__icontains=search_key))).distinct()
+	return filter(lambda pkg: pkg.package.is_available_in_any_branch(), packages)

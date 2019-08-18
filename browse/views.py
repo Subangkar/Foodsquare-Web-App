@@ -144,6 +144,7 @@ class CheckoutView(TemplateView):
 		total_price = 0
 		for pkg in pkg_list:
 			total_price += pkg['price'] * pkg['quantity']
+		total_price += total_price * 0.1  # 10% delivery charge
 
 		# set payment_type + status
 		payment = None
@@ -168,7 +169,8 @@ class CheckoutView(TemplateView):
 		# print(order)
 		for pkg in pkg_list:
 			print(Package.objects.get(id=pkg['id']))
-			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id'])).save()
+			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id']),
+			                 quantity=int(pkg['quantity'])).save()
 
 		return redirect("/")
 
@@ -289,13 +291,14 @@ class RestaurantBranchDetails(TemplateView):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		branch = RestaurantBranch.objects.get(id=kwargs['id'])
-		pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
-		categories = set([item.category for item in pkg_list])
+		# pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
+		pkg_list = list(get_available_packages_branch(branch_id=branch.id))
+		categories = set([item.package.category for item in pkg_list])
 
-		print(pkg_list)
+		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=branch.restaurant,
-		                                branch=branch), 'rating': get_rating_branch(kwargs['id'])}
+		       'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
+		       'rating': get_rating_branch(kwargs['id'])}
 		return ctx
 
 
@@ -310,13 +313,11 @@ class RestaurantDetails(TemplateView):
 		# price_range = self.request.GET.get('range')
 
 		rest = Restaurant.objects.get(id=kwargs['id'])
-		# branch = RestaurantBranch.objects.get(id=kwargs['id'])
-		pkg_list = list(Package.objects.filter(restaurant=rest))
-		categories = set([item.category for item in pkg_list])
+		pkg_list = list(get_available_packages_restaurant(rest_id=rest.id))
+		categories = set([item.package.category for item in pkg_list])
 		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=rest,
-		                                branch=None), 'rating': get_rating_restaurant(kwargs['id'])}
+		       'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id'])}
 		return ctx
 
 
@@ -383,3 +384,7 @@ def FilteredProducts(request):
 	pkg_list &= get_price_range_package(0, 300)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
+
+
+for pkg in Package.objects.all():
+	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)
