@@ -216,11 +216,75 @@
   }
 },
 {
+  "model": "contenttypes.contenttype",
+  "pk": 28,
+  "fields": {
+    "app_label": "browse",
+    "model": "branchcomment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 29,
+  "fields": {
+    "app_label": "browse",
+    "model": "branchcommentreact"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 30,
+  "fields": {
+    "app_label": "browse",
+    "model": "branchrating"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 31,
+  "fields": {
+    "app_label": "browse",
+    "model": "packagebranchdetails"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 32,
+  "fields": {
+    "app_label": "browse",
+    "model": "useroffer"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 33,
+  "fields": {
+    "app_label": "customer",
+    "model": "notificationmonitor"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 34,
+  "fields": {
+    "app_label": "customer",
+    "model": "notification"
+  }
+},
+{
   "model": "sessions.session",
   "pk": "2i1qya78q570c9b164uetzqn42fvjgfa",
   "fields": {
     "session_data": "MDI2MzQzZGFlNjBkZWVlM2YwYzE2YWMxNWM1NzhjYWZmMWZkYmRiNTp7Il9hdXRoX3VzZXJfaWQiOiIxMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZDNkYmRiZTZiNDY4MWM0OGU2NjQ1NGI0ZmRiMjExNjA1NGFhMGRjNyJ9",
     "expire_date": "2019-08-11T10:13:39.621Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2n0r93oxwti60y4xjcgp926dah1s5pjm",
+  "fields": {
+    "session_data": "YmRiZWMwNmUyNGVlNDFkZjNhZTIxNjgyM2RlYzdiYTY0ZDY1ZTY3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNmE4NGRhNWM0MWM3OTBkMmIxMzYxNjZmNjdjOGFiMDA1MjRhN2ViIn0=",
+    "expire_date": "2019-08-24T07:49:07.061Z"
   }
 },
 {
@@ -233,10 +297,10 @@
 },
 {
   "model": "sessions.session",
-  "pk": "7xmw9gq6qatd6zbumpm303h7ic09485y",
+  "pk": "61pohvzp9rd18qxgs043t5ajxgmufl2n",
   "fields": {
-    "session_data": "M2ZkNmViOWMwYTBkNjUxZDJiNDY0ZmQxM2NkZDU4NGE3ODFhNTAxNjp7Il9hdXRoX3VzZXJfaWQiOiIyNCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMzZhNWNmNTQ2OTExOTk3ZjFhMTAyZTY2NjY1MmY4YTU0NWUxOThlMiJ9",
-    "expire_date": "2019-08-11T11:05:18.628Z"
+    "session_data": "MDZiMjNhMzZjMDUyZmMzNDk2NzgxOGMyNDExNmViY2Q5ZjkxNzJhYjp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NzBlZmY0MWY5NjkyZjIyYWQwYWEwOTIyY2UwYmIyMTdhMDliNzg5In0=",
+    "expire_date": "2019-08-24T11:33:59.347Z"
   }
 },
 {
@@ -523,6 +587,20 @@
   }
 },
 {
+  "model": "browse.package",
+  "pk": 11,
+  "fields": {
+    "pkg_name": "Chicken Cheese Burger Deluxe",
+    "for_n_persons": 1,
+    "price": 320,
+    "available": true,
+    "image": "menu/cuisine1_9VgMe85_1oEIKyp.jpg",
+    "details": "",
+    "category": "Burger",
+    "restaurant": 4
+  }
+},
+{
   "model": "browse.ingredientlist",
   "pk": 1,
   "fields": {
@@ -744,6 +822,112 @@
   "fields": {
     "pack_id": 9,
     "ingr_id": 11
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 31,
+  "fields": {
+    "pack_id": 11,
+    "ingr_id": 2
+  }
+},
+{
+  "model": "browse.ingredientlist",
+  "pk": 32,
+  "fields": {
+    "pack_id": 11,
+    "ingr_id": 3
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 3,
+  "fields": {
+    "package": 3,
+    "branch": 2,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 4,
+  "fields": {
+    "package": 2,
+    "branch": 1,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 5,
+  "fields": {
+    "package": 7,
+    "branch": 4,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 6,
+  "fields": {
+    "package": 8,
+    "branch": 4,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 7,
+  "fields": {
+    "package": 9,
+    "branch": 5,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
+  }
+},
+{
+  "model": "browse.packagebranchdetails",
+  "pk": 8,
+  "fields": {
+    "package": 11,
+    "branch": 2,
+    "available": true,
+    "offer_type": "N",
+    "offer_start_date": null,
+    "offer_expire_date": null,
+    "offer_discount": 0,
+    "offer_buy_n": 1,
+    "offer_get_n": 0
   }
 },
 {
@@ -1815,11 +1999,263 @@
   }
 },
 {
+  "model": "auth.permission",
+  "pk": 109,
+  "fields": {
+    "name": "Can add Branch Comment",
+    "content_type": 28,
+    "codename": "add_branchcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 110,
+  "fields": {
+    "name": "Can change Branch Comment",
+    "content_type": 28,
+    "codename": "change_branchcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 111,
+  "fields": {
+    "name": "Can delete Branch Comment",
+    "content_type": 28,
+    "codename": "delete_branchcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 112,
+  "fields": {
+    "name": "Can view Branch Comment",
+    "content_type": 28,
+    "codename": "view_branchcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 113,
+  "fields": {
+    "name": "Can add Branch Comment React",
+    "content_type": 29,
+    "codename": "add_branchcommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 114,
+  "fields": {
+    "name": "Can change Branch Comment React",
+    "content_type": 29,
+    "codename": "change_branchcommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 115,
+  "fields": {
+    "name": "Can delete Branch Comment React",
+    "content_type": 29,
+    "codename": "delete_branchcommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 116,
+  "fields": {
+    "name": "Can view Branch Comment React",
+    "content_type": 29,
+    "codename": "view_branchcommentreact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 117,
+  "fields": {
+    "name": "Can add Branch Rating",
+    "content_type": 30,
+    "codename": "add_branchrating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 118,
+  "fields": {
+    "name": "Can change Branch Rating",
+    "content_type": 30,
+    "codename": "change_branchrating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 119,
+  "fields": {
+    "name": "Can delete Branch Rating",
+    "content_type": 30,
+    "codename": "delete_branchrating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 120,
+  "fields": {
+    "name": "Can view Branch Rating",
+    "content_type": 30,
+    "codename": "view_branchrating"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 121,
+  "fields": {
+    "name": "Can add Package Details of Branch",
+    "content_type": 31,
+    "codename": "add_packagebranchdetails"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 122,
+  "fields": {
+    "name": "Can change Package Details of Branch",
+    "content_type": 31,
+    "codename": "change_packagebranchdetails"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 123,
+  "fields": {
+    "name": "Can delete Package Details of Branch",
+    "content_type": 31,
+    "codename": "delete_packagebranchdetails"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 124,
+  "fields": {
+    "name": "Can view Package Details of Branch",
+    "content_type": 31,
+    "codename": "view_packagebranchdetails"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 125,
+  "fields": {
+    "name": "Can add User Offer Details of Branch",
+    "content_type": 32,
+    "codename": "add_useroffer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 126,
+  "fields": {
+    "name": "Can change User Offer Details of Branch",
+    "content_type": 32,
+    "codename": "change_useroffer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 127,
+  "fields": {
+    "name": "Can delete User Offer Details of Branch",
+    "content_type": 32,
+    "codename": "delete_useroffer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 128,
+  "fields": {
+    "name": "Can view User Offer Details of Branch",
+    "content_type": 32,
+    "codename": "view_useroffer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 129,
+  "fields": {
+    "name": "Can add notification monitor",
+    "content_type": 33,
+    "codename": "add_notificationmonitor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 130,
+  "fields": {
+    "name": "Can change notification monitor",
+    "content_type": 33,
+    "codename": "change_notificationmonitor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 131,
+  "fields": {
+    "name": "Can delete notification monitor",
+    "content_type": 33,
+    "codename": "delete_notificationmonitor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 132,
+  "fields": {
+    "name": "Can view notification monitor",
+    "content_type": 33,
+    "codename": "view_notificationmonitor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 133,
+  "fields": {
+    "name": "Can add notification",
+    "content_type": 34,
+    "codename": "add_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 134,
+  "fields": {
+    "name": "Can change notification",
+    "content_type": 34,
+    "codename": "change_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 135,
+  "fields": {
+    "name": "Can delete notification",
+    "content_type": 34,
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 136,
+  "fields": {
+    "name": "Can view notification",
+    "content_type": 34,
+    "codename": "view_notification"
+  }
+},
+{
   "model": "accounts.user",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$onw3uLzAMPwD$PzlwPeoRhsxDZLcydN5/xPNHjrU/ZsdkopT7xmlMmFU=",
-    "last_login": "2019-07-28T11:05:46.997Z",
+    "last_login": "2019-08-17T06:23:41.880Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -1907,7 +2343,7 @@
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$150000$BhQjYBtRX0Mu$yP+E6K7z740eDafUHSqbXB/frih7Y9QnzrxI7+wMIIM=",
-    "last_login": "2019-07-18T14:20:43.060Z",
+    "last_login": "2019-08-10T11:33:59.341Z",
     "is_superuser": false,
     "username": "mrburgeradmin",
     "first_name": "",
@@ -1973,7 +2409,7 @@
   "pk": 10,
   "fields": {
     "password": "pbkdf2_sha256$150000$cuxkbEuVpEKT$dHwL2wqejBSPQuYa8KDC4Jd17S+UqCJZrHn4CqNJ8nA=",
-    "last_login": "2019-07-28T06:32:41.955Z",
+    "last_login": "2019-08-10T11:27:43.206Z",
     "is_superuser": false,
     "username": "mrburgerkhilgaonadmin",
     "first_name": "",
