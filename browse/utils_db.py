@@ -146,6 +146,7 @@ def get_reviews_branch(user_id, branch_id):
 		UNION\
 		DISTINCT\
 		select comment.branch_id,\
+			comment.id                       as comment_id,\
 			account.username                 as user_name,\
 			account.id                       as user_id,\
 			rate.rating,\
@@ -245,3 +246,36 @@ def post_comment_react_branch(user, comment_id, react):
 		react.disliked = (react == 'dislike')
 		react.save()
 	return get_react_count_branch(post)
+
+
+# ------------ Packages -----------------------------
+
+def get_named_package(name):
+	"""
+	:param name: package-name / restaurant-name / category-name / ingredient-name
+	:return: set of packages satisfying above criteria
+	"""
+	from browse.models import Package
+	return (Package.objects.filter(
+		pkg_name__icontains=name) | Package.objects.filter(
+		restaurant__restaurant_name__icontains=name) | Package.objects.filter(
+		ingr_list__name__icontains=name) | Package.objects.filter(
+		category__icontains=name)).distinct()
+
+
+def get_rated_package(rating=0):
+	from browse.models import PackageRating
+	from django.db.models import Avg
+	from math import floor
+	# from browse.models import Package
+	# return Package.objects.filter(id__in=[pkg_rating.package.id for pkg_rating in
+	#         PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
+	# 	        avg__gte=floor(rating))])
+	return PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
+		avg__gte=floor(rating)).values('package')
+
+
+def get_price_range_package(low=0.0, high=90000.0):
+	from browse.models import Package
+	from django.db.models import Q
+	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high))

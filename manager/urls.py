@@ -18,4 +18,7 @@ urlpatterns = [
 	path('accounts/', include('accounts.urls'), name='accounts'),
 	path('delivery_option/', views.DeliveryAvailability, name='delivery_option'),
 
+	# for branch manager
+	path('edit_menu/<int:id>/', views.EditMenuView.as_view(), name='package-branch-details')
+
 ]
