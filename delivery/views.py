@@ -1,7 +1,9 @@
+import json
 import re
 
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from django.views.generic import TemplateView
 
@@ -89,3 +91,27 @@ def acceptDelivery(request):
 	return JsonResponse({"accepted": True})
 
 # def acceptDelivered(request):
+
+# def delivery_details(request):
+# 	id = request.GET.get('id')
+# 	obj = None
+# 	# obj = Restaurant.objects.get(id=id)
+#
+# 	# given an order id, find order details i.e. which item in which quantity
+#
+# 	ser = serializers.serialize('json', [obj])
+# 	json_obj = json.loads((ser.strip('[]')))
+# 	print(json_obj['fields'])
+# 	return JsonResponse(json_obj['fields'])
+
+def delivery_details(request):
+	id = request.GET.get('id')
+	pkg_list = None
+	price = None #total Price here
+
+	# obj = Restaurant.objects.get(id=id)
+
+	# given an order id, find order details i.e. which item in which quantity and give total price
+
+
+	return render(request, 'delivery/delivery_modal.html', {'item_list': pkg_list , 'price' : price })

@@ -20,22 +20,16 @@
                         <div class="info-product-price">
                             <div class="grid_meta">
                                 <div class="product_price">
-{#                                    <h4>#}
-                                        <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
-{#                                    </h4>#}
+                                    {#                                    <h4>#}
+                                    <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
+                                    {#                                    </h4>#}
                                     <div class="grid-price mt-2">
                                         <span class="money ">BDT {{ item.price }}</span>
                                     </div>
                                 </div>
-                                <ul class="stars">
-                                    {% for star in rating %}
-                                        <li>
-                                            <a href="#">
-                                                <i class="fas fa-star"></i>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                {% for j in "12345" %}
+                                    <i class="fas fa-star" style="color:  #FFC107"></i>
+                                {% endfor %}
                             </div>
                             {#                                                <div class="toys single-item hvr-outline-out">#}
                             {#                                                    <button href="#" data-id="{{ item.id }}"#}

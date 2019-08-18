@@ -1,3 +1,6 @@
+from django.core import serializers
+import json
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -31,3 +34,12 @@ def requestAccept(request, id):
 	obj.restaurant_key = uniqueKey()
 	obj.save()
 	return redirect('/homepage/')
+
+
+def restaurantDetails(request):
+	id = request.GET.get('id')
+	obj = Restaurant.objects.get(id=id)
+	ser = serializers.serialize('json', [ obj ])
+	json_obj =  json.loads( (ser.strip('[]')) )
+	print(json_obj['fields'])
+	return JsonResponse(json_obj['fields'])

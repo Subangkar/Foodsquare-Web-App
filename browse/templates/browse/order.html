@@ -11,6 +11,9 @@
 
 
 {% block body-js %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <!-- price range (top products) -->
     <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
@@ -92,53 +95,43 @@
             <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Food list</h3>
             <div class="row">
                 <div class="side-bar col-lg-3">
-                    <form action="." method="GET">
-                        {#                        <div class="search-hotel">#}
-                        {#                            <input type="submit" value=" ">#}
-                        {#                        </div>#}
-                        <div class="search-hotel">
-                            {#                                                        <form action="." method="GET">#}
-                            {#                            <h3 class="agileits-sear-head">Search Here ...</h3>#}
-                            <input type="search" placeholder="Product name..." name="menu_search">
-                            {#                            <form name="search">#}
-                            {#                            <input type="submit" value=" ">#}
-                            {#                            <i class="fa fa-search"><input class="fa fa-search" type="submit" value=" "></i>#}
 
-                            {#                                                        </form>#}
-                        </div>
-                        <!-- price range -->
-                        <div class="range">
-                            <h3 class="agileits-sear-head">Price range</h3>
-                            <ul class="dropdown-menu6">
-                                <li>
+                    <div class="search-hotel">
 
-                                    <div id="slider-range"></div>
-                                    <input type="text" id="amount" name="range"
-                                           style="border: 0; color: #ffffff; font-weight: normal;"/>
-                                </li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div align="center">
-                            <button class="btn btn-warning" type="submit">
-                                <i class="fa fa-search"></i> Search
-                            </button>
+                        <input type="search" placeholder="Product name..." id="menu_search" name="menu_search">
 
+                    </div>
+                    <!-- price range -->
+                    <div class="price_range">
+                        <h3 class="agileits-sear-head">Price range</h3>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" id="min_range" placeholder="min" style="width: 100%">
+
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="max_range" placeholder="max" style="width: 100%">
+
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-danger" id="get_menus" >
+                                    <i class="fas fa-paper-plane"></i>Get
+                                </button>
+
+                            </div>
                         </div>
-                        <!-- //price range -->
-                        <!--preference -->
-                    </form>
+
+                    </div>
 
 
                     <div class="customer-rev left-side">
                         <h3 class="agileits-sear-head">Customer Review</h3>
-                        <ul>
-                            <form action="/rating_range" method="get" id="rating_form">
+                        <ul class="rating_group">
 
-                            </form>
                             <li>
 
-                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                <button name="5" style="border: none; outline: none; background: transparent;" >
                                     {% for j in "12345" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -148,33 +141,21 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
-                                    {% for j in "1234" %}
-                                        <i class="fas fa-star"></i>
-                                    {% endfor %}
-                                    {% for j in "5" %}
-                                        <i class="far fa-star"></i>
-                                    {% endfor %}
-                                </button>
-                                <span>And Up</span>
-
-                            </li>
-                            <li>
-
-                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
-                                    {% for j in "1234" %}
-                                        <i class="fas fa-star"></i>
-                                    {% endfor %}
-                                    {% for j in "5" %}
-                                        <i class="far fa-star"></i>
-                                    {% endfor %}
-                                </button>
-                                <span>And Up</span>
-
-                            </li>
-                            <li>
-
                                 <button type="submit" form="rating_form" name="4" style="border: none; outline: none; background: transparent;">
+                                    {% for j in "1234" %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% for j in "5" %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                </button>
+                                <span>And Up</span>
+
+                            </li>
+
+                            <li>
+
+                                <button type="submit" form="rating_form" name="3" style="border: none; outline: none; background: transparent;">
                                     {% for j in "123" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -187,7 +168,7 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="3" style="border: none; outline: none; background: transparent;">
+                                <button type="submit" form="rating_form" name="2" style="border: none; outline: none; background: transparent;">
                                     {% for j in "12" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -200,7 +181,7 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="5" style="border: none; outline: none; background: transparent;">
+                                <button type="submit" form="rating_form" name="1" style="border: none; outline: none; background: transparent;">
                                     {% for j in "1" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -213,29 +194,95 @@
                             </li>
                         </ul>
                     </div>
+
+                    <style>
+                        #mainselection select {
+                            border: none;
+                            outline: none;
+                            color: #000;
+                            background: transparent;
+                            font-size: 18px;
+                            font-weight: bold;
+                            padding: 2px 10px;
+                        {#width: 100%;#}
+                        {#*width: 100%;#}
+                        {#*background: #0a6aa1;#}
+                            -webkit-appearance: none;
+                        }
+
+                        #mainselection {
+                            overflow:hidden;
+                            width:70%;
+                            -moz-border-radius: 9px 9px 9px 9px;
+                            -webkit-border-radius: 9px 9px 9px 9px;
+                            border-radius: 9px 9px 9px 9px;
+                            box-shadow: 1px 1px 11px #330033;
+                            background: #9F0053;
+                        }
+
+                    </style>
+                    <div id="mainselection">
+                        <select id="rest_select">
+                            <option>Select an Option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                        </select>
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+
+
                 </div>
                 <div class="left-ads-display col-lg-9 product_list">
                     {% include "browse/product_list.html" %}
                 </div>
-                <button id="test">
-                    test ing
-                </button>
+
                 <script>
-                    $("#test").click(function() {
-                        $.ajax({
-                            method: "GET",
-                            url: 'filter/',
-                            data: {
+                    var rating = 1;
+                    var min_range = 0;
+                    var max_range = 10000;
+                    var menu_name;
+                    var rest_name;
+                    $(document).ready(function () {
+                        $('#rest_select').on('change', function() {
+                            alert( this.value );
+                        });
+                        $(".rating_group button").click(function () {
+                            rating = this.name;
+                            $('#get_menus').click();
+                            {#alert(rating);#}
+                        });
+                        $(".price_range button").click(function () {
+                            min_range = $('#min_range').val();
+                            max_range = $('#max_range').val();
+                            {#$('#get_menus').click();#}
 
-                            },
-                            responseTime: 200,
-
-                            success: function (data) {
-                                console.log(data);
-                                document.getElementsByClassName('product_list').innerHTML = data;
-
-                                $('.product_list').empty().append(data) ;
+                        });
+                        $('#menu_search').on('keypress', function (e) {
+                            var code = e.keyCode || e.which;
+                            if(code==13){
+                                menu_name = $("#menu_search").val();
+                                $('#get_menus').click();
                             }
+                        });
+                        $("#get_menus").click(function () {
+                            $.ajax({
+                                method: "GET",
+                                url: 'filter/',
+                                data: {
+                                    'rating': rating,
+                                    'min_range': min_range,
+                                    'max_range' : max_range,
+                                    'menu_name' : menu_name
+                                },
+                                responseTime: 200,
+
+                                success: function (data) {
+                                    console.log(data);
+                                    {#document.getElementsByClassName('product_list').innerHTML = data;#}
+
+                                    $('.product_list').empty().append(data);
+                                }
+                            });
                         });
                     });
                 </script>
