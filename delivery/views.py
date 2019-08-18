@@ -13,6 +13,7 @@ from accounts.models import *
 from accounts.utils import pretty_request
 from browse.forms import PackageForm
 from browse.models import Ingredient, IngredientList
+from delivery.utils_db import *
 
 
 class IndexView(TemplateView):
@@ -21,9 +22,6 @@ class IndexView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = {'loggedIn': self.request.user.is_authenticated}
 		return context
-
-	def post(self, request, *args, **kwargs):
-		pass
 
 
 class AcceptOrdersView(TemplateView):
@@ -90,6 +88,7 @@ def acceptDelivery(request):
 		order.save()
 	return JsonResponse({"accepted": True})
 
+
 # def acceptDelivered(request):
 
 # def delivery_details(request):
@@ -105,13 +104,10 @@ def acceptDelivery(request):
 # 	return JsonResponse(json_obj['fields'])
 
 def delivery_details(request):
+	"""
+	given an order id, find order details i.e. which item in which quantity and give total price
+	"""
 	id = request.GET.get('id')
-	pkg_list = None
-	price = None #total Price here
-
-	# obj = Restaurant.objects.get(id=id)
-
-	# given an order id, find order details i.e. which item in which quantity and give total price
-
-
-	return render(request, 'delivery/delivery_modal.html', {'item_list': pkg_list , 'price' : price })
+	pkg_list, price, deliver_charge = get_order_details(id)
+	return render(request, 'delivery/delivery_modal.html',
+	              {'item_list': pkg_list, 'price': price, 'deliver_charge': deliver_charge})
