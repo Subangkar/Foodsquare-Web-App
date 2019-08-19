@@ -1,13 +1,14 @@
 import re
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
 from accounts.forms import RestaurantForm
 from accounts.models import *
 from browse.forms import PackageForm
 from browse.models import Ingredient, IngredientList, PackageBranchDetails, Package
+from manager.utils_db import *
 
 
 class IndexView(TemplateView):
@@ -119,8 +120,8 @@ class EditMenuView(TemplateView):
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list
-		       }
+			   'ing_list': ing_list
+			   }
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -182,3 +183,31 @@ class ViewMenusView(TemplateView):
 		print(obj_list)
 		print('-----')
 		return {'menu_list': obj_list}
+
+
+class ViewBranchMenusView(TemplateView):
+	template_name = 'manager/manage_branchMenus.html'
+
+	def get_context_data(self, **kwargs):
+
+		return {'menu_list': get_packages_list_branch(self.request.user)}
+
+
+def branch_pkg_details(request):
+	return render(request, 'manager/branch_pkg_modal.html',
+			  {'pkg':get_package_branch(request.user, request.GET.get('id'))})
+
+
+def offerSubmit(request):
+	id = request.POST.get('id')
+	discount = request.POST.get('discount_amnt')
+	buy_amnt = request.POST.get('buy_amnt')
+	get_amnt = request.POST.get('get_amnt')
+	offer_type = request.POST.get('offer_type')
+
+
+
+def submitPkg_Availabilty(request):
+	id = request.POST.get('id')
+	is_available = True if request.POST.get('is_available') == 'True' else False
+	set_package_availability_branch(request.user, id, is_available)

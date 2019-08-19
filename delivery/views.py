@@ -108,6 +108,7 @@ def delivery_details(request):
 	given an order id, find order details i.e. which item in which quantity and give total price
 	"""
 	id = request.GET.get('id')
-	pkg_list, price, deliver_charge = get_order_details(id)
+	pkg_list,order, price, deliver_charge = get_order_details(id)
+	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
-	              {'item_list': pkg_list, 'price': price, 'deliver_charge': deliver_charge})
+	              {'item_list': pkg_list,'order':order, 'price': price, 'delivery_charge': deliver_charge})

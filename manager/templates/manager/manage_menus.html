@@ -20,6 +20,7 @@
 
                 <div style="height: 5vh">
                 </div>
+
                 <div class="panel-body">
                     <div class="table-responsive project-stats">
                         <table class="table">
@@ -31,10 +32,9 @@
                             </thead>
                             <tbody>
                             {% for menu in menu_list %}
-                                {{ menu }}
                                 <tr>
                                     <td>{{ menu.id }}</td>
-                                    <td>menu url bosbe</td>
+                                    <td><a href="/view_menu/{{ menu.id }}">{{ menu.pkg_name }}</a></td>
                                 </tr>
                             {% endfor %}
 

@@ -9,6 +9,11 @@ urlpatterns = [
 	path('', views.IndexView.as_view(), name='index'),
 	path('homepage/', views.EditRestaurantView.as_view(), name='homepage'),
 	path('orders/', views.ProcessOrdersView.as_view(), name='orders'),
+	path('view_branch_menus/', views.ViewBranchMenusView.as_view(), name='branch_menus'),
+	path('branch_pkg_details/', views.branch_pkg_details),
+	path('post_offer/', views.offerSubmit),
+	path('post_availability/', views.submitPkg_Availabilty),
+
 	path('add_menu/', views.AddMenuView.as_view(), name='add_menu'),
 	path('view_menu/', views.ViewMenusView.as_view(), name='view_menus'),
 	path('view_menu/<int:id>/', views.EditMenuView.as_view(), name='edit_menu'),

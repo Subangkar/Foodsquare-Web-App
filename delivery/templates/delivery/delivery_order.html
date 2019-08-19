@@ -38,7 +38,7 @@
 
                                 <tr>
 
-                                    <td><a href={{ order.id }}> </a> {{ order.id }}</td>
+                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a> </td>
                                     <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
@@ -113,13 +113,16 @@
         </div>
 
         {#    Modal #}
-        {% include "delivery/delivery_modal.html" %}
+        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
+            {% include "delivery/delivery_modal.html" %}
+        </div>
         <script>
             $(document).ready(function() {
 
-                $(".rests_class").click(function (event) {
+                $(".order_details").click(function (event) {
                     event.preventDefault();
+                    {#$("#delivery_modal").modal();#}
 
                     var addressValue = $(this).attr("href");
                     $.ajax({
@@ -130,10 +133,12 @@
                         },
                         success: function(data)
                         {
+                            {#alert(data);#}
+                            console.log(data);
                             {#console.log(data);#}
                             {#alert(data.trade_license);#}
 
-                            $('#delivery_modal').empty().append(data);
+                            $('#delivery_modal').html(data);
 
 
                             $("#delivery_modal").modal();

@@ -1,38 +1,38 @@
-<div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="rest_name"></h4>
-            </div>
-            <div class="modal-body" id="test_modal">
-                <div class="table-responsive project-stats">
-                    <table class="table">
-                        <thead>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="rest_name"></h4>
+            Deliver to {{ order.delivery.address }}
+        </div>
+        <div class="modal-body" id="test_modal">
+            <div class="table-responsive project-stats">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in item_list %}
+
                         <tr>
-                            <th>Item</th>
-                            <th>Qty</th>
-
+                            <td>{{ item.package.pkg_name }}</td>
+                            <td>{{ item.quantity }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {% for item in item_list %}
 
-                            <tr>
-                                <td>item.pkg_name</td>
-                                <td>item.qty</td>
-                            </tr>
+                    {% endfor %}
 
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-                Total Price : {{ price }}
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            Total Price : {{ price }}<br>
+            Delivery Charge : {{ delivery_charge }}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
     </div>
 </div>
