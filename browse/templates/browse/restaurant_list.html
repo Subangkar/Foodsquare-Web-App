@@ -1,0 +1,44 @@
+<div class="row">
+    {# Searched Product list show start #}
+    {% for restaurant in restaurants %}
+        <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
+            <div class="product-toys-info">
+                <div class="men-pro-item">
+                    <div class="men-thumb-item">
+                        <img src="/media/{{ restaurant.restaurantImg }}"
+                             class="img-thumbnail img-fluid" alt=""
+                             style="height: 170px;width: 290px">
+                        <div class="men-cart-pro">
+                            <div class="inner-men-cart-pro">
+                                <a href={{ restaurant.get_absolute_url }}
+                                           class="link-product-add-cart">Quick View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-info-product">
+                        <div class="info-product-price">
+                            <div class="grid_meta">
+                                <div class="product_price">
+                                    <h4>
+                                        <a href={{ restaurant.get_absolute_url }}>{{ restaurant.restaurant_name }}</a>
+                                    </h4>
+                                </div>
+                                <ul class="stars">
+                                    {#                                                        {% for star in restaurant.rating %}#}
+                                    {#                                                            <li>#}
+                                    {#                                                                <a href="#">#}
+                                    {#                                                                    <i class="fas fa-star"></i>#}
+                                    {#                                                                </a>#}
+                                    {#                                                            </li>#}
+                                    {#                                                        {% endfor %}#}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {# Searched Product list show start #}
+</div>

@@ -211,3 +211,10 @@ def submitPkg_Availabilty(request):
 	id = request.POST.get('id')
 	is_available = True if request.POST.get('is_available') == 'True' else False
 	set_package_availability_branch(request.user, id, is_available)
+
+
+class ManagerDashBoardView(TemplateView):
+	template_name = 'manager/manager_dashboard.html'
+
+	def get_context_data(self, **kwargs):
+		pass

@@ -41,7 +41,10 @@ class Index(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all()}
+		pkg_list = Package.objects.all()
+		rest_list = Restaurant.objects.all()
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all(),
+			   'item_list': pkg_list[:3], 'restaurants' : rest_list[0:4]}
 		return ctx
 
 
