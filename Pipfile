@@ -18,6 +18,9 @@ djangorestframework = "*"
 pillow = "*"
 psycopg2 = "*"
 geopy = "*"
+gunicorn = "*"
+whitenoise = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.7"

@@ -109,7 +109,7 @@ sessionLog\.txt
 
 \.vscode/
 
-media/
+# media/
 temp/
 
 server\.bat
