@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.loca
                  'api.localhost', 'admin.localhost', 'delivery.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'delivery.foodsquare.com',
                  'api.foodsquare.com',
-                 'foodsquare1.heroku.com', 'www.foodsquare1.heroku.com', 'manager.foodsquare1.heroku.com', 'delivery.foodsquare1.heroku.com',
-                 'api.foodsquare1.heroku.com',
+                 'foodsquare1.herokuapp.com', 'www.foodsquare1.herokuapp.com', 'manager.foodsquare1.herokuapp.com', 'delivery.foodsquare1.herokuapp.com',
+                 'api.foodsquare1.herokuapp.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
                  'api.foodsquare.net',
                  'admin.foodsquare.com']
@@ -210,14 +210,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
 
 
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # # Extra lookup directories for collectstatic to find static files
-# STATICFILES_DIRS = (
-    # os.path.join(PROJECT_ROOT, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 #  Add configuration for static files storage using whitenoise
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
