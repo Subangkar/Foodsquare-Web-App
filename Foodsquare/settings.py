@@ -21,6 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
 
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -28,6 +32,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.loca
                  'api.localhost', 'admin.localhost', 'delivery.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'delivery.foodsquare.com',
                  'api.foodsquare.com',
+                 'foodsquare1.heroku.com', 'www.foodsquare1.heroku.com', 'manager.foodsquare1.heroku.com', 'delivery.foodsquare1.heroku.com',
+                 'api.foodsquare1.heroku.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
                  'api.foodsquare.net',
                  'admin.foodsquare.com']
@@ -62,6 +68,8 @@ INSTALLED_APPS = [
 	'sslserver',
 
 	'django_hosts',
+
+	'whitenoise.runserver_nostatic',
 ]
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
@@ -70,6 +78,7 @@ MIDDLEWARE = [
 	'django_hosts.middleware.HostsRequestMiddleware',
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+	'whitenoise.middleware.WhiteNoiseMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -199,3 +208,19 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
+
+
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# # Extra lookup directories for collectstatic to find static files
+# STATICFILES_DIRS = (
+    # os.path.join(PROJECT_ROOT, 'static'),
+# )
+
+#  Add configuration for static files storage using whitenoise
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
