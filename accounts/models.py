@@ -75,6 +75,9 @@ class RestaurantBranch(models.Model):
 
 	restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
+	ratings = models.ManyToManyField(User, through='browse.BranchRating', related_name='branch_rating_user')
+	comments = models.ManyToManyField(User, through='browse.BranchComment', related_name='branch_comment_user')
+
 	class Meta:
 		verbose_name = "Branch"
 		verbose_name_plural = "Branches"
@@ -200,10 +203,14 @@ class Order(models.Model):
 	def __str__(self):
 		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment
 
+	def get_package_list(self):
+		return OrderPackageList.objects.filter(order=self)
+
 
 class OrderPackageList(models.Model):
 	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)
 	package = models.ForeignKey("browse.Package", verbose_name="Package", on_delete=models.CASCADE)
+	quantity = models.IntegerField(verbose_name="#Packages in this order", default=1)
 
 	class Meta:
 		verbose_name = "OrderPackageList"

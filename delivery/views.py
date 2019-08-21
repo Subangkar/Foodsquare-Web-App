@@ -1,7 +1,9 @@
+import json
 import re
 
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from django.views.generic import TemplateView
 
@@ -11,6 +13,7 @@ from accounts.models import *
 from accounts.utils import pretty_request
 from browse.forms import PackageForm
 from browse.models import Ingredient, IngredientList
+from delivery.utils_db import *
 
 
 class IndexView(TemplateView):
@@ -19,9 +22,6 @@ class IndexView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = {'loggedIn': self.request.user.is_authenticated}
 		return context
-
-	def post(self, request, *args, **kwargs):
-		pass
 
 
 class AcceptOrdersView(TemplateView):
@@ -88,4 +88,27 @@ def acceptDelivery(request):
 		order.save()
 	return JsonResponse({"accepted": True})
 
+
 # def acceptDelivered(request):
+
+# def delivery_details(request):
+# 	id = request.GET.get('id')
+# 	obj = None
+# 	# obj = Restaurant.objects.get(id=id)
+#
+# 	# given an order id, find order details i.e. which item in which quantity
+#
+# 	ser = serializers.serialize('json', [obj])
+# 	json_obj = json.loads((ser.strip('[]')))
+# 	print(json_obj['fields'])
+# 	return JsonResponse(json_obj['fields'])
+
+def delivery_details(request):
+	"""
+	given an order id, find order details i.e. which item in which quantity and give total price
+	"""
+	id = request.GET.get('id')
+	pkg_list,order, price, deliver_charge = get_order_details(id)
+	print(order.delivery)
+	return render(request, 'delivery/delivery_modal.html',
+	              {'item_list': pkg_list,'order':order, 'price': price, 'delivery_charge': deliver_charge})

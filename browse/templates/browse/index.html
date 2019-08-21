@@ -5,196 +5,37 @@
 
     <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}"/>
     <script src="{% static 'browse/js/awesomplete.js' %}" async></script>
+    {#      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Foodsquare | Home</title>
 {% endblock %}
 
 {% block body-header %}
-    <!-- Slideshow 4 -->
-    <div class="slider text-center">
-        <div class="callbacks_container">
-            <ul class="rslides" id="slider4">
-                <li>
-                    <div class="slider-img one-img">
-                        <div class="slider-info ">
-                            <div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
-                                <div class="container">
-                                    <div class="index-banner-info">
-                                        <div class="index-banner-info-head text-center wow fadeInLeft"
-                                             data-wow-delay="0.5s">
-                                            <h1>Network of over 5000 Restaurants</h1>
-                                            <div class="index-line">
-                                                <h2> To Order Online</h2>
-                                            </div>
-                                        </div>
-                                        <div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
-                                            <form>
-                                                <ul class="navmain">
-                                                    <li><span>Location Name</span>
-                                                        <input type="text" class="text" value="Secunderabad"
-                                                               onfocus="this.value = '';"
-                                                               onblur="if (this.value == '') {this.value = 'Secunderabad';}">
-                                                    </li>
-                                                    <li><span>Restaurant Name</span>
-                                                        <input class="awesomplete text"
-                                                               style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px;"
-                                                               list="restaurant_list"
-                                                               value="Swagath Grand"
-                                                               onfocus="this.value = '';"
-                                                               onblur="if (this.value == '') {this.value = 'Pizza Inn';}"
-                                                        />
-                                                        <datalist id="restaurant_list">
-                                                            {% for restaurant in restaurant_list %}
-                                                                <option>{{ restaurant.restaurant_name }}</option>
-                                                            {% endfor %}
-                                                        </datalist>
-                                                        <!-- <input type="text" class="text" value="Swagath Grand"
-															onfocus="this.value = '';"
-															onblur="if (this.value == '') {this.value = 'Swagath Grand';}"> -->
-                                                    </li>
-                                                    <li><span>Cuisine Name</span>
-                                                        <input type="text" class="text" value="Chicken Biriyani"
-                                                               onfocus="this.value = '';"
-                                                               onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
-                                                    </li>
-                                                </ul>
-                                                <br>
-                                                <br>
-                                                <ul>
-                                                    <li>
-                                                        <!-- <div class="index-srch"><button>Search</button></div> -->
-                                                    </li>
-                                                    <li>
-                                                        <div class="index-srch">
-                                                            <button></button>
-                                                        </div>
-                                                    </li>
-                                                    <!-- <li>
-														</li> -->
-                                                </ul>
-
-                                            </form>
 
 
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <!-- <li>
-					   <div class="slider-img two-img">
-						  <div class="slider-info ">
-							 <div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
-								<div class="container">
-								   <div class="index-banner-info">
-									  <div class="index-banner-info-head text-center wow fadeInLeft" data-wow-delay="0.5s">
-										 <h1>Network of over 5000 Restaurants</h1>
-										 <div class="index-line">
-											<h2> To Order Online</h2>
-										 </div>
-									  </div>
-									  <div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
-										 <form>
-											<ul class="navmain">
-											   <li><span>Location Name</span>
-												  <input type="text" class="text" value="Secunderabad"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Secunderabad';}">
-											   </li>
-											   <li><span>Restaurant Name</span>
-												  <input type="text" class="text" value="Swagath Grand"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
-											   </li>
-											   <li><span>Cuisine Name</span>
-												  <input type="text" class="text" value="Chicken Biriyani"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
-											   </li>
-											</ul>
-											<br>
-											<br>
-											<ul>
-											   <li>
-											   </li>
-											   <li>
-												  <div class="index-srch"><button></button></div>
-											   </li>
-											</ul>
-
-										 </form>
-
-
-									  </div>
-
-								   </div>
-								</div>
-							 </div>
-						  </div>
-					   </div>
-					</li> -->
-                <!-- <li>
-					   <div class="slider-img three-img">
-						  <div class="slider-info ">
-							 <div class="index-banner wow fadeInUp" data-wow-delay="0.4s" id="Home">
-								<div class="container">
-								   <div class="index-banner-info">
-									  <div class="index-banner-info-head text-center wow fadeInLeft" data-wow-delay="0.5s">
-										 <h1>Network of over 5000 Restaurants</h1>
-										 <div class="index-line">
-											<h2> To Order Online</h2>
-										 </div>
-									  </div>
-									  <div class="index-form-list wow fadeInRight" data-wow-delay="0.5s">
-										 <form>
-											<ul class="navmain">
-											   <li><span>Location Name</span>
-												  <input type="text" class="text" value="Secunderabad"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Secunderabad';}">
-											   </li>
-											   <li><span>Restaurant Name</span>
-												  <input type="text" class="text" value="Swagath Grand"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Swagath Grand';}">
-											   </li>
-											   <li><span>Cuisine Name</span>
-												  <input type="text" class="text" value="Chicken Biriyani"
-													 onfocus="this.value = '';"
-													 onblur="if (this.value == '') {this.value = 'Chicken Biriyani';}">
-											   </li>
-											</ul>
-											<br>
-											<br>
-											<ul>
-											   <li>
-											   </li>
-											   <li>
-												  <div class="index-srch"><button></button></div>
-											   </li>
-											</ul>
-
-										 </form>
-
-
-									  </div>
-
-								   </div>
-								</div>
-							 </div>
-						  </div>
-					   </div>
-					</li> -->
-            </ul>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner" style=" width:100%; height: 600px !important;">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{% static 'browse/images/slider1.jpg' %}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'browse/images/slider2.jpg' %}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'browse/images/slider3.jpg' %}" alt="Third slide">
+            </div>
         </div>
-        <!-- This is here just to demonstrate the callbacks -->
-        <!-- <ul class="events">
-				  <li>Example 4 callback events</li>
-				  </ul>-->
-        <div class="clearfix"></div>
+        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
+
 {% endblock %}
 
 {% block body-content %}
@@ -321,32 +162,32 @@
                             </li>
                         </ul>
                         <script type="text/javascript">
-							$(window).load(function () {
+                            $(window).load(function () {
 
-								$("#flexiselDemo3").flexisel({
-									visibleItems: 3,
-									animationSpeed: 1000,
-									autoPlay: false,
-									autoPlaySpeed: 3000,
-									pauseOnHover: true,
-									enableResponsiveBreakpoints: true,
-									responsiveBreakpoints: {
-										portrait: {
-											changePoint: 480,
-											visibleItems: 1
-										},
-										landscape: {
-											changePoint: 640,
-											visibleItems: 2
-										},
-										tablet: {
-											changePoint: 768,
-											visibleItems: 3
-										}
-									}
-								});
+                                $("#flexiselDemo3").flexisel({
+                                    visibleItems: 3,
+                                    animationSpeed: 1000,
+                                    autoPlay: false,
+                                    autoPlaySpeed: 3000,
+                                    pauseOnHover: true,
+                                    enableResponsiveBreakpoints: true,
+                                    responsiveBreakpoints: {
+                                        portrait: {
+                                            changePoint: 480,
+                                            visibleItems: 1
+                                        },
+                                        landscape: {
+                                            changePoint: 640,
+                                            visibleItems: 2
+                                        },
+                                        tablet: {
+                                            changePoint: 768,
+                                            visibleItems: 3
+                                        }
+                                    }
+                                });
 
-							});
+                            });
                         </script>
                         <script type="text/javascript"
                                 src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
@@ -356,93 +197,35 @@
         </div>
         <div class="index-popular-restaurents" id="Popular-Restaurants">
             <div class="container">
-                <div class="col-md-4 index-top-restaurents">
+                <div class="col-md-12 index-top-restaurents">
                     <div class="top-restaurent-head">
-                        <a href="/index/restaurants.html">
+                        <a href="/browse/restaurants/">
                             <h3 class="index-textLink" style="font-family:'Lobster Two', cursive;  ">Top
                                 Restaurants</h3>
                         </a>
                     </div>
                     <div class="index-top-restaurent-grids">
-                        <div class="index-top-restaurent-logos">
-                            <div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-1.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-2.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="index-res-img-1 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-3.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="index-res-img-2 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-4.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="index-res-img-1 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-5.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="index-res-img-2 nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-                                <img src="{% static 'browse/toys_shop/index/images/restaurent-6.jpg' %}"
-                                     class="img-responsive" alt=""/>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
+                        {% include "browse/restaurant_list.html" %}
                     </div>
                 </div>
-                <div class="col-md-8 index-top-cuisines">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="index-popular-restaurents" style="background: #F1F1F1;">
+            <div class="container">
+                <div class="col-md-12 index-top-cuisines">
                     <div class="index-top-cuisine-head">
-                        <a href="#">
+                        <a href="/browse">
                             <h3 class="index-textLink" style="font-family:'Lobster Two', cursive;  ">Top Cuisine</h3>
                         </a>
                     </div>
                     <div class="index-top-cuisine-grids">
-                        <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                            <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine1.jpg' %}"
-                                            class="img-responsive" alt=""/> </a>
-                            <label>Spicy Pizza</label>
-                        </div>
-                        <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                            <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine2.jpg' %}"
-                                            class="img-responsive" alt=""/> </a>
-                            <label>Chicken Burger</label>
-                        </div>
-                        <div class="index-top-cuisine-grid wow bounceIn" data-wow-delay="0.4s">
-                            <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine3.jpg' %}"
-                                            class="img-responsive" alt=""/> </a>
-                            <label>Chicken Nachos</label>
-                        </div>
-                        <div class="index-top-cuisine-grid nth-grid wow bounceIn" data-wow-delay="0.4s">
-                            <a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine4.jpg' %}"
-                                            class="img-responsive" alt=""/> </a>
-                            <label>Vegetable Salad</label>
-                        </div>
-                        <!-- <div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine5.jpg' %}"
-							                class="img-responsive" alt=""/> </a>
-							<label>Beef Steak</label>
-						</div>
-						<div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine6.jpg' %}"
-							                class="img-responsive" alt=""/> </a>
-							<label>Sweet</label>
-						</div>
-						<div class="index-top-cuisine-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine7.jpg' %}"
-							                class="img-responsive" alt=""/> </a>
-							<label>Mushroom Pizza</label>
-						</div>
-						<div class="index-top-cuisine-grid nth-grid nth-grid1 wow bounceIn" data-wow-delay="0.4s">
-							<a href=""><img src="{% static 'browse/toys_shop/index/images/cuisine8.jpg' %}"
-							                class="img-responsive" alt=""/> </a>
-							<label>Special Dessert</label>
-						</div> -->
+                        {% include "browse/product_list.html" %}
+
                         <div class="clearfix"></div>
                     </div>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -537,85 +320,85 @@
     <!--responsiveslides banner-->
     <script src="{% static 'browse/toys_shop/js/responsiveslides.min.js' %}"></script>
     <script>
-		// You can also use "$(window).load(function() {"
-		$(function () {
-			// Slideshow 4
-			$("#slider4").responsiveSlides({
-				auto: true,
-				pager: false,
-				nav: true,
-				speed: 900,
-				namespace: "callbacks",
-				before: function () {
-					$('.events').append("<li>before event fired.</li>");
-				},
-				after: function () {
-					$('.events').append("<li>after event fired.</li>");
-				}
-			});
+        // You can also use "$(window).load(function() {"
+        $(function () {
+            // Slideshow 4
+            $("#slider4").responsiveSlides({
+                auto: true,
+                pager: false,
+                nav: true,
+                speed: 900,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
 
-		});
+        });
     </script>
     <!--// responsiveslides banner-->
     <!--slider flexisel -->
     <script src="{% static 'browse/toys_shop/js/jquery.flexisel.js' %}"></script>
     <script>
-		$(window).load(function () {
-			$("#flexiselDemo1").flexisel({
-				visibleItems: 3,
-				animationSpeed: 3000,
-				autoPlay: true,
-				autoPlaySpeed: 2000,
-				pauseOnHover: true,
-				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: {
-					portrait: {
-						changePoint: 480,
-						visibleItems: 1
-					},
-					landscape: {
-						changePoint: 640,
-						visibleItems: 2
-					},
-					tablet: {
-						changePoint: 768,
-						visibleItems: 2
-					}
-				}
-			});
+        $(window).load(function () {
+            $("#flexiselDemo1").flexisel({
+                visibleItems: 3,
+                animationSpeed: 3000,
+                autoPlay: true,
+                autoPlaySpeed: 2000,
+                pauseOnHover: true,
+                enableResponsiveBreakpoints: true,
+                responsiveBreakpoints: {
+                    portrait: {
+                        changePoint: 480,
+                        visibleItems: 1
+                    },
+                    landscape: {
+                        changePoint: 640,
+                        visibleItems: 2
+                    },
+                    tablet: {
+                        changePoint: 768,
+                        visibleItems: 2
+                    }
+                }
+            });
 
-		});
+        });
     </script>
     <!-- //slider flexisel -->
     <!-- start-smoth-scrolling -->
     <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
     <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-		});
+        });
     </script>
     <!-- //here ends scrolling icon -->
 {% endblock %}

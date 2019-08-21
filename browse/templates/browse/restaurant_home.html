@@ -8,13 +8,13 @@
     <meta name="keywords" content="Cafe In Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
     </script>
 
     <link rel="stylesheet" href="{% static 'browse/toys_shop/css/shop.css' %}" type="text/css"/>
@@ -189,24 +189,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Banner Responsive slider -->
     <script src="{% static 'browse/Restaurant_homepage/js/responsiveslides.min.js' %}"></script>
     <script>
-		// You can also use "$(window).load(function() {"
-		$(function () {
-			// Slideshow 3
-			$("#slider3").responsiveSlides({
-				auto: true,
-				pager: false,
-				nav: true,
-				speed: 500,
-				namespace: "callbacks",
-				before: function () {
-					$('.events').append("<li>before event fired.</li>");
-				},
-				after: function () {
-					$('.events').append("<li>after event fired.</li>");
-				}
-			});
+        // You can also use "$(window).load(function() {"
+        $(function () {
+            // Slideshow 3
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
 
-		});
+        });
     </script>
     <!-- // Banner Responsive slider -->
 
@@ -214,7 +214,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.countup.js' %}"></script>
     <script>
-		$('.counter').countUp();
+        $('.counter').countUp();
     </script>
     <!-- //stats -->
 
@@ -230,28 +230,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/move-top.js' %}"></script>
     <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/easing.js' %}"></script>
     <script type="text/javascript">
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
     </script>
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
-		$(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			*/
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
 
-			$().UItoTop({easingType: 'easeOutQuart'});
+            $().UItoTop({easingType: 'easeOutQuart'});
 
-		});
+        });
     </script>
     <!-- //here ends scrolling icon -->
     <!-- start-smoth-scrolling -->
@@ -302,11 +302,107 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="row" style="height: 70%;">
 
         <div class="col-md-6">
+            {% if restaurant.is_branch %}
+
+                <font style="color: #7b3a3e">Rate us</font>
+                <div>
+                    <style>
+                        .rate {
+                            float: left;
+                            height: 46px;
+                            padding: 0 10px;
+                        }
+
+                        .rate:not(:checked) > input {
+                            position: absolute;
+                            top: -9999px;
+                        }
+
+                        .rate:not(:checked) > label {
+                            float: right;
+                            width: 1em;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            cursor: pointer;
+                            font-size: 30px;
+                            color: #ccc;
+                        }
+
+                        .rate:not(:checked) > label:before {
+                            content: '★ ';
+                        }
+
+                        .rate > input:checked ~ label {
+                            color: #ffc700;
+                        }
+
+                        .rate:not(:checked) > label:hover,
+                        .rate:not(:checked) > label:hover ~ label {
+                            color: #deb217;
+                        }
+
+                        .rate > input:checked + label:hover,
+                        .rate > input:checked + label:hover ~ label,
+                        .rate > input:checked ~ label:hover,
+                        .rate > input:checked ~ label:hover ~ label,
+                        .rate > label:hover ~ input:checked ~ label {
+                            color: #c59b08;
+                        }
+                    </style>
+
+                    <div class="  rate">
+                        <input type="radio" id="star5" name="rate" value="5"/>
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4"/>
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3"/>
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2"/>
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1"/>
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                    <script>
+                        $('.rate input').on('change', function () {
+                            var rate_val = $("input[type='radio'][name='rate']:checked").val();
+                            var csrftoken = getCookie('csrftoken');
+                            {% if loggedIn %}
+
+                                $.ajax({
+                                    type: "POST",
+                                    headers: {
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    url: 'submitRating/',
+                                    data: {
+                                        {% if restaurant.is_branch %}
+                                            'restaurant-id': {{ restaurant.branch.id }},
+                                        {% else %}
+                                            'restaurant-id': {{ restaurant.id }},
+                                        {% endif %}
+                                        'rating': rate_val
+
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+
+                                    }
+                                });
+
+                            {% else %}
+
+                                alert('Please log in to post review');
+                            {% endif %}
+                        });
+                    </script>
+                </div>
+            {% endif %}
         </div>
         {% if restaurant.is_branch %}
             <div class="col-md-2" style="border-right: 1px solid white;padding-top: 2%; ">
                 <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
             </div>
+
             {#                        {% if  %}#}
             <div class="col-md-2" style="border-right: 1px solid white;  ">
                 <font style="color: white">Closed<br> for delivery </font>
@@ -433,7 +529,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h3 class="heading text-center text-uppercase mb-5"> What We Do </h3>
 		<p class="aboutpara text-center">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. Donec posuere a massa sit amet sagittis. Nam ut nulla a ligula dictum imperdiet nec ut mauris. Etiam ipsum ipsum, ultrices id nisi ac, pretium efficitur ex. Vestibulum a maximus magna, sit amet ultrices nisi. In laoreet placerat turpis.</p>
-		
+
 		<div class="row about_grids mt-5">
 			<div class="col-md-4">
 				<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid" />
@@ -454,7 +550,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
 			</div>
 		</div>
-		
+
 	</div>
 </section>
 < //About us -->
@@ -553,79 +649,82 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
 
                     <script>
-						$('ul.gallery_nav > li').click(function (e) {
-							e.preventDefault();
-							var getItem = $(this).text();
-							$('ul.gallery_nav> li').removeClass('active');
-							$(this).addClass('active');
-							$('#test').text(getItem);
-							$('.navbar-toggler').click();
-							$(".filt").hide();
+                        $('ul.gallery_nav > li').click(function (e) {
+                            e.preventDefault();
+                            var getItem = $(this).text();
+                            $('ul.gallery_nav> li').removeClass('active');
+                            $(this).addClass('active');
+                            $('#test').text(getItem);
+                            $('.navbar-toggler').click();
+                            $(".filt").hide();
 
-							$('.' + getItem.trim()).show();
+                            $('.' + getItem.trim()).show();
 
-						});
+                        });
                     </script>
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
-                        {% for item in item_list %}
-                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
-                                <div class="product-toys-info">
-                                    <div class="men-pro-item">
-                                        <div class="men-thumb-item">
-                                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt="">
-                                            <div class="men-cart-pro">
-                                                <div class="inner-men-cart-pro">
-                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                        View</a>
-                                                </div>
-                                            </div>
-                                            <span class="product-new-top">New</span>
-                                        </div>
-                                        <div class="item-info-product">
-                                            <div class="info-product-price">
-                                                <div class="grid_meta">
-                                                    <div class="product_price">
-                                                        <h4>
-                                                            <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
-                                                        </h4>
-                                                        <div class="grid-price mt-2">
-                                                            <span class="money ">BDT {{ item.price }}/=</span>
-                                                        </div>
+                        {% for pkg_details in item_list %}
+                            {% with item=pkg_details.package %}
+                                <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
+                                    <div class="product-toys-info">
+                                        <div class="men-pro-item">
+                                            <div class="men-thumb-item">
+                                                <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
+                                                     alt="">
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                            View</a>
                                                     </div>
-                                                    <ul class="stars">
-                                                        {% for star in item.rating %}
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fas fa-star"></i>
-                                                                </a>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
                                                 </div>
-                                                <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
-                                                     id="cart-div">
-                                                    <button href="#" data-id="{{ item.id }}"
-                                                            data-name="{{ item.pkg_name }}"
-                                                            data-price="{{ item.price }}"
-                                                            data-restaurant-id="{{ restaurant.branch.id }}"
-                                                            class="add-to-cart toys-cart ptoys-cart">
-                                                        <i class="fas fa-cart-plus"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="product-new-top">20% off</span>
                                             </div>
-                                            {% if not restaurant.is_branch %}
-                                                <script>
-													document.getElementById('cart-div').style.display = "none";
-                                                </script>
-                                            {% endif %}
-                                            <div class="clearfix"></div>
+                                            <div class="item-info-product">
+                                                <div class="info-product-price">
+                                                    <div class="grid_meta">
+                                                        <div class="product_price">
+                                                            <h4>
+                                                                <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
+                                                            </h4>
+                                                            <div class="grid-price mt-2">
+                                                                <span class="money ">BDT {{ item.price }}/=</span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="stars">
+                                                            {% for star in item.rating %}
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fas fa-star"></i>
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                         id="cart-div">
+                                                        <button href="#" data-id="{{ item.id }}"
+                                                                data-name="{{ item.pkg_name }}"
+                                                                data-price="{{ item.price }}"
+                                                                data-restaurant-id="{{ restaurant.branch.id }}"
+                                                                class="add-to-cart toys-cart ptoys-cart">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                {% if not restaurant.is_branch %}
+                                                    <script>
+                                                        document.getElementById('cart-div').style.display = "none";
+                                                    </script>
+                                                {% endif %}
+                                                <div class="clearfix"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endwith %}
                         {% endfor %}
-                        {# Searched Product list show start #}
+                        {# Searched Product list show end #}
                     </div>
 
                     {#                        </li>#}

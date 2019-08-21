@@ -107,10 +107,9 @@
 										src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
 								<script src={% static 'browse/js/ajax_upload.js' %}></script>
-								<link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
-								      rel="stylesheet">
-								<!-- <link rel="stylesheet" href="{% static 'browse/css/myAutocomplete.css' %}"
-                                    type="text/css" /> -->
+{#								<link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"#}
+{#								      rel="stylesheet">#}
+
 								<style>
 									.autocomplete {
 										position: relative;
@@ -158,7 +157,7 @@
 								</style>
 								<!-- <div class="autocomplete"> -->
 								<form action="/browse/restaurants/" method="GET" id="location-based-search">
-									{#                                    {% csrf_token %}#}
+									                                    {% csrf_token %}
 									<input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
 									       id="delivery_input" style="background: transparent;" autocomplete="off">
 									<input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>

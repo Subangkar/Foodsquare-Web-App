@@ -1,37 +1,36 @@
 import re
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
-
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
-from accounts.forms import UserForm, RestaurantForm
-
+from accounts.forms import RestaurantForm
 from accounts.models import *
 from browse.forms import PackageForm
-from browse.models import Ingredient, IngredientList
+from browse.models import Ingredient, IngredientList, PackageBranchDetails, Package
+from manager.utils_db import *
 
 
 class IndexView(TemplateView):
 	template_name = 'manager/index.html'
 
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect(reverse('homepage'))
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		context = {'loggedIn': self.request.user.is_authenticated}
 		return context
-
-	def post(self, request, *args, **kwargs):
-		pass
 
 
 class ProcessOrdersView(TemplateView):
 	template_name = 'manager/manage_order.html'
 
 	def get_context_data(self, **kwargs):
-		# rests = Rest
 		branch = RestaurantBranch.objects.get(user=self.request.user)
 		obj_list = Order.objects.filter(branch=branch)  # .order_by('status', '-time')
 		print(branch)
-		# print(obj_list)
 		print('-----')
 		return {'object_list': obj_list, 'branch': branch}
 
@@ -40,27 +39,22 @@ class EditRestaurantView(TemplateView):
 	template_name = 'manager/edit_restaurant.html'
 
 	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect(reverse('index'))
 		if request.user.is_branch_manager:
 			return redirect('/orders/')
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditRestaurantView, self).get_context_data(kwargs=kwargs)
-		print(context)
-		# if self.request.user.is_branch_manager:
-		# 	self.template_name = 'manager/manage_order.html'
-		# pass
-		# elif self.request.user.is_manager:
-		context['restaurant'] = User.objects.get(id=self.request.user.id).restaurant
-		# pass
+		if self.request.user.is_authenticated and self.request.user.is_manager:
+			context['restaurant'] = User.objects.get(id=self.request.user.id).restaurant
 		return context
 
 	def post(self, request, *args, **kwargs):
 		print(request)
-		oldUser = User.objects.get(id=request.user.id)
-		user_form = UserForm(request.POST, oldUser)
 		profile = User.objects.get(id=self.request.user.id).restaurant
-		profile.user = oldUser
+		profile.user = request.user
 		profile_form = RestaurantForm(
 			request.POST or None, request.FILES or None, instance=profile)
 		print(profile_form)
@@ -68,9 +62,6 @@ class EditRestaurantView(TemplateView):
 			profile_form.save()
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-		# if user_form.is_valid():
-		# user = user_form.save(commit=False)
-		# user.save()
 
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
@@ -89,13 +80,9 @@ class AddMenuView(TemplateView):
 		return context
 
 	def post(self, request, *args, **kwargs):
-		oldUser = User.objects.get(id=request.user.id)
-		user_form = UserForm(request.POST, oldUser)
 		restaurant = User.objects.get(id=self.request.user.id).restaurant
 		print(request.POST)
-		menu_form = PackageForm(
-			request.POST or None, request.FILES or None)
-		# print(menu_form)
+		menu_form = PackageForm(request.POST or None, request.FILES or None)
 		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
 		print(menu_form)
 		if menu_form.is_valid():
@@ -107,6 +94,57 @@ class AddMenuView(TemplateView):
 				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
 				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
 				IngredientList.objects.create(pack_id=menu, ingr_id=ingrd)
+			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
+			return HttpResponse("<h1>Menu Added Up</h1>")
+
+		else:
+			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
+		pass
+
+
+class EditMenuView(TemplateView):
+	template_name = 'manager/edit_menu.html'
+
+	def get(self, request, *args, **kwargs):
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		""" Prevent Accessing Other Restaurants Package """
+		id = kwargs['id']
+		pkg = Package.objects.get(id=id)
+		if not pkg.is_editable(self.request.user):
+			pkg = None
+			ing_list = None
+		else:
+			ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		# comments = PackageReview.objects.filter(package=pkg)
+		user_id = self.request.user.id if self.request.user.is_authenticated else 0
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
+			   'ing_list': ing_list
+			   }
+		return ctx
+
+	def post(self, request, *args, **kwargs):
+		id = kwargs['id']
+
+		pkg = Package.objects.get(id=id)
+		if not pkg.is_editable(self.request.user):
+			return HttpResponse("<h1>Access Error: Not permitted to edit for current user<h1>")
+		restaurant = User.objects.get(id=self.request.user.id).restaurant
+		print(request.POST)
+		menu_form = PackageForm(request.POST or None, request.FILES or None, instance=pkg)
+		ingrd_list = request.POST.getlist('ingrds')[0].split(',')
+		print(menu_form)
+		if menu_form.is_valid():
+			menu = menu_form.save(commit=False)
+			menu.restaurant = restaurant
+			print(menu)
+			menu.save()
+			for tmp in ingrd_list:
+				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
+				IngredientList.objects.get_or_create(pack_id=menu, ingr_id=ingrd)
+			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
 			return HttpResponse("<h1>Menu Added Up</h1>")
 
 		else:
@@ -134,3 +172,49 @@ def acceptOrder(request):
 	order.order_status = order.PROCESSING
 	order.save()
 	return JsonResponse({'order': 'placed'})
+
+
+class ViewMenusView(TemplateView):
+	template_name = 'manager/manage_menus.html'
+
+	def get_context_data(self, **kwargs):
+		restaurant = User.objects.get(id=self.request.user.id).restaurant
+		obj_list = Package.objects.filter(restaurant=restaurant)  # .order_by('status', '-time')
+		print(obj_list)
+		print('-----')
+		return {'menu_list': obj_list}
+
+
+class ViewBranchMenusView(TemplateView):
+	template_name = 'manager/manage_branchMenus.html'
+
+	def get_context_data(self, **kwargs):
+
+		return {'menu_list': get_packages_list_branch(self.request.user)}
+
+
+def branch_pkg_details(request):
+	return render(request, 'manager/branch_pkg_modal.html',
+			  {'pkg':get_package_branch(request.user, request.GET.get('id'))})
+
+
+def offerSubmit(request):
+	id = request.POST.get('id')
+	discount = request.POST.get('discount_amnt')
+	buy_amnt = request.POST.get('buy_amnt')
+	get_amnt = request.POST.get('get_amnt')
+	offer_type = request.POST.get('offer_type')
+
+
+
+def submitPkg_Availabilty(request):
+	id = request.POST.get('id')
+	is_available = True if request.POST.get('is_available') == 'True' else False
+	set_package_availability_branch(request.user, id, is_available)
+
+
+class ManagerDashBoardView(TemplateView):
+	template_name = 'manager/manager_dashboard.html'
+
+	def get_context_data(self, **kwargs):
+		pass

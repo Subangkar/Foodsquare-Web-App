@@ -12,11 +12,12 @@ from browse.models import *
 from browse.utils import *
 
 from accounts.models import Payment
+from browse.utils_db import *
 
 
 def getUniqueBkashRef(N=10):
 	while True:
-		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10))
+		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=N))
 		if not Payment.objects.filter(bkash_ref=key).exists():
 			return key
 
@@ -40,7 +41,10 @@ class Index(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all()}
+		pkg_list = Package.objects.all()
+		rest_list = Restaurant.objects.all()
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all(),
+			   'item_list': pkg_list[:3], 'restaurants' : rest_list[0:4]}
 		return ctx
 
 
@@ -88,9 +92,12 @@ class PackageDetails(TemplateView):
 		pkg = Package.objects.get(id=id)
 		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
 		# comments = PackageReview.objects.filter(package=pkg)
-		comments = None
+		user_id = self.request.user.id if self.request.user.is_authenticated else 0
+		comments = get_reviews_package(user_id, id)
+		print(get_rating_count_package(id))
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list, 'rating': range(5), 'comments': comments}
+		       'ing_list': ing_list, 'comments': comments, 'ratings': get_rating_count_package(id),
+		       'avg_rating': get_rating_package(id)}
 		return ctx
 
 
@@ -140,6 +147,7 @@ class CheckoutView(TemplateView):
 		total_price = 0
 		for pkg in pkg_list:
 			total_price += pkg['price'] * pkg['quantity']
+		total_price += total_price * 0.1  # 10% delivery charge
 
 		# set payment_type + status
 		payment = None
@@ -164,7 +172,8 @@ class CheckoutView(TemplateView):
 		# print(order)
 		for pkg in pkg_list:
 			print(Package.objects.get(id=pkg['id']))
-			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id'])).save()
+			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id']),
+			                 quantity=int(pkg['quantity'])).save()
 
 		return redirect("/")
 
@@ -285,13 +294,14 @@ class RestaurantBranchDetails(TemplateView):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		branch = RestaurantBranch.objects.get(id=kwargs['id'])
-		pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
-		categories = set([item.category for item in pkg_list])
+		# pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
+		pkg_list = list(get_available_packages_branch(branch_id=branch.id))
+		categories = set([item.package.category for item in pkg_list])
 
-		print(pkg_list)
+		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=branch.restaurant,
-		                                branch=branch)}
+		       'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
+		       'rating': get_rating_branch(kwargs['id'])}
 		return ctx
 
 
@@ -306,49 +316,78 @@ class RestaurantDetails(TemplateView):
 		# price_range = self.request.GET.get('range')
 
 		rest = Restaurant.objects.get(id=kwargs['id'])
-		# branch = RestaurantBranch.objects.get(id=kwargs['id'])
-		pkg_list = list(Package.objects.filter(restaurant=rest))
-		categories = set([item.category for item in pkg_list])
+		pkg_list = list(get_available_packages_restaurant(rest_id=rest.id))
+		categories = set([item.package.category for item in pkg_list])
 		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=rest,
-		                                branch=None)}
+		       'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id'])}
 		return ctx
 
+
 #
-# def reactSubmit(request):
-# 	print(request)
-# 	if not request.user.is_authenticated:
-# 		return
-# 	pkg_id = request.POST.get('pkg-id')
-# 	react = request.POST.get('react')
-# 	post_id = request.POST.get('comment-id')
-# 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
-# 	user = request.user
-# 	post = PackageReview.objects.get(id=post_id)
-# 	like = (react == 'like')
-# 	dislike = (react == 'dislike')
-# 	if Reacts.objects.exists(post=post, user=user):
-# 		react = Reacts.objects.get(post=post, user=user)
-# 	else:
-# 		react = Reacts(post=post, user=user)
-# 	if like:
-# 		react.liked = like
-# 	if dislike:
-# 		react.disliked = dislike
-# 	react.save()
-# 	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
-#
-#
-# def postSubmit(request):
-# 	print(request)
-# 	pkg_id = request.POST.get('pkg-id')
-# 	comment = request.POST.get('comment')
-# 	package = Package.objects.exclude(user=request.user).get(id=pkg_id)
-# 	user = request.user
-# 	if PackageReview.objects.exists(package=package, user=user):
-# 		post = PackageReview.objects.get(package=package, user=user)
-# 		post.desc = comment
-# 		post.save()
-# 	else:
-# 		PackageReview(desc=comment, package=package, user=user).save()
+def reactSubmit(request, id):
+	print(request)
+	if not request.user.is_authenticated:
+		return
+	pkg_id = request.POST.get('pkg-id')
+	react = request.POST.get('react')
+	post_id = request.POST.get('comment-id')
+	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+	user = request.user
+	post_comment_react_package(user, post_id, react)
+	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
+
+
+def submitReview(request, id):
+	print(request)
+	pkg_id = request.POST.get('pkg-id')
+	comment = request.POST.get('comment')
+	user = request.user
+
+	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+	post_comment_package(user, pkg_id, comment)
+	return JsonResponse({'success': 'success'})
+
+
+def submitPackageRating(request, id):
+	pkg_id = request.POST.get('pkg-id')
+	rating = request.POST.get('rating')
+	user = request.user
+
+	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+	post_rating_package(user, pkg_id, rating)
+	return
+
+
+def reactOn(request, id):
+	print(request)
+	pkg_id = request.POST.get('pkg-id')
+	rating = request.POST.get('rating')
+	user = request.user
+
+	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
+	post_rating_package(user, pkg_id, rating)
+	return
+
+
+def submitBranchRating(request):
+	branch_id = request.POST.get('restaurant-id')
+	rating = request.POST.get('rating')
+	user = request.user
+
+	post_rating_branch(user, branch_id, rating)
+	return
+
+
+def FilteredProducts(request):
+	entry_name = request.GET.get('menu_search')
+	price_range = request.GET.get('range')
+	pkg_list = get_named_package(entry_name)
+	pkg_list &= get_rated_package(5)
+	pkg_list &= get_price_range_package(0, 300)
+
+	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
+
+
+for pkg in Package.objects.all():
+	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)

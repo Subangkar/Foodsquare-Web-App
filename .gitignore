@@ -109,7 +109,10 @@ sessionLog\.txt
 
 \.vscode/
 
-media/
+# media/
 temp/
 
 server\.bat
+
+**/migrations/**
+!**/migrations/__init__.py

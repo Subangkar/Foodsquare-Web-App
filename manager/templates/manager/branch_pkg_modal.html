@@ -1,0 +1,35 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <b class="modal-title" id="exampleModalLabel">Package: </b> {{ pkg.package.pkg_name }}
+            <input type="hidden" id="pkg_id">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Offer Type:</label>
+                <select id="offer_option">
+                    <option value="buy_get">Buy N Get N</option>
+                    <option value="discount">Discount</option>
+                </select>
+            </div>
+            <div class="form-group buy_get" >
+                <label for="message-text" class="col-form-label">Buy :</label>
+                <input type="text"  id="buy_amnt" name="buy_amnt" size="4">
+                <label for="message-text" class="col-form-label">Get :</label>
+                <input type="text"  id="get_amnt" name="get_amnt" size="4">
+            </div>
+            <div class="form-group discount" style="display: none;">
+                <label for="message-text" class="col-form-label">Discount:</label>
+                <input type="text"  id="discount_amnt" name="discount_amnt" size="4">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submit_offer" data-dismiss="modal">Submit</button>
+        </div>
+    </div>
+</div>
+

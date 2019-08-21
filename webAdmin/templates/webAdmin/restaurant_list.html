@@ -2,6 +2,13 @@
 
 {% block header %}
     <title>Foodsquare </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Remember to include jQuery :) -->
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>#}
+    {##}
+    {#    <!-- jQuery Modal -->#}
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>#}
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />#}
 {% endblock %}
 
 <!-- <span class="label label-success">Finished</span></td> -->
@@ -31,44 +38,23 @@
                             {% for restaurant in object_list %}
 
                                 <tr>
-                                    <td>{{ restaurant.restaurant_name }}</td>
+                                    <td><a href="{{ restaurant.id }}" class="rests_class">{{ restaurant.restaurant_name }}</a></td>
                                     {% if restaurant.restaurant_key == '0' %}
                                         <td><span class="label label-danger">Pending</span></td>
                                     {% else %}
                                         <td><span class="label label-success">Registered</span></td>
                                     {% endif %}
                                     <td>{{ restaurant.user.username }}</td>
-                                    {% comment %} <script>
-                                    $(function () {
-                                        $("#requestAcceptForm").submit(function (event) {
-                                            // Stop form from submitting normally
-                                            event.preventDefault();
-                                            var reqForm = $(this);
-                                            // Send the data using post
-                                            var posting = $.post(reqForm.attr('action'), reqForm.serialize());
-                                            // if success:
-                                            posting.done(function (data) {
-                                                // success actions, maybe change submit button to 'friend added' or whatever
-                                            });
-                                            // if failure:
-                                            posting.fail(function (data) {
-                                                // 4xx or 5xx response, alert user about failure
-                                            });
-                                        });
-                                    });
-                                </script> {% endcomment %}
+
                                     <td>
                                         <form action="/accept/{{ restaurant.id }}/" method="post"
                                               id="requestAcceptForm">
                                             {% csrf_token %}
-                                            {#                                                <input type="submit" name="requestAccept" value="Approve"#}
-                                            {#                                                   style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
                                             {% if restaurant.restaurant_key == '0' %}
                                                 <input type="submit" name="requestAccept" value="Approve"
                                                        style="background-color: transparent; border: none; outline: none;color: tomato"/>
                                                 <td><span class="label label-danger">Pending</span></td>
                                             {% else %}
-                                                {#                                                <td><span class="label label-success">Registered</span></td>#}
                                                 <input name="" value="View Log" disabled="disabled"
                                                        style="background-color: transparent; border: none; outline: none;color: green"/>
                                             {% endif %}
@@ -76,17 +62,58 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <!-- <tr>
-                                <td>Wordpress Theme</td>
-                                <td><span class="label label-success">Finished</span></td>
-                                </td>
-                                <td>Sandra Smith</td>
-                                <td>
-                                    <a href="#" style="color: brown"> Request</a>
-                                </td>
-                            </tr> -->
+
                             </tbody>
                         </table>
+                        <script>
+                            $(document).ready(function() {
+
+                                $(".rests_class").click(function (event) {
+                                    event.preventDefault();
+
+                                    var addressValue = $(this).attr("href");
+                                    {#alert(addressValue );#}
+                                    {#$("#rest_modal").modal();#}
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/restaurant_info",
+                                        data: {
+                                            'id' :  $(this).attr("href")
+                                        },
+                                        success: function(data)
+                                        {
+                                            {#console.log(data);#}
+                                            {#alert(data.trade_license);#}
+
+                                            $('#trade_license').text(data.trade_license);
+                                            $('#rest_name').text(data.restaurant_name);
+
+                                            $("#rest_modal").modal();
+                                        }
+                                    });
+
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Launch demo modal</button>#}
+        <div class="modal fade" id="rest_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="rest_name"></h4>
+                    </div>
+                    <div class="modal-body" id="test_modal">
+                        Restaruant Name : <font id="rest_name"></font><br>
+                        Trade License Number : <font id="trade_license"></font>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

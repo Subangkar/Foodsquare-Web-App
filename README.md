@@ -1,12 +1,11 @@
 # Foodsquare-Web-App
 
-root  
-	- Browse Page  
-	- login/signup select  
-
-accounts  
-	- login  
-	- signup  
-
-order  
-	-		
+Systems:
+- User Session Handling
+- Third Party Authentication
+- Sub-domain Handling
+- Shopping Cart Management
+- Local Storage Handling
+- Online Payment Handling
+- Review-Rating Management
+- Push Notification Management  

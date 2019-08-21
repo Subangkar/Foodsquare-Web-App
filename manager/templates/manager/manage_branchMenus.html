@@ -1,0 +1,193 @@
+{% extends 'manager/base.html' %}
+
+{% block header %}
+    <title>Foodsquare </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% load static %}
+    <script src ="{% static 'ajaxRequest.js' %}"></script>
+
+{% endblock %}
+
+{% block slidebar %}
+    <li><a href="/orders/" class="waves-effect waves-button"><span
+            class="menu-icon glyphicon glyphicon-home"></span>
+        <p>Orders</p>
+    </a></li>
+    <li><a href="/view_branch_menus/" class="waves-effect waves-button"><span
+            class="menu-icon glyphicon glyphicon-home"></span>
+        <p>View Menus</p>
+    </a></li>
+{% endblock %}
+
+{% block body-content %}
+    <div class="page-inner">
+        {% load static %}
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-white">
+
+
+                <div style="height: 5vh">
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive project-stats">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Menu Id</th>
+                                <th>Name</th>
+                                <th>Availability</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for menu in menu_list %}
+                                {#                                {{ menu }}#}
+                                <tr>
+                                    <td>{{ menu.id }}</td>
+                                    <td><a href="{{ menu.id }}" class="pkg_details">{{ menu.package.pkg_name }}</a></td>
+                                    <td>
+                                        {% if menu.is_available == True %}
+                                            <button type="button" class="btn btn-danger available_status" name="False">Mark As Not Available</button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-info available_status" name="True">Mark As Available</button>
+
+                                        {% endif %}
+                                        <script>
+                                            var csrftoken = getCookie('csrftoken');
+
+
+                                            $(".available_status").click(function () {
+
+
+                                                $.ajax({
+                                                    type:"POST",
+                                                    headers:{
+                                                        "X-CSRFToken": csrftoken
+                                                    },
+                                                    url: '/post_availability/',
+                                                    data: {
+                                                        'pkg_id': {{ menu.id }} ,
+                                                        {#'deliveryMan_id' : {{ user.id }},#}
+                                                        'is_available': this.name
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        console.log(data);
+                                                        alert('Order waiting for delivery-man approval');
+                                                    }
+                                                });
+
+                                            });
+
+                                        </script>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {#    Modal #}
+    <div class="modal fade" id="pkg_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        {% include "manager/branch_pkg_modal.html" %}
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $(".pkg_details").click(function (event) {
+                event.preventDefault();
+                {#alert('hi');#}
+                {#$("#delivery_modal").modal();#}
+
+                var addressValue = $(this).attr("href");
+                $.ajax({
+                    type: "GET",
+                    url: "/branch_pkg_details",
+                    data: {
+                        'id' :  $(this).attr("href")
+                    },
+                    success: function(data)
+                    {
+                        {#alert(data);#}
+                        {#console.log(data);#}
+                        {#console.log(data);#}
+                        {#alert(data.trade_license);#}
+
+                        $('#pkg_modal').html(data);
+
+
+                        $("#pkg_modal").modal();
+                    }
+                });
+
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).on('change', '#offer_option', function(){
+            var val = this.value;
+
+            if(val === 'discount'){
+                $('.buy_get').hide();
+                $('.discount').show();
+
+
+            }else{
+                $('.discount').hide();
+                $('.buy_get').show();
+            }
+        });
+        $(document).on('click', '#submit_offer', function(){
+            var offer_type = $('#offer_option').val();            alert(offer_type);
+
+            var discount = -1;
+            var buy_amnt = -1;
+            var get_amnt = -1;
+
+            if(offer_type === 'discount'){
+                discount =  $('#discount_amnt').val();
+
+            }else{
+                buy_amnt = $('#buy_amnt').val();
+                get_amnt = $('#get_amnt').val();
+
+            }
+            {#alert(discount);#}
+
+            var csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                type:"POST",
+                headers:{
+                    "X-CSRFToken": csrftoken
+                },
+                url: '/post_offer',
+                data: {
+                    'offer_type': offer_type,
+                    'id': $('#pkg_id').val(),
+                    'discount_amnt': discount,
+                    'get_amnt' : get_amnt,
+                    'buy_amnt' : buy_amnt
+                },
+                dataType: 'json',
+                success: function (data) {
+
+
+                }
+            });
+
+
+        });
+
+
+    </script>
+{% endblock %}
