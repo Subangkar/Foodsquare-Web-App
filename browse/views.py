@@ -117,7 +117,8 @@ class CheckoutView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		elements = [OrderElement_t(1), OrderElement_t(2)]
+		# elements = [OrderElement_t(1), OrderElement_t(2)]
+		elements = []
 		ctx = {'num_items': range(0, len(elements)), 'elements': elements,
 		       'loggedIn': self.request.user.is_authenticated}
 		return ctx
