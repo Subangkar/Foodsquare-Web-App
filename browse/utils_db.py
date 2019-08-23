@@ -334,3 +334,22 @@ def get_searched_packages_restaurant(rest_id, search_key):
 	                                                Q(package__category__icontains=search_key) |
 	                                                Q(package__ingr_list__name__icontains=search_key))).distinct()
 	return filter(lambda pkg: pkg.package.is_available_in_any_branch(), packages)
+
+
+#  ----------------------- Insert utils -------------------------
+def insert_package(pkg_name, inglist, price, for_n_persons, category, restaurant_id):
+	from browse.models import Package
+	from accounts.models import Restaurant
+	restaurant = Restaurant.objects.get(id=restaurant_id)
+	package, _ = Package.objects.get_or_create(pkg_name=pkg_name, category=category, price=price,
+	                                           for_n_persons=for_n_persons,
+	                                           restaurant=restaurant)
+	for ingr in inglist:
+		from browse.models import Ingredient
+		from browse.models import IngredientList
+		ingr = str(ingr).strip().lower()
+		ingredient, _ = Ingredient.objects.get_or_create(name=ingr)
+		IngredientList.objects.get_or_create(package=package, ingredient=ingredient)
+
+	from browse.models import PackageBranchDetails
+	PackageBranchDetails.add_package_to_all_branches(package.restaurant, package)

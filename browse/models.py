@@ -61,8 +61,8 @@ class Package(models.Model):
 
 
 class IngredientList(models.Model):
-	pack_id = models.ForeignKey(Package, on_delete=models.CASCADE)
-	ingr_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+	package = models.ForeignKey(Package, on_delete=models.CASCADE)
+	ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = "IngredientList"

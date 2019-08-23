@@ -363,6 +363,10 @@ class BranchRegisterView(TemplateView):
 		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
 		#                  email=request.POST['email'])
 		print(branch)
+		from browse.models import Package
+		for package in Package.objects.filter(restaurant=branch.restaurant):
+			from browse.models import PackageBranchDetails
+			PackageBranchDetails.add_package_to_all_branches(package.restaurant, package)
 		return redirect('/homepage')
 
 
