@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
 	path('editProfile/', views.EditProfileView.as_view()),
 	path('myOrders/', views.myOrdersList.as_view()),
+	path('get_notifications/', views.get_notifications),
 
 ]
