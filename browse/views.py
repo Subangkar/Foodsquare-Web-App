@@ -344,10 +344,10 @@ def reactSubmit(request, id):
 
 
 def submitReview(request, id):
-	print(request)
 	pkg_id = request.POST.get('pkg-id')
 	comment = request.POST.get('comment')
 	user = request.user
+	print(pkg_id, " ", comment, " ", user)
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_comment_package(user, pkg_id, comment)
@@ -358,6 +358,7 @@ def submitPackageRating(request, id):
 	pkg_id = request.POST.get('pkg-id')
 	rating = request.POST.get('rating')
 	user = request.user
+	print(pkg_id, " ", rating, " ", user)
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_package(user, pkg_id, rating)

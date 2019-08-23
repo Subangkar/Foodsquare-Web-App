@@ -1,4 +1,6 @@
 from allauth.socialaccount.models import SocialAccount
+from django.shortcuts import render
+
 from accounts.models import User, Order
 from django.http import HttpResponse
 # Create your views here.
@@ -66,3 +68,8 @@ class myOrdersList(ListView):
 	template_name = 'customer/trackOrder.html'
 	queryset = Order.objects.all()
 	context_object_name = 'Orders'
+
+
+def get_notifications(request):
+	return render(request, 'customer/notifications.html',
+				  {'notifications': ['good', 'bad'],  'cnt': 4})

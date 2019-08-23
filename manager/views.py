@@ -204,7 +204,9 @@ def offerSubmit(request):
 	buy_amnt = request.POST.get('buy_amnt')
 	get_amnt = request.POST.get('get_amnt')
 	offer_type = request.POST.get('offer_type')
-
+	start_date = request.POST.get('start_date')
+	end_date = request.POST.get('end_date')
+	print(start_date,' ', end_date)
 
 
 def submitPkg_Availabilty(request):
