@@ -44,7 +44,7 @@ class Index(TemplateView):
 		pkg_list = Package.objects.all()
 		rest_list = Restaurant.objects.all()
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all(),
-			   'item_list': pkg_list[:3], 'restaurants' : rest_list[0:4]}
+		       'item_list': pkg_list[:3], 'restaurants': rest_list[0:4]}
 		return ctx
 
 
@@ -209,6 +209,9 @@ class RestBranch:
 
 		self.addBranch(branch=branch)
 
+	def __eq__(self, other):
+		return self.branch == other.branch if self.branch else self.id == other.id
+
 	def addBranch(self, branch):
 		self.branch = branch
 		self.is_branch = self.branch is not None
@@ -277,7 +280,9 @@ class RestaurantList(TemplateView):
 				or lower(accounts_restaurantbranch.branch_name) like \'%%\' || lower(\'' + query + '\') || \'%%\''
 
 		if show == 'all':
-			rest_list = list([RestBranch(x.restaurant) for x in RestaurantBranch.objects.raw(query_sql)])
+			# rest_list = list([RestBranch(x.restaurant) for x in RestaurantBranch.objects.raw(query_sql)])
+			rest_list = frozenset(x.restaurant for x in RestaurantBranch.objects.raw(query_sql))
+			rest_list = [RestBranch(x) for x in rest_list]
 		else:
 			rest_list = branchesInRadius(coord=coord, queryset=RestaurantBranch.objects.raw(query_sql))
 		print(rest_list)
@@ -387,7 +392,6 @@ def FilteredProducts(request):
 	pkg_list &= get_price_range_package(0, 300)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
-
 
 # for pkg in Package.objects.all():
 # 	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)
