@@ -124,7 +124,7 @@ WSGI_APPLICATION = 'Foodsquare.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': os.environ.get('DB_NAME', 'FoodSquare'),
+		'NAME': os.environ.get('DB_NAME', 'foodsquare'),
 		'USER': os.environ.get('DB_USER', 'postgres'),
 		'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
 		'HOST': 'localhost',

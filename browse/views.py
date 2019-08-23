@@ -60,8 +60,8 @@ class OrderView(TemplateView):
 		if entry_name is not None:
 			minprice = (float(str(price_range).split('-')[0].strip()[1:]))
 			maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
-			queryset2 = [ingobj.pack_id for ingobj in
-			             IngredientList.objects.filter(ingr_id__name__icontains=entry_name)]
+			queryset2 = [ingobj.package for ingobj in
+			             IngredientList.objects.filter(ingredient__name__icontains=entry_name)]
 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
 			queryset1 = Package.objects.filter(
 				Q(pkg_name__icontains=entry_name) & Q(price__range=(minprice, maxprice))
@@ -90,7 +90,7 @@ class PackageDetails(TemplateView):
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
-		ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+		ing_list = [ingobj.ingredient.name for ingobj in IngredientList.objects.filter(package=pkg)]
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		comments = get_reviews_package(user_id, id)
@@ -269,8 +269,8 @@ class RestaurantList(TemplateView):
 			from accounts_restaurantbranch\
 					join accounts_restaurant on accounts_restaurantbranch.restaurant_id = accounts_restaurant.id\
 					join browse_package on accounts_restaurant.id = browse_package.restaurant_id\
-			        join browse_ingredientlist on browse_package.id = browse_ingredientlist.pack_id_id\
-					join browse_ingredient on browse_ingredientlist.ingr_id_id = browse_ingredient.id\
+			        join browse_ingredientlist on browse_package.id = browse_ingredientlist.package_id\
+					join browse_ingredient on browse_ingredientlist.ingredient_id = browse_ingredient.id\
 			where lower(browse_ingredient.name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
 				or lower(browse_package.pkg_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
 				or lower(accounts_restaurant.restaurant_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
@@ -389,5 +389,5 @@ def FilteredProducts(request):
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
 
 
-for pkg in Package.objects.all():
-	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)
+# for pkg in Package.objects.all():
+# 	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)

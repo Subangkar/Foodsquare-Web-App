@@ -92,8 +92,8 @@ class AddMenuView(TemplateView):
 			menu.save()
 			for tmp in ingrd_list:
 				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
-				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
-				IngredientList.objects.create(pack_id=menu, ingr_id=ingrd)
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
+				IngredientList.objects.create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
 			return HttpResponse("<h1>Menu Added Up</h1>")
 
@@ -116,7 +116,7 @@ class EditMenuView(TemplateView):
 			pkg = None
 			ing_list = None
 		else:
-			ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+			ing_list = [ingobj.ingredient.name for ingobj in IngredientList.objects.filter(package=pkg)]
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
@@ -142,8 +142,8 @@ class EditMenuView(TemplateView):
 			menu.save()
 			for tmp in ingrd_list:
 				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
-				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
-				IngredientList.objects.get_or_create(pack_id=menu, ingr_id=ingrd)
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
+				IngredientList.objects.get_or_create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
 			return HttpResponse("<h1>Menu Added Up</h1>")
 
@@ -208,7 +208,7 @@ def offerSubmit(request):
 
 
 def submitPkg_Availabilty(request):
-	id = request.POST.get('id')
+	id = request.POST.get('pkg_id')
 	is_available = True if request.POST.get('is_available') == 'True' else False
 	set_package_availability_branch(request.user, id, is_available)
 
