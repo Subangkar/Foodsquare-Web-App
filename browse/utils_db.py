@@ -183,7 +183,7 @@ def post_rating_package(user, pkg_id, rating):
 	from browse.models import PackageRating
 	from browse.models import Package
 	package = Package.objects.get(id=pkg_id)
-	post = PackageRating.objects.get_or_create(package=package, user=user)
+	post, _ = PackageRating.objects.get_or_create(package=package, user=user)
 	post.rating = rating
 	post.save()
 
@@ -193,7 +193,7 @@ def post_comment_package(user, pkg_id, comment):
 	from browse.models import PackageComment
 	from browse.models import Package
 	package = Package.objects.get(id=pkg_id)
-	post = PackageComment.objects.get_or_create(package=package, user=user)
+	post, _ = PackageComment.objects.get_or_create(package=package, user=user)
 	post.comment = comment
 	post.save()
 
@@ -206,7 +206,7 @@ def post_comment_react_package(user, comment_id, react):
 	from browse.models import PackageCommentReact
 	post = PackageCommentReact.objects.get(id=comment_id)
 	if react in ['like', 'dislike']:
-		react = PackageCommentReact.objects.get_or_create(post=post, user=user)
+		react, _ = PackageCommentReact.objects.get_or_create(post=post, user=user)
 		react.liked = (react == 'like')
 		react.disliked = (react == 'dislike')
 		react.save()
@@ -218,7 +218,7 @@ def post_rating_branch(user, branch_id, rating):
 	from browse.models import BranchRating
 	from accounts.models import RestaurantBranch
 	branch = RestaurantBranch.objects.get(id=branch_id)
-	post = BranchRating.objects.get_or_create(branch=branch, user=user)
+	post, _ = BranchRating.objects.get_or_create(branch=branch, user=user)
 	post.rating = rating
 	post.save()
 
@@ -228,7 +228,7 @@ def post_comment_branch(user, branch_id, comment):
 	from browse.models import BranchComment
 	from accounts.models import RestaurantBranch
 	branch = RestaurantBranch.objects.get(id=branch_id)
-	post = BranchComment.objects.get_or_create(branch=branch, user=user)
+	post, _ = BranchComment.objects.get_or_create(branch=branch, user=user)
 	post.comment = comment
 	post.save()
 
@@ -241,7 +241,7 @@ def post_comment_react_branch(user, comment_id, react):
 	from browse.models import BranchCommentReact
 	post = BranchCommentReact.objects.get(id=comment_id)
 	if react in ['like', 'dislike']:
-		react = BranchCommentReact.objects.get_or_create(post=post, user=user)
+		react, _ = BranchCommentReact.objects.get_or_create(post=post, user=user)
 		react.liked = (react == 'like')
 		react.disliked = (react == 'dislike')
 		react.save()

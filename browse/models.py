@@ -73,7 +73,7 @@ class IngredientList(models.Model):
 
 
 class PackageRating(models.Model):
-	rating = models.IntegerField('Rating', null=False)
+	rating = models.IntegerField('Rating', default=5, null=False)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -119,7 +119,7 @@ class PackageCommentReact(models.Model):
 
 
 class BranchRating(models.Model):
-	rating = models.IntegerField('Rating', null=False)
+	rating = models.IntegerField('Rating', default=5, null=False)
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
