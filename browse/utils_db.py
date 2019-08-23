@@ -66,27 +66,30 @@ def get_reviews_package(user_id, pkg_id):
 		where comment.user_id = %s and comment.package_id = %s\
 		UNION\
 		DISTINCT\
-		select comment.package_id,\
-			comment.id                       as comment_id,\
-			account.username                 as user_name,\
-			account.id                       as user_id,\
-			rate.rating,\
-			comment.comment,\
-			comment.time,\
-			(select count(liked.user_id)\
-			from browse_packagecommentreact liked\
-			where liked.post_id = comment.id\
-				and liked.liked = true)		 as nlikes,\
-			(select count(disliked.user_id)\
-			from browse_packagecommentreact disliked\
-			where disliked.post_id = comment.id\
-				and disliked.disliked = true) as ndislikes\
-		from browse_packagecomment comment\
-				left join browse_packagerating rate on rate.package_id = comment.package_id and\
-													rate.user_id = comment.user_id\
-				join accounts_user account on comment.user_id = account.id\
-		where comment.user_id != %s and comment.package_id = %s\
-		order by time desc', [user_id, pkg_id, user_id, pkg_id])
+		select *\
+		from (\
+			select comment.package_id,\
+				comment.id                       as comment_id,\
+				account.username                 as user_name,\
+				account.id                       as user_id,\
+				rate.rating,\
+				comment.comment,\
+				comment.time,\
+				(select count(liked.user_id)\
+				from browse_packagecommentreact liked\
+				where liked.post_id = comment.id\
+					and liked.liked = true)		 as nlikes,\
+				(select count(disliked.user_id)\
+				from browse_packagecommentreact disliked\
+				where disliked.post_id = comment.id\
+					and disliked.disliked = true) as ndislikes\
+			from browse_packagecomment comment\
+					left join browse_packagerating rate on rate.package_id = comment.package_id and\
+														rate.user_id = comment.user_id\
+					join accounts_user account on comment.user_id = account.id\
+			where comment.user_id != %s and comment.package_id = %s\
+			order by time desc\
+		) other_comments', [user_id, pkg_id, user_id, pkg_id])
 	return results
 
 
@@ -145,28 +148,31 @@ def get_reviews_branch(user_id, branch_id):
 			and comment.branch_id = %s\
 		UNION\
 		DISTINCT\
-		select comment.branch_id,\
-			comment.id                       as comment_id,\
-			account.username                 as user_name,\
-			account.id                       as user_id,\
-			rate.rating,\
-			comment.comment,\
-			comment.time,\
-			(select count(liked.user_id)\
-			from browse_branchcommentreact liked\
-			where liked.post_id = comment.id\
-				and liked.liked = true)       as nlikes,\
-			(select count(disliked.user_id)\
-			from browse_branchcommentreact disliked\
-			where disliked.post_id = comment.id\
-				and disliked.disliked = true) as ndislikes\
-		from browse_branchcomment comment\
-				left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
-														rate.user_id = comment.user_id\
-				join accounts_user account on comment.user_id = account.id\
-		where comment.user_id != %s\
-			and comment.branch_id = %s\
-		order by time desc', [user_id, branch_id, user_id, branch_id])
+		select *\
+		from (\
+			select comment.branch_id,\
+				comment.id                       as comment_id,\
+				account.username                 as user_name,\
+				account.id                       as user_id,\
+				rate.rating,\
+				comment.comment,\
+				comment.time,\
+				(select count(liked.user_id)\
+				from browse_branchcommentreact liked\
+				where liked.post_id = comment.id\
+					and liked.liked = true)       as nlikes,\
+				(select count(disliked.user_id)\
+				from browse_branchcommentreact disliked\
+				where disliked.post_id = comment.id\
+					and disliked.disliked = true) as ndislikes\
+			from browse_branchcomment comment\
+					left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
+															rate.user_id = comment.user_id\
+					join accounts_user account on comment.user_id = account.id\
+			where comment.user_id != %s\
+				and comment.branch_id = %s\
+			order by time desc\
+		) other_comments', [user_id, branch_id, user_id, branch_id])
 	return results
 
 
