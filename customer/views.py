@@ -63,7 +63,6 @@ class EditProfileView(TemplateView):
 		pass
 
 
-
 class myOrdersList(ListView):
 	template_name = 'customer/trackOrder.html'
 	queryset = Order.objects.all()
@@ -71,5 +70,7 @@ class myOrdersList(ListView):
 
 
 def get_notifications(request):
-	return render(request, 'customer/notifications.html',
-				  {'notifications': ['good', 'bad'],  'cnt': 4})
+	from customer.utils_db import get_new_notifications, get_unread_notifications
+	notifications = get_new_notifications(request.user)
+	# notifications = get_unread_notifications(request.user)
+	return render(request, 'customer/notifications.html', {'notifications': notifications, 'cnt': len(notifications)})

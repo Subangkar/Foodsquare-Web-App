@@ -277,8 +277,10 @@ def get_rated_package(rating=0):
 	# return Package.objects.filter(id__in=[pkg_rating.package.id for pkg_rating in
 	#         PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
 	# 	        avg__gte=floor(rating))])
-	return PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-		avg__gte=floor(rating)).values('package')
+	pkg_ids = PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
+		avg__gte=floor(rating)).values('package').distinct()
+	from browse.models import Package
+	return Package.objects.filter(id__in=pkg_ids)
 
 
 def get_price_range_package(low=0.0, high=90000.0):

@@ -120,8 +120,8 @@ class EditMenuView(TemplateView):
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-			   'ing_list': ing_list
-			   }
+		       'ing_list': ing_list
+		       }
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -171,6 +171,9 @@ def acceptOrder(request):
 	order = Order.objects.get(id=order_id)
 	order.order_status = order.PROCESSING
 	order.save()
+	from customer.utils_db import send_notification
+	send_notification(order.user.id, "Your order:" + str(
+		order.id) + " from " + order.branch.branch_name + " has been confirmed and pending for delivery.")
 	return JsonResponse({'order': 'placed'})
 
 
@@ -189,13 +192,12 @@ class ViewBranchMenusView(TemplateView):
 	template_name = 'manager/manage_branchMenus.html'
 
 	def get_context_data(self, **kwargs):
-
 		return {'menu_list': get_packages_list_branch(self.request.user)}
 
 
 def branch_pkg_details(request):
 	return render(request, 'manager/branch_pkg_modal.html',
-			  {'pkg':get_package_branch(request.user, request.GET.get('id'))})
+	              {'pkg': get_package_branch(request.user, request.GET.get('id'))})
 
 
 def offerSubmit(request):
@@ -206,7 +208,7 @@ def offerSubmit(request):
 	offer_type = request.POST.get('offer_type')
 	start_date = request.POST.get('start_date')
 	end_date = request.POST.get('end_date')
-	print(start_date,' ', end_date)
+	print(start_date, ' ', end_date)
 
 
 def submitPkg_Availabilty(request):

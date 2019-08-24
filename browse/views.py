@@ -1,4 +1,3 @@
-# Create your views here.
 import functools
 import json
 
@@ -101,12 +100,6 @@ class PackageDetails(TemplateView):
 		return ctx
 
 
-class OrderElement_t:
-	def __init__(self, id=1):
-		self.quantity = 1
-		self.pkg = Package.objects.get(id=id)
-
-
 class CheckoutView(TemplateView):
 	template_name = 'browse/checkout.html'
 
@@ -117,7 +110,6 @@ class CheckoutView(TemplateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		# elements = [OrderElement_t(1), OrderElement_t(2)]
 		elements = []
 		ctx = {'num_items': range(0, len(elements)), 'elements': elements,
 		       'loggedIn': self.request.user.is_authenticated}
@@ -138,12 +130,9 @@ class CheckoutView(TemplateView):
 		mobileNo = request.POST.get('mobile-no')
 		branchID = request.POST.get('branch-id')
 
-		# b'csrfmiddlewaretoken=YG4XDr7l46ARcQ9kdLBNDzQmQ5OVwikfRypkoV8r4tJIYjAIeinEpBt0F3ECRBez&item-list=%7B%22pkg-list%22%3A%5B%7B%22id%22%3A1%2C%22quantity%22%3A4%2C%22price%22%3A150%7D%2C%7B%22id%22%3A5%2C%22quantity%22%3A5%2C%22price%22%3A220%7D%2C%7B%22id%22%3A4%2C%22quantity%22%3A1%2C%22price%22%3A250%7D%5D%7D&
-		# house-no=&road-no=&block-no=&apartment-no=&area=&mobile-no='
-
 		branch = RestaurantBranch.objects.get(id=branchID)
-		delivery = Delivery(address=area,
-		                    address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
+		delivery = Delivery.objects.create(address=area,
+		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
 
 		total_price = 0
 		for pkg in pkg_list:
@@ -155,31 +144,28 @@ class CheckoutView(TemplateView):
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
 
-			# random price are inserted
-			payment = Payment(price=total_price, payment_type=Payment.ONLINE,
-			                  bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
+			payment = Payment.objects.create(price=total_price, payment_type=Payment.ONLINE,
+			                                 bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
 		elif request.POST.get('COD_payment') is not None:
 			print('failure')
-			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
+			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
 		else:
 			print('cash')
-			payment = Payment(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
-		# print(payment)
-		payment.save()
-		delivery.save()
-		order = Order(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch, payment=payment)
-		order.save()
-		# return JsonResponse(json.loads(request.POST.get('item-list')))
-		# print(order)
+			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
+
+		order = Order.objects.create(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch,
+		                             payment=payment)
+
 		for pkg in pkg_list:
 			print(Package.objects.get(id=pkg['id']))
-			OrderPackageList(order=order, package=Package.objects.get(id=pkg['id']),
-			                 quantity=int(pkg['quantity'])).save()
+			OrderPackageList.objects.create(order=order, package=Package.objects.get(id=pkg['id']),
+			                                quantity=int(pkg['quantity']))
+		from customer.utils_db import send_notification
+		send_notification(order.user.id, "Your order:" + str(
+			order.id) + " from " + order.branch.branch_name + " with " + str(
+			len(pkg_list)) + " items has been placed in manager's queue for confirmation.")
 
 		return redirect("/")
-
-
-# return redirect(reverse('browse:package-list'))
 
 
 class RestBranch:
@@ -394,6 +380,3 @@ def FilteredProducts(request):
 	pkg_list &= get_price_range_package(0, 300)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
-
-# for pkg in Package.objects.all():
-# 	PackageBranchDetails.add_package_to_all_branches(pkg.restaurant, pkg)

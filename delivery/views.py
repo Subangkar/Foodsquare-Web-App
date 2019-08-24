@@ -82,10 +82,19 @@ def acceptDelivery(request):
 		order.order_status = order.DELIVERING
 		order.delivery.deliveryman = deliveryman
 		order.save()
+		from customer.utils_db import send_notification
+		send_notification(order.user.id, "Your order:" + str(
+			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
+		                                                      "Wait for deliveryman to reach at your delivery address")
+
 	elif status == 'deliver':
 		order.order_status = order.DELIVERED
 		order.delivery.deliveryman = deliveryman
 		order.save()
+		from customer.utils_db import send_notification
+		send_notification(order.user.id, "Your order:" + str(
+			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address")
+
 	return JsonResponse({"accepted": True})
 
 
@@ -108,7 +117,7 @@ def delivery_details(request):
 	given an order id, find order details i.e. which item in which quantity and give total price
 	"""
 	id = request.GET.get('id')
-	pkg_list,order, price, deliver_charge = get_order_details(id)
+	pkg_list, order, price, deliver_charge = get_order_details(id)
 	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
-	              {'item_list': pkg_list,'order':order, 'price': price, 'delivery_charge': deliver_charge})
+	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
