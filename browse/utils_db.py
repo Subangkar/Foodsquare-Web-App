@@ -264,7 +264,7 @@ def get_named_package(name):
 	from browse.models import Package
 	return (Package.objects.filter(
 		pkg_name__icontains=name) | Package.objects.filter(
-		restaurant__restaurant_name__icontains=name) | Package.objects.filter(
+		# restaurant__restaurant_name__icontains=name) | Package.objects.filter(
 		ingr_list__name__icontains=name) | Package.objects.filter(
 		category__icontains=name)).distinct()
 
@@ -280,13 +280,13 @@ def get_rated_package(rating=0):
 	pkg_ids = PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
 		avg__gte=floor(rating)).values('package').distinct()
 	from browse.models import Package
-	return Package.objects.filter(id__in=pkg_ids)
+	return Package.objects.filter(id__in=pkg_ids).distinct()
 
 
 def get_price_range_package(low=0.0, high=90000.0):
 	from browse.models import Package
 	from django.db.models import Q
-	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high))
+	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high)).distinct()
 
 
 # ----------- Branch/Restaurant Packages ----------------------
