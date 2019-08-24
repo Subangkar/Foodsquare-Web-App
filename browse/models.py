@@ -59,6 +59,11 @@ class Package(models.Model):
 	def is_available_in_any_branch(self):
 		return self.available and any(pkg.available for pkg in PackageBranchDetails.objects.filter(package=self))
 
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_package
+		return get_rating_package(self.id)
+
+
 
 class IngredientList(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)

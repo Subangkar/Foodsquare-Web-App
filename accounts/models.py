@@ -52,6 +52,10 @@ class Restaurant(models.Model):
 	def get_absolute_url(self):
 		return reverse("browse:restaurant_detail", kwargs={"id": self.pk})
 
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_restaurant
+		return get_rating_restaurant(self.id)
+
 
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -94,6 +98,10 @@ class RestaurantBranch(models.Model):
 
 	def distance(self, coordinates):
 		return distance(self.branch_location, coordinates)
+
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_branch
+		return get_rating_branch(self.id)
 
 
 class Payment(models.Model):
