@@ -1,4 +1,4 @@
-<a href="#" class="dropdown-toggle waves-effect waves-button waves-classic"
+<a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"
    data-toggle="dropdown"><i class="fa fa-bell"></i><span
         class="badge badge-success pull-right">{{ cnt }}</span></a>
 <ul class="dropdown-menu title-caret dropdown-lg" role="menu">
@@ -11,19 +11,36 @@
         <ul class="list-unstyled">
             {% for ntfs in notifications %}
 
-            <li>
-                <a href="#">
-                    <div class="task-icon badge badge-success"><i class="icon-user"></i>
-                    </div>
-                    {{ notifcations }}
-                    <span class="badge badge-roundless badge-default pull-right">1min
+                <li>
+                    <a href="#">
+                        <div class="task-icon badge badge-success"><i class="icon-user"></i>
+                        </div>
+                        {{ notifcations }}
+                        <span class="badge badge-roundless badge-default pull-right">1min
                                                         ago</span>
-                    <p class="task-details">{{ ntfs }}</p>
+                        <p class="task-details">{{ ntfs }}</p>
 
-                </a>
-            </li>
-        {% endfor %}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
     </li>
     {#                                <li class="drop-all"><a href="#" class="text-center">All Tasks</a></li>#}
 </ul>
+<script>
+    $(document).ready(function(){
+        $('#noti_bell').click(function(){
+            $.ajax({
+                type: "GET",
+                url: "/customer/read_notifications/",
+                data: {
+
+                },
+                success: function(data)
+                {
+                    $('#notifications').html(data);
+                }
+            });
+        });
+    });
+</script>

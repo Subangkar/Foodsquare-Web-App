@@ -349,7 +349,7 @@ def submitPackageRating(request, id):
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_package(user, pkg_id, rating)
-	return
+	return JsonResponse({'success': True})
 
 
 def reactOn(request, id):
@@ -360,16 +360,16 @@ def reactOn(request, id):
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_package(user, pkg_id, rating)
-	return
+	return JsonResponse({'success': True})
 
 
-def submitBranchRating(request):
+def submitBranchRating(request, id):
 	branch_id = request.POST.get('restaurant-id')
 	rating = request.POST.get('rating')
 	user = request.user
 
 	post_rating_branch(user, branch_id, rating)
-	return
+	return JsonResponse({'success': True})
 
 
 def FilteredProducts(request):
