@@ -254,24 +254,14 @@ class RestaurantList(TemplateView):
 			show = 'near_me'
 			print(' @ ' + coord)
 
-		query_sql = \
-			'select distinct accounts_restaurantbranch.*\
-			from accounts_restaurantbranch\
-					join accounts_restaurant on accounts_restaurantbranch.restaurant_id = accounts_restaurant.id\
-					join browse_package on accounts_restaurant.id = browse_package.restaurant_id\
-			        join browse_ingredientlist on browse_package.id = browse_ingredientlist.package_id\
-					join browse_ingredient on browse_ingredientlist.ingredient_id = browse_ingredient.id\
-			where lower(browse_ingredient.name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
-				or lower(browse_package.pkg_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
-				or lower(accounts_restaurant.restaurant_name) like \'%%\' || lower(\'' + query + '\') || \'%%\'\
-				or lower(accounts_restaurantbranch.branch_name) like \'%%\' || lower(\'' + query + '\') || \'%%\''
-
+		qset = RestaurantBranch.objects.filter(
+			Q(branch_name__icontains=query) | Q(restaurant__restaurant_name__icontains=query) | Q(
+				restaurant__package__category__icontains=query)).distinct()
 		if show == 'all':
-			# rest_list = list([RestBranch(x.restaurant) for x in RestaurantBranch.objects.raw(query_sql)])
-			rest_list = frozenset(x.restaurant for x in RestaurantBranch.objects.raw(query_sql))
+			rest_list = frozenset(x.restaurant for x in qset)
 			rest_list = [RestBranch(x) for x in rest_list]
 		else:
-			rest_list = branchesInRadius(coord=coord, queryset=RestaurantBranch.objects.raw(query_sql))
+			rest_list = branchesInRadius(coord=coord, queryset=qset)
 		print(rest_list)
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list,
@@ -373,10 +363,20 @@ def submitBranchRating(request, id):
 
 
 def FilteredProducts(request):
-	entry_name = request.GET.get('menu_search')
-	price_range = request.GET.get('range')
+	entry_name = request.GET.get('menu_name')
+	price_range_min = request.GET.get('min_range')
+	price_range_max = request.GET.get('max_range')
+	rating = request.GET.get('rating')
+	if not entry_name:
+		entry_name = ''
+	if not price_range_min:
+		price_range_min = "0"
+	if not price_range_max:
+		price_range_max = "10000"
 	pkg_list = get_named_package(entry_name)
-	pkg_list &= get_rated_package(5)
-	pkg_list &= get_price_range_package(0, 300)
+	if rating and int(rating) != 0:
+		pkg_list &= get_rated_package(float(rating))
+	pkg_list &= get_price_range_package(float(price_range_min), float(price_range_max))
+	print(pkg_list)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})

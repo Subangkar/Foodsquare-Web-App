@@ -98,20 +98,6 @@ def acceptDelivery(request):
 	return JsonResponse({"accepted": True})
 
 
-# def acceptDelivered(request):
-
-# def delivery_details(request):
-# 	id = request.GET.get('id')
-# 	obj = None
-# 	# obj = Restaurant.objects.get(id=id)
-#
-# 	# given an order id, find order details i.e. which item in which quantity
-#
-# 	ser = serializers.serialize('json', [obj])
-# 	json_obj = json.loads((ser.strip('[]')))
-# 	print(json_obj['fields'])
-# 	return JsonResponse(json_obj['fields'])
-
 def delivery_details(request):
 	"""
 	given an order id, find order details i.e. which item in which quantity and give total price
