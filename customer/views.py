@@ -73,7 +73,11 @@ def get_notifications(request):
 	from customer.utils_db import get_new_notifications, get_unread_notifications
 	notifications = get_new_notifications(request.user)
 	# notifications = get_unread_notifications(request.user)
-	return render(request, 'customer/notifications.html', {'notifications': notifications, 'cnt': notifications.count()})
+	return render(request, 'customer/notifications.html',
+	              {'notifications': notifications, 'cnt': notifications.count()})
+
 
 def read_notifcations(request):
-	return None
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())

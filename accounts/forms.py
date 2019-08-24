@@ -29,6 +29,8 @@ class UserForm(ModelForm):
 			pass
 		if commit:
 			new_user.save()
+		from customer.models import NotificationMonitor
+		NotificationMonitor.objects.get_or_create(user=new_user)
 		return new_user
 
 

@@ -314,10 +314,9 @@ def reactSubmit(request, id):
 	pkg_id = request.POST.get('pkg-id')
 	react = request.POST.get('react')
 	post_id = request.POST.get('comment-id')
-	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	user = request.user
-	post_comment_react_package(user, post_id, react)
-	return JsonResponse({'nlikes': 5, 'ndislikes': 2})
+	nlike, ndislike = post_comment_react_package(user, post_id, react)
+	return JsonResponse({'nlikes': nlike, 'ndislikes': ndislike})
 
 
 def submitReview(request, id):

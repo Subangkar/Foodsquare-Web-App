@@ -180,16 +180,9 @@ class RegisterView(TemplateView):
 		return ctx
 
 	def post(self, request, *args, **kwargs):
-		print(request.POST)
-		# print(pretty_request(request))
-
-		# if password!=password_confirm
-		# 	return
+		print(pretty_request(request))
 
 		user_form = UserForm(request.POST)
-		# profile_form = ProfileForm(request.POST or None, request.FILES or None, prefix='profile')
-		#
-		# print(profile_form)
 
 		if user_form.is_valid():
 			user = user_form.save(commit=False)

@@ -25,10 +25,12 @@ class Notification(models.Model):
 	@staticmethod
 	def get_new_notifications(user):
 		from datetime import datetime
+		notifications = Notification.objects.filter(user=user,
+		                                            time__gt=user.notificationmonitor.last_pop_time).order_by(
+			'-time')
 		user.notificationmonitor.last_pop_time = datetime.now()
 		user.notificationmonitor.save()
-		return Notification.objects.filter(user=user, time__gt=user.notificationmonitor.last_pop_time).order_by(
-			'-time')
+		return notifications
 
 	@staticmethod
 	def get_unread_notifications(user):
@@ -43,7 +45,18 @@ class Notification(models.Model):
 class NotificationMonitor(models.Model):
 	user = models.OneToOneField('accounts.User', on_delete=models.CASCADE)
 	last_push_time = models.DateTimeField(verbose_name="Last Pushed Timestamp", auto_now_add=True)
-	last_pop_time = models.DateTimeField(verbose_name="Last Popped Timestamp", null=True)
+	last_pop_time = models.DateTimeField(verbose_name="Last Popped Timestamp", auto_now_add=True)
 
 	def has_new_notification(self):
 		return self.last_pop_time < self.last_push_time
+
+
+def test():
+	pass
+	from accounts.models import User
+	# from customer.models import *
+	user = User.objects.get(id=2)
+	Notification.get_unread_notifications(user)
+	from customer.utils_db import send_notification
+	send_notification(2, "You have a new notification")
+	Notification.get_new_notifications(user)
