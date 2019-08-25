@@ -18,20 +18,21 @@ def get_new_notifications(user):
 def get_unread_notifications(user):
 	""" Get unread notifications at descending order of time """
 	from accounts.models import User
-	if User.objects.filter(user=user).exists() and user.is_authenticated and user.is_customer:
+	if user.is_authenticated and user.is_customer:
 		return Notification.get_unread_notifications(user)
 
 
 def get_all_notifications(user, time=None):
 	""" Get all notifications arrived after provided time at descending order """
 	from accounts.models import User
-	if User.objects.filter(user=user).exists() and user.is_authenticated and user.is_customer:
+	if user.is_authenticated and user.is_customer:
 		return Notification.get_all_notifications(user, time)
 
 
 def read_all_notifications(user, time):
 	""" Mark all notifications before provided time as read """
 	from accounts.models import User
-	if User.objects.filter(user=user).exists() and user.is_authenticated and user.is_customer:
-		for notf in Notification.objects.get(user=user, time__lte=time):
+	if user.is_authenticated and user.is_customer:
+		for notf in Notification.objects.filter(user=user, time__lte=time):
 			notf.mark_as_read()
+			print(notf)
