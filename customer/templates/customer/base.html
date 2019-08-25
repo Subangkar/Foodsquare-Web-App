@@ -284,8 +284,10 @@
                             <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"
                                data-toggle="dropdown"><i class="fa fa-bell"></i><span
                                     class="badge badge-success pull-right">{{ cnt }}</span></a>
+                            <ul id="notifications-list" class="dropdown-menu title-caret dropdown-lg" role="menu">
 
-                            {% include "customer/notifications.html" %}
+                                {% include "customer/notifications.html" %}
+                            </ul>
 
                         </li>
                         <li class="dropdown">
@@ -367,7 +369,7 @@
                 url: "/customer/get_notifications/",
                 data: {},
                 success: function (data) {
-                    console.log(data);
+                    {#console.log(data);#}
                     {#$('notifications-list').empty().append(data);#}
                     $('#notifications-list').html(data);
 
@@ -376,22 +378,21 @@
         }, 1000 * 5);
     </script>
     <script>
-        {#$(document).ready(function () {#}
-        {#    $('#noti_bell').click(function () {#}
-        {#        $.ajax({#}
-        {#            type: "GET",#}
-        {#            url: "/customer/read_notifications/",#}
-        {#            data: {},#}
-        {#            success: function (data) {#}
-        {#                $('notifications').empty().append(data);#}
-        {##}
-        {#            }#}
-        {#        });#}
-        {#    });#}
-        {#})#}
-        $('#noti_bell').on('hide.bs.dropdown', function () {
-            alert("ok");
-        })
+
+
+        $(document).ready(function() {
+            $('#notifications').on('hide.bs.dropdown', function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/customer/read_notifications/",
+                    data: {},
+                    success: function (data) {
+                        $('notifications').empty().append(data);
+
+                    }
+                });
+            })
+        });
     </script>
 </main><!-- Page Content -->
 
