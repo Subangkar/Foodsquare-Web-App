@@ -758,11 +758,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
                     <div class="clearfix"></div>
-                <div style="height: 3vh;"></div>
-<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+                    <div style="height: 3vh;"></div>
+                    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
                     {% if restaurant.is_branch %}
-                <font style="color: #7b3a3e" size="6">What people think about us </font><br>
-                <div style="height: 3vh;"></div>
+                        <font style="color: #7b3a3e" size="6">What people think about us: </font><br>
+                        <div style="height: 3vh;"></div>
 
                         <div class="row">
                             <div class="col-md-7 add-review">
@@ -890,6 +890,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
 
                         </div>
+                    {% else %}
+
+                        <font style="color: #7b3a3e" size="6">Find Us At: </font><br>
+                        <div style="height: 3vh;"></div>
+
+                            {% for branch in branch_list %}
+                                <h4 style="padding-left: 5%"> -- {{ branch }}</h4></li>
+                            {% endfor %}
+
                     {% endif %}
                 </div>
 
