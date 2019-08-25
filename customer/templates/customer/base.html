@@ -283,7 +283,7 @@
                         <li class="dropdown" id="notifications">
                             <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"
                                data-toggle="dropdown"><i class="fa fa-bell"></i><span
-                                    class="badge badge-success pull-right">{{ cnt }}</span></a>
+                                    class="badge badge-success pull-right" id="noti-count">{{ cnt }}</span></a>
                             <ul id="notifications-list" class="dropdown-menu title-caret dropdown-lg" role="menu">
 
                                 {% include "customer/notifications.html" %}
@@ -387,7 +387,7 @@
                     url: "/customer/read_notifications/",
                     data: {},
                     success: function (data) {
-                        $('notifications').empty().append(data);
+                    $('#notifications-list').html(data);
 
                     }
                 });

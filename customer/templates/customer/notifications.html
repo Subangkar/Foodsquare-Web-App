@@ -5,7 +5,11 @@
     {#<li>#}
     {#                                    <p class="drop-title">You have 3 pending tasks !</p>#}
     {#                                </li>#}
-
+    <script>
+{#        {% if cnt == "0" %}#}
+        document.getElementById('noti-count').textContent={{ cnt }};
+{#        {% endif %}#}
+    </script>
     <li class="dropdown-menu-list slimscroll tasks">
         <ul class="list-unstyled">
             {% for ntfs in notifications %}
