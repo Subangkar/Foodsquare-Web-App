@@ -26,20 +26,20 @@
     </li>
     {#                                <li class="drop-all"><a href="#" class="text-center">All Tasks</a></li>#}
 </ul>
-<script>
-    $(document).ready(function(){
-        $('#noti_bell').click(function(){
-            $.ajax({
-                type: "GET",
-                url: "/customer/read_notifications/",
-                data: {
-
-                },
-                success: function(data)
-                {
-                    $('#notifications').html(data);
-                }
-            });
-        });
-    });
-</script>
+{#<script>#}
+{#    $(document).ready(function(){#}
+{#        $('#noti_bell').click(function(){#}
+{#            $.ajax({#}
+{#                type: "GET",#}
+{#                url: "/customer/read_notifications/",#}
+{#                data: {#}
+{##}
+{#                },#}
+{#                success: function(data)#}
+{#                {#}
+{#                    $('#notifications').html(data);#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}

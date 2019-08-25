@@ -366,12 +366,31 @@
                 },
                 success: function(data)
                 {
-
-                    $('#notifications').html(data);
+                    console.log(data);
+                    $('notifications').empty().append(data);
+                    {#$('#notifications').html(data);#}
 
                 }
             });
-        }, 1000 * 5);
+        }, 1000 * 10);
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#noti_bell').click(function(){
+                $.ajax({
+                    type: "GET",
+                    url: "/customer/read_notifications/",
+                    data: {
+
+                    },
+                    success: function(data)
+                    {
+                        $('notifications').empty().append(data);
+
+                    }
+                });
+            });
+        });
     </script>
 </main><!-- Page Content -->
 
