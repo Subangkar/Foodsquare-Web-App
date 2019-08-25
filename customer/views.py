@@ -81,3 +81,5 @@ def read_notifcations(request):
 	from datetime import datetime
 	from customer.utils_db import read_all_notifications
 	read_all_notifications(request.user, datetime.now())
+	from django.http import JsonResponse
+	return JsonResponse({'Success': True})

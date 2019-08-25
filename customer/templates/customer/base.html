@@ -281,6 +281,10 @@
 
 
                         <li class="dropdown" id="notifications">
+                            <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"
+                               data-toggle="dropdown"><i class="fa fa-bell"></i><span
+                                    class="badge badge-success pull-right">{{ cnt }}</span></a>
+
                             {% include "customer/notifications.html" %}
 
                         </li>
@@ -357,40 +361,37 @@
     {% block body-content %}
     {% endblock body-content %}
     <script>
-        setInterval(function() {
+        setInterval(function () {
             $.ajax({
                 type: "GET",
                 url: "/customer/get_notifications/",
-                data: {
-
-                },
-                success: function(data)
-                {
+                data: {},
+                success: function (data) {
                     console.log(data);
-                    $('notifications').empty().append(data);
-                    {#$('#notifications').html(data);#}
+                    {#$('notifications-list').empty().append(data);#}
+                    $('#notifications-list').html(data);
 
                 }
             });
-        }, 1000 * 10);
+        }, 1000 * 5);
     </script>
     <script>
-        $(document).ready(function(){
-            $('#noti_bell').click(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "/customer/read_notifications/",
-                    data: {
-
-                    },
-                    success: function(data)
-                    {
-                        $('notifications').empty().append(data);
-
-                    }
-                });
-            });
-        });
+        {#$(document).ready(function () {#}
+        {#    $('#noti_bell').click(function () {#}
+        {#        $.ajax({#}
+        {#            type: "GET",#}
+        {#            url: "/customer/read_notifications/",#}
+        {#            data: {},#}
+        {#            success: function (data) {#}
+        {#                $('notifications').empty().append(data);#}
+        {##}
+        {#            }#}
+        {#        });#}
+        {#    });#}
+        {#})#}
+        $('#noti_bell').on('hide.bs.dropdown', function () {
+            alert("ok");
+        })
     </script>
 </main><!-- Page Content -->
 
