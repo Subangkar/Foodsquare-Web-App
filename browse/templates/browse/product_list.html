@@ -14,7 +14,7 @@
                                     View</a>
                             </div>
                         </div>
-                        <span class="product-new-top">20% off</span>
+                        {#                        <span class="product-new-top">20% off</span>#}
                     </div>
                     <div class="item-info-product">
                         <div class="info-product-price">
@@ -27,9 +27,27 @@
                                         <span class="money ">BDT {{ item.price }}</span>
                                     </div>
                                 </div>
-                                {% for j in "12345" %}
-                                    <i class="fas fa-star" style="color:  #FFC107"></i>
-                                {% endfor %}
+                                <div id="star_rating{{ item.id }}">
+{#                                    <i class="fa fa-star-half-full"></i>#}
+                                </div>
+                                <script>
+
+                                    var i = 0;
+                                    var rating = {{ item.get_avg_rating }};
+                                    for(i = 0;i<rating;i++){
+                                        $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                    }
+                                    {#if(Math.ceil(rating) !== rating){#}
+                                    {#    $('#star_rating{{ item.id }}').append(' <i class="fa fa-star-half-full"></i>')#}
+                                    {#    i++;#}
+                                    {#}#}
+
+                                    for(;i<5;i++){
+                                        $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                    }
+
+
+                                </script>
                             </div>
                             {#                                                <div class="toys single-item hvr-outline-out">#}
                             {#                                                    <button href="#" data-id="{{ item.id }}"#}

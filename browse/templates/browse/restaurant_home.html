@@ -270,7 +270,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     {% if restaurant.is_branch %}
         <div class="row">
     {% else %}
-        <div class="row" style="height: 21vh">
+        <div class="row" style="height: 25vh">
     {% endif %}
 <div class="col-md-1"></div>
 <div class="col-md-4">
@@ -400,7 +400,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         {% if restaurant.is_branch %}
             <div class="col-md-2" style="border-right: 1px solid white;padding-top: 2%; ">
-                <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+                <font style="color: white"><i class="fas fa-star">{{ rating |floatformat:1 }} rating</i> </font>
             </div>
 
             {#                        {% if  %}#}
@@ -411,7 +411,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <font style="color: white">60 mins <br> Delivery time </font>
             </div>
         {% else %}
-            <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+            <font style="color: white"><i class="fas fa-star">{{ rating |floatformat:1 }} rating</i> </font>
 
         {% endif %}
     </div>
@@ -425,53 +425,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% block body-content %}
     <div>
 
-        <!-- Navigation -->
-        <!-- <header> -->
-        <!-- <div class="top-nav" style="position: relative">
-			<div>
-				<nav class="navbar navbar-expand-lg navbar-light" style="background: black">
-					<a class="navbar-brand text-uppercase" href="index.html">{{ restaurant.restaurant_name }}</a></br>
-					<div class="collapse navbar-collapse justify-content-center pr-md-4" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto">
 
-
-							<li class="nav-item">
-								<a class="nav-link" href="#food_gallery">Food Menu</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="contact.html">Contact</a>
-							</li>
-							<li class="nav-item">
-
-
-								<button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-									data-target="#cart" style="background: black;border:none;outline:none;color:white;">
-									<span class="fas fa-cart-arrow-down"> Cart (<span
-											class="total-count"></span>)</span>
-								</button>
-
-							</li>
-
-							<div class="search-bar-agileits">
-								<div class="cd-main-header">
-									<ul class="cd-header-buttons">
-										<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-									</ul>
-								</div>
-								<div id="cd-search" class="cd-search">
-									<form action="#" method="post">
-										<input name="Search" type="search" placeholder="Click enter after typing...">
-									</form>
-								</div>
-							</div>
-
-						</ul>
-
-					</div>
-
-				</nav>
-			</div>
-		</div> -->
 
 
         <!-- //Navigation -->
@@ -495,137 +449,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         </div>
                     </li>
-                    <!-- <li>
-							<div class="slider-img2">
-								<div class="dot">
-									<div class="container">
-										<div class="slider_banner_info_w3ls text-center">
-											<h2 class="text-uppercase">Restaurant</h2>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="slider-img3">
-								<div class="dot">
-									<div class="container">
-										<div class="slider_banner_info_w3ls text-center">
-											<h4 class="text-uppercase">5 Star Hotel</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li> -->
+
                 </ul>
             </div>
             <div class="clearfix"></div>
         </div>
 
-        <!--//Slider-->
 
-        <!-- About us
-<section class="about py-5">
-	<div class="container">
-		<h3 class="heading text-center text-uppercase mb-5"> What We Do </h3>
-		<p class="aboutpara text-center">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. Donec posuere a massa sit amet sagittis. Nam ut nulla a ligula dictum imperdiet nec ut mauris. Etiam ipsum ipsum, ultrices id nisi ac, pretium efficitur ex. Vestibulum a maximus magna, sit amet ultrices nisi. In laoreet placerat turpis.</p>
-
-		<div class="row about_grids mt-5">
-			<div class="col-md-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-			<div class="col-md-4 mt-md-0 mt-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about2.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-			<div class="col-md-4 mt-md-0 mt-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about3.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-		</div>
-
-	</div>
-</section>
-< //About us -->
-
-        <!-- about bottom -->
-        <!-- <section class="aboutbottom-grids pt-5 container-fluid">
-	<div class="row">
-		<div class="col-lg-6 aboutleft">
-			<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid"/>
-		</div>
-		<div class="col-lg-6 p-sm-5 p-3 aboutright">
-			<h3 class="mb-3">Checkout Our Cafe In Video</h3>
-			<p class="mb-2">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. Donec posuere a massa sit amet sagittis. Nam ut nulla a ligula dictum imperdiet nec ut mauris.</p>
-			<iframe src="https://www.youtube.com/embed/oItKNweXhXQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-		</div>
-	</div>
-</section> -->
-        <!-- //about bottom -->
-        <!-- /stats -->
-        <!-- <section class="stats_test pb-5 container-fluid">
-	<div class="row inner_stat_wthree_agileits">
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid">
-			<i class="far fa-building"></i>
-			<p class="counter">145</p>
-			<h4>Branches</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid1">
-			<i class="fas fa-users"></i>
-			<p class="counter">165</p>
-			<h4>Qualified Chefs</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid2">
-			<i class="far fa-edit"></i>
-			<p class="counter">563</p>
-			<h4>Food Items</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid3">
-			<i class="far fa-smile"></i>
-			<p class="counter">1045</p>
-			<h4>Happy Customers</h4>
-		</div>
-	</div>
-	</section> -->
-        <!-- //stats -->
-
-        <!-- How we Work -->
-        <!-- <section class="work py-5">
-	<div class="container">
-	<h3 class="heading text-center text-uppercase mb-5"> How We Work </h3>
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/1.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Spicy & Delicious</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/2.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Healthy Food</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 mt-lg-0 mt-sm-5 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/3.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Home Delivery</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 mt-lg-0 mt-sm-5 grid2">
-				<img src="{% static 'browse/Restaurant_homepage/images/aa.jpg' %}" alt="" class="img-fluid">
-			</div>
-		</div>
-	</div>
-</section> -->
-        <!-- //How we Work -->
 
         <!-- food gallery -->
 
@@ -925,117 +755,148 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</li>
 
 				</ul> -->
-                    <!--end portfolio-area -->
+
 
                     <div class="clearfix"></div>
+                <div style="height: 3vh;"></div>
+<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+                    {% if restaurant.is_branch %}
+                <font style="color: #7b3a3e" size="6">What people think about us </font><br>
+                <div style="height: 3vh;"></div>
+
+                        <div class="row">
+                            <div class="col-md-7 add-review">
+
+                                <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                                <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+                                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                                <!------ Include the above in your HEAD tag ---------->
+                                {% for comment in comments %}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                                    <p class="text-secondary text-center">{{ comment.time }}</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>
+                                                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
+
+                                                    </p>
+                                                    <div class="clearfix"></div>
+                                                    <p>{{ comment.comment }}</p>
+                                                    <div style="position: absolute; bottom: 0%; right: 3%;">
+                                                        <a class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count">{{  comment.nlikes }}</font> </a>
+                                                        <a class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count">{{  comment.ndislikes }}</font></a>
+
+                                                    </div>
+                                                    {% if loggedIn %}
+                                                        <script>
+                                                            var csrftoken = getCookie('csrftoken');
+                                                            $.ajaxSetup({
+                                                                beforeSend: function(xhr, settings) {
+                                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                                    }
+                                                                }
+                                                            });
+                                                            var $react  = $(this);
+
+                                                            $(".react").click(function () {
+
+                                                                $.ajax({
+                                                                    context: this,
+
+                                                                    type:"POST",
+                                                                    headers:{
+                                                                        "X-CSRFToken": csrftoken
+                                                                    },
+                                                                    url: 'reactOn/',
+                                                                    data: {
+                                                                        'comment-id': {{ comment.comment_id }},
+                                                                        'branch-id': {{ restaurant.branch.id }},
+                                                                        'react' : this.id
+                                                                    },
+                                                                    dataType: 'json',
+                                                                    success: function (data) {
+                                                                        $('#like_count').text( data['nlikes']);
+                                                                        $('#dislike_count').text( data['ndislikes']);
+
+
+                                                                    }
+                                                                });
+
+                                                            });
+                                                        </script>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+                                <div style="height: 2vh;"></div>
+
+                                <div class="card" >
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="comment">Leave a review:</label>
+                                            <textarea class="form-control" rows="2" id="comment"></textarea>
+                                        </div>
+
+                                        <div style="position: relative; bottom: 6%; left: 79%;">
+                                            <button type="button" class="btn btn-info" id="submit_review">Submit Review</button>
+
+                                        </div>
+
+                                    </div>
+                                    <p id="test"></p>
+                                    <script>
+                                        var csrftoken = getCookie('csrftoken');
+                                        $("#submit_review").click(function () {
+
+                                            {% if loggedIn %}
+
+                                                $.ajax({
+                                                    type:"POST",
+                                                    headers:{
+                                                        "X-CSRFToken": csrftoken
+                                                    },
+                                                    url: 'submitReview/',
+                                                    data: {
+                                                        'branch-id': {{ restaurant.branch.id }},
+                                                        'comment' : $('#comment').val()
+
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        location.reload();
+                                                    }
+                                                });
+
+                                            {% else %}
+
+                                                alert('Please log in to post review');
+                                            {% endif %}
+                                        });
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    {% endif %}
                 </div>
 
             </div>
         </section>
         <!--//food gallery-->
 
-        <!--Team-->
-        <!-- <section class="Team py-5">
-	<div class="container">
-	<h3 class="heading text-center text-uppercase mb-5"> Our Chefs </h3>
-		<div class="row inner-sec-w3layouts-agileinfo">
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p1.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>John Doe</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p2.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Alina Smith</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p3.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Adam Lobster</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p4.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Christina </h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section> -->
-        <!--//Team-->
-
-        <!-- Newsletter -->
-        <!-- <section class="newsletter text-center py-5">
-	<div class="container">
-		<h3 class="heading text-center text-uppercase mb-5"> Newsletter </h3>
-
-	</div>
-	</section> -->
         <!-- //Newsletter -->
 
         <!-- footer -->

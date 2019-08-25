@@ -283,11 +283,14 @@ class RestaurantBranchDetails(TemplateView):
 		# pkg_list = list(Package.objects.filter(restaurant=branch.restaurant))
 		pkg_list = list(get_available_packages_branch(branch_id=branch.id))
 		categories = set([item.package.category for item in pkg_list])
+		user_id = self.request.user.id if self.request.user.is_authenticated else 0
+		comments = get_reviews_branch(user_id, kwargs['id'])
 
 		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
 		       'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
-		       'rating': get_rating_branch(kwargs['id'])}
+		       'rating': get_rating_branch(kwargs['id']),
+			   'comments': comments}
 		return ctx
 
 
@@ -316,21 +319,33 @@ def reactSubmit(request, id):
 	if not request.user.is_authenticated:
 		return
 	pkg_id = request.POST.get('pkg-id')
+	branch_id = request.POST.get('branch-id')
 	react = request.POST.get('react')
 	post_id = request.POST.get('comment-id')
+	nlike , ndislike = 0, 0
 	user = request.user
-	nlike, ndislike = post_comment_react_package(user, post_id, react)
+	if pkg_id is not None:
+		nlike, ndislike = post_comment_react_package(user, post_id, react)
+
+	elif branch_id is not None:
+		nlike, ndislike = post_comment_react_branch(user, post_id, react)
+	print(pkg_id, " ", nlike, " ", ndislike)
 	return JsonResponse({'nlikes': nlike, 'ndislikes': ndislike})
 
 
 def submitReview(request, id):
 	pkg_id = request.POST.get('pkg-id')
+	branch_id = request.POST.get('branch-id')
 	comment = request.POST.get('comment')
 	user = request.user
-	print(pkg_id, " ", comment, " ", user)
+	# print(pkg_id, " ", comment, " ", user)
+	print(branch_id, " ", comment, " ", user)
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
-	post_comment_package(user, pkg_id, comment)
+	if pkg_id is not None:
+		post_comment_package(user, pkg_id, comment)
+	elif branch_id is not None:
+		post_comment_branch(user, branch_id, comment)
 	return JsonResponse({'success': 'success'})
 
 
@@ -339,17 +354,6 @@ def submitPackageRating(request, id):
 	rating = request.POST.get('rating')
 	user = request.user
 	print(pkg_id, " ", rating, " ", user)
-
-	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
-	post_rating_package(user, pkg_id, rating)
-	return JsonResponse({'success': True})
-
-
-def reactOn(request, id):
-	print(request)
-	pkg_id = request.POST.get('pkg-id')
-	rating = request.POST.get('rating')
-	user = request.user
 
 	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_package(user, pkg_id, rating)

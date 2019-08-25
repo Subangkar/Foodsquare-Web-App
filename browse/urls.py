@@ -25,6 +25,8 @@ urlpatterns = [
 
 	path('browse/branches/<int:id>/', views.RestaurantBranchDetails.as_view(), name='Branch_detail'),
 	path('browse/branches/<int:id>/submitRating/', views.submitBranchRating),
+	path('browse/branches/<int:id>/submitReview/', views.submitReview),
+	path('browse/branches/<int:id>/reactOn/', views.reactSubmit),
 
 	path('order/checkout/', views.CheckoutView.as_view(), name='checkout'),
 	path('order/checkout/getBkashRef', views.bkashPayment, name='bkashRef'),
