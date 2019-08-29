@@ -159,16 +159,19 @@
                                 }
                             </style>
                             <!-- <div class="autocomplete"> -->
-                            <form action="/browse/restaurants/" method="GET" id="location-based-search">
-                                {% csrf_token %}
-                                <div style="background: #808080; display: inline-block; border-radius: 20px; width: 100%; padding-left: 6%;">
-                                    {#                                <input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"#}
-                                    {#                                       id="delivery_input" style="background: transparent;" autocomplete="off">#}
+
+
+                            <div style="background: #808080; display: inline-block; border-radius: 20px; width: 100%; padding-left: 6%;">
+                                {#                                <input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"#}
+                                {#                                       id="delivery_input" style="background: transparent;" autocomplete="off">#}
+                                <input type="text" required id="delivery_input" name="delivery_input"
+                                       class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
+                                       style="background: transparent;" autocomplete="off">
+                                <form action="/browse/restaurants/" method="GET" id="location-based-search">
+                                    {% csrf_token %}
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
 
-                                    <input type="text" required id="delivery_input"
-                                           class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
-                                           style="background: transparent;" autocomplete="off">
+
                                     <style>
                                         .pac-container {
                                             z-index: 10000 !important;
@@ -179,6 +182,56 @@
                                         }
                                     </style>
                                     <script>
+                                        var deliveryLocation = (function () {
+                                            // =============================
+                                            // Private methods and propeties
+                                            // =============================
+                                            var location_data = ['', ''];//coord, name
+
+
+                                            // Save location
+                                            function saveLocation() {
+                                                localStorage.setItem('deliveryLocation', JSON.stringify(location_data));
+                                            }
+
+                                            // Load location
+                                            function loadlocation() {
+                                                location_data = JSON.parse(localStorage.getItem('deliveryLocation'));
+                                            }
+
+                                            if (localStorage.getItem("deliveryLocation") != null) {
+                                                loadlocation();
+                                                // console.log(location_data);
+                                            }
+
+
+                                            // =============================
+                                            // Public methods and propeties
+                                            // =============================
+                                            var obj = {};
+
+                                            // Add to location
+                                            obj.set = function (coord, name) {
+                                                location_data = [coord, name];
+                                                saveLocation();
+                                                return true;
+                                            };
+
+                                            // Clear location
+                                            obj.clear = function () {
+                                                location_data = ['', ''];
+                                                saveLocation();
+                                            };
+
+                                            // Load
+                                            obj.get = function () {
+                                                loadlocation();
+                                                return location_data;
+                                            };
+
+                                            return obj;
+                                        })();
+
                                         function initAutocomplete() {
 
                                             var dhakaBounds = new google.maps.LatLngBounds(
@@ -196,12 +249,10 @@
                                             autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
                                             autocomplete.addListener('place_changed', function () {
                                                 var place = autocomplete.getPlace();
+                                                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                                                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
 
-                                                console.log(place)
-                                                console.log("place ID: " + place.place_id)
-                                                console.log("coord :" + place.geometry.location)
-                                                console.log("coord :" + place.geometry.location.lat())
-                                                console.log("coord :" + place.geometry.location.lng())
+                                                $('.hotelsearchButton').click();
                                             });
                                         }
                                     </script>
@@ -212,7 +263,7 @@
                                         <i class="fa fa-search">
                                         </i>
                                     </button>
-                                </div>
+                            </div>
 
                             </form>
 
@@ -367,7 +418,6 @@
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
 {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
 
-{#<script src="{% static 'browse/js/myAutocomplete.js' %}"></script>#}
 <script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
 {% endblock %}

@@ -1,6 +1,7 @@
 import functools
 import json
 
+import requests
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -245,6 +246,7 @@ class RestaurantList(TemplateView):
 		print(pretty_request(self.request))
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+
 		query = self.request.GET.get('searchBy_dish_food')
 		coord = self.request.GET.get('delivery_area_srch')
 		show = self.request.GET.get('show')
