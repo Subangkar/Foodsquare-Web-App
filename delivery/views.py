@@ -28,7 +28,8 @@ class AcceptOrdersView(TemplateView):
 	template_name = 'delivery/delivery_order.html'
 
 	def get_context_data(self, **kwargs):
-		obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		obj_list = get_next_orders(self.request.user.id)
 		return {'object_list': obj_list}
 
 
@@ -79,18 +80,14 @@ def acceptDelivery(request):
 	status = request.POST.get('delivery_option')
 	order = Order.objects.get(id=order_id)
 	if status == 'take':
-		order.order_status = order.DELIVERING
-		order.delivery.deliveryman = deliveryman
-		order.save()
+		order.assignDeliveryman(deliveryman)
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order:" + str(
 			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
 		                                                      "Wait for deliveryman to reach at your delivery address")
 
 	elif status == 'deliver':
-		order.order_status = order.DELIVERED
-		order.delivery.deliveryman = deliveryman
-		order.save()
+		order.submitDelivery()
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order:" + str(
 			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address")

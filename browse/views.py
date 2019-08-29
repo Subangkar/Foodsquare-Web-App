@@ -267,7 +267,6 @@ class RestaurantList(TemplateView):
 		else:
 			rest_list = branchesInRadius(coord=coord, queryset=qset)
 		print(rest_list)
-		branch_list = RestaurantBranch.objects.filter(restaurant=kwargs['id'])
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list,
 		       'show_all': (show == 'all'), 'query': query}
 		return ctx
@@ -308,7 +307,7 @@ class RestaurantDetails(TemplateView):
 		pkg_list = list(get_available_packages_restaurant(rest_id=rest.id))
 		categories = set([item.package.category for item in pkg_list])
 		# print(pkg_list)
-		branch_list = RestaurantBranch.objects.filter(restaurant=kwargs['id'])
+		branch_list = RestaurantBranch.objects.filter(restaurant__id=kwargs['id'])
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
 		       'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id']),

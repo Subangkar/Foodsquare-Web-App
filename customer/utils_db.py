@@ -36,3 +36,12 @@ def read_all_notifications(user, time):
 		for notf in Notification.objects.filter(user=user, time__lte=time):
 			notf.mark_as_read()
 			print(notf)
+
+
+# ---------------- Delivery ----------------------
+
+def submitDeliveryRating(order_id, rating):
+	from accounts.models import Order
+	order = Order.objects.get(order_id)
+	order.delivery.rating_deliveryman = rating
+	order.delivery.save()

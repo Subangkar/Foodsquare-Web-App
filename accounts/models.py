@@ -209,11 +209,20 @@ class Order(models.Model):
 		verbose_name_plural = "Orders"
 
 	def __str__(self):
-		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment
+		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment.__repr__()
 
 	def get_package_list(self):
 		return OrderPackageList.objects.filter(order=self)
 
+	def assignDeliveryman(self, deliveryman):
+		self.order_status = Order.DELIVERING
+		self.delivery.deliveryman = deliveryman
+		self.delivery.save()
+		self.save()
+
+	def submitDelivery(self):
+		self.order_status = Order.DELIVERED
+		self.save()
 
 class OrderPackageList(models.Model):
 	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)

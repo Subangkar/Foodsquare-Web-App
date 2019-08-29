@@ -54,11 +54,11 @@
 
                                         {% if order.order_status == 'PROCESSING' %}
                                             <button type="button" class="btn btn-danger delivery_status"
-                                                    id="take">Accept
+                                                    id="take">Take Delivery
                                             </button>
                                         {% elif order.order_status == 'DELIVERING' %}
-                                            <button type="button" class="btn btn-danger delivery_status"
-                                                    id="deliver">Delievred
+                                            <button type="button" class="btn btn-success delivery_status"
+                                                    id="deliver">Mark as Delievred
                                             </button>
                                         {% endif %}
                                         <script src="{% static 'ajaxRequest.js' %}"></script>
