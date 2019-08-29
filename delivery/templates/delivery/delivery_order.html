@@ -38,7 +38,7 @@
 
                                 <tr>
 
-                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a> </td>
+                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
                                     <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
@@ -89,6 +89,7 @@
                                                     success: function (data) {
                                                         console.log(data);
                                                         alert('Your request for delivery granted.Please collect asap');
+                                                        location.reload();
                                                     }
                                                 });
 
@@ -108,17 +109,17 @@
                 </div>
 
 
-
             </div>
         </div>
 
         {#    Modal #}
-        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
 
             {% include "delivery/delivery_modal.html" %}
         </div>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 $(".order_details").click(function (event) {
                     event.preventDefault();
@@ -129,10 +130,9 @@
                         type: "GET",
                         url: "/delivery_info",
                         data: {
-                            'id' :  $(this).attr("href")
+                            'id': $(this).attr("href")
                         },
-                        success: function(data)
-                        {
+                        success: function (data) {
                             {#alert(data);#}
                             console.log(data);
                             {#console.log(data);#}

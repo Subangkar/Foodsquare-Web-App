@@ -63,6 +63,13 @@ class Package(models.Model):
 		from browse.utils_db import get_rating_package
 		return get_rating_package(self.id)
 
+	def get_all_offers(self):
+		""":returns list of PackageBranchDetails that has any offer"""
+		if not self.available:
+			return []
+		packs = PackageBranchDetails.objects.filter(package=self, available=True)
+		offered_pack = list(filter(lambda p: p.has_any_offer(), packs))
+		return offered_pack
 
 
 class IngredientList(models.Model):
@@ -208,6 +215,14 @@ class PackageBranchDetails(models.Model):
 		from datetime import date
 		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
 
+	def has_discount_offer(self):
+		from datetime import date
+		return self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
+
+	def has_buy_get_offer(self):
+		from datetime import date
+		return self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
+
 	def is_available(self):
 		return self.available and self.package.available
 
@@ -238,6 +253,24 @@ class PackageBranchDetails(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('manager:package-branch-details', kwargs={"pk": self.pk})
+
+	def get_offer_details(self):
+		offer = ''
+		if self.is_available() and self.has_any_offer():
+			if self.offer_type == PackageBranchDetails.DISCOUNT:
+				offer = str(round(self.offer_discount * 100.0 / self.package.price)) + "% Discount"
+			elif self.offer_type == PackageBranchDetails.BUY_N_GET_N:
+				offer = "Buy " + str(self.offer_buy_n) + " Get " + str(self.offer_get_n) + " for Free"
+		return offer
+
+	def get_buy_n_price(self, order_quantity=1):
+		if self.has_buy_get_offer():
+			act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
+			return self.package.price * act_quant
+		elif self.has_discount_offer():
+			return (self.package.price - self.offer_discount) * order_quantity
+		else:
+			return self.package.price * order_quantity
 
 
 class UserOffer(models.Model):

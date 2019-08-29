@@ -209,6 +209,12 @@ def offerSubmit(request):
 	start_date = request.POST.get('start_date')
 	end_date = request.POST.get('end_date')
 	print(start_date, ' ', end_date)
+	if offer_type == PackageBranchDetails.DISCOUNT:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date, discount_val=discount)
+	elif offer_type == PackageBranchDetails.BUY_N_GET_N:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date, buy_n=buy_amnt, get_n=get_amnt)
+	elif offer_type == PackageBranchDetails.NONE:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date)
 
 
 def submitPkg_Availabilty(request):
