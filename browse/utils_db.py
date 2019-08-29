@@ -342,6 +342,11 @@ def get_searched_packages_restaurant(rest_id, search_key):
 	return filter(lambda pkg: pkg.package.is_available_in_any_branch(), packages)
 
 
+def get_price_for_branch_pkg(branchPack_id, quantity):
+	from browse.models import PackageBranchDetails
+	return PackageBranchDetails.objects.get(id=branchPack_id).get_buying_price(order_quantity=quantity)
+
+
 #  ----------------------- Insert utils -------------------------
 def insert_package(pkg_name, inglist, price, for_n_persons, category, restaurant_id):
 	from browse.models import Package

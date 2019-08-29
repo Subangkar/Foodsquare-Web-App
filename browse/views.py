@@ -120,6 +120,7 @@ class CheckoutView(TemplateView):
 		return ctx
 
 	def post(self, request, *args, **kwargs):
+		"""PackageID is id of PackageBranchDetails"""
 		print(pretty_request(request))
 
 		if not (self.request.user.is_authenticated and self.request.user.is_customer):
@@ -140,19 +141,17 @@ class CheckoutView(TemplateView):
 
 		total_price = 0
 		for pkg in pkg_list:
-			total_price += pkg['price'] * pkg['quantity']
-		total_price += total_price * 0.1  # 10% delivery charge
+			# total_price += pkg['price'] * pkg['quantity']
+			total_price += pkg['price']
+		from webAdmin import utils
+		total_price += utils.get_delivery_charge(total_price)
 
 		# set payment_type + status
 		payment = None
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
-
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.ONLINE,
 			                                 bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
-		elif request.POST.get('COD_payment') is not None:
-			print('failure')
-			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
 		else:
 			print('cash')
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
@@ -161,9 +160,10 @@ class CheckoutView(TemplateView):
 		                             payment=payment)
 
 		for pkg in pkg_list:
-			print(Package.objects.get(id=pkg['id']))
-			OrderPackageList.objects.create(order=order, package=Package.objects.get(id=pkg['id']),
-			                                quantity=int(pkg['quantity']))
+			# print(Package.objects.get(id=pkg['id']))
+			package = PackageBranchDetails.objects.get(id=pkg['id']).package
+			OrderPackageList.objects.create(order=order, package=package,
+			                                quantity=int(pkg['quantity']), price=pkg['price'])
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order:" + str(
 			order.id) + " from " + order.branch.branch_name + " with " + str(
@@ -289,7 +289,7 @@ class RestaurantBranchDetails(TemplateView):
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
 		       'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
 		       'rating': get_rating_branch(kwargs['id']),
-			   'comments': comments}
+		       'comments': comments}
 		return ctx
 
 
@@ -311,7 +311,7 @@ class RestaurantDetails(TemplateView):
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
 		       'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id']),
-			   'branch_list': branch_list}
+		       'branch_list': branch_list}
 		return ctx
 
 
@@ -324,7 +324,7 @@ def reactSubmit(request, id):
 	branch_id = request.POST.get('branch-id')
 	react = request.POST.get('react')
 	post_id = request.POST.get('comment-id')
-	nlike , ndislike = 0, 0
+	nlike, ndislike = 0, 0
 	user = request.user
 	if pkg_id is not None:
 		nlike, ndislike = post_comment_react_package(user, post_id, react)

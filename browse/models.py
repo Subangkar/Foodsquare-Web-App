@@ -263,7 +263,7 @@ class PackageBranchDetails(models.Model):
 				offer = "Buy " + str(self.offer_buy_n) + " Get " + str(self.offer_get_n) + " for Free"
 		return offer
 
-	def get_buy_n_price(self, order_quantity=1):
+	def get_buying_price(self, order_quantity=1):
 		if self.has_buy_get_offer():
 			act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
 			return self.package.price * act_quant

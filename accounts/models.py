@@ -224,10 +224,12 @@ class Order(models.Model):
 		self.order_status = Order.DELIVERED
 		self.save()
 
+
 class OrderPackageList(models.Model):
 	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)
 	package = models.ForeignKey("browse.Package", verbose_name="Package", on_delete=models.CASCADE)
 	quantity = models.IntegerField(verbose_name="#Packages in this order", default=1)
+	price = models.FloatField(verbose_name="Total Price of all items for this package considering offer", default=0)
 
 	class Meta:
 		verbose_name = "OrderPackageList"
