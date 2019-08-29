@@ -37,7 +37,7 @@
 		<div class="inner_breadcrumb  ml-4">
 			<ul class="short_ls">
 				<li>
-					<a href="{% static 'browse/toys_shop/index.html' %}">Home</a>
+					<a href="/">Home</a>
 					<span>/ /</span>
 				</li>
 				<li>Checkout</li>
@@ -56,8 +56,6 @@
 
 
 				</div>
-				{#                <h4>Your shopping cart contains: <span>3 Products</span></h4>#}
-
 				<form action="." method="post" id="checkout-form-submit">
 					{% csrf_token %}
 					<div class="privacy about" style="display: flex; border: 5px">
@@ -86,11 +84,6 @@
 						<div class="col-md-4 checkout-left-basket">
 							<h4>Continue to basket</h4>
 							<ul class="checkout-basket">
-								{#                                <li>Product1 <i>-</i> <span>$675.00 </span></li>#}
-								{#                                <li>Product2 <i>-</i> <span>$325.00 </span></li>#}
-								{#                                <li>Product3 <i>-</i> <span>$405.00 </span></li>#}
-								{#                                <li>Total Service Charges <i>-</i> <span>$55.00</span></li>#}
-								{#                                <li>Total <i>-</i> <span>$1405.00</span></li>#}
 							</ul>
 						</div>
 					</div>
@@ -233,8 +226,7 @@
 								</div>
 							</div>
 						</div>
-
-
+                    </div>
 				</form>
 
 			</div>
@@ -303,24 +295,9 @@
 		function displayCheckout() {
 			var cartArray = shoppingCart.listCart();
 			var output = "";
-			{#<input type="hidden" id="checkout-form-branch-id" name="branch-id">#}
-
-			{#output+="<input type=\"hidden\" id=\"checkout-form-branch-id\" name=\"branch-id\">\n";#}
-			var format = ['rem1', 'rem2', 'rem3'];
-			j = 0;
-			// { #output += cartArray[0].rest_id; # }
 			for (var i in cartArray) {
-				console.log(">> " + cartArray[i]);
-				// { #output += "<tr>"# }
-				// { #	+ "<td>" + cartArray[i].id + "</td>"# }
-				// { #	+ "<td>" + cartArray[i].name + "</td>"# }
-				// { #	+ "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"# }
-				// { #	+ "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"# }
-				// { #	+ "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"# }
-				// { #	+ "<td>" + cartArray[i].total + "</td>"# }
-				// { #	+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
-				// { #	+ "</tr>"; # }
-				output += '<tr class=' + format[j % 3] + '>'
+				console.log(">> " + cartArray[i].name);
+				output += '<tr>'
 					+ '<td class="invert">' + cartArray[i].id + '</td>'
 					// { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
 					+ '<td class="invert">' + cartArray[i].name + '</td>'
@@ -329,30 +306,23 @@
 					// { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
 					+ '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
 					+ '</tr>';
-				j++;
 			}
 			$('.checkout-form').html(output);
 			document.getElementById('item-list').value = itemListJSON();
 			document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
-			console.log(cartArray[0]);
 		}
 
 		function displayBasket() {
 			var cartArray = shoppingCart.listCart();
 			var output = "";
 
-
-			{#<li>Product1 <i>-</i> <span>$675.00 </span></li>#}
-			{#<li>Total Service Charges <i>-</i> <span>$55.00</span></li>#}
 			var total = 0.0;
 			for (var i in cartArray) {
-				console.log(">> " + cartArray[i]);
 				output += '<li>' + cartArray[i].name + ' <i>-</i> <span>BDT '+(cartArray[i].price*cartArray[i].count)+' </span></li>';
 				total += (cartArray[i].price * cartArray[i].count);
-				j++;
 			}
 			output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * 0.1) + '</span></li>';
-			output += '<li>Total <i>-</i> <span>BDT ' + total*1.1 + '</span></li>';
+			output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*1.1) + '</span></li>';
 			$('.checkout-basket').html(output);
 		}
 
@@ -406,18 +376,9 @@
 
 		displayCheckout();
 		displayBasket();
-		// { #document.getElementById('checkout-table-body').innerHTML = output; # }
-		// { #oQuickReply.swap('checkout-form-div'); # }
 
 
 		function postAjax(url, token, data, success, failure) {
-			// { #var params = typeof data == 'string' ? data : Object.keys(data).map(#}
-			// {
-			//     #	function (k) { # }
-			//     { #		return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) # }
-			//     { # } #
-			// }
-			// { #).join('&'); # }
 
 			var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			xhr.open('POST', url);
@@ -467,11 +428,6 @@
 	<!--js working-->
 	<!--//js working-->
 	<!-- cart-js -->
-	{#    <script>#}
-	{#        console.log('setting rest id');#}
-	{#        console.log(shoppingCart.listCart()[0].rest_id);#}
-	{#		document.getElementById('checkout-form-branch-id').value = shoppingCart.listCart()[0].rest_id;#}
-	{#    </script>#}
 	<script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
 	<script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
@@ -534,24 +490,6 @@
 			$('.close1').on('click', function (c) {
 				$('.rem1').fadeOut('slow', function (c) {
 					$('.rem1').remove();
-				});
-			});
-		});
-	</script>
-	<script>
-		$(document).ready(function (c) {
-			$('.close2').on('click', function (c) {
-				$('.rem2').fadeOut('slow', function (c) {
-					$('.rem2').remove();
-				});
-			});
-		});
-	</script>
-	<script>
-		$(document).ready(function (c) {
-			$('.close3').on('click', function (c) {
-				$('.rem3').fadeOut('slow', function (c) {
-					$('.rem3').remove();
 				});
 			});
 		});
