@@ -2,68 +2,110 @@
 <div class="row">
     {# Searched Product list show start #}
     {% for item in item_list %}
-        <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-            <div class="product-toys-info">
-                <div class="men-pro-item">
-                    <div class="men-thumb-item">
-                        <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
-                             style="height: 190px;width: 290px;">
-                        <div class="men-cart-pro">
-                            <div class="inner-men-cart-pro">
-                                <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                    View</a>
+        <div class="col-lg-4 col-md-6 col-sm-6" id="offer_hover{{ item.id }}"
+{#             onmouseover="document.getElementById('offer_details{{ item.id }}').style.visibility='visible';"#}
+{#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
+
+        >
+            <div id="offer_details{{ item.id }}" class="card"  >
+                <li>Dhanmondi : 20%</li>
+                <li>Dhanmondi : 20%</li>
+
+                <li>Dhanmondi : 20%</li>
+                <li>Dhanmondi : 20%</li>
+
+            </div>
+
+            <div class=" product-men women_two">
+                <div class="product-toys-info">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
+                                 style="height: 190px;width: 290px;">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                        View</a>
+                                </div>
                             </div>
+
+                            <span class="product-new-top" >Offer ! </span>
+
+                            <style>
+                                {##offer_hover{{ item.id }} {#}
+                                {#    position: relative;#}
+                                {#    display: inline-block;#}
+                                {#    border-bottom: 1px dotted black;#}
+                                {#}#}
+
+                                #offer_details{{ item.id }} {
+                                    visibility: hidden;
+                                    width: 70%;
+                                    background-color: black;
+                                    color: #B22222	;
+                                    text-align: center;
+                                    border-radius: 6px;
+                                    {#padding: 5px 0;#}
+
+                                    /* Position the tooltip */
+                                    position: absolute;
+                                    z-index: 1;
+                                    top: -5px;
+                                    left: 97%;
+                                }
+
+                                #offer_hover{{ item.id }}:hover #offer_details{{ item.id }} {
+                                    visibility: visible;
+                                }
+                            </style>
                         </div>
-                        {#                        <span class="product-new-top">20% off</span>#}
-                    </div>
-                    <div class="item-info-product">
-                        <div class="info-product-price">
-                            <div class="grid_meta">
-                                <div class="product_price">
-                                    {#                                    <h4>#}
-                                    <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
-                                    {#                                    </h4>#}
-                                    <div class="grid-price mt-2">
-                                        <span class="money ">BDT {{ item.price }}</span>
+                        <div class="item-info-product">
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        {#                                    <h4>#}
+                                        <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
+                                        {#                                    </h4>#}
+                                        <div class="grid-price mt-2">
+                                            <span class="money ">BDT {{ item.price }}</span>
+                                        </div>
                                     </div>
+                                    <div id="star_rating{{ item.id }}">
+                                        {#                                    <i class="fa fa-star-half-full"></i>#}
+                                    </div>
+                                    <script>
+
+                                        var i = 0;
+                                        var rating = {{ item.get_avg_rating }};
+                                        for(i = 0;i<rating;i++){
+                                            $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                        }
+
+
+                                        for(;i<5;i++){
+                                            $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                        }
+
+
+                                    </script>
                                 </div>
-                                <div id="star_rating{{ item.id }}">
-{#                                    <i class="fa fa-star-half-full"></i>#}
-                                </div>
-                                <script>
-
-                                    var i = 0;
-                                    var rating = {{ item.get_avg_rating }};
-                                    for(i = 0;i<rating;i++){
-                                        $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
-                                    }
-                                    {#if(Math.ceil(rating) !== rating){#}
-                                    {#    $('#star_rating{{ item.id }}').append(' <i class="fa fa-star-half-full"></i>')#}
-                                    {#    i++;#}
-                                    {#}#}
-
-                                    for(;i<5;i++){
-                                        $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
-                                    }
-
-
-                                </script>
+                                {#                                                <div class="toys single-item hvr-outline-out">#}
+                                {#                                                    <button href="#" data-id="{{ item.id }}"#}
+                                {#                                                            data-name="{{ item.pkg_name }}"#}
+                                {#                                                            data-price="{{ item.price }}"#}
+                                {#                                                            data-restaurant-id="{{ item.restaurant.id }}"#}
+                                {#                                                            class="add-to-cart toys-cart ptoys-cart">#}
+                                {#                                                        <i class="fas fa-cart-plus"></i>#}
+                                {#                                                    </button>#}
+                                {#                                                </div>#}
                             </div>
-                            {#                                                <div class="toys single-item hvr-outline-out">#}
-                            {#                                                    <button href="#" data-id="{{ item.id }}"#}
-                            {#                                                            data-name="{{ item.pkg_name }}"#}
-                            {#                                                            data-price="{{ item.price }}"#}
-                            {#                                                            data-restaurant-id="{{ item.restaurant.id }}"#}
-                            {#                                                            class="add-to-cart toys-cart ptoys-cart">#}
-                            {#                                                        <i class="fas fa-cart-plus"></i>#}
-                            {#                                                    </button>#}
-                            {#                                                </div>#}
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
         </div>
+
     {% endfor %}
     {# Searched Product list show start #}
 </div>
