@@ -101,13 +101,13 @@
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
-                                    <td>
+                                     <td>
                                         {% if order.order_status == "PENDING" %}
-                                            <span class="label label-danger">{{ order.order_status}}</span>
+                                            <span class="label label-danger">Pending</span>
                                         {% elif order.order_status == "PROCESSING" %}
-                                            <span class="label label-info">{{ order.order_status}}</span>
+                                            <span class="label label-info">Delivered</span>
                                         {% elif order.order_status == "DELIVERED" %}
-                                            <span class="label label-success">{{ order.order_status}}</span>
+                                            <span class="label label-success">Delivered</span>
                                         {% endif %}
                                     </td>
                                     <td>
