@@ -1,20 +1,68 @@
 {% load static %}
+<style>
+
+    .tooltip-container {
+        position: relative;
+    }
+    .tooltip-container:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+        transition: 0.25s all ease;
+        transition-delay: 0s;
+        top: -125px;
+    }
+    .tooltip-content {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        background: #EA5E3D;
+        left: -38px;
+        top: -130px;
+        padding: 0 15px;
+        margin: 16px;
+        font-size: 15px;
+        width: 250px;
+        transition: 0.25s all ease;
+        transition-delay: 0.25s;
+        z-index: 2;
+        color: #fff;
+    }
+    .tooltip-content .align-right {
+        text-align: right;
+    }
+    .tooltip-content .align-right a {
+        color: red;
+        text-decoration: none;
+    }
+    .tooltip-content .align-right a:hover {
+        text-decoration: underline;
+    }
+    .tooltip-content:after {
+        content: "";
+        position: absolute;
+        border-width: 10px;
+        border-style: solid;
+        top: 100%;
+        left: 25px;
+        border-color: #000 transparent transparent transparent;
+    }
+
+</style>
 <div class="row">
     {# Searched Product list show start #}
     {% for item in item_list %}
-        <div class="col-lg-4 col-md-6 col-sm-6" id="offer_hover{{ item.id }}"
-{#             onmouseover="document.getElementById('offer_details{{ item.id }}').style.visibility='visible';"#}
-{#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
+        <div class="col-lg-4 col-md-6 col-sm-6 tooltip-container " id="offer_hover{{ item.id }}"
+                {#             onmouseover="document.getElementById('offer_details{{ item.id }}').style.visibility='visible';"#}
+                {#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
 
         >
-            <div id="offer_details{{ item.id }}" class="card"  >
-                <li>Dhanmondi : 20%</li>
-                <li>Dhanmondi : 20%</li>
+        <div class="tooltip-content">
+            <li>Dhanmondi : 20%</li>
+            <li>Dhanmondi : 20%</li>
 
-                <li>Dhanmondi : 20%</li>
-                <li>Dhanmondi : 20%</li>
-
-            </div>
+            <li>Dhanmondi : 20%</li>
+            <li>Dhanmondi : 20%</li>
+        </div>
 
             <div class=" product-men women_two">
                 <div class="product-toys-info">
@@ -31,33 +79,7 @@
 
                             <span class="product-new-top" >Offer ! </span>
 
-                            <style>
-                                {##offer_hover{{ item.id }} {#}
-                                {#    position: relative;#}
-                                {#    display: inline-block;#}
-                                {#    border-bottom: 1px dotted black;#}
-                                {#}#}
 
-                                #offer_details{{ item.id }} {
-                                    visibility: hidden;
-                                    width: 70%;
-                                    background-color: black;
-                                    color: #B22222	;
-                                    text-align: center;
-                                    border-radius: 6px;
-                                    {#padding: 5px 0;#}
-
-                                    /* Position the tooltip */
-                                    position: absolute;
-                                    z-index: 1;
-                                    top: -5px;
-                                    left: 97%;
-                                }
-
-                                #offer_hover{{ item.id }}:hover #offer_details{{ item.id }} {
-                                    visibility: visible;
-                                }
-                            </style>
                         </div>
                         <div class="item-info-product">
                             <div class="info-product-price">
@@ -108,4 +130,4 @@
 
     {% endfor %}
     {# Searched Product list show start #}
-</div>
+    </div>
