@@ -39,13 +39,16 @@
                             {% for order in Orders %}
                                 <tr>
                                     <td>{{ order.id }}</td>
-                                    <td>{{ order.branch.restaurant.restaurant_name }} ,{{ order.branch.branch_name }}</td>
+                                    <td>{{ order.branch.restaurant.restaurant_name }}
+                                        ,{{ order.branch.branch_name }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
                                         {% if order.order_status == "PENDING" %}
-                                            <span class="label label-danger">Pending</span>
+                                            <span class="label label-danger">Pending for confirmation</span>
                                         {% elif order.order_status == "PROCESSING" %}
-                                            <span class="label label-info">Delivered</span>
+                                            <span class="label label-info">Pending for Delivery</span>
+                                        {% elif order.order_status == "DELIVERING" %}
+                                            <span class="label label-important">Delivery on the way</span>
                                         {% elif order.order_status == "DELIVERED" %}
                                             <span class="label label-success">Delivered</span>
                                         {% endif %}

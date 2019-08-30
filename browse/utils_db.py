@@ -275,10 +275,6 @@ def get_rated_package(rating=0):
 	from browse.models import PackageRating
 	from django.db.models import Avg
 	from math import floor
-	# from browse.models import Package
-	# return Package.objects.filter(id__in=[pkg_rating.package.id for pkg_rating in
-	#         PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-	# 	        avg__gte=floor(rating))])
 	pkg_ids = PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
 		avg__gte=floor(rating)).values('package').distinct()
 	from browse.models import Package
@@ -344,6 +340,11 @@ def get_searched_packages_restaurant(rest_id, search_key):
 	                                                Q(package__category__icontains=search_key) |
 	                                                Q(package__ingr_list__name__icontains=search_key))).distinct()
 	return filter(lambda pkg: pkg.package.is_available_in_any_branch(), packages)
+
+
+def get_price_for_branch_pkg(branchPack_id, quantity):
+	from browse.models import PackageBranchDetails
+	return PackageBranchDetails.objects.get(id=branchPack_id).get_buying_price(order_quantity=quantity)
 
 
 #  ----------------------- Insert utils -------------------------

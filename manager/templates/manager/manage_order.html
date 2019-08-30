@@ -103,9 +103,11 @@
                                     <td>{{ order.time }} </td>
                                      <td>
                                         {% if order.order_status == "PENDING" %}
-                                            <span class="label label-danger">Pending</span>
+                                            <span class="label label-danger">Pending for confirmation</span>
                                         {% elif order.order_status == "PROCESSING" %}
-                                            <span class="label label-info">Delivered</span>
+                                            <span class="label label-info">Pending for Delivery</span>
+                                        {% elif order.order_status == "DELIVERING" %}
+                                            <span class="label label-important">Delivery on the way</span>
                                         {% elif order.order_status == "DELIVERED" %}
                                             <span class="label label-success">Delivered</span>
                                         {% endif %}
@@ -120,75 +122,44 @@
                                     <td> {{ order.payment.bkash_ref }}</td>
 
                                     <td>
-{#                                        <form action="/accept/{{ restaurant.id }}/" method="post"#}
-{#                                              id="requestAcceptForm">#}
-{#                                            {% csrf_token %}#}
-{#                                            {% if order.payment.payment_type == 'O' %}#}
-{#                                                <input type="submit" name="requestAccept" value="Confirm Payment"#}
-{#                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
-{#                                            {% else %}#}
-{#                                                <input name="" value="Processed" disabled="disabled"#}
-{#                                                       style="background-color: transparent; border: none; outline: none;color: green"/>#}
-{#                                            {% endif %}#}
-{#                                        </form>#}
                                         {% if order.order_status == 'PENDING' %}
                                             <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
 	                                    {% endif %}
-                                <script>
-                                    var csrftoken = getCookie('csrftoken');
-                                    $.ajaxSetup({
-                                        beforeSend: function(xhr, settings) {
-                                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                            }
-                                        }
-                                    });
+                                        <script>
+                                            var csrftoken = getCookie('csrftoken');
+                                            $.ajaxSetup({
+                                                beforeSend: function(xhr, settings) {
+                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                    }
+                                                }
+                                            });
 
-                                    $(".delivery_status").click(function () {
+                                            $(".delivery_status").click(function () {
 
-                                        {#ekhane deliveryman er id hobe#}
+                                                {#ekhane deliveryman er id hobe#}
 
-                                        $.ajax({
-                                            type:"POST",
-                                            headers:{
-                                                "X-CSRFToken": csrftoken
-                                            },
-                                            url: '/acceptOrder/',
-                                            data: {
-                                                'order_id': {{ order.id }} ,
-                                                {#'deliveryMan_id' : {{ user.id }},#}
-                                                {#'delivery_option': this.id#}
-                                            },
-                                            dataType: 'json',
-                                            success: function (data) {
-                                                console.log(data);
-                                                alert('Order waiting for delivery-man approval');
-                                            }
-                                        });
+                                                $.ajax({
+                                                    type:"POST",
+                                                    headers:{
+                                                        "X-CSRFToken": csrftoken
+                                                    },
+                                                    url: '/acceptOrder/',
+                                                    data: {
+                                                        'order_id': {{ order.id }} ,
+                                                        {#'deliveryMan_id' : {{ user.id }},#}
+                                                        {#'delivery_option': this.id#}
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        console.log(data);
+                                                        alert('Order waiting for delivery-man approval');
+                                                        location.reload();
+                                                    }
+                                                });
 
-                                    });
-                                    {#$(".delivery_status").click(function () {#}
-                                    {##}
-                                    {#ekhane deliveryman er id hobe#}
-                                    {##}
-                                    {#    $.ajax({#}
-                                    {#        type:"POST",#}
-                                    {#        headers:{#}
-                                    {#            "X-CSRFToken": csrftoken#}
-                                    {#        },#}
-                                    {#        url: '/delivery_availability/',#}
-                                    {#        data: {#}
-                                    {#            'delivery_option': this.id,#}
-                                    {#            'id': branch_id#}
-                                    {#        },#}
-                                    {#        dataType: 'json',#}
-                                    {#        success: function (data) {#}
-                                    {##}
-                                    {#        }#}
-                                    {#    });#}
-                                    {##}
-                                    {#});#}
-                                </script>
+                                            });
+                                        </script>
 
 {#                                        {% elif order.order_status == 'DELIVERING'%}#}
 {##}
@@ -196,15 +167,6 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <!-- <tr>
-                                <td>Wordpress Theme</td>
-                                <td><span class="label label-success">Finished</span></td>
-                                </td>
-                                <td>Sandra Smith</td>
-                                <td>
-                                    <a href="#" style="color: brown"> Request</a>
-                                </td>
-                            </tr> -->
                             </tbody>
                         </table>
                     </div>
