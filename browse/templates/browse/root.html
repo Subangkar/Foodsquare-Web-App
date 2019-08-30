@@ -171,7 +171,10 @@
                                     {% csrf_token %}
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
 
-
+                                    <button class="hotelsearchButton" href="#" id="hotelsearchButton">
+                                        <i class="fa fa-search">
+                                        </i>
+                                    </button>
                                     <style>
                                         .pac-container {
                                             z-index: 10000 !important;
@@ -251,7 +254,7 @@
                                                 var place = autocomplete.getPlace();
                                                 document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
                                                 deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
-
+                                                alert('hi');
                                                 $('.hotelsearchButton').click();
                                             });
                                         }
@@ -259,10 +262,7 @@
                                     <script
                                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete"
                                             async defer></script>
-                                    <button class="hotelsearchButton" href="#" id="hotelsearchButton">
-                                        <i class="fa fa-search">
-                                        </i>
-                                    </button>
+
                             </div>
 
                             </form>

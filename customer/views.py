@@ -1,4 +1,5 @@
 from allauth.socialaccount.models import SocialAccount
+from django.core import serializers
 from django.shortcuts import render
 
 from accounts.models import User, Order
@@ -75,6 +76,11 @@ def get_notifications(request):
 	from customer.utils_db import get_new_notifications, get_unread_notifications
 	# notifications = get_new_notifications(request.user)
 	notifications = get_unread_notifications(request.user)
+	try:
+		notifications = serializers.serialize("json", notifications)
+	except:
+		pass
+	# notifications = ["masum 1", "masum 3"]
 	return JsonResponse({'notifications': notifications})
 
 
