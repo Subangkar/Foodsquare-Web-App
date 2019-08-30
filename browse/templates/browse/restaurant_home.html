@@ -306,62 +306,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <font style="color: #7b3a3e">Rate us</font>
                 <div>
-                    <style>
-                        .rate {
-                            float: left;
-                            height: 46px;
-                            padding: 0 10px;
-                        }
-
-                        .rate:not(:checked) > input {
-                            position: absolute;
-                            top: -9999px;
-                        }
-
-                        .rate:not(:checked) > label {
-                            float: right;
-                            width: 1em;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            cursor: pointer;
-                            font-size: 30px;
-                            color: #ccc;
-                        }
-
-                        .rate:not(:checked) > label:before {
-                            content: '★ ';
-                        }
-
-                        .rate > input:checked ~ label {
-                            color: #ffc700;
-                        }
-
-                        .rate:not(:checked) > label:hover,
-                        .rate:not(:checked) > label:hover ~ label {
-                            color: #deb217;
-                        }
-
-                        .rate > input:checked + label:hover,
-                        .rate > input:checked + label:hover ~ label,
-                        .rate > input:checked ~ label:hover,
-                        .rate > input:checked ~ label:hover ~ label,
-                        .rate > label:hover ~ input:checked ~ label {
-                            color: #c59b08;
-                        }
-                    </style>
-
-                    <div class="  rate">
-                        <input type="radio" id="star5" name="rate" value="5"/>
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4"/>
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3"/>
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2"/>
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1"/>
-                        <label for="star1" title="text">1 star</label>
-                    </div>
+                    {% include 'browse/rate_submit.html' %}
                     <script>
                         $('.rate input').on('change', function () {
                             var rate_val = $("input[type='radio'][name='rate']:checked").val();
@@ -437,130 +382,166 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="rslides" id="slider3" style="height: 100%">
                     <li>
                         <div class="slider-img1">
-                            <div style=" padding-top: 10%;padding-left: 40%;">
-                                <div style="background: white;padding: 0.5%;display: inline-block; width: 35%">
-                                    <input type=" text" placeholder="Search Dishes..."
-                                           style="border: none; outline: none;width: 90%"> <i class="fa fa-search"></i>
-                                    </input>
+                            {#                            <div style=" padding-top: 10%;padding-left: 40%;">#}
+                            {#                                <div style="background: white;padding: 0.5%;display: inline-block; width: 35%">#}
+                            {#                                    <input type=" text" placeholder="Search Dishes..."#}
+                            {#                                           style="border: none; outline: none;width: 90%"> <i class="fa fa-search"></i>#}
+                            {#                                    </input>#}
+                            {##}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <style>
+                                .text_container{
+                                    display: inline-block;
+                                    float: right;
+                                    padding-top: 5%;
+                                    padding-right: 3%;
+                                    width: 27%;
 
+                                }
+
+                                .text-block {
+                                    background-color: rgb(0,0,0); /* Fallback color */
+                                    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+                                    color: white;
+                                    font-weight: bold;
+                                    border: 3px solid #f1f1f1;
+
+                                    {#transform: translate(-50%, -50%);#}
+                                    z-index: 2;
+
+                                }
+                            </style>
+                            {% if not restaurant.is_branch %}
+                                <div class="text_container">
+                                    <div class="text-block">
+                                        <h2 style="">Find Us At: </h2>
+                                        <div style="height: 3vh;"></div>
+
+                                        {% for branch in branch_list %}
+                                            <h4 style="padding-left: 5%;"> -- {{ branch }}</h4></li>
+                                        {% endfor %}
                                 </div>
-                            </div>
+                                </div>
 
 
-                        </div>
+                            {% endif %}
+
+
+    </div>
+    </li>
+
+    </ul>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+
+
+
+    <!-- food gallery -->
+
+
+    <section class="banner_bottom proj py-5">
+
+        <div class="wrap_view" id="food_gallery">
+            <h3 class="heading text-center text-uppercase mb-5"> Food Gallery </h3>
+
+            <div class="inner_sec">
+                <ul class="nav gallery_nav" style="padding-left: 40%;">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">All</a>
                     </li>
+                    {% for category in categories %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">{{ category }}</a>
+                        </li>
+                    {% endfor %}
 
                 </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
 
+                <script>
+                    $('ul.gallery_nav > li').click(function (e) {
+                        e.preventDefault();
+                        var getItem = $(this).text();
+                        $('ul.gallery_nav> li').removeClass('active');
+                        $(this).addClass('active');
+                        $('#test').text(getItem);
+                        $('.navbar-toggler').click();
+                        $(".filt").hide();
 
+                        $('.' + getItem.trim()).show();
 
-        <!-- food gallery -->
-
-
-        <section class="banner_bottom proj py-5">
-
-            <div class="wrap_view" id="food_gallery">
-                <h3 class="heading text-center text-uppercase mb-5"> Food Gallery </h3>
-
-                <div class="inner_sec">
-                    <ul class="nav gallery_nav" style="padding-left: 40%;">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">All</a>
-                        </li>
-                        {% for category in categories %}
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">{{ category }}</a>
-                            </li>
-                        {% endfor %}
-
-                    </ul>
-
-                    <script>
-                        $('ul.gallery_nav > li').click(function (e) {
-                            e.preventDefault();
-                            var getItem = $(this).text();
-                            $('ul.gallery_nav> li').removeClass('active');
-                            $(this).addClass('active');
-                            $('#test').text(getItem);
-                            $('.navbar-toggler').click();
-                            $(".filt").hide();
-
-                            $('.' + getItem.trim()).show();
-
-                        });
-                    </script>
-                    <div class="row" style="width: 80%">
-                        {# Searched Product list show start #}
-                        {% for pkg_details in item_list %}
-                            {% with item=pkg_details.package %}
-                                <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
-                                    <div class="product-toys-info">
-                                        <div class="men-pro-item">
-                                            <div class="men-thumb-item">
-                                                <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
-                                                     alt="">
-                                                <div class="men-cart-pro">
-                                                    <div class="inner-men-cart-pro">
-                                                        <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                            View</a>
-                                                    </div>
+                    });
+                </script>
+                <div class="row" style="width: 80%">
+                    {# Searched Product list show start #}
+                    {% for pkg_details in item_list %}
+                        {% with item=pkg_details.package %}
+                            <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
+                                <div class="product-toys-info">
+                                    <div class="men-pro-item">
+                                        <div class="men-thumb-item">
+                                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
+                                                 alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                        View</a>
                                                 </div>
-                                                <span class="product-new-top">20% off</span>
                                             </div>
-                                            <div class="item-info-product">
-                                                <div class="info-product-price">
-                                                    <div class="grid_meta">
-                                                        <div class="product_price">
-                                                            <h4>
-                                                                <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
-                                                            </h4>
-                                                            <div class="grid-price mt-2">
-                                                                <span class="money ">BDT {{ item.price }}/=</span>
-                                                            </div>
+                                            <span class="product-new-top">20% off</span>
+                                        </div>
+                                        <div class="item-info-product">
+                                            <div class="info-product-price">
+                                                <div class="grid_meta">
+                                                    <div class="product_price">
+                                                        <h4>
+                                                            <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
+                                                        </h4>
+                                                        <div class="grid-price mt-2">
+                                                            <span class="money ">BDT {{ item.price }}/=</span>
                                                         </div>
-                                                        <ul class="stars">
-                                                            {% for star in item.rating %}
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <i class="fas fa-star"></i>
-                                                                    </a>
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
                                                     </div>
-                                                    <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
-                                                         id="cart-div">
-                                                        <button href="#" data-id="{{ pkg_details.id }}"
-                                                                data-name="{{ item.pkg_name }}"
-                                                                data-price="{{ item.price }}"
-                                                                data-restaurant-id="{{ restaurant.branch.id }}"
-                                                                class="add-to-cart toys-cart ptoys-cart">
-                                                            <i class="fas fa-cart-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                    <ul class="stars">
+                                                        {% for star in item.rating %}
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fas fa-star"></i>
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
                                                 </div>
-                                                {% if not restaurant.is_branch %}
-                                                    <script>
-                                                        document.getElementById('cart-div').style.display = "none";
-                                                    </script>
-                                                {% endif %}
-                                                <div class="clearfix"></div>
+                                                <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                     id="cart-div">
+                                                    <button href="#" data-id="{{ pkg_details.id }}"
+                                                            data-name="{{ item.pkg_name }}"
+                                                            data-price="{{ item.price }}"
+                                                            data-restaurant-id="{{ restaurant.branch.id }}"
+                                                            class="add-to-cart toys-cart ptoys-cart">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
+                                                </div>
                                             </div>
+                                            {% if not restaurant.is_branch %}
+                                                <script>
+                                                    document.getElementById('cart-div').style.display = "none";
+                                                </script>
+                                            {% endif %}
+                                            <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>
-                            {% endwith %}
-                        {% endfor %}
-                        {# Searched Product list show end #}
-                    </div>
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+                    {# Searched Product list show end #}
+                </div>
 
-                    {#                        </li>#}
-                    </ul>
+                {#                        </li>#}
+                </ul>
 
-                    <!-- <ul class="portfolio-area">
+                <!-- <ul class="portfolio-area">
 
 					<li class="portfolio-item2 mb-2" data-id="id-0" data-type="cat-item-4">
 						<div>
@@ -757,248 +738,239 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul> -->
 
 
-                    <div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <div style="height: 3vh;"></div>
+                <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+                {% if restaurant.is_branch %}
+                    <font style="color: #7b3a3e" size="6">What people think about us: </font><br>
                     <div style="height: 3vh;"></div>
-                    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-                    {% if restaurant.is_branch %}
-                        <font style="color: #7b3a3e" size="6">What people think about us: </font><br>
-                        <div style="height: 3vh;"></div>
 
-                        <div class="row">
-                            <div class="col-md-7 add-review">
+                    <div class="row">
+                        <div class="col-md-7 add-review">
 
-                                <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-                                <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
-                                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-                                <!------ Include the above in your HEAD tag ---------->
-                                {% for comment in comments %}
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                                    <p class="text-secondary text-center">{{ comment.time }}</p>
+                            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                            <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+                            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                            <!------ Include the above in your HEAD tag ---------->
+                            {% for comment in comments %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                                <p class="text-secondary text-center">{{ comment.time }}</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>
+                                                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
+
+                                                </p>
+                                                <div class="clearfix"></div>
+                                                <p>{{ comment.comment }}</p>
+                                                <div style="position: absolute; bottom: 0%; right: 3%;">
+                                                    <a class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count">{{  comment.nlikes }}</font> </a>
+                                                    <a class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count">{{  comment.ndislikes }}</font></a>
+
                                                 </div>
-                                                <div class="col-md-9">
-                                                    <p>
-                                                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
+                                                {% if loggedIn %}
+                                                    <script>
+                                                        var csrftoken = getCookie('csrftoken');
+                                                        $.ajaxSetup({
+                                                            beforeSend: function(xhr, settings) {
+                                                                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                                }
+                                                            }
+                                                        });
+                                                        var $react  = $(this);
 
-                                                    </p>
-                                                    <div class="clearfix"></div>
-                                                    <p>{{ comment.comment }}</p>
-                                                    <div style="position: absolute; bottom: 0%; right: 3%;">
-                                                        <a class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count">{{  comment.nlikes }}</font> </a>
-                                                        <a class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count">{{  comment.ndislikes }}</font></a>
+                                                        $(".react").click(function () {
 
-                                                    </div>
-                                                    {% if loggedIn %}
-                                                        <script>
-                                                            var csrftoken = getCookie('csrftoken');
-                                                            $.ajaxSetup({
-                                                                beforeSend: function(xhr, settings) {
-                                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                                                    }
+                                                            $.ajax({
+                                                                context: this,
+
+                                                                type:"POST",
+                                                                headers:{
+                                                                    "X-CSRFToken": csrftoken
+                                                                },
+                                                                url: 'reactOn/',
+                                                                data: {
+                                                                    'comment-id': {{ comment.comment_id }},
+                                                                    'branch-id': {{ restaurant.branch.id }},
+                                                                    'react' : this.id
+                                                                },
+                                                                dataType: 'json',
+                                                                success: function (data) {
+                                                                    $('#like_count').text( data['nlikes']);
+                                                                    $('#dislike_count').text( data['ndislikes']);
+
+
                                                                 }
                                                             });
-                                                            var $react  = $(this);
 
-                                                            $(".react").click(function () {
-
-                                                                $.ajax({
-                                                                    context: this,
-
-                                                                    type:"POST",
-                                                                    headers:{
-                                                                        "X-CSRFToken": csrftoken
-                                                                    },
-                                                                    url: 'reactOn/',
-                                                                    data: {
-                                                                        'comment-id': {{ comment.comment_id }},
-                                                                        'branch-id': {{ restaurant.branch.id }},
-                                                                        'react' : this.id
-                                                                    },
-                                                                    dataType: 'json',
-                                                                    success: function (data) {
-                                                                        $('#like_count').text( data['nlikes']);
-                                                                        $('#dislike_count').text( data['ndislikes']);
-
-
-                                                                    }
-                                                                });
-
-                                                            });
-                                                        </script>
-                                                    {% endif %}
-                                                </div>
+                                                        });
+                                                    </script>
+                                                {% endif %}
                                             </div>
-
                                         </div>
 
                                     </div>
-
-                                {% endfor %}
-                                <div style="height: 2vh;"></div>
-
-                                <div class="card" >
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="comment">Leave a review:</label>
-                                            <textarea class="form-control" rows="2" id="comment"></textarea>
-                                        </div>
-
-                                        <div style="position: relative; bottom: 6%; left: 79%;">
-                                            <button type="button" class="btn btn-info" id="submit_review">Submit Review</button>
-
-                                        </div>
-
-                                    </div>
-                                    <p id="test"></p>
-                                    <script>
-                                        var csrftoken = getCookie('csrftoken');
-                                        $("#submit_review").click(function () {
-
-                                            {% if loggedIn %}
-
-                                                $.ajax({
-                                                    type:"POST",
-                                                    headers:{
-                                                        "X-CSRFToken": csrftoken
-                                                    },
-                                                    url: 'submitReview/',
-                                                    data: {
-                                                        'branch-id': {{ restaurant.branch.id }},
-                                                        'comment' : $('#comment').val()
-
-                                                    },
-                                                    dataType: 'json',
-                                                    success: function (data) {
-                                                        location.reload();
-                                                    }
-                                                });
-
-                                            {% else %}
-
-                                                alert('Please log in to post review');
-                                            {% endif %}
-                                        });
-
-                                    </script>
 
                                 </div>
+
+                            {% endfor %}
+                            <div style="height: 2vh;"></div>
+
+                            <div class="card" >
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="comment">Leave a review:</label>
+                                        <textarea class="form-control" rows="2" id="comment"></textarea>
+                                    </div>
+
+                                    <div style="position: relative; bottom: 6%; left: 79%;">
+                                        <button type="button" class="btn btn-info" id="submit_review">Submit Review</button>
+
+                                    </div>
+
+                                </div>
+                                <p id="test"></p>
+                                <script>
+                                    var csrftoken = getCookie('csrftoken');
+                                    $("#submit_review").click(function () {
+
+                                        {% if loggedIn %}
+
+                                            $.ajax({
+                                                type:"POST",
+                                                headers:{
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                url: 'submitReview/',
+                                                data: {
+                                                    'branch-id': {{ restaurant.branch.id }},
+                                                    'comment' : $('#comment').val()
+
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    location.reload();
+                                                }
+                                            });
+
+                                        {% else %}
+
+                                            alert('Please log in to post review');
+                                        {% endif %}
+                                    });
+
+                                </script>
 
                             </div>
 
                         </div>
-                    {% else %}
 
-                        <font style="color: #7b3a3e" size="6">Find Us At: </font><br>
-                        <div style="height: 3vh;"></div>
+                    </div>
 
-                            {% for branch in branch_list %}
-                                <h4 style="padding-left: 5%"> -- {{ branch }}</h4></li>
-                            {% endfor %}
 
-                    {% endif %}gi
-
-                
-                </div>
-
+                {% endif %}
             </div>
-        </section>
-        <!--//food gallery-->
 
-        <!-- //Newsletter -->
+        </div>
+    </section>
+    <!--//food gallery-->
 
-        <!-- footer -->
-        <footer>
-            <div class="container py-3 py-md-4">
-                <div class="row">
-                    <div class="col-lg-5 col-md-12">
-                        <p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a
-                                href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
-                    </div>
-                    <div class="col-lg-2 col-md-12 logo text-center">
-                        <a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>
-                    </div>
-                    <div class="col-lg-5 col-md-12">
-                        <ul class="py-lg-4">
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a>
-                            </li>
-                            <li class="mx-2"><a
-                                    href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>
-                            </li>
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food
-                                menu</a>
-                            </li>
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error
-                                page</a>
-                            </li>
-                            <li class="mx-2"><a
-                                    href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
+    <!-- //Newsletter -->
+
+    <!-- footer -->
+    <footer>
+        <div class="container py-3 py-md-4">
+            <div class="row">
+                <div class="col-lg-5 col-md-12">
+                    <p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a
+                            href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
+                </div>
+                <div class="col-lg-2 col-md-12 logo text-center">
+                    <a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <ul class="py-lg-4">
+                        <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a>
+                        </li>
+                        <li class="mx-2"><a
+                                href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>
+                        </li>
+                        <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food
+                            menu</a>
+                        </li>
+                        <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error
+                            page</a>
+                        </li>
+                        <li class="mx-2"><a
+                                href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-        <!-- footer -->
+        </div>
+    </footer>
+    <!-- footer -->
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-        <!-- Modal -->
-        <div class="modal fade" id="delivery_area_alert" role="dialog">
-            <div class="modal-dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="delivery_area_alert" role="dialog">
+        <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <font style="font-weight: 600; font-size:20px;"> Input delivery location and select your nearest
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <font style="font-weight: 600; font-size:20px;"> Input delivery location and select your nearest
+                        branch</font>
+                    <p>
+                        <font style="font-weight: 400; font-size:15px;">You can't order from restaurant page. Please
+                            select your nearest
                             branch</font>
-                        <p>
-                            <font style="font-weight: 400; font-size:15px;">You can't order from restaurant page. Please
-                                select your nearest
-                                branch</font>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
-                                style="background: crimson; width: 20%">Close
-                        </button>
-                    </div>
+                    </p>
                 </div>
+                <div class="modal-footer">
 
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            style="background: crimson; width: 20%">Close
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- Vertically centered Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"
-                             alt="cafe Image"/>
-                        Vivamus eget est in odio tempor interdum. Mauris maximus fermentum arcu, ac finibus ante. Sed
-                        mattis
-                        risus at ipsum elementum, ut auctor turpis cursus. Sed sed odio pharetra, aliquet velit cursus,
-                        vehicula enim. Mauris porta aliquet magna, eget laoreet ligula.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+        </div>
+    </div>
+
+    <!-- Vertically centered Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"
+                         alt="cafe Image"/>
+                    Vivamus eget est in odio tempor interdum. Mauris maximus fermentum arcu, ac finibus ante. Sed
+                    mattis
+                    risus at ipsum elementum, ut auctor turpis cursus. Sed sed odio pharetra, aliquet velit cursus,
+                    vehicula enim. Mauris porta aliquet magna, eget laoreet ligula.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
-        <!-- //show Now-->
+    </div>
+    <!-- //show Now-->
 {% endblock %}

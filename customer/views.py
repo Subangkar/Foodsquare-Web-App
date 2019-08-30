@@ -80,9 +80,8 @@ def get_notifications(request):
 		notifications = serializers.serialize("json", notifications)
 	except:
 		pass
-	# notifications = ["masum 1", "masum 3"]
+	notifications = ["masum 1", "masum 3"]
 	return JsonResponse({'notifications': notifications})
-
 
 
 def read_notifcations(request):
@@ -90,3 +89,11 @@ def read_notifcations(request):
 	from customer.utils_db import read_all_notifications
 	read_all_notifications(request.user, datetime.now())
 	return JsonResponse({'Success': True})
+
+
+def submitDeliveryRating(request):
+	order_id = request.POST.get('order-id')
+	rating = request.POST.get('rating')
+
+	submitDeliveryRating(order_id, rating)
+	return JsonResponse({'success': True})

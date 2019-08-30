@@ -322,7 +322,7 @@
 				total += (cartArray[i].price * cartArray[i].count);
 			}
 			output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * 0.1) + '</span></li>';
-			output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*1.1) + '</span></li>';
+			output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*1.1).toPrecision(4) + '</span></li>';
 			$('.checkout-basket').html(output);
 		}
 

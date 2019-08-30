@@ -254,7 +254,6 @@
                                                 var place = autocomplete.getPlace();
                                                 document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
                                                 deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
-                                                alert('hi');
                                                 $('.hotelsearchButton').click();
                                             });
                                         }

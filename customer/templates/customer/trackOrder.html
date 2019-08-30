@@ -33,6 +33,7 @@
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Payment status</th>
+                                <th>Rate Delivery</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -70,6 +71,7 @@
 
                                         {% endif %}
                                     </td>
+                                    <td><a href="{{ order.id }}" class="order_rate"> Rate Now</a></td>
 
                                 </tr>
                             {% endfor %}
@@ -82,5 +84,62 @@
         </div>
 
     </div>
+                    {% include 'customer/rate_submit.html' %}
 
+    <!-- Modal -->
+    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rate Delivery </h5>
+
+                </div>
+                <div class="modal-body">
+                    {% include 'customer/rate_submit.html' %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'customer/js/ajax_upload.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".order_rate").click(function (event) {
+                event.preventDefault();
+
+                $("#delivery_modal").modal();
+
+
+            });
+
+
+        });
+
+        {#$(document).on('change', '.rate input', function(){#}
+        {#    var rate_val = $("input[type='radio'][name='rate']:checked").val();#}
+        {#    var csrftoken = getCookie('csrftoken');#}
+        {#    $("#star3").prop("checked", true);#}
+        {##}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {#        headers: {#}
+        {#            "X-CSRFToken": csrftoken#}
+        {#        },#}
+        {#        url: 'submitDeliveryRating/',#}
+        {#        data: {#}
+        {#            'order-id' : 2,#}
+        {#            'rating': rate_val#}
+        {#        },#}
+        {#        dataType: 'json',#}
+        {#        success: function (data) {#}
+        {##}
+        {#        }#}
+        {#    });#}
+        {##}
+        {#});#}
+
+    </script>
 {% endblock %}
