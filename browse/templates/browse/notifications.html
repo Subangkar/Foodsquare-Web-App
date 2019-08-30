@@ -4,7 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-animate.js"></script>
-
+{% verbatim %}
 <div ng-app="demoApp" class="ng-app">
     <div class="wrapper" ng-controller="demoController" style="padding-top: 35%">
         <div class="nav-bar">
@@ -12,7 +12,7 @@
             <div class="dropdowns-wrapper" >
                 <div class="dropdown-container">
                     <div class="notifications dropdown dd-trigger" ng-click="showNotifications($event)">
-                        <span class="count animated" id="notifications-count">{{awaitingNotifications}}</span>
+                        <span class="count animated" id="notifications-count">{{newNotifications.length}}</span>
                         <span class="fa fa-bell" style="color: white"></span>
                     </div>
                     <div class="dropdown-menu animated" id="notification-dropdown">
@@ -22,26 +22,13 @@
                             <span class="count" id="dd-notifications-count">{{newNotifications.length}}</span>
                         </div>
                         <div class="dropdown-body">
-                            <div class="notification new" ng-repeat="notification in newNotifications.slice().reverse() track by notification.timestamp">
-                                <div class="notification-image-wrapper">
-                                    <div class="notification-image">
-                                        <img src="{{notification.user.imageUrl}}" alt="" width="32">
-                                    </div>
-                                </div>
+                            <div class="notification new" ng-repeat="notification in newNotifications">
+
                                 <div class="notification-text">
-                                    <span class="highlight">{{notification.user.name}}</span> {{notification.action}} {{notification.target}}
+                                    <span class="highlight">{{notification}}</span>
                                 </div>
                             </div>
-                            <div class="notification" ng-repeat="notification in readNotifications.slice().reverse() track by $index">
-                                <div class="notification-image-wrapper">
-                                    <div class="notification-image">
-                                        <img src="{{notification.user.imageUrl}}" alt="" width="32">
-                                    </div>
-                                </div>
-                                <div class="notification-text">
-                                    <span class="highlight">{{notification.user.name}}</span> {{notification.action}} {{notification.target}}
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -52,5 +39,5 @@
 
     </div>
 </div>
-
+{% endverbatim %}
 <script src="{% static 'browse/js/notification.js' %}"></script>

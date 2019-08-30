@@ -53,7 +53,6 @@
                                             <span class="label label-success">Delivered</span>
                                         {% endif %}
                                     </td>
-
                                     <td>
                                         {% if order.payment.payment_type == "C" %}
                                             Cash
@@ -63,8 +62,14 @@
                                     </td>
 
                                     <td> {{ order.payment.bkash_ref }}</td>
+                                    <td>
+                                        {% if order.payment.payment_status == "P" %}
+                                            <span class="label label-danger">Paid</span>
+                                        {% elif order.payment.payment_status == "D" %}
+                                            <span class="label label-info">Due</span>
 
-                                    <td>{{ order.payment.payment_status }}</td>
+                                        {% endif %}
+                                    </td>
 
                                 </tr>
                             {% endfor %}

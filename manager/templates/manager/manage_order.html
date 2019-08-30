@@ -101,7 +101,7 @@
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
-                                    <td>
+                                     <td>
                                         {% if order.order_status == "PENDING" %}
                                             <span class="label label-danger">Pending for confirmation</span>
                                         {% elif order.order_status == "PROCESSING" %}
