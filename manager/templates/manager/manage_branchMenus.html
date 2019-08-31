@@ -49,7 +49,7 @@
                                         {% if menu.is_available == True %}
                                             <button type="button" class="btn btn-danger available_status" id="{{ menu.id }}" name="False">Mark As Not Available</button>
                                         {% else %}
-                                            <button type="button" class="btn btn-info available_status" name id="{{ menu.id }}"="True">Mark As Available</button>
+                                            <button type="button" class="btn btn-info available_status"  id="{{ menu.id }}" name="True">Mark As Available</button>
 
                                         {% endif %}
                                     </td>
@@ -111,7 +111,7 @@
                     var addressValue = $(this).attr("href");
                     $.ajax({
                         type: "GET",
-                        url: "/branch_pkg_details",
+                        url: "/branch_pkg_details/",
                         data: {
                             'id' :  $(this).attr("href")
                         },

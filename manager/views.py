@@ -196,6 +196,7 @@ class ViewBranchMenusView(TemplateView):
 
 
 def branch_pkg_details(request):
+
 	return render(request, 'manager/branch_pkg_modal.html',
 	              {'pkg': get_package_branch(request.user, request.GET.get('id'))})
 
@@ -226,6 +227,8 @@ def offerSubmit(request):
 
 def submitPkg_Availabilty(request):
 	id = request.POST.get('pkg_id')
+
+	is_available = True if request.POST.get('is_available') == 'True' else False
 	print(id)
 	is_available = True if request.POST.get('is_available') == 'True' else False
 	return JsonResponse({'availability': set_package_availability_branch(request.user, id, is_available)})
