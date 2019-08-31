@@ -347,6 +347,26 @@ def get_price_for_branch_pkg(branchPack_id, quantity):
 	return PackageBranchDetails.objects.get(id=branchPack_id).get_buying_price(order_quantity=quantity)
 
 
+# ------------------------ Offers ------------------------------
+
+def get_deliverable_offers(package_id, coordinates):
+	"""
+	:param package_id: restaurant's package_id
+	:param coordinates: "x,y" format
+	:return: list of PackageOfferDetail(branch_package=branch_pack, deliverable=True/False)
+	"""
+	from browse.models import Package
+	try:
+		package = Package.objects.get(id=package_id)
+		branch_detail_list = package.get_all_offers()
+		import collections
+		PackageOfferDetail = collections.namedtuple('PackageOfferDetail', ['branch_package', 'deliverable'])
+		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates))
+		        for pkg in branch_detail_list]
+	except Package.DoesNotExist:
+		return []
+
+
 #  ----------------------- Insert utils -------------------------
 def insert_package(pkg_name, inglist, price, for_n_persons, category, restaurant_id):
 	from browse.models import Package

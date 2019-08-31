@@ -82,6 +82,8 @@ class RestaurantBranch(models.Model):
 	ratings = models.ManyToManyField(User, through='browse.BranchRating', related_name='branch_rating_user')
 	comments = models.ManyToManyField(User, through='browse.BranchComment', related_name='branch_comment_user')
 
+	MAX_DELIVERABLE_DISTANCE = 4
+
 	class Meta:
 		verbose_name = "Branch"
 		verbose_name_plural = "Branches"

@@ -272,6 +272,13 @@ class PackageBranchDetails(models.Model):
 		else:
 			return self.package.price * order_quantity
 
+	def is_deliverable_to(self, coordinates):
+		"""
+		:param coordinates: (x,y) format
+		"""
+		print("distance=", self.branch.distance(coordinates))
+		return self.is_available() and self.branch.distance(coordinates) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE
+
 
 class UserOffer(models.Model):
 	"""

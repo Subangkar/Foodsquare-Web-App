@@ -221,7 +221,7 @@ def branchesInRadius(coord, queryset):
 	for rest in rest_map.values():
 		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
 		# print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
-		if branches[0].distance(coord) < 4:
+		if branches[0].distance(coord) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE:
 			def_branch = branches[0]
 			for branch in branches:
 				if branch.is_open_now():
