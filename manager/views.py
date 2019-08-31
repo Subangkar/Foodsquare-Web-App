@@ -228,8 +228,7 @@ def submitPkg_Availabilty(request):
 	id = request.POST.get('pkg_id')
 	print(id)
 	is_available = True if request.POST.get('is_available') == 'True' else False
-	set_package_availability_branch(request.user, id, is_available)
-	return JsonResponse({'updated': True})
+	return JsonResponse({'availability': set_package_availability_branch(request.user, id, is_available)})
 
 
 

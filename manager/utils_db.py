@@ -46,6 +46,7 @@ def set_package_availability_branch(user, branch_package_id, available_status):
 		if pkg_details is not None:
 			pkg_details.available = available_status
 			pkg_details.save()
+			return pkg_details.available
 
 
 def get_packages_list_branch(user):
