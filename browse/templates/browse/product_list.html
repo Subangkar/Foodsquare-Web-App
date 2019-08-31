@@ -76,7 +76,9 @@
                                 </div>
                             </div>
 
-                            <span class="product-new-top" >Offer ! </span>
+                            {% if item.has_offer_in_any_branch %}
+                                <span class="product-new-top" >OFFER ! </span>
+                            {% endif %}
 
 
                         </div>

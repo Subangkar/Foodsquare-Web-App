@@ -37,6 +37,7 @@
                                 <th>Menu Id</th>
                                 <th>Name</th>
                                 <th>Availability</th>
+                                <th>Offer</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,6 +54,7 @@
 
                                         {% endif %}
                                     </td>
+                                    <td><b>{{ menu.get_offer_details }}</b></td>
                                 </tr>
                             {% endfor %}
                             <script>
@@ -76,7 +78,7 @@
                                         dataType: 'json',
                                         success: function (data) {
                                             console.log(data);
-                                            alert('Order waiting for delivery-man approval');
+                                            location.reload()
                                         }
                                     });
 

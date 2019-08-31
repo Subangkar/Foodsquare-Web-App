@@ -168,7 +168,7 @@ $('.add-to-cart').click(function (event) {
                     btnClass: 'btn-red',
                     action: function () {
                         shoppingCart.clearCart();
-                        shoppingCart.addItemToCart(id, price, 1, name, rest_id);
+                        shoppingCart.addItemToCart(id, price, 1, name, rest_id, buy_n, get_n);
                         displayCart();
                         this.close();
                         showSuccessNotification(name + " has been added to your cart.");

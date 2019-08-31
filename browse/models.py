@@ -71,6 +71,12 @@ class Package(models.Model):
 		offered_pack = list(filter(lambda p: p.has_any_offer(), packs))
 		return offered_pack
 
+	def has_offer_in_any_branch(self):
+		return any(map(lambda p: p.has_any_offer(), PackageBranchDetails.objects.filter(package=self)))
+
+	def available_branches(self):
+		return PackageBranchDetails.objects.filter(package=self, available=True) and self.available
+
 
 class IngredientList(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
