@@ -47,43 +47,42 @@
                                     <td><a href="{{ menu.id }}" class="pkg_details">{{ menu.package.pkg_name }}</a></td>
                                     <td>
                                         {% if menu.is_available == True %}
-                                            <button type="button" class="btn btn-danger available_status" name="False">Mark As Not Available</button>
+                                            <button type="button" class="btn btn-danger available_status" id="{{ menu.id }}" name="False">Mark As Not Available</button>
                                         {% else %}
                                             <button type="button" class="btn btn-info available_status" name="True">Mark As Available</button>
 
                                         {% endif %}
-                                        <script>
-                                            var csrftoken = getCookie('csrftoken');
-
-
-                                            $(".available_status").click(function () {
-
-
-                                                $.ajax({
-                                                    type:"POST",
-                                                    headers:{
-                                                        "X-CSRFToken": csrftoken
-                                                    },
-                                                    url: '/post_availability/',
-                                                    data: {
-                                                        'pkg_id': {{ menu.id }} ,
-                                                        {#'deliveryMan_id' : {{ user.id }},#}
-                                                        'is_available': this.name
-                                                    },
-                                                    dataType: 'json',
-                                                    success: function (data) {
-                                                        console.log(data);
-                                                        alert('Order waiting for delivery-man approval');
-                                                        location.reload()
-                                                    }
-                                                });
-
-                                            });
-
-                                        </script>
                                     </td>
                                 </tr>
                             {% endfor %}
+                            <script>
+                                var csrftoken = getCookie('csrftoken');
+
+
+                                $(".available_status").click(function () {
+
+
+                                    $.ajax({
+                                        type:"POST",
+                                        headers:{
+                                            "X-CSRFToken": csrftoken
+                                        },
+                                        url: '/post_availability/',
+                                        data: {
+                                            'pkg_id': $(this).attr("id"),
+                                            {#'deliveryMan_id' : {{ user.id }},#}
+                                            'is_available': this.name
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            console.log(data);
+                                            alert('Order waiting for delivery-man approval');
+                                        }
+                                    });
+
+                                });
+
+                            </script>
 
                             </tbody>
                         </table>
@@ -153,9 +152,9 @@
             $(document).on('click', '#submit_offer', function(){
                 var offer_type = $('#offer_option').val();            alert(offer_type);
 
-                var discount = -1;
-                var buy_amnt = -1;
-                var get_amnt = -1;
+                var discount = 0;
+                var buy_amnt = 1;
+                var get_amnt = 0;
 
                 if(offer_type === 'discount'){
                     discount =  $('#discount_amnt').val();
