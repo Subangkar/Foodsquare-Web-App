@@ -97,6 +97,9 @@ class PackageRating(models.Model):
 	def get_absolute_url(self):
 		return reverse("browse:PackageRating", kwargs={"id": self.pk})
 
+	def __str__(self):
+		return self.package.__str__() + " " + str(self.rating) + " from " + self.user.__str__()
+
 
 class PackageComment(models.Model):
 	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)

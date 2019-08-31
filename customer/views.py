@@ -75,12 +75,12 @@ class myOrdersList(ListView):
 def get_notifications(request):
 	from customer.utils_db import get_new_notifications, get_unread_notifications
 	# notifications = get_new_notifications(request.user)
-	notifications = get_unread_notifications(request.user)
+	notifications = [notf.message for notf in get_unread_notifications(request.user)]
 	try:
 		notifications = serializers.serialize("json", notifications)
 	except:
 		pass
-	notifications = ["masum 1", "masum 3"]
+	# notifications = ["masum 1", "masum 3"]
 	return JsonResponse({'notifications': notifications})
 
 
@@ -95,5 +95,5 @@ def submitDeliveryRating(request):
 	order_id = request.POST.get('order-id')
 	rating = request.POST.get('rating')
 
-	submitDeliveryRating(order_id, rating)
-	return JsonResponse({'success': True})
+	from browse.utils_db import post_delivery_rating
+	return JsonResponse({'success': post_delivery_rating(order_id, rating)})

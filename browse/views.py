@@ -387,7 +387,7 @@ def FilteredProducts(request):
 		price_range_max = "10000"
 	pkg_list = get_named_package(entry_name)
 	if rating and int(rating) != 0:
-		pkg_list &= get_rated_package(float(rating))
+		pkg_list &= get_rated_package(int(rating))
 	pkg_list &= get_price_range_package(float(price_range_min), float(price_range_max))
 	print(pkg_list)
 

@@ -274,9 +274,8 @@ def get_named_package(name):
 def get_rated_package(rating=0):
 	from browse.models import PackageRating
 	from django.db.models import Avg
-	from math import floor
-	pkg_ids = PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-		avg__gte=floor(rating)).values('package').distinct()
+	pkg_ids = PackageRating.objects.values('package').annotate(avg=Avg('rating')).filter(
+		avg__gte=rating).values('package').distinct()
 	from browse.models import Package
 	return Package.objects.filter(id__in=pkg_ids).distinct()
 
@@ -365,6 +364,19 @@ def get_deliverable_offers(package_id, coordinates):
 		        for pkg in branch_detail_list]
 	except Package.DoesNotExist:
 		return []
+
+
+# ------------------------ Delivery ----------------------------
+
+def post_delivery_rating(order_id, rating):
+	from accounts.models import Order
+	try:
+		order = Order.objects.get(id=order_id)
+		order.delivery.rating_user = int(rating)
+		order.delivery.save()
+		return True
+	except Order.DoesNotExist:
+		return False
 
 
 #  ----------------------- Insert utils -------------------------
