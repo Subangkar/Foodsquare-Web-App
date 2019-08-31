@@ -56,13 +56,13 @@
                 {#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
 
         >
-        <div class="tooltip-content">
-            <li>Dhanmondi : 20%</li>
-            <li>Dhanmondi : 20%</li>
+            <div class="tooltip-content">
+                <li>Dhanmondi : 20%</li>
+                <li>Dhanmondi : 20%</li>
 
-            <li>Dhanmondi : 20%</li>
-            <li>Dhanmondi : 20%</li>
-        </div>
+                <li>Dhanmondi : 20%</li>
+                <li>Dhanmondi : 20%</li>
+            </div>
 
             <div class=" product-men women_two">
                 <div class="product-toys-info">
@@ -111,15 +111,17 @@
 
                                     </script>
                                 </div>
-                                {#                                                <div class="toys single-item hvr-outline-out">#}
-                                {#                                                    <button href="#" data-id="{{ item.id }}"#}
-                                {#                                                            data-name="{{ item.pkg_name }}"#}
-                                {#                                                            data-price="{{ item.price }}"#}
-                                {#                                                            data-restaurant-id="{{ item.restaurant.id }}"#}
-                                {#                                                            class="add-to-cart toys-cart ptoys-cart">#}
-                                {#                                                        <i class="fas fa-cart-plus"></i>#}
-                                {#                                                    </button>#}
-                                {#                                                </div>#}
+                                <div class="toys single-item hvr-outline-out" >
+                                    <button href="#" data-id="{{ item.id }}"
+                                            data-name="{{ item.pkg_name }}"
+                                            data-price="{{ item.price }}"
+                                            data-restaurant-id="{{ item.restaurant.id }}"
+                                            class="add-to-cart toys-cart ptoys-cart cart_button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -129,5 +131,142 @@
         </div>
 
     {% endfor %}
+    <script>
+        $(document).ready(function () {
+
+            $(".cart_button").click(function(){
+                console.log('hi');
+                if($('#delivery_input').val().length === 0 )
+                {
+                    $('#delivery_modal_btn').click();
+                }
+                else{
+                    $('#br_modal_btn').click();
+                }
+
+            });
+        });
+
+    </script>
     {# Searched Product list show start #}
+</div>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" id="delivery_modal_btn" hidden class="btn btn-primary" data-toggle="modal" data-target="#delivery_location_modal">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="delivery_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #9F0053">Please Enter Your Delivery Location First</h5>
+                {#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+                {#                    <span aria-hidden="true">&times;</span>#}
+                {#                </button>#}
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="delivery_location" aria-describedby="emailHelp" placeholder="Enter Delivery Location">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
     </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#delivery_location_modal').on('hidden.bs.modal', function () {
+            if($('#delivery_input').val().length !== 0 )
+            {
+                $('#br_modal_btn').click();
+            }
+        });
+    });
+</script>
+<button hidden type="button" id="br_modal_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_modal">
+    Launch demo modal
+</button>
+<div class="modal fade" id="branch_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #9F0053">Please Enter Your Delivery Location First</h5>
+
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive project-stats">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Branch</th>
+                            <th>Order availability</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in Orders %}
+                            <tr>
+                                <td>branch</td>
+                                <td>
+                                    {#                                    {% if order.order_status == 'PENDING' %}#}
+                                    <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Place Order</button>
+                                    {#                                    {% endif %}#}
+                                    <script>
+                                        var csrftoken = getCookie('csrftoken');
+                                        $.ajaxSetup({
+                                            beforeSend: function(xhr, settings) {
+                                                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                }
+                                            }
+                                        });
+
+                                        $("#confirm_deliver").click(function () {
+                                            alert('hi');
+                                            {#ekhane deliveryman er id hobe#}
+
+                                            $.ajax({
+                                                type:"POST",
+                                                headers:{
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                url: '/acceptOrder/',
+                                                data: {
+                                                    'order_id': {{ order.id }} ,
+                                                    {#'deliveryMan_id' : {{ user.id }},#}
+                                                    {#'delivery_option': this.id#}
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    console.log(data);
+                                                    alert('Order waiting for delivery-man approval');
+                                                    location.reload();
+                                                }
+                                            });
+
+                                        });
+                                    </script>
+                                </td>
+
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                {#                <button type="button" class="btn btn-primary">Save changes</button>#}
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,13 +32,13 @@
                                                                           alt=" ">
 
                                             </div>
-{#                                            <button href="#" data-id="{{ item.id }}"#}
-{#                                                    data-name="{{ item.pkg_name }}"#}
-{#                                                    data-price="{{ item.price }}"#}
-{#                                                    data-restaurant-id="{{ restaurant.branch.id }}"#}
-{#                                                    class="add-to-cart toys-cart ptoys-cart">#}
-{#                                                <i class="fas fa-cart-plus"></i>#}
-{#                                            </button>#}
+                                            {#                                            <button href="#" data-id="{{ item.id }}"#}
+                                            {#                                                    data-name="{{ item.pkg_name }}"#}
+                                            {#                                                    data-price="{{ item.price }}"#}
+                                            {#                                                    data-restaurant-id="{{ restaurant.branch.id }}"#}
+                                            {#                                                    class="add-to-cart toys-cart ptoys-cart">#}
+                                            {#                                                <i class="fas fa-cart-plus"></i>#}
+                                            {#                                            </button>#}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -107,14 +107,14 @@
                                     <input type="radio" id="star1" name="rate" value="1" />
                                     <label for="star1" title="text">1 star</label>
                                 </div>
-                            <script>
-                                var user_rating = {{ user_rating.rating }};
-                                if(user_rating !== "None"){
-                                    {#alert(user_rating + " " + star{{ user_rating.rating }});#}
-                                    $("#star{{ user_rating.rating }}").prop("checked", true);
+                                <script>
+                                    var user_rating = {{ user_rating.rating }};
+                                    if(user_rating !== "None"){
+                                        {#alert(user_rating + " " + star{{ user_rating.rating }});#}
+                                        $("#star{{ user_rating.rating }}").prop("checked", true);
 
-                                }
-                            </script>
+                                    }
+                                </script>
                                 <script>
                                     $('.rate input').on('change', function() {
                                         var rate_val = $("input[type='radio'][name='rate']:checked").val();
@@ -337,23 +337,26 @@
                                 $("#submit_review").click(function () {
 
                                     {% if loggedIn %}
+                                        if($('#comment').val().trim().length !=0){
+                                            alert($('#comment').val().trim().length);
+                                            $.ajax({
+                                                type:"POST",
+                                                headers:{
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                url: 'submitReview/',
+                                                data: {
+                                                    'pkg-id': {{ item.id }},
+                                                    'comment' : $('#comment').val()
 
-                                        $.ajax({
-                                            type:"POST",
-                                            headers:{
-                                                "X-CSRFToken": csrftoken
-                                            },
-                                            url: 'submitReview/',
-                                            data: {
-                                                'pkg-id': {{ item.id }},
-                                                'comment' : $('#comment').val()
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    location.reload();
+                                                }
+                                            });
+                                        }
 
-                                            },
-                                            dataType: 'json',
-                                            success: function (data) {
-                                                location.reload();
-                                            }
-                                        });
 
                                     {% else %}
 

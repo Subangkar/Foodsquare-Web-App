@@ -279,15 +279,14 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 
-
                         <li class="dropdown" id="notifications">
-                            <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"
-                               data-toggle="dropdown"><i class="fa fa-bell"></i><span
-                                    class="badge badge-success pull-right" id="noti-count">{{ cnt }}</span></a>
-                            <ul id="notifications-list" class="dropdown-menu title-caret dropdown-lg" role="menu">
 
-                                {% include "customer/notifications.html" %}
-                            </ul>
+                            {% include "browse/notifications.html" %}
+                            <script>
+                                document.getElementById("notification-dropdown").style.top = "16px";
+                                document.getElementById("notifications-count").style.zIndex = "1";
+                                document.getElementById("bell_icon").style.color = "#5f5f5f";
+                            </script>
 
                         </li>
                         <li class="dropdown">
@@ -387,7 +386,7 @@
                     url: "/customer/read_notifications/",
                     data: {},
                     success: function (data) {
-                    $('#notifications-list').html(data);
+                        $('#notifications-list').html(data);
 
                     }
                 });
