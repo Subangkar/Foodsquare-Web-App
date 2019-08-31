@@ -78,21 +78,20 @@ class ManagerLoginView(TemplateView):
 		password = request.POST.get('pass', False)
 		if username and password:
 			user = authenticate(request, username=username, password=password)
+			if user is None:
+				return HttpResponse('<html> <a href="/accounts/manager_login/""><h1>No such user exists, Try again</h1></a></html>')
 			if user.is_branch_manager:
-				if user is not None:
-					login(request, user)
-					print('Signing in: ' + str(request.user))
-					return redirect('/orders')
-				else:
-					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
-			else:
+				login(request, user)
+				print('Signing in: ' + str(request.user))
+				return redirect('/orders')
+			elif user.is_manager:
 				rest = Restaurant.objects.get(user=user)
-				if user is not None and user.is_manager and rest.restaurant_key != '0':
+				if rest.restaurant_key.strip() != '0':
 					login(request, user)
 					print('Signing in: ' + str(request.user))
 					return redirect('/homepage')
-				elif rest.restaurant_key == '0':
-					return HttpResponse('Your account has not been approved yet')
+				elif rest.restaurant_key.strip() == '0':
+					return HttpResponse('<h1>Your account has not been approved yet</h1>')
 				elif not user.is_manager:
 					return HttpResponse('Not a Manager account')
 				else:

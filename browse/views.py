@@ -91,11 +91,12 @@ class PackageDetails(TemplateView):
 		id = kwargs['id']
 		pkg = Package.objects.get(id=id)
 		ing_list = [ingobj.ingredient.name for ingobj in IngredientList.objects.filter(package=pkg)]
-		# comments = PackageReview.objects.filter(package=pkg)
+
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		comments = get_reviews_package(user_id, id)
 		user_rating = None
-		if PackageRating.objects.filter(user=self.request.user, package=pkg).exists():
+		if self.request.user.is_authenticated and PackageRating.objects.filter(user=self.request.user,
+		                                                                       package=pkg).exists():
 			user_rating = PackageRating.objects.get(user=self.request.user, package=pkg)
 		print(get_rating_count_package(id))
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
