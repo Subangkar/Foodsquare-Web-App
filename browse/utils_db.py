@@ -274,9 +274,8 @@ def get_named_package(name):
 def get_rated_package(rating=0):
 	from browse.models import PackageRating
 	from django.db.models import Avg
-	from math import floor
-	pkg_ids = PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-		avg__gte=floor(rating)).values('package').distinct()
+	pkg_ids = PackageRating.objects.values('package').annotate(avg=Avg('rating')).filter(
+		avg__gte=rating).values('package').distinct()
 	from browse.models import Package
 	return Package.objects.filter(id__in=pkg_ids).distinct()
 
@@ -345,6 +344,39 @@ def get_searched_packages_restaurant(rest_id, search_key):
 def get_price_for_branch_pkg(branchPack_id, quantity):
 	from browse.models import PackageBranchDetails
 	return PackageBranchDetails.objects.get(id=branchPack_id).get_buying_price(order_quantity=quantity)
+
+
+# ------------------------ Offers ------------------------------
+
+def get_deliverable_offers(package_id, coordinates):
+	"""
+	:param package_id: restaurant's package_id
+	:param coordinates: "x,y" format
+	:return: list of PackageOfferDetail(branch_package=branch_pack, deliverable=True/False)
+	"""
+	from browse.models import Package
+	try:
+		package = Package.objects.get(id=package_id)
+		branch_detail_list = package.get_all_offers()
+		import collections
+		PackageOfferDetail = collections.namedtuple('PackageOfferDetail', ['branch_package', 'deliverable'])
+		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates))
+		        for pkg in branch_detail_list]
+	except Package.DoesNotExist:
+		return []
+
+
+# ------------------------ Delivery ----------------------------
+
+def post_delivery_rating(order_id, rating):
+	from accounts.models import Order
+	try:
+		order = Order.objects.get(id=order_id)
+		order.delivery.rating_user = int(rating)
+		order.delivery.save()
+		return True
+	except Order.DoesNotExist:
+		return False
 
 
 #  ----------------------- Insert utils -------------------------

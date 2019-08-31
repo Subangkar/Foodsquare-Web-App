@@ -221,7 +221,7 @@ def branchesInRadius(coord, queryset):
 	for rest in rest_map.values():
 		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
 		# print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
-		if branches[0].distance(coord) < 4:
+		if branches[0].distance(coord) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE:
 			def_branch = branches[0]
 			for branch in branches:
 				if branch.is_open_now():
@@ -387,7 +387,7 @@ def FilteredProducts(request):
 		price_range_max = "10000"
 	pkg_list = get_named_package(entry_name)
 	if rating and int(rating) != 0:
-		pkg_list &= get_rated_package(float(rating))
+		pkg_list &= get_rated_package(int(rating))
 	pkg_list &= get_price_range_package(float(price_range_min), float(price_range_max))
 	print(pkg_list)
 
