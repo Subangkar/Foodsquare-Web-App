@@ -79,7 +79,7 @@ app.controller('demoController', function($scope, $http){
 			$scope.awaitingNotifications = $scope.newNotifications.length;
 			angular.element('#notifications-count').removeClass('fadeOut').addClass('fadeIn');
 
-			console.log(response.data.notifications);
+			// console.log(response.data.notifications);
 		}, function errorCallback(response) {
 			$scope.newNotifications = response;
 		});

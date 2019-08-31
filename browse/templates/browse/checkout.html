@@ -65,9 +65,10 @@
 								<thead>
 								<tr>
 									<th>ID No.</th>
-									<th>Item Name</th>
-									<th>Quantity</th>
+									<th >Item Name</th>
+									<th width="160px">Quantity</th>
 									{#                                <th>Product Name</th>#}
+									<th width="70px">#Free Extras</th>
 									<th>Price</th>
 									<th>Remove</th>
 								</tr>
@@ -302,6 +303,7 @@
 					// { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
 					+ '<td class="invert">' + cartArray[i].name + '</td>'
 					+ '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
+					+ '<td class="invert">' + (Math.floor(cartArray[i].count/cartArray[i].buy_n)*cartArray[i].get_n) + '  </td>'
 					+ '<td class="invert">' + cartArray[i].price + 'x ' + cartArray[i].count + '  </td>'
 					// { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
 					+ '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'

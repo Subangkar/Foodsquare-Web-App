@@ -143,7 +143,6 @@ class CheckoutView(TemplateView):
 
 		total_price = 0
 		for pkg in pkg_list:
-			# total_price += pkg['price'] * pkg['quantity']
 			total_price += pkg['price']
 		from webAdmin import utils
 		total_price += utils.get_delivery_charge(total_price)
@@ -164,8 +163,8 @@ class CheckoutView(TemplateView):
 		for pkg in pkg_list:
 			# print(Package.objects.get(id=pkg['id']))
 			package = PackageBranchDetails.objects.get(id=pkg['id']).package
-			OrderPackageList.objects.create(order=order, package=package,
-			                                quantity=int(pkg['quantity']), price=pkg['price'])
+			OrderPackageList.objects.create(order=order, package=package, quantity=int(pkg['quantity']),
+			                                price=pkg['price'])
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order:" + str(
 			order.id) + " from " + order.branch.branch_name + " with " + str(

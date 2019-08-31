@@ -236,6 +236,7 @@ class PackageBranchDetails(models.Model):
 			PackageBranchDetails.objects.get_or_create(package=package, branch=branch)
 
 	def set_discount_offer(self, start_date, end_date, discount_val):
+		self.clear_offer(commit=False)
 		self.offer_start_date = start_date
 		self.offer_expire_date = end_date
 		self.offer_discount = discount_val
@@ -243,6 +244,7 @@ class PackageBranchDetails(models.Model):
 		self.save()
 
 	def set_buy_get_offer(self, start_date, end_date, buy_n, get_n):
+		self.clear_offer(commit=False)
 		self.offer_start_date = start_date
 		self.offer_expire_date = end_date
 		self.offer_buy_n = buy_n
@@ -250,9 +252,13 @@ class PackageBranchDetails(models.Model):
 		self.offer_type = PackageBranchDetails.BUY_N_GET_N
 		self.save()
 
-	def clear_offer(self):
+	def clear_offer(self, commit=True):
 		self.offer_type = self.NONE
-		self.save()
+		self.offer_discount = 0
+		self.offer_buy_n = 1
+		self.offer_get_n = 0
+		if commit:
+			self.save()
 
 	def get_absolute_url(self):
 		return reverse('manager:package-branch-details', kwargs={"pk": self.pk})
