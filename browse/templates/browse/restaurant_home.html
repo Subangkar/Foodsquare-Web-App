@@ -518,6 +518,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                             data-name="{{ item.pkg_name }}"
                                                             data-price="{{ item.price }}"
                                                             data-restaurant-id="{{ restaurant.branch.id }}"
+                                                            {% if pkg_details.has_buy_get_offer %}
+                                                                data-offer-buy-n="{{ pkg_details.offer_buy_n }}"
+                                                                data-offer-get-n="{{ pkg_details.offer_get_n }}"
+                                                            {% else %}
+                                                                data-offer-buy-n="{{ 1 }}"
+                                                                data-offer-get-n="{{ 0 }}"
+                                                            {% endif %}
                                                             class="add-to-cart toys-cart ptoys-cart">
                                                         <i class="fas fa-cart-plus"></i>
                                                     </button>

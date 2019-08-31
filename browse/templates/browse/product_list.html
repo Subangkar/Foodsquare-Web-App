@@ -97,17 +97,17 @@
                                     </div>
                                     <script>
 
-                                        var i = 0;
-                                        var rating = {{ item.get_avg_rating }};
-                                        for(i = 0;i<rating;i++){
-                                            $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
-                                        }
+                                        {% if item.get_avg_rating is not None %}
+                                            var i = 0;
+                                            var rating = {{ item.get_avg_rating }};
+                                            for(i = 0;i<rating;i++){
+                                                $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                            }
 
-
-                                        for(;i<5;i++){
-                                            $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
-                                        }
-
+                                            for(;i<5;i++){
+                                                $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                            }
+                                        {% endif %}
 
                                     </script>
                                 </div>

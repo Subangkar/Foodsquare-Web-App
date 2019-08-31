@@ -1,4 +1,5 @@
 // ************************************************
+// cart.js
 // Shopping Cart API
 // ************************************************
 
@@ -9,12 +10,14 @@ var shoppingCart = (function () {
     cart = [];
 
     // Constructor
-    function Item(id, price, count, name, rest_id) {
+    function Item(id, price, count, name, rest_id, buy_n, get_n) {
         this.id = id;
         this.price = price;
         this.count = count;
         this.name = name;
         this.rest_id = rest_id;
+        this.buy_n = buy_n;
+        this.get_n = get_n;
     }
 
     // Save cart
@@ -38,7 +41,7 @@ var shoppingCart = (function () {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function (id, price, count, name, rest_id) {
+    obj.addItemToCart = function (id, price, count, name, rest_id, buy_n = 1, get_n = 0) {
 
         for (var item in cart) {
             if (cart[item].id === id) {
@@ -47,7 +50,7 @@ var shoppingCart = (function () {
                 return;
             }
         }
-        cart.push(new Item(id, price, count, name, rest_id));
+        cart.push(new Item(id, price, count, name, rest_id, buy_n, get_n));
         saveCart();
         return true;
     };
@@ -150,6 +153,8 @@ $('.add-to-cart').click(function (event) {
     var id = $(this).data('id');
     var name = $(this).data('name');
     var price = Number($(this).data('price'));
+    var buy_n = Number($(this).data('offer-buy-n'));
+    var get_n = Number($(this).data('offer-get-n'));
     var locInput = document.getElementById('delivery_area_srch').value;
     if (locInput == '') {
         $('#delivery_area_alert').modal();
@@ -180,7 +185,7 @@ $('.add-to-cart').click(function (event) {
             }
         });
     } else {
-        shoppingCart.addItemToCart(id, price, 1, name, rest_id);
+        shoppingCart.addItemToCart(id, price, 1, name, rest_id, buy_n, get_n);
         displayCart();
         showSuccessNotification(name + " has been added to your cart.");
     }
@@ -197,7 +202,12 @@ $('.clear-cart').click(function () {
 function itemListJSON() {
     var arr = [];
     for (const item of shoppingCart.listCart()) {
-        arr.push({'id': item.id, 'quantity': item.count, 'price': item.price});
+        // arr.push({'id': item.id, 'quantity': item.count, 'price': item.price});
+        arr.push({
+            'id': item.id,
+            'quantity': item.count + (Math.floor(item.count / item.buy_n) * item.get_n),
+            'price': item.price * item.count
+        });
     }
     return JSON.stringify({'pkg-list': arr});
 }
@@ -215,13 +225,15 @@ function displayCart() {
         document.getElementById("cart-clear-button").disabled = false;
         for (var i in cartArray) {
             // console.log(cartArray[i]);
+            const nfree = Math.floor(cartArray[i].count/cartArray[i].buy_n)*cartArray[i].get_n
             output += "<tr>"
                 + "<td>" + cartArray[i].name + "</td>"
-                + "<td>(" + cartArray[i].price + ")</td>"
-                + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
+                + "<td>" + "( + " + nfree +" Extra)" + "</td>"
+                + "<td width=150px><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-id=" + cartArray[i].id + ">-</button>"
                 + "<input type='number' class='item-count form-control' data-id='" + cartArray[i].id + "' value='" + cartArray[i].count + "'>"
                 + "<button class='plus-item btn btn-primary input-group-addon' data-id=" + cartArray[i].id + ">+</button></div></td>"
                 + "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"
+                + "<td>("+cartArray[i].count+"x" + cartArray[i].price + ")</td>"
                 + " = "
                 + "<td>" + cartArray[i].total + "</td>"
                 + "</tr>";
