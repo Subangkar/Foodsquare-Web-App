@@ -165,12 +165,30 @@
                                 {#                                <input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"#}
                                 {#                                       id="delivery_input" style="background: transparent;" autocomplete="off">#}
                                 <input type="text" required id="delivery_input" name="delivery_input"
-                                       class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
+                                       class="hotelsearchInput  delivery_loc_input" type="text" placeholder="Enter Delivery Location"
                                        style="background: transparent;" autocomplete="off">
+                                <style>
+                                    #clear_location {
+                                        cursor: pointer;
+                                        font-size: 20px;
+                                        color: #9F0053;
+                                        padding-left: 3%;
+                                    }
+                                </style>
                                 <form action="/browse/restaurants/" method="GET" id="location-based-search">
                                     {% csrf_token %}
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
+                                    <span id="clear_location">&times;</span>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#clear_location').on('click', function () {
+                                                $('#delivery_area_srch').val('');
+                                                $('#delivery_input').val('');
+                                                deliveryLocation.clear();
 
+                                            });
+                                        });
+                                    </script>
                                     <button class="hotelsearchButton" href="#" id="hotelsearchButton">
                                         <i class="fa fa-search">
                                         </i>
@@ -245,6 +263,7 @@
                                             autocomplete = new google.maps.places.Autocomplete(
                                                 (document.getElementById('delivery_input')), { 'bounds': dhakaBounds }
                                             );
+
                                             // Set initial restrict to the greater list of countries.
                                             autocomplete.setComponentRestrictions({ 'country': ['bd'] });
 
@@ -256,15 +275,16 @@
                                                 deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
                                                 $('.hotelsearchButton').click();
                                             });
+
                                         }
                                     </script>
                                     <script
                                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete"
                                             async defer></script>
+                                </form>
 
                             </div>
 
-                            </form>
 
                             <!-- </div> -->
                         </div>

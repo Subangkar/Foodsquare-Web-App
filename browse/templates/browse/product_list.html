@@ -56,14 +56,13 @@
                 {#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
 
         >
-            <div class="tooltip-content">
-                <li>Dhanmondi : 20%</li>
-                <li>Dhanmondi : 20%</li>
-
-                <li>Dhanmondi : 20%</li>
-                <li>Dhanmondi : 20%</li>
-            </div>
-
+            {% if item.get_all_offers %}
+                <div class="tooltip-content">
+                    {% for brnchPkg in item.get_all_offers %}
+                        <li>{{ brnchPkg.branch }} --- {{ brnchPkg.get_offer_details }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class=" product-men women_two">
                 <div class="product-toys-info">
                     <div class="men-pro-item">
@@ -169,7 +168,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="delivery_location" aria-describedby="emailHelp" placeholder="Enter Delivery Location">
+                    <input type="text" class="form-control delivery_loc_input" id="delivery_input2" aria-describedby="emailHelp" placeholder="Enter Delivery Location">
                 </div>
             </div>
             <div class="modal-footer">
@@ -178,7 +177,35 @@
             </div>
         </div>
     </div>
+    <script>
+        function initAutocomplete2() {
+
+            var dhakaBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(23.6612704, 90.3295468),
+                new google.maps.LatLng(23.6612704, 23.9000025));
+
+
+            autocomplete2 = new google.maps.places.Autocomplete(
+                (document.getElementById('delivery_input2')), { 'bounds': dhakaBounds }
+            );
+            // Set initial restrict to the greater list of countries.
+            autocomplete2.setComponentRestrictions({ 'country': ['bd'] });
+
+
+            autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+            autocomplete2.addListener('place_changed', function () {
+                var place = autocomplete2.getPlace();
+                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                document.getElementById('delivery_input').value = document.getElementById('delivery_input2').value;
+                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input2').value);
+            });
+        }
+    </script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete2"
+            async defer></script>
 </div>
+
 <script>
     $(document).ready(function () {
 
