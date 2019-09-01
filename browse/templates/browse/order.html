@@ -130,8 +130,25 @@
                         <ul class="rating_group">
 
                             <li>
+                                <style>
+                                    .rating_btn{
+                                        border: none; outline: none; background: transparent;
+                                    }
+                                    .rating_btn_clicked{
+                                        background: #953b39;
+                                    }
+                                </style>
+                                <script>
+                                    $(document).ready(function () {
+                                        $('.rating_btn').click(function(){
 
-                                <button name="5" style="border: none; outline: none; background: transparent;" >
+                                            $(".rating_btn").removeClass('rating_btn_clicked');
+                                            $(this).toggleClass('rating_btn_clicked');
+                                        });
+                                    });
+
+                                </script>
+                                <button class="rating_btn" name="5"  >
                                     {% for j in "12345" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -141,7 +158,7 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="4" style="border: none; outline: none; background: transparent;">
+                                <button class="rating_btn" type="submit" form="rating_form" name="4" >
                                     {% for j in "1234" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -155,7 +172,7 @@
 
                             <li>
 
-                                <button type="submit" form="rating_form" name="3" style="border: none; outline: none; background: transparent;">
+                                <button class="rating_btn" type="submit" form="rating_form" name="3" >
                                     {% for j in "123" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -168,7 +185,7 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="2" style="border: none; outline: none; background: transparent;">
+                                <button class="rating_btn" type="submit" form="rating_form" name="2" >
                                     {% for j in "12" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -181,7 +198,7 @@
                             </li>
                             <li>
 
-                                <button type="submit" form="rating_form" name="1" style="border: none; outline: none; background: transparent;">
+                                <button class="rating_btn" type="submit" form="rating_form" name="1" >
                                     {% for j in "1" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -192,6 +209,7 @@
                                 <span>And Up</span>
 
                             </li>
+
                         </ul>
                     </div>
 
@@ -281,7 +299,7 @@
                                 responseTime: 200,
 
                                 success: function (data) {
-                                    console.log(data);
+                                    {#console.log(data);#}
                                     {#document.getElementsByClassName('product_list').innerHTML = data;#}
 
                                     $('.product_list').empty().append(data);
@@ -296,28 +314,28 @@
 
     <!-- //show Now-->
     <!-- Button trigger modal -->
-{#    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">#}
-{#        Launch demo modal#}
-{#    </button>#}
-{##}
-{#    <!-- Modal -->#}
-{#    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#        <div class="modal-dialog" role="document">#}
-{#            <div class="modal-content">#}
-{#                <div class="modal-header">#}
-{#                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
-{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                        <span aria-hidden="true">&times;</span>#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="modal-body">#}
-{#                    ...#}
-{#                </div>#}
-{#                <div class="modal-footer">#}
-{#                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-{#                    <button type="button" class="btn btn-primary">Save changes</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+    {#    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">#}
+    {#        Launch demo modal#}
+    {#    </button>#}
+    {##}
+    {#    <!-- Modal -->#}
+    {#    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#        <div class="modal-dialog" role="document">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
+    {#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+    {#                        <span aria-hidden="true">&times;</span>#}
+    {#                    </button>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    ...#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+    {#                    <button type="button" class="btn btn-primary">Save changes</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 {% endblock %}
