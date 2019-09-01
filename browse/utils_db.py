@@ -357,7 +357,9 @@ def get_deliverable_offers(package_id, coordinates):
 	from browse.models import Package
 	try:
 		package = Package.objects.get(id=package_id)
-		branch_detail_list = package.get_all_offers()
+		# branch_detail_list = package.get_all_offers()
+		from browse.models import PackageBranchDetails
+		branch_detail_list = PackageBranchDetails.objects.filter(package__id=package_id)
 		import collections
 		PackageOfferDetail = collections.namedtuple('PackageOfferDetail', ['branch_package', 'deliverable'])
 		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates))

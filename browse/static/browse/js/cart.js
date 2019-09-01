@@ -148,7 +148,9 @@ var shoppingCart = (function () {
 // *****************************************
 // Add item
 $('.add-to-cart').click(function (event) {
+
     event.preventDefault();
+    console.log('add-to-cart');
     var rest_id = $(this).data('restaurant-id');
     var id = $(this).data('id');
     var name = $(this).data('name');
