@@ -101,7 +101,9 @@
                                     },
                                     dataType: 'json',
                                     success: function (data) {
-                                        if(data['accepted'] !== 'True'){
+                                        var response = JSON.parse(data);
+
+                                        if(response.accepted !== 'True'){
                                             alert('Sorry order not available')
                                         }
                                         else{
