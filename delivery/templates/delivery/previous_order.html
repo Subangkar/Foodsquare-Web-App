@@ -1,0 +1,109 @@
+{% extends 'delivery/base.html' %}
+
+{% block header %}
+    <title>Foodsquare </title>
+{% endblock %}
+
+
+{% block body-content %}
+    <div class="page-inner">
+        {% load static %}
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Order List</h4>
+
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+                <div style="height: 5vh">
+
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive project-stats">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Restaurant</th>
+                                <th>Customer</th>
+                                <th>Order Time</th>
+                                <th>Payment Type</th>
+                                <th>Customer Rating</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in object_list %}
+
+                                <tr>
+
+                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
+                                    <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
+                                    <td>{{ order.user.username }}</td>
+                                    <td>{{ order.time }} </td>
+                                    <td>
+                                        {% if order.payment.payment_type == "C" %}
+                                            Cash
+                                        {% elif order.payment.payment_type == "O" %}
+                                            Online
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+
+
+                                    </td>
+                                </tr>
+                                <h1 id="cookie"></h1>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        {#    Modal #}
+        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+
+            {% include "delivery/delivery_modal.html" %}
+        </div>
+        <script>
+            $(document).ready(function () {
+
+                $(".order_details").click(function (event) {
+                    event.preventDefault();
+                    {#$("#delivery_modal").modal();#}
+
+                    var addressValue = $(this).attr("href");
+                    $.ajax({
+                        type: "GET",
+                        url: "/delivery_info",
+                        data: {
+                            'id': $(this).attr("href")
+                        },
+                        success: function (data) {
+                            {#alert(data);#}
+                            console.log(data);
+                            {#console.log(data);#}
+                            {#alert(data.trade_license);#}
+
+                            $('#delivery_modal').html(data);
+
+
+                            $("#delivery_modal").modal();
+                        }
+                    });
+
+                });
+            });
+        </script>
+    </div>
+
+{% endblock %}

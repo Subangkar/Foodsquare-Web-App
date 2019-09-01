@@ -118,28 +118,31 @@
 
         });
 
-        {#$(document).on('change', '.rate input', function(){#}
-        {#    var rate_val = $("input[type='radio'][name='rate']:checked").val();#}
-        {#    var csrftoken = getCookie('csrftoken');#}
-        {#    $("#star3").prop("checked", true);#}
-        {##}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        headers: {#}
-        {#            "X-CSRFToken": csrftoken#}
-        {#        },#}
-        {#        url: 'submitDeliveryRating/',#}
-        {#        data: {#}
-        {#            'order-id' : 2,#}
-        {#            'rating': rate_val#}
-        {#        },#}
-        {#        dataType: 'json',#}
-        {#        success: function (data) {#}
-        {##}
-        {#        }#}
-        {#    });#}
-        {##}
-        {#});#}
+        $(document).on('change', '.rate input', function(){
+            alert('hi');
+            console.log('hi');
+            var rate_val = $("input[type='radio'][name='rate']:checked").val();
+            var csrftoken = getCookie('csrftoken');
+            alert('hi');
+            $("#star3").prop("checked", true);
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                url: 'submitDeliveryRating/',
+                data: {
+                    'order-id' : 2,
+                    'rating': rate_val
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                }
+            });
+
+        });
 
     </script>
 {% endblock %}

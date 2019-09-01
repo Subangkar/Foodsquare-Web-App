@@ -140,22 +140,10 @@
 
             $(".cart_button").click(function(){
                 var pkg_id = $(this).attr("href");
-                $.ajax({
-                    type: "GET",
-                    url: "/branch_pkg_availability/",
-                    data: {
-                        'id' :  $(this).attr("href"),
-                        'coord' : $('#delivery_area_srch').val()
-                    },
-                    success: function(data)
-                    {
 
-                        $('#branch_modal').html(data);
-
-                    }
-                });
                 if($('#delivery_input').val().length === 0 )
                 {
+                    $('#rest_pkg_id').val( $(this).attr("href"));
                     $('#delivery_modal_btn').click();
                 }
                 else{
@@ -187,6 +175,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
+                    <input type="hidden" id="rest_pkg_id">
                     <input type="text" class="form-control delivery_loc_input" id="delivery_input2" aria-describedby="emailHelp" placeholder="Enter Delivery Location">
                 </div>
             </div>
@@ -236,6 +225,20 @@
         $('#delivery_location_modal').on('hidden.bs.modal', function () {
             if($('#delivery_input').val().length !== 0 )
             {
+                $.ajax({
+                    type: "GET",
+                    url: "/branch_pkg_availability/",
+                    data: {
+                        'id' :   $('#rest_pkg_id').val(),
+                        'coord' : $('#delivery_area_srch').val()
+                    },
+                    success: function(data)
+                    {
+
+                        $('#branch_modal').html(data);
+                    }
+
+                });
 
                 $('#br_modal_btn').click();
             }
