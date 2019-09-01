@@ -502,11 +502,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                     <span class="money ">BDT {{ item.price }}/=</span>
                                                                 </div>
                                                                 {% if pkg_details.has_any_offer %}
-                                                                <div class="grid-price mt-2">
-                                                                    <span class="money" 
+                                                                    <div class="grid-price mt-2">
+                                                                    <span class="money"
                                                                           style="color: red">{{ pkg_details.get_offer_details | upper }}</span>
-                                                                </div>
+                                                                    </div>
                                                                 {% endif %}
+                                                                <div id="star_rating{{ item.id }}">
+                                                                    {#                                    <i class="fa fa-star-half-full"></i>#}
+                                                                </div>
+                                                                <script>
+
+                                                                    {% if item.get_avg_rating is not None %}
+                                                                        var i = 0;
+                                                                        var rating = {{ item.get_avg_rating }};
+                                                                        for (i = 0; i < rating; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+
+                                                                        for (; i < 5; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+                                                                    {% endif %}
+
+                                                                </script>
+
 
                                                             </div>
                                                             <ul class="stars">

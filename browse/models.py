@@ -40,6 +40,8 @@ class Package(models.Model):
 	branch_details = models.ManyToManyField('accounts.RestaurantBranch', through='PackageBranchDetails',
 	                                        related_name='branch_details')
 
+	is_vegeterian = models.BooleanField(verbose_name='is only a vegetable item', default=False)
+
 	class Meta:
 		verbose_name = "Package"
 		verbose_name_plural = "Packages"
