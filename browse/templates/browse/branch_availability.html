@@ -1,0 +1,65 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+
+
+            <div class="panel-body">
+                <div class="table-responsive project-stats">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Branch</th>
+                            <th>Offer</th>
+                            <th>Order availability</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for brnch in branchList %}
+                            <tr>
+                                <td>
+                                    {{ brnch.branch_package.branch.branch_name }}
+                                </td>
+                                <td>
+                                    {{ brnch.branch_package.get_offer_details }}
+{#                                    {{ brnch.branch_package.branch.branch_name }}#}
+                                </td>
+                                <td>
+                                    {% if brnch.deliverable %}
+                                        <button type="button"
+                                                data-id="{{ brnch.branch_package.id }}"
+                                                data-name="{{ brnch.branch_package.package.pkg_name }}"
+                                                data-price="{{ brnch.branch_package.get_buying_price }}"
+                                                data-restaurant-id="{{ brnch.branch_package.branch.id }}"
+                                                data-offer-buy-n="{{ brnch.branch_package.offer_buy_n }}"
+                                                data-offer-get-n="{{ brnch.branch_package.offer_get_n }}"
+                                                class="add-to-cart btn btn-danger" >Add to cart</button>
+
+                                    {% else %}
+                                        <font style="color: #7b3a3e">Not deliverable</font>
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+
+
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                    {% load static %}
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+                    <script src="{% static 'browse/js/cart.js' %}"></script>
+                    <script src="{% static 'browse/js/notify.js' %}"></script>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            {#                <button type="button" class="btn btn-primary">Save changes</button>#}
+        </div>
+    </div>
+</div>

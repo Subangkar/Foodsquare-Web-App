@@ -391,3 +391,13 @@ def FilteredProducts(request):
 	print(pkg_list)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
+
+
+def branch_pkg_availability(request):
+	id = request.GET.get('id')
+	coord = request.GET.get('coord')
+	if coord:
+
+		return render(request, 'browse/branch_availability.html', {'branchList':get_deliverable_offers(id,coord)})
+
+	return JsonResponse({'success':False})
