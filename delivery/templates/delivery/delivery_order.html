@@ -54,49 +54,15 @@
                                     <td>
 
                                         {% if order.order_status == 'PROCESSING' %}
-                                            <button type="button" class="btn btn-danger delivery_status"
+                                            <button href="{{ order.id }}" type="button" class="btn btn-danger delivery_status"
                                                     id="take">Take Delivery
                                             </button>
                                         {% elif order.order_status == 'DELIVERING' %}
-                                            <button type="button" class="btn btn-success delivery_status"
+                                            <button href="{{ order.id }}" type="button" class="btn btn-success delivery_status"
                                                     id="deliver">Mark as Delievred
                                             </button>
                                         {% endif %}
-                                        <script src="{% static 'ajaxRequest.js' %}"></script>
-                                        <script>
-                                            var csrftoken = getCookie('csrftoken');
 
-                                            $.ajaxSetup({
-                                                beforeSend: function (xhr, settings) {
-                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                                    }
-                                                }
-                                            });
-
-                                            $(".delivery_status").click(function () {
-                                                $.ajax({
-                                                    type: "POST",
-                                                    headers: {
-                                                        "X-CSRFToken": csrftoken
-                                                    },
-                                                    url: '/applyForDelivery/',
-                                                    data: {
-                                                        'order_id': {{ order.id }},
-                                                        'deliveryMan_id': {{ user.id }},
-                                                        'delivery_option': this.id
-                                                    },
-                                                    dataType: 'json',
-                                                    success: function (data) {
-                                                        console.log(data);
-                                                        alert('Your request for delivery granted.Please collect asap');
-                                                        location.reload();
-                                                    }
-                                                });
-
-                                            });
-
-                                        </script>
 
                                     </td>
                                     <td>
@@ -109,6 +75,46 @@
 
                             </tbody>
                         </table>
+                        <script src="{% static 'ajaxRequest.js' %}"></script>
+                        <script>
+                            var csrftoken = getCookie('csrftoken');
+
+                            $.ajaxSetup({
+                                beforeSend: function (xhr, settings) {
+                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                    }
+                                }
+                            });
+
+                            $(".delivery_status").click(function () {
+                                $.ajax({
+                                    type: "POST",
+                                    headers: {
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    url: '/applyForDelivery/',
+                                    data: {
+                                        'order_id': $(this).attr('href'),
+                                        'deliveryMan_id': {{ user.id }},
+                                        'delivery_option': this.id
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if(data['accepted'] !== 'True'){
+                                            alert('Sorry order not available')
+                                        }
+                                        else{
+                                            alert('Your request for delivery granted.Please collect asap');
+
+                                        }
+                                        location.reload();
+                                    }
+                                });
+
+                            });
+
+                        </script>
                     </div>
                 </div>
 
