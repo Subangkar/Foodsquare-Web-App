@@ -15,6 +15,8 @@ urlpatterns = [
 	path('post_offer/', views.offerSubmit),
 	path('post_availability/', views.submitPkg_Availabilty),
 
+	path('delivery_info/', views.delivery_info),
+
 	path('add_menu/', views.AddMenuView.as_view(), name='add_menu'),
 	path('view_menu/', views.ViewMenusView.as_view(), name='view_menus'),
 	path('view_menu/<int:id>/', views.EditMenuView.as_view(), name='edit_menu'),

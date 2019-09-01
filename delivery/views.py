@@ -29,7 +29,7 @@ class AcceptOrdersView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
-		obj_list = get_next_orders(self.request.user.id)
+		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
 		return {'object_list': obj_list}
 
 
@@ -80,6 +80,8 @@ def acceptDelivery(request):
 	status = request.POST.get('delivery_option')
 	order = Order.objects.get(id=order_id)
 	if status == 'take':
+		if order.order_status != Order.PROCESSING:
+			return JsonResponse({"accepted": False})
 		order.assignDeliveryman(deliveryman)
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order:" + str(

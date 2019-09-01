@@ -92,13 +92,14 @@
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Approve/Reject</th>
+                                <th>View Details</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for order in object_list %}
 
                                 <tr>
-                                    <td>{{ order.id }}</td>
+                                    <td><a href="{{ order.id }}" class="order_details">{{ order.id }}</a></td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
                                      <td>
@@ -165,11 +166,50 @@
 {##}
 {#                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Delievred</button>#}
                                     </td>
+                                    <td><button href="{{ order.id }}" class="order_details btn btn-info">View</button></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
+
                     </div>
+                        {#    Modal #}
+                    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+
+                        {% include "delivery/delivery_modal.html" %}
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+
+                            $(".order_details").click(function (event) {
+                                event.preventDefault();
+                                {#$("#delivery_modal").modal();#}
+
+                                var addressValue = $(this).attr("href");
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/delivery_info",
+                                    data: {
+                                        'id': $(this).attr("href")
+                                    },
+                                    success: function (data) {
+                                        {#alert(data);#}
+                                        console.log(data);
+                                        {#console.log(data);#}
+                                        {#alert(data.trade_license);#}
+
+                                        $('#delivery_modal').html(data);
+
+
+                                        $("#delivery_modal").modal();
+                                    }
+                                });
+
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>

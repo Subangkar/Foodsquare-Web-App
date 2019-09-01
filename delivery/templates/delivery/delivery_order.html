@@ -31,6 +31,7 @@
                                 <th>Order Time</th>
                                 <th>Payment Type</th>
                                 <th>Delivery Status</th>
+                                <th>View Details</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -39,7 +40,7 @@
                                 <tr>
 
                                     <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
-                                    <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
+                                    <td>{{ order.branch.branch_name }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
@@ -97,6 +98,9 @@
 
                                         </script>
 
+                                    </td>
+                                    <td>
+                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
                                     </td>
                                 </tr>
                                 <h1 id="cookie"></h1>

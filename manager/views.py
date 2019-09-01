@@ -240,3 +240,8 @@ class ManagerDashBoardView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		pass
+
+
+def delivery_info(request):
+	from delivery.views import delivery_details
+	return delivery_details(request)
