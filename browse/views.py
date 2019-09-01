@@ -306,8 +306,11 @@ class RestaurantDetails(TemplateView):
 		# price_range = self.request.GET.get('range')
 
 		rest = Restaurant.objects.get(id=kwargs['id'])
-		pkg_list = list(get_available_packages_restaurant(rest_id=rest.id))
-		categories = set([item.package.category for item in pkg_list])
+
+		# pkg_list = [p.package for p in get_available_packages_restaurant(rest_id=rest.id)]
+		pkg_list = Package.objects.filter(restaurant__id = rest.id)
+
+		categories = set([item.category for item in pkg_list])
 		# print(pkg_list)
 		branch_list = RestaurantBranch.objects.filter(restaurant__id=kwargs['id'])
 

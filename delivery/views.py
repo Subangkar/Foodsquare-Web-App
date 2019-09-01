@@ -106,3 +106,12 @@ def delivery_details(request):
 	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
 	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
+
+
+class Delivered_Orders(TemplateView):
+	template_name = 'delivery/previous_order.html'
+
+	def get_context_data(self, **kwargs):
+		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		obj_list = get_past_orders(self.request.user.id)
+		return {'object_list': obj_list}

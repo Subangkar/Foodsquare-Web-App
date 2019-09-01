@@ -404,7 +404,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     font-weight: bold;
                                     border: 3px solid #f1f1f1;
 
-                                {#transform: translate(-50%, -50%);#} z-index: 2;
+                                {#transform: translate(-50%, -50%);#}
+                                    z-index: 2;
 
                                 }
                             </style>
@@ -466,8 +467,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                             $('.' + getItem.trim()).show();
 
-                        });
-                    </script>
+                    });
+                </script>
+                {% if not restaurant.is_branch %}
+                    {% include 'browse/product_list.html' %}
+                {% else %}
                     <div class="row" style="width: 80%">
                         {# Searched Product list show start #}
                         {% for pkg_details in item_list %}
@@ -484,9 +488,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                             View</a>
                                                     </div>
                                                 </div>
-                                                {% if pkg_details.has_any_offer %}
-                                                    <span class="product-new-top">OFFER</span>
-                                                {% endif %}
+                                                <span class="product-new-top">20% off</span>
                                             </div>
                                             <div class="item-info-product">
                                                 <div class="info-product-price">
@@ -498,40 +500,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                             <div class="grid-price mt-2">
                                                                 <span class="money ">BDT {{ item.price }}/=</span>
                                                             </div>
-                                                            {% if pkg_details.has_any_offer %}
-                                                                <div class="grid-price mt-2">
-                                                                    <span class="money"
-                                                                          style="color: red">{{ pkg_details.get_offer_details | upper }}</span>
-                                                                </div>
-                                                            {% endif %}
                                                         </div>
-                                                        <div id="star_rating{{ item.id }}">
-                                                            {#                                    <i class="fa fa-star-half-full"></i>#}
-                                                        </div>
-                                                        <script>
-
-                                                            {% if item.get_avg_rating is not None %}
-                                                                var i = 0;
-                                                                var rating = {{ item.get_avg_rating }};
-                                                                for (i = 0; i < rating; i++) {
-                                                                    $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
-                                                                }
-
-                                                                for (; i < 5; i++) {
-                                                                    $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
-                                                                }
-                                                            {% endif %}
-
-                                                        </script>
-                                                        {#                                                    <ul class="stars">#}
-                                                        {#                                                        {% for star in item.rating %}#}
-                                                        {#                                                            <li>#}
-                                                        {#                                                                <a href="#">#}
-                                                        {#                                                                    <i class="fas fa-star"></i>#}
-                                                        {#                                                                </a>#}
-                                                        {#                                                            </li>#}
-                                                        {#                                                        {% endfor %}#}
-                                                        {#                                                    </ul>#}
+                                                        <ul class="stars">
+                                                            {% for star in item.rating %}
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fas fa-star"></i>
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
                                                     </div>
                                                     <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
                                                          id="cart-div">
@@ -561,9 +539,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         {% endfor %}
                         {# Searched Product list show end #}
                     </div>
-
-                    {#                        </li>#}
-                    </ul>
+                {% endif %}
+                {#                        </li>#}
+                </ul>
 
 
                     <div class="clearfix"></div>

@@ -30,8 +30,7 @@
                                 <th>Customer</th>
                                 <th>Order Time</th>
                                 <th>Payment Type</th>
-                                <th>Delivery Status</th>
-                                <th>View Details</th>
+                                <th>Customer Rating</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -40,7 +39,7 @@
                                 <tr>
 
                                     <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
-                                    <td>{{ order.branch.branch_name }}</td>
+                                    <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
@@ -53,20 +52,7 @@
 
                                     <td>
 
-                                        {% if order.order_status == 'PROCESSING' %}
-                                            <button href="{{ order.id }}" type="button" class="btn btn-danger delivery_status"
-                                                    id="take">Take Delivery
-                                            </button>
-                                        {% elif order.order_status == 'DELIVERING' %}
-                                            <button href="{{ order.id }}" type="button" class="btn btn-success delivery_status"
-                                                    id="deliver">Mark as Delievred
-                                            </button>
-                                        {% endif %}
 
-
-                                    </td>
-                                    <td>
-                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
                                     </td>
                                 </tr>
                                 <h1 id="cookie"></h1>
@@ -75,46 +61,6 @@
 
                             </tbody>
                         </table>
-                        <script src="{% static 'ajaxRequest.js' %}"></script>
-                        <script>
-                            var csrftoken = getCookie('csrftoken');
-
-                            $.ajaxSetup({
-                                beforeSend: function (xhr, settings) {
-                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                    }
-                                }
-                            });
-
-                            $(".delivery_status").click(function () {
-                                $.ajax({
-                                    type: "POST",
-                                    headers: {
-                                        "X-CSRFToken": csrftoken
-                                    },
-                                    url: '/applyForDelivery/',
-                                    data: {
-                                        'order_id': $(this).attr('href'),
-                                        'deliveryMan_id': {{ user.id }},
-                                        'delivery_option': this.id
-                                    },
-                                    dataType: 'json',
-                                    success: function (data) {
-                                        if(data['accepted'] !== 'True'){
-                                            alert('Sorry order not available')
-                                        }
-                                        else{
-                                            alert('Your request for delivery granted.Please collect asap');
-
-                                        }
-                                        location.reload();
-                                    }
-                                });
-
-                            });
-
-                        </script>
                     </div>
                 </div>
 
