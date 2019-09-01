@@ -71,7 +71,10 @@
 
                                         {% endif %}
                                     </td>
-                                    <td><a href="{{ order.id }}" class="order_rate"> Rate Now</a></td>
+                                    <td>
+{#                                        {% if order.delivery and d %}#}
+                                        <a href="{{ order.id }}" class="order_rate"> Rate Now</a>
+                                    </td>
 
                                 </tr>
                             {% endfor %}
@@ -84,7 +87,7 @@
         </div>
 
     </div>
-                    {% include 'customer/rate_submit.html' %}
+{#    {% include 'customer/rate_submit.html' %}#}
 
     <!-- Modal -->
     <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,9 +121,8 @@
 
         });
 
-        $(document).on('change', '.rate input', function(){
-            alert('hi');
-            console.log('hi');
+        $(document).on('change', '.rate_div input', function(){
+
             var rate_val = $("input[type='radio'][name='rate']:checked").val();
             var csrftoken = getCookie('csrftoken');
             alert('hi');
@@ -131,7 +133,7 @@
                 headers: {
                     "X-CSRFToken": csrftoken
                 },
-                url: 'submitDeliveryRating/',
+                url: '/customer/submitDeliveryRating/',
                 data: {
                     'order-id' : 2,
                     'rating': rate_val
