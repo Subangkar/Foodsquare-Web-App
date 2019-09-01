@@ -270,7 +270,7 @@ class PackageBranchDetails(models.Model):
 		return reverse('manager:package-branch-details', kwargs={"pk": self.pk})
 
 	def get_offer_details(self):
-		offer = ''
+		offer = 'No offers'
 		if self.is_available() and self.has_any_offer():
 			if self.offer_type == PackageBranchDetails.DISCOUNT:
 				offer = str(round(self.offer_discount * 100.0 / self.package.price)) + "% Discount"
@@ -280,8 +280,8 @@ class PackageBranchDetails(models.Model):
 
 	def get_buying_price(self, order_quantity=1):
 		if self.has_buy_get_offer():
-			act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
-			return self.package.price * act_quant
+			# act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
+			return self.package.price * order_quantity
 		elif self.has_discount_offer():
 			return (self.package.price - self.offer_discount) * order_quantity
 		else:
