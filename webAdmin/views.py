@@ -43,3 +43,9 @@ def restaurantDetails(request):
 	json_obj =  json.loads( (ser.strip('[]')) )
 	print(json_obj['fields'])
 	return JsonResponse(json_obj['fields'])
+
+
+class DeliveyListView(object):
+	template_name = 'webAdmin/delivery_info.html'
+	# queryset = Restaurant.objects.all()
+	context_object_name = 'delivery_men'
