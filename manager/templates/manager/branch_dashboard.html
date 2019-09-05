@@ -107,12 +107,12 @@
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
                                 <div class="info-box-stats">
-                                    <p class="counter">{{ branch_cnt }}</p>
-                                    <span class="info-box-title">Outlet working  </span>
+                                    <p class="counter">{{ unique_customer }}</p>
+                                    <span class="info-box-title">Unique customers </span>
                                 </div>
 
                                 <div class="info-box-icon">
-                                    <i class="icon-home"></i>
+                                    <i class="icon-dashboard2"></i>
                                     {#                                    <i class="icon-envelope"></i>#}
                                 </div>
                                 <div class="info-box-progress">
@@ -259,15 +259,12 @@
             var data2 = {
                 labels: {{ months | safe }},
                 datasets: [
+                    {
+                        label: "{{ branch.name }}",
+                        fillColor:  "{{ branch.fillColor }}",
 
-                    {% for branch in branches %}
-                        {
-                            label: "{{ branch.name }}",
-                            fillColor:  "{{ branch.fillColor }}",
-
-                            data: {{ branch.sale | safe}}
-                        },
-                    {% endfor %}
+                        data: {{ branch.sale | safe}}
+                    }
                 ]
             };
 

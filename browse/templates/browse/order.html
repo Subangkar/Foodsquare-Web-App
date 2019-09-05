@@ -214,39 +214,145 @@
                     </div>
 
                     <style>
-                        #mainselection select {
-                            border: none;
-                            outline: none;
-                            color: #000;
-                            background: transparent;
-                            font-size: 18px;
+
+
+                        a {
+                            text-decoration: none;
+                            color: inherit;
+                        }
+                        .menu {
+                            display: block;
+                            position: relative;
+                            cursor: pointer;
+                        }
+                        .menu-title {
+                            display: block;
+                            width: 100%;
+                            padding: 12px 0 0;
+                            background: #9dc852;
+                            text-align: center;
+                            color: #fff;
                             font-weight: bold;
-                            padding: 2px 10px;
-                        {#width: 100%;#}
-                        {#*width: 100%;#}
-                        {#*background: #0a6aa1;#}
-                            -webkit-appearance: none;
+                        {#text-transform: uppercase;#}
+                            transition: 0.3s background-color;
+                        }
+                        .menu-title:before {
+                            content: "";
+                            display: block;
+                            height: 0;
+                            border-top: 5px solid #9dc852;
+                            border-left: 75px solid transparent;
+                            border-right: 75px solid transparent;
+                            border-bottom: 0 solid #ddd;
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            z-index: 101;
+                            transition: 0.2s 0.2s border-top ease-out, 0.3s border-top-color;
+                        }
+                        .menu-title:hover {
+                            background: #8db842;
+                        }
+                        .menu-title:hover:before {
+                            border-top-color: #8db842;
+                        }
+                        .menu:hover > .menu-title:before {
+                            border-top-width: 0;
+                            transition: 0.2s border-top-width ease-in, 0.3s border-top-color;
+                        }
+                        .menu-title:after {
+                            content: "";
+                            display: block;
+                            height: 0;
+                            border-left: 75px solid transparent;
+                            border-right: 75px solid transparent;
+                            border-bottom: 0 solid #ebebeb;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            z-index: 101;
+                            transition: 0.2s border-bottom ease-in;
+                        }
+                        .menu:hover > .menu-title:after {
+                            border-bottom-width: 5px;
+                            transition: 0.2s 0.2s border-bottom-width ease-out;
+                        }
+                        .menu-dropdown {
+                            min-width: 100%;
+                            padding: 15px 0;
+                            position: absolute;
+                            background: #ebebeb;
+                            z-index: 100;
+                            transition: 0.5s padding, 0.5s background;
+                        }
+                        .menu-dropdown:after {
+                            content: "";
+                            display: block;
+                            height: 0;
+                            border-top: 5px solid #ebebeb;
+                            border-left: 75px solid transparent;
+                            border-right: 75px solid transparent;
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            z-index: 101;
+                            transition: 0.5s border-top;
+                        }
+                        .menu:not(:hover) > .menu-dropdown {
+                            padding: 4px 0;
+                            background: #ddd;
+                            z-index: 99;
+                        }
+                        .menu:not(:hover) > .menu-dropdown:after {
+                            border-top-color: #ddd;
+                        }
+                        .menu:not(:hover) > .menu-title:after {
+                            border-bottom-color: #ddd;
+                        }
+                        .menu-dropdown > * {
+                            overflow: hidden;
+                            height: 30px;
+                            padding: 5px 10px;
+                            background: rgba(0, 0, 0, 0);
+                            white-space: nowrap;
+                            transition: 0.5s height cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s padding cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s margin cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s 0.2s color, 0.2s background-color;
+                        }
+                        .menu-dropdown > *:hover {
+                            background: rgba(0, 0, 0, 0.1);
+                        }
+                        .menu:not(:hover) > .menu-dropdown > * {
+                            visibility: hidden;
+                            height: 0;
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            margin: 0;
+                            color: rgba(25, 25, 25, 0);
+                            transition: 0.5s 0.1s height, 0.5s 0.1s padding, 0.5s 0.1s margin, 0.3s color, 0.6s visibility;
+                            z-index: 99;
+                        }
+                        .hList > * {
+                            float: left;
                         }
 
-                        #mainselection {
-                            overflow:hidden;
-                            width:70%;
-                            -moz-border-radius: 9px 9px 9px 9px;
-                            -webkit-border-radius: 9px 9px 9px 9px;
-                            border-radius: 9px 9px 9px 9px;
-                            box-shadow: 1px 1px 11px #330033;
-                            background: #9F0053;
-                        }
+
+
 
                     </style>
                     <div id="mainselection">
-                        <select id="rest_select">
-                            <option>Select an Option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                        </select>
-                        <i class="fa fa-caret-down"></i>
+                        <ul class="hList" style="list-style: none">
+                            <li>
+                                <a href="#click" class="menu">
+                                    <h2 class="menu-title"> Category <i class="fas fa-caret-down"></i></h2>
+                                    <ul class="menu-dropdown" id="category_dropdown">
+                                        {% for cat in category %}
+                                            <li class="category_dropdown">{{ cat }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
+
 
 
                 </div>
@@ -264,6 +370,7 @@
                     var max_range = 10000;
                     var menu_name;
                     var rest_name;
+                    var category;
                     $(document).ready(function () {
                         $('#rest_select').on('change', function() {
                             alert( this.value );
@@ -286,6 +393,9 @@
                                 $('#get_menus').click();
                             }
                         });
+                        $('.category_dropdown').on('click', function () {
+                            category = this.innerHTML;
+                        });
                         $("#get_menus").click(function () {
                             $.ajax({
                                 method: "GET",
@@ -294,7 +404,8 @@
                                     'rating': rating,
                                     'min_range': min_range,
                                     'max_range' : max_range,
-                                    'menu_name' : menu_name
+                                    'menu_name' : menu_name,
+                                    'category' : category
                                 },
                                 responseTime: 200,
 

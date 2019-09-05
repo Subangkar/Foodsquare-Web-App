@@ -404,3 +404,7 @@ def branch_pkg_availability(request):
 		return render(request, 'browse/branch_availability.html', {'branchList':get_deliverable_offers(id,coord)})
 
 	return JsonResponse({'success':False})
+
+
+def aboutSection(request):
+	return render(request, 'browse/about.html')

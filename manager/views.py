@@ -61,11 +61,12 @@ class EditRestaurantView(TemplateView):
 		if profile_form.is_valid():
 			profile_form.save()
 			print('Registering : ' + str(request.user))
-			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+			return render(request, 'manager/message_page.html',
+						  {'header': "Done !", 'details': 'Successfully edited the profile'})
 
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		pass
+			return render(request, 'manager/message_page.html',
+						  {'header': "Sorry !", 'details': 'Try again'})
 
 
 class AddMenuView(TemplateView):
@@ -95,11 +96,12 @@ class AddMenuView(TemplateView):
 				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
 				IngredientList.objects.create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
-			return HttpResponse("<h1>Menu Added Up</h1>")
+			return render(request, 'manager/message_page.html',
+						  {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
-			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
-		pass
+			return render(request, 'manager/message_page.html',
+						  {'header': "Sorry !", 'details': 'Couldnot add up menu'})
 
 
 class EditMenuView(TemplateView):
@@ -145,12 +147,12 @@ class EditMenuView(TemplateView):
 				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
 				IngredientList.objects.get_or_create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
-			return HttpResponse("<h1>Menu Added Up</h1>")
+			return render(request, 'manager/message_page.html',
+						  {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
-			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
-		pass
-
+			return render(request, 'manager/message_page.html',
+						  {'header': "Sorry !", 'details': 'Couldnot add up menu'})
 
 def DeliveryAvailability(request):
 	print(request)
@@ -234,12 +236,55 @@ def submitPkg_Availabilty(request):
 	return JsonResponse({'availability': set_package_availability_branch(request.user, id, is_available)})
 
 
-
 class ManagerDashBoardView(TemplateView):
 	template_name = 'manager/manager_dashboard.html'
 
-	def get_context_data(self, **kwargs):
-		pass
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect(reverse('index'))
+
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ManagerDashBoardView, self).get_context_data(kwargs=kwargs)
+		if self.request.user.is_authenticated and self.request.user.is_manager:
+			context['order_cnt'] = 3
+			context['monthly_revenue'] = 30
+			context['item_cnt'] = 30
+			context['branch_cnt'] = 4
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July"]
+			context['branches'] = [{'name': 'khilgaon', 'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"} ,
+								   {'name': 'dhanmondi', 'sale' : [28, 48, 40, 19, 86, 27, 90] ,'fillColor': "rgba(0,220,220,0.3)"}
+								   ]
+			context['menus'] = [{'name': 'burger', 'sale': 200, 'fillColor': "rgba(220,0,220,0.3)"} ,
+								   {'name': 'pizza', 'sale' : 500 ,'fillColor': "rgba(0,220,220,0.3)"}
+								   ]
+		return context
+
+
+class BranchManagerDashBoardView(TemplateView):
+	template_name = 'manager/manager_dashboard.html'
+
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect(reverse('index'))
+
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(BranchManagerDashBoardView, self).get_context_data(kwargs=kwargs)
+		if self.request.user.is_authenticated and self.request.user.is_manager:
+			context['order_cnt'] = 3
+			context['monthly_revenue'] = 30
+			context['item_cnt'] = 30
+			context['unique_customer'] = 4
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July"]
+			context['branch'] = [{'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"} ]
+			context['menus'] = [{'name': 'burger', 'sale': 200, 'fillColor': "rgba(220,0,220,0.3)"} ,
+								   {'name': 'pizza', 'sale' : 500 ,'fillColor': "rgba(0,220,220,0.3)"}
+								   ]
+		return context
+
 
 
 def delivery_info(request):

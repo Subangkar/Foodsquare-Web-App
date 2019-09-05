@@ -50,13 +50,16 @@ class LoginView(TemplateView):
 				print('Signing in: ' + str(request.user))
 				return redirect('/')
 			elif user is None:
-				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': 'User authentication error'})
 			# return JsonResponse({'account': False})
 			elif not user.is_customer:
-				return HttpResponse('Not a Customer account')
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': 'Not a Customer account'})
 		# return JsonResponse({'account': True, 'customer': False})
 		else:
-			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': 'Username or password is empty'})
 
 
 class ManagerLoginView(TemplateView):
@@ -79,7 +82,8 @@ class ManagerLoginView(TemplateView):
 		if username and password:
 			user = authenticate(request, username=username, password=password)
 			if user is None:
-				return HttpResponse('<html> <a href="/accounts/manager_login/""><h1>No such user exists, Try again</h1></a></html>')
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': 'No such user exists, Try again'})
 			if user.is_branch_manager:
 				login(request, user)
 				print('Signing in: ' + str(request.user))
@@ -91,13 +95,17 @@ class ManagerLoginView(TemplateView):
 					print('Signing in: ' + str(request.user))
 					return redirect('/homepage')
 				elif rest.restaurant_key.strip() == '0':
-					return HttpResponse('<h1>Your account has not been approved yet</h1>')
+					return render(request, 'accounts/message_page.html',
+								  {'header': "Error !", 'details': 'Your account has not been approved yet'})
 				elif not user.is_manager:
-					return HttpResponse('Not a Manager account')
+					return render(request, 'accounts/message_page.html',
+								  {'header': "Error !", 'details': 'Not a Manager account'})
 				else:
-					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+					return render(request, 'accounts/message_page.html',
+								  {'header': "Error !", 'details': 'User authentication error'})
 		else:
-			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' Username or password is empty'})
 
 
 class DeliveryLoginView(TemplateView):
@@ -125,10 +133,12 @@ class DeliveryLoginView(TemplateView):
 					print('Signing in: ' + str(request.user))
 					return redirect('/orders')
 				else:
-					return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+					return render(request, 'accounts/message_page.html',
+								  {'header': "Error !", 'details': '  User authentication error'})
 
 		else:
-			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' Username or password is empty'})
 
 
 class AdminLoginView(TemplateView):
@@ -155,11 +165,14 @@ class AdminLoginView(TemplateView):
 				print('Signing in: ' + str(request.user))
 				return redirect('/homepage')
 			elif not user.is_superuser:
-				return HttpResponse('Not a Admin account')
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': ' Not an admin account'})
 			else:
-				return HttpResponse('Error: User authentication error <a href="/login"">Try again</a>')
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': '  User authentication error'})
 		else:
-			return HttpResponse('Error: Username or password is empty <a href="/login">Try again</a>')
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' Username or password is empty'})
 
 
 class RegisterView(TemplateView):
@@ -194,7 +207,8 @@ class RegisterView(TemplateView):
 			return redirect('/')
 		# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' signup'})
 
 
 class ManagerRegisterView(TemplateView):
@@ -283,7 +297,8 @@ class DeliveryRegister(TemplateView):
 			login(request, user)
 		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:
-			return HttpResponse("Invalid Form or pass")
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' Invalid Form or pass'})
 
 		return redirect('/orders')
 
@@ -347,10 +362,11 @@ class BranchRegisterView(TemplateView):
 				branch.save()
 				login(request, user)
 			else:
-				return HttpResponse("Invalid Form or pass")
+				return render(request, 'accounts/message_page.html',
+							  {'header': "Error !", 'details': ' Invalid Form or pass'})
 		except Exception as e:
-			print(e)
-			return HttpResponse('Not Valid secret key')
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error !", 'details': ' Not Valid secret key'})
 
 		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
 		#                  email=request.POST['email'])
