@@ -264,50 +264,10 @@
                                             <div class="clearfix"></div>
                                             <p>{{ comment.comment }}</p>
                                             <div style="position: absolute; bottom: 0%; right: 3%;">
-                                                <a class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count">{{  comment.nlikes }}</font> </a>
-                                                <a class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count">{{  comment.ndislikes }}</font></a>
+                                                <a href="{{ comment.comment_id }}" class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count{{ comment.comment_id }}">{{  comment.nlikes }}</font> </a>
+                                                <a href="{{ comment.comment_id }}" class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count{{ comment.comment_id }}">{{  comment.ndislikes }}</font></a>
 
                                             </div>
-                                            {% if loggedIn %}
-                                                <script>
-                                                    var csrftoken = getCookie('csrftoken');
-                                                    $.ajaxSetup({
-                                                        beforeSend: function(xhr, settings) {
-                                                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                                            }
-                                                        }
-                                                    });
-                                                    var $react  = $(this);
-
-                                                    $(".react").click(function () {
-
-                                                        alert(this.id);
-                                                        $.ajax({
-                                                            context: this,
-
-                                                            type:"POST",
-                                                            headers:{
-                                                                "X-CSRFToken": csrftoken
-                                                            },
-                                                            url: 'reactOn/',
-                                                            data: {
-                                                                'comment-id': {{ comment.comment_id }},
-                                                                'pkg-id': {{ item.id }},
-                                                                'react' : this.id
-                                                            },
-                                                            dataType: 'json',
-                                                            success: function (data) {
-                                                                $('#like_count').text( data['nlikes']);
-                                                                $('#dislike_count').text( data['ndislikes']);
-
-
-                                                            }
-                                                        });
-
-                                                    });
-                                                </script>
-                                            {% endif %}
                                         </div>
                                     </div>
 
@@ -316,6 +276,47 @@
                             </div>
 
                         {% endfor %}
+                        {% if loggedIn %}
+                            <script>
+                                var csrftoken = getCookie('csrftoken');
+                                $.ajaxSetup({
+                                    beforeSend: function(xhr, settings) {
+                                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                        }
+                                    }
+                                });
+                                var $react  = $(this);
+
+                                $(".react").click(function () {
+                                    event.preventDefault();
+                                    alert(this.id);
+                                    $.ajax({
+                                        context: this,
+
+                                        type:"POST",
+                                        headers:{
+                                            "X-CSRFToken": csrftoken
+                                        },
+                                        url: 'reactOn/',
+                                        data: {
+                                            'comment-id': $(this).attr('href'),
+                                            'pkg-id': {{ item.id }},
+                                            'react' : this.id
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            $('#like_count'+$(this).attr('href')).text( data['nlikes']);
+                                            $('#dislike_count'+$(this).attr('href')).text( data['ndislikes']);
+
+
+                                        }
+                                    });
+
+                                });
+                            </script>
+                        {% endif %}
+
                         <div style="height: 2vh;"></div>
 
                         <div class="card" >

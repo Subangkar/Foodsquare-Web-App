@@ -404,8 +404,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     font-weight: bold;
                                     border: 3px solid #f1f1f1;
 
-                                {#transform: translate(-50%, -50%);#}
-                                    z-index: 2;
+                                {#transform: translate(-50%, -50%);#} z-index: 2;
 
                                 }
                             </style>
@@ -467,81 +466,109 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                             $('.' + getItem.trim()).show();
 
-                    });
-                </script>
-                {% if not restaurant.is_branch %}
-                    {% include 'browse/product_list.html' %}
-                {% else %}
-                    <div class="row" style="width: 80%">
-                        {# Searched Product list show start #}
-                        {% for pkg_details in item_list %}
-                            {% with item=pkg_details.package %}
-                                <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
-                                    <div class="product-toys-info">
-                                        <div class="men-pro-item">
-                                            <div class="men-thumb-item">
-                                                <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
-                                                     alt="">
-                                                <div class="men-cart-pro">
-                                                    <div class="inner-men-cart-pro">
-                                                        <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                            View</a>
-                                                    </div>
-                                                </div>
-                                                <span class="product-new-top">20% off</span>
-                                            </div>
-                                            <div class="item-info-product">
-                                                <div class="info-product-price">
-                                                    <div class="grid_meta">
-                                                        <div class="product_price">
-                                                            <h4>
-                                                                <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
-                                                            </h4>
-                                                            <div class="grid-price mt-2">
-                                                                <span class="money ">BDT {{ item.price }}/=</span>
-                                                            </div>
+                        });
+                    </script>
+                    {% if not restaurant.is_branch %}
+                        {% include 'browse/product_list.html' %}
+                    {% else %}
+                        <div class="row" style="width: 80%">
+                            {# Searched Product list show start #}
+                            {% for pkg_details in item_list %}
+                                {% with item=pkg_details.package %}
+                                    <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
+                                        <div class="product-toys-info">
+                                            <div class="men-pro-item">
+                                                <div class="men-thumb-item">
+                                                    <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
+                                                         alt="">
+                                                    <div class="men-cart-pro">
+                                                        <div class="inner-men-cart-pro">
+                                                            <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                                View</a>
                                                         </div>
-                                                        <ul class="stars">
-                                                            {% for star in item.rating %}
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <i class="fas fa-star"></i>
-                                                                    </a>
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
                                                     </div>
-                                                    <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
-                                                         id="cart-div">
-                                                        <button href="#" data-id="{{ pkg_details.id }}"
-                                                                data-name="{{ item.pkg_name }}"
-                                                                {#                                                            data-price="{{ item.price }}"#}
-                                                                data-price="{{ pkg_details.get_buying_price }}"
-                                                                data-restaurant-id="{{ restaurant.branch.id }}"
-                                                                data-offer-buy-n="{{ pkg_details.offer_buy_n }}"
-                                                                data-offer-get-n="{{ pkg_details.offer_get_n }}"
-                                                                class="add-to-cart toys-cart ptoys-cart">
-                                                            <i class="fas fa-cart-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                    {% if pkg_details.has_any_offer %}
+                                                        <span class="product-new-top">OFFER</span>
+                                                    {% endif %}
                                                 </div>
-                                                {% if not restaurant.is_branch %}
-                                                    <script>
-                                                        document.getElementById('cart-div').style.display = "none";
-                                                    </script>
-                                                {% endif %}
-                                                <div class="clearfix"></div>
+                                                <div class="item-info-product">
+                                                    <div class="info-product-price">
+                                                        <div class="grid_meta">
+                                                            <div class="product_price">
+                                                                <h4>
+                                                                    <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
+                                                                </h4>
+                                                                <div class="grid-price mt-2">
+                                                                    <span class="money ">BDT {{ item.price }}/=</span>
+                                                                </div>
+                                                                {% if pkg_details.has_any_offer %}
+                                                                    <div class="grid-price mt-2">
+                                                                    <span class="money"
+                                                                          style="color: red">{{ pkg_details.get_offer_details | upper }}</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                                <div id="star_rating{{ item.id }}">
+                                                                    {#                                    <i class="fa fa-star-half-full"></i>#}
+                                                                </div>
+                                                                <script>
+
+                                                                    {% if item.get_avg_rating is not None %}
+                                                                        var i = 0;
+                                                                        var rating = {{ item.get_avg_rating }};
+                                                                        for (i = 0; i < rating; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+
+                                                                        for (; i < 5; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+                                                                    {% endif %}
+
+                                                                </script>
+
+
+                                                            </div>
+                                                            <ul class="stars">
+                                                                {% for star in item.rating %}
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            <i class="fas fa-star"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                        <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                             id="cart-div">
+                                                            <button href="#" data-id="{{ pkg_details.id }}"
+                                                                    data-name="{{ item.pkg_name }}"
+                                                                    {#                                                            data-price="{{ item.price }}"#}
+                                                                    data-price="{{ pkg_details.get_buying_price }}"
+                                                                    data-restaurant-id="{{ restaurant.branch.id }}"
+                                                                    data-offer-buy-n="{{ pkg_details.offer_buy_n }}"
+                                                                    data-offer-get-n="{{ pkg_details.offer_get_n }}"
+                                                                    class="add-to-cart toys-cart ptoys-cart">
+                                                                <i class="fas fa-cart-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    {% if not restaurant.is_branch %}
+                                                        <script>
+                                                            document.getElementById('cart-div').style.display = "none";
+                                                        </script>
+                                                    {% endif %}
+                                                    <div class="clearfix"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endwith %}
-                        {% endfor %}
-                        {# Searched Product list show end #}
-                    </div>
-                {% endif %}
-                {#                        </li>#}
-                </ul>
+                                {% endwith %}
+                            {% endfor %}
+                            {# Searched Product list show end #}
+                        </div>
+                    {% endif %}
+                    {#                        </li>#}
+                    </ul>
 
 
                     <div class="clearfix"></div>
