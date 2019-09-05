@@ -11,6 +11,7 @@ urlpatterns = [
 	path('orders/', views.AcceptOrdersView.as_view(), name='orders'),
 	path('delivered_orders/', views.Delivered_Orders.as_view(), name='orders'),
 	path('applyForDelivery/', views.acceptDelivery, name='applyForDelivery'),
+	path('submitCustomerRating/', views.submitCustomerRating, name='submitCustomerRating'),
 	path('delivery_info/', views.delivery_details),
 
 	path('accounts/', include('accounts.urls'), name='accounts'),

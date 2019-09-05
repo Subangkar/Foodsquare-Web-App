@@ -115,3 +115,7 @@ class Delivered_Orders(TemplateView):
 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
 		obj_list = get_past_orders(self.request.user.id)
 		return {'object_list': obj_list}
+
+
+def submitCustomerRating(request):
+	return None
