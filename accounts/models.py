@@ -219,6 +219,7 @@ class Order(models.Model):
 	def assignDeliveryman(self, deliveryman):
 		self.order_status = Order.DELIVERING
 		self.delivery.deliveryman = deliveryman
+		self.delivery.charge = self.payment.price - sum(pack.price for pack in self.get_package_list())
 		self.delivery.save()
 		self.save()
 

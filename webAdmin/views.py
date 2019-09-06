@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 
 from accounts.models import Restaurant
-from webAdmin.utils import uniqueKey
+from webAdmin.utils import uniqueKey, get_deliverymen_list
 
 
 class RestaurantListView(ListView):
@@ -47,5 +47,5 @@ def restaurantDetails(request):
 
 class DeliveyListView(object):
 	template_name = 'webAdmin/delivery_info.html'
-	# queryset = Restaurant.objects.all()
+	queryset = get_deliverymen_list()
 	context_object_name = 'delivery_men'
