@@ -290,10 +290,10 @@ class BranchManagerDashBoardView(TemplateView):
 			                                 ord.get_package_list())
 			context['item_cnt'] = PackageBranchDetails.objects.filter(branch=self.request.user.restaurantbranch,
 			                                                          available=True).count()
-			context['unique_customer'] = 4
+			context['unique_customer'] = Order.objects.filter(branch=self.request.user.restaurantbranch).values('user_id').distinct().count()
 			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
 			                     "October", "November", "December"]
-			context['branch'] = get_monthwise_order_completed_count_branch(branch_id=self.request.user.restaurantbranch)
+			context['branch'] = get_monthwise_order_completed_count_branch(branch_id=self.request.user.restaurantbranch.id)
 			context['menus'] = get_packagewise_order_completed_count_branch(
 				branch_id=self.request.user.restaurantbranch.id, last_n_months=1)
 		return context

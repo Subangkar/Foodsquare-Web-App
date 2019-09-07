@@ -138,7 +138,7 @@ def get_monthwise_order_completed_count_branch(branch_id):
 	for m in month_sales:
 		sales[int(m.monthval)-1] = m.sale
 
-	return [{'sale': sales, 'fillColor': fillcolors}]
+	return {'sale': sales, 'fillColor': fillcolors}
 
 
 def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
