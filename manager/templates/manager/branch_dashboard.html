@@ -1,4 +1,4 @@
-{% extends 'manager/base.html' %}
+{% extends 'manager/branch_base.html' %}
 
 {% block header %}
     {% load static %}
@@ -61,7 +61,9 @@
                 </div>
             </div>
 
+
             <div id="main-wrapper">
+                {{ menus }}
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="panel info-box panel-white">
@@ -230,7 +232,6 @@
 
     <div class="cd-overlay"></div>
 
-
     <!-- Javascripts -->
     <script src="{% static 'manager/plugins/jquery/jquery-2.1.3.min.js' %}"></script>
     <script src="{% static 'manager/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
@@ -260,7 +261,6 @@
                 labels: {{ months | safe }},
                 datasets: [
                     {
-                        label: "{{ branch.name }}",
                         fillColor:  "{{ branch.fillColor }}",
 
                         data: {{ branch.sale | safe}}
