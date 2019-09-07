@@ -121,6 +121,26 @@ def get_monthwise_order_completed_count_restaurant(rest_id):
 	return [{'name': b, 'sale': branches[b], 'fillColor': barcolors[b]} for b in branches.keys()]
 
 
+def get_monthwise_order_completed_count_branch(branch_id):
+	from browse.utils_db import namedtuplefetchall
+	query = "select to_char(date_trunc('month', ao.time), 'Month')   as month,\
+					EXTRACT(month from date_trunc('month', ao.time)) as monthval,\
+					count(ao.delivery_id)                            as sale\
+			from accounts_restaurantbranch branch\
+					left join accounts_order ao on branch.id = ao.branch_id and ao.order_status = 'DELIVERED' and\
+													date_part('year', ao.time) = date_part('year', CURRENT_DATE)\
+			where branch.id = %s\
+			group by date_trunc('month', ao.time)"
+	month_sales = namedtuplefetchall(query, [branch_id])
+
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"]*3
+	sales = [0]*12
+	for m in month_sales:
+		sales[int(m.monthval)-1] = m.sale
+
+	return [{'sale': sales, 'fillColor': fillcolors}]
+
+
 def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
 	from browse.utils_db import namedtuplefetchall
 	query = "select package.pkg_name as name, sum(order_pack.quantity) as sale\
