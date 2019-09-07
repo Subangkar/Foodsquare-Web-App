@@ -152,7 +152,8 @@ class EditMenuView(TemplateView):
 
 		else:
 			return render(request, 'manager/message_page.html',
-						  {'header': "Sorry !", 'details': 'Couldnot add up menu'})
+			              {'header': "Sorry !", 'details': 'Couldnot add up menu'})
+
 
 def DeliveryAvailability(request):
 	print(request)
@@ -198,7 +199,6 @@ class ViewBranchMenusView(TemplateView):
 
 
 def branch_pkg_details(request):
-
 	return render(request, 'manager/branch_pkg_modal.html',
 	              {'pkg': get_package_branch(request.user, request.GET.get('id'))})
 
@@ -248,17 +248,23 @@ class ManagerDashBoardView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(ManagerDashBoardView, self).get_context_data(kwargs=kwargs)
 		if self.request.user.is_authenticated and self.request.user.is_manager:
-			context['order_cnt'] = 3
-			context['monthly_revenue'] = 30
-			context['item_cnt'] = 30
-			context['branch_cnt'] = 4
-			context['months'] = ["January", "February", "March", "April", "May", "June", "July"]
-			context['branches'] = [{'name': 'khilgaon', 'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"} ,
-								   {'name': 'dhanmondi', 'sale' : [28, 48, 40, 19, 86, 27, 90] ,'fillColor': "rgba(0,220,220,0.3)"}
-								   ]
-			context['menus'] = [{'name': 'burger', 'sale': 200, 'fillColor': "rgba(220,0,220,0.3)"} ,
-								   {'name': 'pizza', 'sale' : 500 ,'fillColor': "rgba(0,220,220,0.3)"}
-								   ]
+			import datetime
+			today = datetime.date.today()
+			context['order_cnt'] = Order.objects.filter(branch__restaurant=self.request.user.restaurant,
+			                                            time__month=today.month, time__year=today.year).count()
+			context['monthly_revenue'] = sum(pkg.price for ord in
+			                                 Order.objects.filter(branch__restaurant=self.request.user.restaurant,
+			                                                      time__month=today.month) for pkg in
+			                                 ord.get_package_list())
+			context['item_cnt'] = Package.objects.filter(restaurant=self.request.user.restaurant,
+			                                             available=True).count()
+			context['branch_cnt'] = RestaurantBranch.objects.filter(restaurant=self.request.user.restaurant).count()
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+			                     "October", "November", "December"]
+			context['branches'] = get_monthwise_order_completed_count_restaurant(
+				rest_id=self.request.user.restaurant.id)
+			context['menus'] = get_packagewise_order_completed_count_restaurant(rest_id=self.request.user.restaurant.id,
+			                                                                    last_n_months=3)
 		return context
 
 
