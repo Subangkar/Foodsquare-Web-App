@@ -308,7 +308,7 @@ class RestaurantDetails(TemplateView):
 		rest = Restaurant.objects.get(id=kwargs['id'])
 
 		# pkg_list = [p.package for p in get_available_packages_restaurant(rest_id=rest.id)]
-		pkg_list = Package.objects.filter(restaurant__id = rest.id)
+		pkg_list = Package.objects.filter(restaurant__id=rest.id)
 
 		categories = set([item.category for item in pkg_list])
 		# print(pkg_list)
@@ -400,10 +400,9 @@ def branch_pkg_availability(request):
 	id = request.GET.get('id')
 	coord = request.GET.get('coord')
 	if coord:
+		return render(request, 'browse/branch_availability.html', {'branchList': get_deliverable_offers(id, coord)})
 
-		return render(request, 'browse/branch_availability.html', {'branchList':get_deliverable_offers(id,coord)})
-
-	return JsonResponse({'success':False})
+	return JsonResponse({'success': False})
 
 
 def aboutSection(request):
