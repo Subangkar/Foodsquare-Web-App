@@ -381,6 +381,7 @@ def FilteredProducts(request):
 	price_range_min = request.GET.get('min_range')
 	price_range_max = request.GET.get('max_range')
 	rating = request.GET.get('rating')
+	category = ""
 	if not entry_name:
 		entry_name = ''
 	if not price_range_min:
@@ -391,6 +392,8 @@ def FilteredProducts(request):
 	if rating and int(rating) != 0:
 		pkg_list &= get_rated_package(int(rating))
 	pkg_list &= get_price_range_package(float(price_range_min), float(price_range_max))
+	if category != '':
+		pkg_list &= get_category_packages(category)
 	print(pkg_list)
 
 	return render(request, 'browse/product_list.html', {'item_list': pkg_list})

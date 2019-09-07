@@ -286,6 +286,15 @@ def get_price_range_package(low=0.0, high=90000.0):
 	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high)).distinct()
 
 
+def get_category_packages(categoty_name):
+	"""
+	:param categoty_name: category-name
+	:return: set of packages satisfying above criteria
+	"""
+	from browse.models import Package
+	return Package.objects.filter(category__iexact=categoty_name).distinct()
+
+
 # ----------- Branch/Restaurant Packages ----------------------
 
 def get_available_packages_branch(branch_id):
