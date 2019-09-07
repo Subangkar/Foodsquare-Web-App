@@ -62,11 +62,11 @@ class EditRestaurantView(TemplateView):
 			profile_form.save()
 			print('Registering : ' + str(request.user))
 			return render(request, 'manager/message_page.html',
-						  {'header': "Done !", 'details': 'Successfully edited the profile'})
+			              {'header': "Done !", 'details': 'Successfully edited the profile'})
 
 		else:
 			return render(request, 'manager/message_page.html',
-						  {'header': "Sorry !", 'details': 'Try again'})
+			              {'header': "Sorry !", 'details': 'Try again'})
 
 
 class AddMenuView(TemplateView):
@@ -97,11 +97,11 @@ class AddMenuView(TemplateView):
 				IngredientList.objects.create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
 			return render(request, 'manager/message_page.html',
-						  {'header': "Done !", 'details': 'Menu added succcessfully'})
+			              {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
 			return render(request, 'manager/message_page.html',
-						  {'header': "Sorry !", 'details': 'Couldnot add up menu'})
+			              {'header': "Sorry !", 'details': 'Couldnot add up menu'})
 
 
 class EditMenuView(TemplateView):
@@ -148,7 +148,7 @@ class EditMenuView(TemplateView):
 				IngredientList.objects.get_or_create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
 			return render(request, 'manager/message_page.html',
-						  {'header': "Done !", 'details': 'Menu added succcessfully'})
+			              {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
 			return render(request, 'manager/message_page.html',
@@ -269,7 +269,7 @@ class ManagerDashBoardView(TemplateView):
 
 
 class BranchManagerDashBoardView(TemplateView):
-	template_name = 'manager/manager_dashboard.html'
+	template_name = 'manager/branch_dashboard.html'
 
 	def get(self, request, *args, **kwargs):
 		if not request.user.is_authenticated:
@@ -279,18 +279,23 @@ class BranchManagerDashBoardView(TemplateView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(BranchManagerDashBoardView, self).get_context_data(kwargs=kwargs)
-		if self.request.user.is_authenticated and self.request.user.is_manager:
-			context['order_cnt'] = 3
-			context['monthly_revenue'] = 30
-			context['item_cnt'] = 30
+		if self.request.user.is_authenticated and self.request.user.is_branch_manager:
+			import datetime
+			today = datetime.date.today()
+			context['order_cnt'] = Order.objects.filter(branch=self.request.user.restaurantbranch,
+			                                            time__month=today.month, time__year=today.year).count()
+			context['monthly_revenue'] = sum(pkg.price for ord in
+			                                 Order.objects.filter(branch=self.request.user.restaurantbranch,
+			                                                      time__month=today.month) for pkg in
+			                                 ord.get_package_list())
+			context['item_cnt'] = PackageBranchDetails.objects.filter(branch=self.request.user.restaurantbranch,
+			                                                          available=True).count()
 			context['unique_customer'] = 4
 			context['months'] = ["January", "February", "March", "April", "May", "June", "July"]
-			context['branch'] = [{'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"} ]
-			context['menus'] = [{'name': 'burger', 'sale': 200, 'fillColor': "rgba(220,0,220,0.3)"} ,
-								   {'name': 'pizza', 'sale' : 500 ,'fillColor': "rgba(0,220,220,0.3)"}
-								   ]
+			context['branch'] = [{'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"}]
+			context['menus'] = get_packagewise_order_completed_count_branch(
+				branch_id=self.request.user.restaurantbranch.id, last_n_months=1)
 		return context
-
 
 
 def delivery_info(request):

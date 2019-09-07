@@ -21,3 +21,16 @@ where ordr.order_status = 'DELIVERED'
 group by package.pkg_name
 order by sale desc;
 
+
+-- each packages's order count for a branch in last n months -----
+select package.pkg_name as name, sum(order_pack.quantity) as sale
+from browse_package package
+         join browse_packagebranchdetails branch_pack on package.id = branch_pack.package_id
+         join accounts_orderpackagelist order_pack on package.id = order_pack.package_id
+         join accounts_order ordr on order_pack.order_id = ordr.id
+where ordr.order_status = 'DELIVERED'
+  and branch_pack.branch_id = 3
+  and ordr.time >= CURRENT_DATE - INTERVAL '3 months'
+group by package.pkg_name
+order by sale desc;
+

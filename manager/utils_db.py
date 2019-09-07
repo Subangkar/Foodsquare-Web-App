@@ -137,3 +137,22 @@ def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
 	packages = namedtuplefetchall(query, [rest_id, last_n_months])
 
 	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
+
+
+def get_packagewise_order_completed_count_branch(branch_id, last_n_months=1):
+	from browse.utils_db import namedtuplefetchall
+	query = "select package.pkg_name as name, sum(order_pack.quantity) as sale\
+			from browse_package package\
+			         join browse_packagebranchdetails branch_pack on package.id = branch_pack.package_id\
+			         join accounts_orderpackagelist order_pack on package.id = order_pack.package_id\
+			         join accounts_order ordr on order_pack.order_id = ordr.id\
+			where ordr.order_status = 'DELIVERED'\
+			  and branch_pack.branch_id = %s\
+			  and ordr.time >= CURRENT_DATE - INTERVAL '%s months'\
+			group by package.pkg_name\
+			order by sale desc"
+
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"]
+	packages = namedtuplefetchall(query, [branch_id, last_n_months])
+
+	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
