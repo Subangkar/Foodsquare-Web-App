@@ -295,7 +295,6 @@ class BranchManagerDashBoardView(TemplateView):
 			context['branch'] = {'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"}
 			context['menus'] = get_packagewise_order_completed_count_branch(
 				branch_id=self.request.user.restaurantbranch.id, last_n_months=1)
-			print(context['menus'])
 		return context
 
 
