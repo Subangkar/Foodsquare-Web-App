@@ -269,7 +269,7 @@ class ManagerDashBoardView(TemplateView):
 
 
 class BranchManagerDashBoardView(TemplateView):
-	template_name = 'manager/manager_dashboard.html'
+	template_name = 'manager/branch_dashboard.html'
 
 	def get(self, request, *args, **kwargs):
 		if not request.user.is_authenticated:
@@ -279,13 +279,13 @@ class BranchManagerDashBoardView(TemplateView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(BranchManagerDashBoardView, self).get_context_data(kwargs=kwargs)
-		if self.request.user.is_authenticated and self.request.user.is_manager:
+		if self.request.user.is_authenticated and self.request.user.is_branch_manager:
 			context['order_cnt'] = 3
 			context['monthly_revenue'] = 30
 			context['item_cnt'] = 30
 			context['unique_customer'] = 4
 			context['months'] = ["January", "February", "March", "April", "May", "June", "July"]
-			context['branch'] = [{'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"} ]
+			context['branch'] = {'sale': [28, 48, 40, 19, 86, 27, 90], 'fillColor': "rgba(220,0,220,0.3)"}
 			context['menus'] = [{'name': 'burger', 'sale': 200, 'fillColor': "rgba(220,0,220,0.3)"} ,
 								   {'name': 'pizza', 'sale' : 500 ,'fillColor': "rgba(0,220,220,0.3)"}
 								   ]
