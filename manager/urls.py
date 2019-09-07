@@ -13,6 +13,7 @@ urlpatterns = [
 	path('branch_dashboard/', views.BranchManagerDashBoardView.as_view(), name='branch_dashboard'),
 	path('view_branch_menus/', views.ViewBranchMenusView.as_view(), name='branch_menus'),
 	path('branch_pkg_details/', views.branch_pkg_details),
+	path('branch_sale_info/', views.branch_sale_info),
 	path('post_offer/', views.offerSubmit),
 	path('post_availability/', views.submitPkg_Availabilty),
 

@@ -302,3 +302,7 @@ class BranchManagerDashBoardView(TemplateView):
 def delivery_info(request):
 	from delivery.views import delivery_details
 	return delivery_details(request)
+
+
+def branch_sale_info(request):
+	return None
