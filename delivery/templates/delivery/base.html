@@ -258,8 +258,11 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav" style="padding-left: 20%;padding-top: 2%">
-                        <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">4 rating</i> </font>
-
+                        {% if request.user.get_rating is None %}
+                        <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">No Rating</i> </font>
+                        {% else %}
+                        <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">{{ request.user.get_rating }} rating</i> </font>
+                        {% endif %}
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
