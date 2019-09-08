@@ -147,7 +147,22 @@
                     $('#delivery_modal_btn').click();
                 }
                 else{
-                    $('#br_modal_btn').click();
+                    $.ajax({
+                    type: "GET",
+                    url: "/branch_pkg_availability/",
+                    data: {
+                        'id' :   $(this).attr("href"),
+                        'coord' : $('#delivery_area_srch').val()
+                    },
+                    success: function(data)
+                    {
+
+                        $('#branch_modal').html(data);
+                    }
+
+                });
+
+                $('#br_modal_btn').click();
                 }
 
             });

@@ -40,8 +40,7 @@
                             {% for order in Orders %}
                                 <tr>
                                     <td>{{ order.id }}</td>
-                                    <td>{{ order.branch.restaurant.restaurant_name }}
-                                        ,{{ order.branch.branch_name }}</td>
+                                    <td>{{ order.branch.branch_name }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
                                         {% if order.order_status == "PENDING" %}
@@ -49,7 +48,7 @@
                                         {% elif order.order_status == "PROCESSING" %}
                                             <span class="label label-info">Pending for Delivery</span>
                                         {% elif order.order_status == "DELIVERING" %}
-                                            <span class="label label-important">Delivery on the way</span>
+                                            <span class="label label-info">Delivery on the way</span>
                                         {% elif order.order_status == "DELIVERED" %}
                                             <span class="label label-success">Delivered</span>
                                         {% endif %}
@@ -64,7 +63,9 @@
 
                                     <td> {{ order.payment.bkash_ref }}</td>
                                     <td>
-                                        {% if order.payment.payment_status == "P" %}
+                                        {% if order.order_status == "DELIVERED" %}
+                                            <span class="label label-danger">Cleared</span>
+                                        {% elif order.payment.payment_status == "P" %}
                                             <span class="label label-danger">Paid</span>
                                         {% elif order.payment.payment_status == "D" %}
                                             <span class="label label-info">Due</span>
