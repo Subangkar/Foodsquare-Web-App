@@ -139,17 +139,17 @@
 
                             });
                             $(".delivery_status").click(function () {
-                                {#if(this.value === 'deliver'){#}
-                                {#    document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +#}
-                                {#        "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +#}
-                                {#        "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +#}
-                                {#        "      <input type=\"radio\" id=\"rating-2\" name=\"rating\" value=\"2\" /><label for=\"rating-2\">2</label>\n" +#}
-                                {#        "      <input type=\"radio\" id=\"rating-1\" name=\"rating\" value=\"1\" /><label for=\"rating-1\">1</label>\n" +#}
-                                {#        "      <input type=\"radio\" id=\"rating-0\" name=\"rating\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating-0\">0</label>";#}
-                                {#    $('#order_id').val($(this).attr('href'));#}
-                                {##}
-                                {#    $("#rating_modal").modal();#}
-                                {##}
+                                if(this.value === 'deliver'){
+                                    document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-2\" name=\"rating\" value=\"2\" /><label for=\"rating-2\">2</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-1\" name=\"rating\" value=\"1\" /><label for=\"rating-1\">1</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-0\" name=\"rating\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating-0\">0</label>";
+                                    $('#order_id').val($(this).attr('href'));
+
+                                    $("#rating_modal").modal();
+
                                 };
 
 
@@ -166,14 +166,7 @@
                                     },
                                     dataType: 'json',
                                     success: function (data) {
-                                        var response = JSON.parse(data);
 
-                                        if(response.accepted !== 'True'){
-                                            alert('Sorry order not available')
-                                        }
-                                        else{
-                                            alert('Your request for delivery granted. Please collect ASAP.');
-                                        }
                                         location.reload();
                                     }
                                 });

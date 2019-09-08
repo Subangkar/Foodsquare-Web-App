@@ -166,7 +166,7 @@ class CheckoutView(TemplateView):
 			OrderPackageList.objects.create(order=order, package=package, quantity=int(pkg['quantity']),
 			                                price=pkg['price'])
 		from customer.utils_db import send_notification
-		send_notification(order.user.id, "Your order:" + str(
+		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " with " + str(
 			len(pkg_list)) + " items has been placed in manager's queue for confirmation.")
 
