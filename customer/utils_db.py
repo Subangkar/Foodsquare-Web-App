@@ -50,4 +50,4 @@ def submitDeliveryRating(order_id, rating):
 def get_avg_customer_rating(user_id):
 	from accounts.models import Order
 	from django.db.models import Avg
-	return Order.objects.filter(user__id=user_id).aggregate(Avg('delivery__rating_user'))
+	return Order.objects.filter(user__id=user_id).aggregate(Avg('delivery__rating_user'))['delivery__rating_user__avg']

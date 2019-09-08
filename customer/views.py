@@ -94,6 +94,7 @@ def read_notifcations(request):
 def submitDeliveryRating(request):
 	order_id = request.POST.get('order-id')
 	rating = request.POST.get('rating')
-
+	print(order_id)
+	print(rating)
 	from browse.utils_db import post_delivery_rating
 	return JsonResponse({'success': post_delivery_rating(order_id, rating)})

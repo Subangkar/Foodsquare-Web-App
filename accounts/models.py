@@ -19,6 +19,15 @@ class User(AbstractUser):
 		verbose_name = "User"
 		verbose_name_plural = "Users"
 
+	def get_rating(self):
+		if self.is_customer:
+			from customer.utils_db import get_avg_customer_rating
+			return get_avg_customer_rating(self.id)
+		elif self.is_delivery_man:
+			from delivery.utils_db import get_avg_deliveryman_rating
+			return get_avg_deliveryman_rating(self.id)
+		return 5
+
 
 # user contactinfo not completed
 class UserProfile(models.Model):

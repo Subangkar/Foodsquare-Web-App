@@ -55,7 +55,7 @@ def get_nearest_branches(user_id):
 def get_avg_deliveryman_rating(user_id):
 	from accounts.models import Order
 	from django.db.models import Avg
-	return Order.objects.filter(delivery__deliveryman__user__id=user_id).aggregate(Avg('delivery__rating_deliveryman'))
+	return Order.objects.filter(delivery__deliveryman__user__id=user_id).aggregate(Avg('delivery__rating_deliveryman'))['delivery__rating_deliveryman__avg']
 
 
 # ---------------- Just for DB ----------------------
