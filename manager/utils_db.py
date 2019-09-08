@@ -136,7 +136,8 @@ def get_monthwise_order_completed_count_branch(branch_id):
 	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"]*3
 	sales = [0]*12
 	for m in month_sales:
-		sales[int(m.monthval)-1] = m.sale
+		if m.monthval is not None:
+			sales[int(m.monthval)-1] = m.sale
 
 	return {'sale': sales, 'fillColor': fillcolors}
 
