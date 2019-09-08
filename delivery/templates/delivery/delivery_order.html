@@ -62,15 +62,15 @@
                                                     value="deliver">Mark as Delievred
                                             </button>
                                         {% endif %}
-{#                                        {% if order.order_status == "PENDING" %}#}
-{#                                            <span class="label label-danger">Pending for confirmation</span>#}
-{#                                        {% elif order.order_status == "PROCESSING" %}#}
-{#                                            <span class="label label-info">Pending for Delivery</span>#}
-{#                                        {% elif order.order_status == "DELIVERING" %}#}
-{#                                            <span class="label label-info">Delivery on the way</span>#}
-{#                                        {% elif order.order_status == "DELIVERED" %}#}
-{#                                            <span class="label label-success">Delivered</span>#}
-{#                                        {% endif %}#}
+                                        {#                                        {% if order.order_status == "PENDING" %}#}
+                                        {#                                            <span class="label label-danger">Pending for confirmation</span>#}
+                                        {#                                        {% elif order.order_status == "PROCESSING" %}#}
+                                        {#                                            <span class="label label-info">Pending for Delivery</span>#}
+                                        {#                                        {% elif order.order_status == "DELIVERING" %}#}
+                                        {#                                            <span class="label label-info">Delivery on the way</span>#}
+                                        {#                                        {% elif order.order_status == "DELIVERED" %}#}
+                                        {#                                            <span class="label label-success">Delivered</span>#}
+                                        {#                                        {% endif %}#}
 
                                     </td>
                                     <td>
@@ -114,31 +114,42 @@
                                     }
                                 }
                             });
-                            {#$(document).on('change', '.star-cb-group input', function(){#}
-                            {##}
-                            {#    var rate_val = $("input[type='radio'][name='rating']:checked").val();#}
-                            {#    var csrftoken = getCookie('csrftoken');#}
-                                {#alert(rate_val);#}
-                            {#    $("#star3").prop("checked", true);#}
-                            {##}
-                            {#    $.ajax({#}
-                            {#        type: "POST",#}
-                            {#        headers: {#}
-                            {#            "X-CSRFToken": csrftoken#}
-                            {#        },#}
-                            {#        url: '/submitCustomerRating/',#}
-                            {#        data: {#}
-                            {#            'order-id' : $('#order_id').val(),#}
-                            {#            'rating': rate_val#}
-                            {#        },#}
-                            {#        dataType: 'json',#}
-                            {#        success: function (data) {#}
-                            {##}
-                            {#        }#}
-                            {#    });#}
-                            {##}
-                            {#});#}
+                            $(document).on('change', '.star-cb-group input', function(){
+
+                                var rate_val = $("input[type='radio'][name='rating']:checked").val();
+                                var csrftoken = getCookie('csrftoken');
+                                alert(rate_val);
+                                $("#star3").prop("checked", true);
+
+                                $.ajax({
+                                    type: "POST",
+                                    headers: {
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    url: '/submitCustomerRating/',
+                                    data: {
+                                        'order-id' : $('#order_id').val(),
+                                        'rating': rate_val
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        location.reload();
+                                    }
+                                });
+
+                            });
                             $(".delivery_status").click(function () {
+                                if(this.value === 'deliver'){
+                                    document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-2\" name=\"rating\" value=\"2\" /><label for=\"rating-2\">2</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-1\" name=\"rating\" value=\"1\" /><label for=\"rating-1\">1</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-0\" name=\"rating\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating-0\">0</label>";
+                                    $('#order_id').val($(this).attr('href'));
+
+                                    $("#rating_modal").modal();
+                                }
 
 
 
@@ -147,16 +158,19 @@
                                     headers: {
                                         "X-CSRFToken": csrftoken
                                     },
+                                    context : this,
                                     url: '/applyForDelivery/',
                                     data: {
                                         'order_id': $(this).attr('href'),
                                         'deliveryMan_id': {{ user.id }},
-                                        'delivery_option': this.id
+                                        'delivery_option': this.value
                                     },
                                     dataType: 'json',
                                     success: function (data) {
+                                        if(this.value !== 'deliver'){
+                                            location.reload();
 
-                                        location.reload();
+                                        }
                                     }
                                 });
 
