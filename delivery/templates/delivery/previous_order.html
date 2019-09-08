@@ -31,7 +31,10 @@
                                 <th>Customer</th>
                                 <th>Order Time</th>
                                 <th>Payment Type</th>
-                                <th>Customer Rating</th>
+                                <th>You've been rated</th>
+
+                                <th>You rated</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -52,8 +55,11 @@
                                     </td>
 
                                     <td>
+                                        {{ order.delivery.rating_deliveryman }}
 
-
+                                    </td>
+                                    <td>
+                                        {{ order.delivery.rating_user }}
                                     </td>
                                 </tr>
                                 <h1 id="cookie"></h1>

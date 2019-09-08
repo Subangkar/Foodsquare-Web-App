@@ -383,6 +383,7 @@ def post_delivery_rating(order_id, rating):
 	from accounts.models import Order
 	try:
 		order = Order.objects.get(id=order_id)
+		print(order_id)
 		order.delivery.rating_deliveryman = int(rating)
 		order.delivery.save()
 		return True

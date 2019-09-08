@@ -38,7 +38,7 @@ def get_past_orders(user_id):
 
 def submit_rating(order_id, rating=5):
 	from accounts.models import Order
-	order = Order.objects.get(order_id)
+	order = Order.objects.get(id=order_id)
 	order.delivery.rating_user = rating
 	order.delivery.save()
 

@@ -119,5 +119,7 @@ class Delivered_Orders(TemplateView):
 
 
 def submitCustomerRating(request):
+	print(request.POST.get('order-id'))
+	print(int(request.POST.get('rating')))
 	submit_rating(order_id=request.POST.get('order-id'), rating=int(request.POST.get('rating')))
 	return True
