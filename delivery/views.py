@@ -84,15 +84,15 @@ def acceptDelivery(request):
 			return JsonResponse({"accepted": False})
 		order.assignDeliveryman(deliveryman)
 		from customer.utils_db import send_notification
-		send_notification(order.user.id, "Your order:" + str(
+		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
-		                                                      "Wait for deliveryman to reach at your delivery address")
+		                                                      "Wait for deliveryman to reach at your delivery address.")
 
 	elif status == 'deliver':
 		order.submitDelivery()
 		from customer.utils_db import send_notification
-		send_notification(order.user.id, "Your order:" + str(
-			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address")
+		send_notification(order.user.id, "Your order: " + str(
+			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address.")
 
 	return JsonResponse({"accepted": True})
 
