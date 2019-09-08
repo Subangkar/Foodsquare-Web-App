@@ -29,6 +29,7 @@ class AcceptOrdersView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		print(self.request.user.id)
 		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
 		return {'object_list': obj_list}
 
