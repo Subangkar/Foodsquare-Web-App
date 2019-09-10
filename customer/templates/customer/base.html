@@ -3,9 +3,6 @@
 
 <head>
 
-    <!-- Title -->
-    <title>Customer Profile</title>
-
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta charset="UTF-8">
     <meta name="description" content="Admin Dashboard Template"/>
@@ -338,7 +335,7 @@
                 <div class="sidebar-profile">
                     <!-- <a href="javascript:void(0);" id="profile-menu-link"> -->
                     <div class="sidebar-profile-image">
-                        <img src={{ userprofile.avatar.url }} class="img-circle img-responsive" alt="">
+                        <img src={{ request.user.userprofile.avatar.url }} class="img-circle img-responsive" alt="">
                     </div>
                     <div class="sidebar-profile-details">
                         <span>{{ request.user.username }} <br></span>
