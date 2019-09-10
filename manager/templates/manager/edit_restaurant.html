@@ -18,22 +18,29 @@
                 <hr>
                 <div class="row">
                     <!-- left column -->
-                    <script language="javascript">
-                        function changeImage() {
-                            document.getElementById("profile_pic_upload").src = document.getElementById("imgChangeBtn").value;
-                        }
-                    </script>
                     <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                         {% csrf_token %}
                         <div class="col-md-3">
                             <div class="text-center">
 
-                                <img src={{ restaurant.restaurantImg.url }} class="avatar" style="width : 100%;height:
-                                100%"
-                                alt="avatar" id="profile_pic_upload">
-                                <h6>Upload a different photo...</h6>
-                                <input type="file" name="restaurantImg" class="form-control" id="imgChangeBtn"
-                                       onchange="changeImage()">
+                                <img id="current_image" src={{ restaurant.restaurantImg.url }} class="avatar" style="width : 100%;height:
+                                100%" alt="avatar">
+                                <br>
+                                <br>
+                                <h5>Upload a different photo...</h5>
+
+                                <input type="file" name="image" id="selected_image" class="form-control"
+                                       onchange="updateImg()">
+                                <script>
+                                    function updateImg() {
+                                        var fReader = new FileReader();
+                                        fReader.readAsDataURL(document.getElementById("selected_image").files[0]);
+                                        fReader.onloadend = function (event) {
+                                            document.getElementById("current_image").src = event.target.result;
+                                        }
+                                    }
+                                </script>
+
                             </div>
                         </div>
 

@@ -1,6 +1,8 @@
 from django.urls import path, include
 
 from manager import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'manager'
 
@@ -32,3 +34,6 @@ urlpatterns = [
 	path('edit_menu/<int:id>/', views.EditMenuView.as_view(), name='package-branch-details')
 
 ]
+
+if settings.DEBUG:
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
