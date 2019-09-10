@@ -169,9 +169,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% endblock %}
 
 {% block header %}
-    <title>Cafe In Restaurant Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
-
-
+    {% if restaurant.is_branch %}
+    <title>{{ restaurant.branch.branch_name }} | FoodSquare</title>
+    {% else %}
+    <title>{{ restaurant.restaurant_name }} | FoodSquare</title>
+    {% endif %}
 {% endblock %}
 
 

@@ -1,7 +1,7 @@
 {% extends 'customer/base.html' %}
 
 {% block header %}
-    <title>Foodsquare </title>
+    <title>{{ request.user.username | capfirst }} | Orders | FoodSquare </title>
 {% endblock %}
 
 {% block slidebar %}

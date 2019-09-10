@@ -1,7 +1,7 @@
 {% extends 'customer/base.html' %}
 
 {% block header %}
-    <title>Foodsquare | Home</title>
+    <title>{{ request.user.username | capfirst }} | Profile | FoodSquare </title>
 {% endblock %}
 
 
