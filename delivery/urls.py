@@ -13,6 +13,8 @@ urlpatterns = [
 	path('applyForDelivery/', views.acceptDelivery, name='applyForDelivery'),
 	path('submitCustomerRating/', views.submitCustomerRating, name='submitCustomerRating'),
 	path('delivery_info/', views.delivery_details),
+	path('get_notifications/', views.get_notifications),
+	path('read_notifications/', views.read_notifications),
 
 	path('accounts/', include('accounts.urls'), name='accounts'),
 

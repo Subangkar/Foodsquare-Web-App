@@ -307,3 +307,11 @@ def delivery_info(request):
 
 def branch_sale_info(request):
 	return None
+
+
+def get_notifications(request):
+	return None
+
+
+def read_notifications(request):
+	return None

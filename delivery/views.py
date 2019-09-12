@@ -123,3 +123,11 @@ def submitCustomerRating(request):
 	print(int(request.POST.get('rating')))
 	submit_rating(order_id=request.POST.get('order-id'), rating=int(request.POST.get('rating')))
 	return True
+
+
+def get_notifications(request):
+	return None
+
+
+def read_notifications(request):
+	return None

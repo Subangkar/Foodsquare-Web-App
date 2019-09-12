@@ -19,4 +19,7 @@ urlpatterns = [
 	path('accept/<int:id>/', views.requestAccept),
 	path('database/', admin.site.urls, name='dbadmin'),
 
+	path('get_notifications/', views.get_notifications),
+	path('read_notifications/', views.read_notifications)
+
 ]

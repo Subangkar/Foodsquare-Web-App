@@ -283,6 +283,8 @@
                         <li class="dropdown" id="notifications">
 
                             {% include "browse/notifications.html" %}
+                            <script src="{% static 'browse/js/notification.js' %}"></script>
+
                             <script>
                                 document.getElementById("notification-dropdown").style.top = "16px";
                                 document.getElementById("notifications-count").style.zIndex = "1";

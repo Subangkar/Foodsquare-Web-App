@@ -78,3 +78,11 @@ class AdminDashBoardView(TemplateView):
 			                                             available=True).count()
 
 		return context
+
+
+def get_notifications(request):
+	return None
+
+
+def read_notifications(request):
+	return None

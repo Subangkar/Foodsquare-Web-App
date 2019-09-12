@@ -31,8 +31,11 @@ urlpatterns = [
 	path('delivery_option/', views.DeliveryAvailability, name='delivery_option'),
 
 	# for branch manager
-	path('edit_menu/<int:id>/', views.EditMenuView.as_view(), name='package-branch-details')
+	path('edit_menu/<int:id>/', views.EditMenuView.as_view(), name='package-branch-details'),
 
+
+	path('get_notifications/', views.get_notifications),
+	path('read_notifications/', views.read_notifications)
 ]
 
 if settings.DEBUG:
