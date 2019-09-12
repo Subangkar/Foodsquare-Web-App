@@ -2,15 +2,14 @@ import functools
 import json
 
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
 from accounts.models import *  # Delivery, Order
+from accounts.models import Payment
 from browse.models import *
 from browse.utils import *
-
-from accounts.models import Payment
 from browse.utils_db import *
 
 

@@ -12,7 +12,7 @@ def get_order_details(order_id):
 
 
 def get_next_orders(user_id):
-	from accounts.models import User, Order, OrderPackageList
+	from accounts.models import User, Order
 	user = User.objects.get(id=user_id)
 	if user and user.is_delivery_man:
 		orders = Order.objects.filter(order_status=Order.PROCESSING,
@@ -21,7 +21,7 @@ def get_next_orders(user_id):
 
 
 def get_taken_orders(user_id):
-	from accounts.models import User, Order, OrderPackageList
+	from accounts.models import User, Order
 	user = User.objects.get(id=user_id)
 	if user and user.is_delivery_man:
 		orders = Order.objects.filter(order_status=Order.DELIVERING, delivery__deliveryman__user=user)
@@ -29,7 +29,7 @@ def get_taken_orders(user_id):
 
 
 def get_past_orders(user_id):
-	from accounts.models import User, Order, OrderPackageList
+	from accounts.models import User, Order
 	user = User.objects.get(id=user_id)
 	if user and user.is_delivery_man:
 		orders = Order.objects.filter(order_status=Order.DELIVERED, delivery__deliveryman__user=user)
@@ -55,7 +55,8 @@ def get_nearest_branches(user_id):
 def get_avg_deliveryman_rating(user_id):
 	from accounts.models import Order
 	from django.db.models import Avg
-	return Order.objects.filter(delivery__deliveryman__user__id=user_id).aggregate(Avg('delivery__rating_deliveryman'))['delivery__rating_deliveryman__avg']
+	return Order.objects.filter(delivery__deliveryman__user__id=user_id).aggregate(Avg('delivery__rating_deliveryman'))[
+		'delivery__rating_deliveryman__avg']
 
 
 # ---------------- Just for DB ----------------------

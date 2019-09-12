@@ -19,4 +19,3 @@ urlpatterns = [
 	path('accounts/', include('accounts.urls'), name='accounts'),
 
 ]
-

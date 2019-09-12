@@ -1,16 +1,12 @@
 from allauth.socialaccount.models import SocialAccount
-from django.core import serializers
-from django.shortcuts import render
-
-from accounts.models import User, Order
 from django.http import HttpResponse
+from django.http import JsonResponse
 # Create your views here.
 from django.views.generic import TemplateView, ListView
 
 from accounts.forms import UserForm, ProfileForm
+from accounts.models import User, Order
 from accounts.utils import pretty_request
-
-from django.http import JsonResponse
 
 
 class EditProfileView(TemplateView):
@@ -66,7 +62,7 @@ class myOrdersList(ListView):
 
 
 def get_notifications(request):
-	from customer.utils_db import get_new_notifications, get_unread_notifications
+	from customer.utils_db import get_unread_notifications
 	# notifications = get_new_notifications(request.user)
 	unreads = get_unread_notifications(request.user)
 	if unreads is not None:

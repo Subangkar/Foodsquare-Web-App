@@ -1,17 +1,17 @@
-from django.core import serializers
 import json
 
+from django.core import serializers
 from django.core.mail import send_mail
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
-
+from django.http import JsonResponse
+from django.shortcuts import redirect
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
-from accounts.models import Restaurant, Order, User
+from accounts.models import Order
 from browse.models import Package
 from webAdmin.utils import *
+
 
 class RestaurantListView(ListView):
 	template_name = 'webAdmin/restaurant_list.html'
