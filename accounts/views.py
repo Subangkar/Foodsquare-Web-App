@@ -15,6 +15,8 @@ from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent="foodsquare")
 
+from django.core.mail import send_mail
+
 
 def recoveryRender(request):
 	return HttpResponse("Enter email to recover !!!")
@@ -132,18 +134,19 @@ class DeliveryLoginView(TemplateView):
 		password = request.POST.get('pass', False)
 		if username and password:
 			user = authenticate(request, username=username, password=password)
-			if user.is_delivery_man:
-				if user is not None:
-					login(request, user)
-					print('Signing in: ' + str(request.user))
-					return redirect('/orders')
-				else:
-					return render(request, 'accounts/message_page.html',
-					              {'header': "Error !", 'details': '  User authentication error'})
+			if user and user.is_delivery_man:
+				login(request, user)
+				print('Signing in: ' + str(request.user))
+				return redirect('/orders')
+			else:
+				return render(request, 'accounts/message_page.html',
+				              {'header': "Error !", 'details': '  User authentication error',
+				               'redirect': reverse('accounts:delivery_login')})
 
 		else:
 			return render(request, 'accounts/message_page.html',
-			              {'header': "Error !", 'details': ' Username or password is empty'})
+			              {'header': "Error !", 'details': ' Username or password is empty',
+			               'redirect': reverse('accounts:delivery_login')})
 
 
 class AdminLoginView(TemplateView):
@@ -210,7 +213,6 @@ class RegisterView(TemplateView):
 			print('Registering : ' + str(request.user))
 			login(request, user)
 			return redirect('/')
-		# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
 			return render(request, 'accounts/message_page.html',
 			              {'header': "Error !", 'details': ' signup'})
@@ -243,23 +245,30 @@ class ManagerRegisterView(TemplateView):
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
 			user.is_manager = True
+			send_mail(
+				'Account Activation Pending',
+				'You have applied for creating a Restaurant Account.<br>'
+				'Username:' + user.username + '<br>' +
+				'Restaurant:' + request.POST['rest_name'] + '<br>' +
+				'Trade License:' + request.POST['trade_license'] + '<br>' +
+				'We are verifying your information.<br>' +
+				'You will be notified via this email when we are done.',
+				'accounts@foodsquare',
+				[user.email],
+				fail_silently=False,
+			)
 			user.save()
-			login(request, user)
-		# UserProfile.objects.create(user=user).save() # lagbe na i guess
+			rest = Restaurant()
+			rest.restaurant_name = request.POST['rest_name']
+			rest.trade_license = request.POST['trade_license']
+
+			rest.user = user
+			rest.save()
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Registration Pending", 'details': 'Check your inbox (' + user.email + ')'})
 		else:
-			return HttpResponse("Invalid Form or pass")
-
-		rest = Restaurant()
-		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
-		#                  email=request.POST['email'])
-		rest.restaurant_name = request.POST['rest_name']
-		rest.trade_license = request.POST['trade_license']
-
-		# rest.user.save()
-		# rest.user = User.objects.get(username=request.POST['username'])
-		rest.user = user
-		rest.save()
-		return redirect('/homepage')
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Registration Failed!!!", 'details': 'Invalid Form Data'})
 
 
 class DeliveryRegister(TemplateView):
@@ -300,7 +309,6 @@ class DeliveryRegister(TemplateView):
 			user.save()
 			DeliveryMan(user=user, nid=nid, name=user.username, contactNum=contact, address=area).save()
 			login(request, user)
-		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:
 			return render(request, 'accounts/message_page.html',
 			              {'header': "Error !", 'details': ' Invalid Form or pass'})
@@ -372,9 +380,6 @@ class BranchRegisterView(TemplateView):
 		except Exception as e:
 			return render(request, 'accounts/message_page.html',
 			              {'header': "Error !", 'details': ' Not Valid secret key'})
-
-		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
-		#                  email=request.POST['email'])
 		print(branch)
 		from browse.models import Package
 		for package in Package.objects.filter(restaurant=branch.restaurant):

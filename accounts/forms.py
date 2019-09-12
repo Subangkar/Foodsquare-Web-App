@@ -39,27 +39,21 @@ class RestaurantForm(ModelForm):
 		model = Restaurant
 		fields = ('restaurantImg',)
 
-#
-# class BranchForm(ModelForm):
-# 	class Meta:
-# 		model = RestaurantBranch
-# 		fields = ('',)
-
 
 class RestaurantBranchForm(ModelForm):
 	class Meta:
 		model = RestaurantBranch
-		fields = ('branch_name','branch_location','branch_location_details',)
+		fields = ('branch_name', 'branch_location', 'branch_location_details',)
 
 	def save(self, commit=True):
 		location = ''
 		print('vai ksu hoy na')
 		print(self.cleaned_data)
-		print( self.cleaned_data['lat'])
-		print( + ',' + self.cleaned_data['lon'])
+		print(self.cleaned_data['lat'])
+		print(+ ',' + self.cleaned_data['lon'])
 		print(location)
 		new_branch = RestaurantBranch.objects.create(branch_name=self.cleaned_data['branchName'],
-		                                    branch_location=location)
+		                                             branch_location=location)
 		print(new_branch)
 		try:
 			new_branch.branch_location_details = self.cleaned_data['extra_details']

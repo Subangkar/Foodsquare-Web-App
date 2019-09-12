@@ -365,13 +365,13 @@ def get_deliverable_offers(package_id, coordinates):
 	"""
 	from browse.models import Package
 	try:
-		package = Package.objects.get(id=package_id)
-		# branch_detail_list = package.get_all_offers()
 		from browse.models import PackageBranchDetails
 		branch_detail_list = PackageBranchDetails.objects.filter(package__id=package_id)
 		import collections
-		PackageOfferDetail = collections.namedtuple('PackageOfferDetail', ['branch_package', 'deliverable'])
-		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates))
+		PackageOfferDetail = collections.namedtuple('PackageOfferDetail',
+		                                            ['branch_package', 'deliverable', 'branch_url'])
+		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates),
+		                           branch_url=pkg.branch.get_absolute_url())
 		        for pkg in branch_detail_list]
 	except Package.DoesNotExist:
 		return []

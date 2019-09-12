@@ -58,9 +58,10 @@ class EditRestaurantView(TemplateView):
 		profile_form = RestaurantForm(
 			request.POST or None, request.FILES or None, instance=profile)
 		print(profile_form)
+		print(request.FILES)
 		if profile_form.is_valid():
 			profile_form.save()
-			print('Registering : ' + str(request.user))
+			print('Updating : ' + str(request.user))
 			return render(request, 'manager/message_page.html',
 			              {'header': "Done !", 'details': 'Successfully edited the profile'})
 
