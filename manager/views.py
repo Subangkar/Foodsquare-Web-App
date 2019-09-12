@@ -58,14 +58,16 @@ class EditRestaurantView(TemplateView):
 		profile_form = RestaurantForm(
 			request.POST or None, request.FILES or None, instance=profile)
 		print(profile_form)
+		print(request.FILES)
 		if profile_form.is_valid():
 			profile_form.save()
-			print('Registering : ' + str(request.user))
-			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+			print('Updating : ' + str(request.user))
+			return render(request, 'manager/message_page.html',
+			              {'header': "Done !", 'details': 'Successfully edited the profile'})
 
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		pass
+			return render(request, 'manager/message_page.html',
+			              {'header': "Sorry !", 'details': 'Try again'})
 
 
 class AddMenuView(TemplateView):
@@ -92,14 +94,15 @@ class AddMenuView(TemplateView):
 			menu.save()
 			for tmp in ingrd_list:
 				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
-				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
-				IngredientList.objects.create(pack_id=menu, ingr_id=ingrd)
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
+				IngredientList.objects.create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
-			return HttpResponse("<h1>Menu Added Up</h1>")
+			return render(request, 'manager/message_page.html',
+			              {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
-			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
-		pass
+			return render(request, 'manager/message_page.html',
+			              {'header': "Sorry !", 'details': 'Couldnot add up menu'})
 
 
 class EditMenuView(TemplateView):
@@ -116,12 +119,12 @@ class EditMenuView(TemplateView):
 			pkg = None
 			ing_list = None
 		else:
-			ing_list = [ingobj.ingr_id.name for ingobj in IngredientList.objects.filter(pack_id=pkg.id)]
+			ing_list = [ingobj.ingredient.name for ingobj in IngredientList.objects.filter(package=pkg)]
 		# comments = PackageReview.objects.filter(package=pkg)
 		user_id = self.request.user.id if self.request.user.is_authenticated else 0
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-			   'ing_list': ing_list
-			   }
+		       'ing_list': ing_list
+		       }
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -142,14 +145,15 @@ class EditMenuView(TemplateView):
 			menu.save()
 			for tmp in ingrd_list:
 				tmp = " ".join(re.sub('[^a-zA-Z]+', ',', tmp.lower()).split(','))
-				ingrd, created = Ingredient.objects.get_or_create(name=tmp)
-				IngredientList.objects.get_or_create(pack_id=menu, ingr_id=ingrd)
+				ingrd, created = Ingredient.objects.get_or_create(name=tmp.strip())
+				IngredientList.objects.get_or_create(package=menu, ingredient=ingrd)
 			PackageBranchDetails.add_package_to_all_branches(restaurant=restaurant, package=menu)
-			return HttpResponse("<h1>Menu Added Up</h1>")
+			return render(request, 'manager/message_page.html',
+			              {'header': "Done !", 'details': 'Menu added succcessfully'})
 
 		else:
-			return HttpResponse("<h1>Error : <a href='/signup'>Try again</a>!<h1>")
-		pass
+			return render(request, 'manager/message_page.html',
+			              {'header': "Sorry !", 'details': 'Couldnot add up menu'})
 
 
 def DeliveryAvailability(request):
@@ -171,6 +175,10 @@ def acceptOrder(request):
 	order = Order.objects.get(id=order_id)
 	order.order_status = order.PROCESSING
 	order.save()
+	from customer.utils_db import send_notification
+	send_notification(order.user.id, "Your order:" + str(
+		order.id) + " from " + order.branch.branch_name + " has been confirmed and pending for delivery.")
+	send_to_close_deliverymen(order)
 	return JsonResponse({'order': 'placed'})
 
 
@@ -189,32 +197,142 @@ class ViewBranchMenusView(TemplateView):
 	template_name = 'manager/manage_branchMenus.html'
 
 	def get_context_data(self, **kwargs):
-
 		return {'menu_list': get_packages_list_branch(self.request.user)}
 
 
 def branch_pkg_details(request):
 	return render(request, 'manager/branch_pkg_modal.html',
-			  {'pkg':get_package_branch(request.user, request.GET.get('id'))})
+	              {'pkg': get_package_branch(request.user, request.GET.get('id'))})
 
 
 def offerSubmit(request):
+	from customer.utils_db import send_notification
 	id = request.POST.get('id')
 	discount = request.POST.get('discount_amnt')
 	buy_amnt = request.POST.get('buy_amnt')
 	get_amnt = request.POST.get('get_amnt')
 	offer_type = request.POST.get('offer_type')
-
+	start_date = request.POST.get('start_date')
+	end_date = request.POST.get('end_date')
+	print(start_date, ' ', end_date)
+	if offer_type == 'buy_get':
+		offer_type = 'B'
+	elif offer_type == 'discount':
+		offer_type = 'D'
+	elif offer_type == 'none':
+		offer_type = 'N'
+	if offer_type == PackageBranchDetails.DISCOUNT:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date, discount_val=discount)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
+	elif offer_type == PackageBranchDetails.BUY_N_GET_N:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date, buy_n=buy_amnt, get_n=get_amnt)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
+	elif offer_type == PackageBranchDetails.NONE:
+		update_offer_branch(request.user, id, offer_type, start_date, end_date)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " cleared offers" + " on " + branch_pkg.package.pkg_name)
+	return JsonResponse({'updated': True})
 
 
 def submitPkg_Availabilty(request):
-	id = request.POST.get('id')
+	id = request.POST.get('pkg_id')
+
+	print(id)
 	is_available = True if request.POST.get('is_available') == 'True' else False
-	set_package_availability_branch(request.user, id, is_available)
+	return JsonResponse({'availability': set_package_availability_branch(request.user, id, is_available)})
 
 
 class ManagerDashBoardView(TemplateView):
 	template_name = 'manager/manager_dashboard.html'
 
-	def get_context_data(self, **kwargs):
-		pass
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect(reverse('index'))
+
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ManagerDashBoardView, self).get_context_data(kwargs=kwargs)
+		if self.request.user.is_authenticated and self.request.user.is_manager:
+			import datetime
+			today = datetime.date.today()
+			context['order_cnt'] = Order.objects.filter(branch__restaurant=self.request.user.restaurant,
+			                                            time__month=today.month, time__year=today.year).count()
+			context['monthly_revenue'] = sum(pkg.price for ord in
+			                                 Order.objects.filter(branch__restaurant=self.request.user.restaurant,
+			                                                      time__month=today.month) for pkg in
+			                                 ord.get_package_list())
+			context['item_cnt'] = Package.objects.filter(restaurant=self.request.user.restaurant,
+			                                             available=True).count()
+			context['branch_cnt'] = RestaurantBranch.objects.filter(restaurant=self.request.user.restaurant).count()
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+			                     "October", "November", "December"]
+			context['branches'] = get_monthwise_order_completed_count_restaurant(
+				rest_id=self.request.user.restaurant.id)
+			context['menus'] = get_packagewise_order_completed_count_restaurant(rest_id=self.request.user.restaurant.id,
+			                                                                    last_n_months=3)
+		return context
+
+
+class BranchManagerDashBoardView(TemplateView):
+	template_name = 'manager/branch_dashboard.html'
+
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect(reverse('index'))
+
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(BranchManagerDashBoardView, self).get_context_data(kwargs=kwargs)
+		if self.request.user.is_authenticated and self.request.user.is_branch_manager:
+			import datetime
+			today = datetime.date.today()
+			context['order_cnt'] = Order.objects.filter(branch=self.request.user.restaurantbranch,
+			                                            time__month=today.month, time__year=today.year).count()
+			context['monthly_revenue'] = sum(pkg.price for ord in
+			                                 Order.objects.filter(branch=self.request.user.restaurantbranch,
+			                                                      time__month=today.month) for pkg in
+			                                 ord.get_package_list())
+			context['item_cnt'] = PackageBranchDetails.objects.filter(branch=self.request.user.restaurantbranch,
+			                                                          available=True).count()
+			context['unique_customer'] = Order.objects.filter(branch=self.request.user.restaurantbranch).values(
+				'user_id').distinct().count()
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+			                     "October", "November", "December"]
+			context['branch'] = get_monthwise_order_completed_count_branch(
+				branch_id=self.request.user.restaurantbranch.id)
+			context['menus'] = get_packagewise_order_completed_count_branch(
+				branch_id=self.request.user.restaurantbranch.id, last_n_months=1)
+		return context
+
+
+def delivery_info(request):
+	from delivery.views import delivery_details
+	return delivery_details(request)
+
+
+def branch_sale_info(request):
+	return None
+
+
+def get_notifications(request):
+	from customer.utils_db import get_unread_notifications
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
+	return JsonResponse({'notifications': notifications})
+
+
+def read_notifications(request):
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())
+	return JsonResponse({'Success': True})

@@ -1,7 +1,8 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="rest_name"></h4>
             Deliver to {{ order.delivery.address }}
         </div>
@@ -28,6 +29,7 @@
                     </tbody>
                 </table>
             </div>
+            Address : {{ order.delivery.address_desc }}, {{ order.delivery.address }}<br>
             Total Price : {{ price }}<br>
             Delivery Charge : {{ delivery_charge }}
         </div>

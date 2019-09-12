@@ -169,9 +169,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {% endblock %}
 
 {% block header %}
-    <title>Cafe In Restaurant Category Flat Bootstrap Responsive Website Template | Home :: W3layouts</title>
-
-
+    {% if restaurant.is_branch %}
+        <title>{{ restaurant.branch.branch_name }} | FoodSquare</title>
+    {% else %}
+        <title>{{ restaurant.restaurant_name }} | FoodSquare</title>
+    {% endif %}
 {% endblock %}
 
 
@@ -270,7 +272,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     {% if restaurant.is_branch %}
         <div class="row">
     {% else %}
-        <div class="row" style="height: 21vh">
+        <div class="row" style="height: 25vh">
     {% endif %}
 <div class="col-md-1"></div>
 <div class="col-md-4">
@@ -288,8 +290,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div>
 					<span style="background: #35728a;padding:6px;">
-						<font style="size: 5; color:white;"> Opens at {{ restaurant.branch.opening_time }}</font>
-						<font style="size: 5;color: white ">Closes at {{ restaurant.branch.closing_time }}</font>
+						<font color="white"> Opens at {{ restaurant.branch.opening_time }}</font>
+						<font color="white">Closes at {{ restaurant.branch.closing_time }}</font>
 					</span>
 
             </div>
@@ -306,62 +308,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <font style="color: #7b3a3e">Rate us</font>
                 <div>
-                    <style>
-                        .rate {
-                            float: left;
-                            height: 46px;
-                            padding: 0 10px;
-                        }
-
-                        .rate:not(:checked) > input {
-                            position: absolute;
-                            top: -9999px;
-                        }
-
-                        .rate:not(:checked) > label {
-                            float: right;
-                            width: 1em;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            cursor: pointer;
-                            font-size: 30px;
-                            color: #ccc;
-                        }
-
-                        .rate:not(:checked) > label:before {
-                            content: '★ ';
-                        }
-
-                        .rate > input:checked ~ label {
-                            color: #ffc700;
-                        }
-
-                        .rate:not(:checked) > label:hover,
-                        .rate:not(:checked) > label:hover ~ label {
-                            color: #deb217;
-                        }
-
-                        .rate > input:checked + label:hover,
-                        .rate > input:checked + label:hover ~ label,
-                        .rate > input:checked ~ label:hover,
-                        .rate > input:checked ~ label:hover ~ label,
-                        .rate > label:hover ~ input:checked ~ label {
-                            color: #c59b08;
-                        }
-                    </style>
-
-                    <div class="  rate">
-                        <input type="radio" id="star5" name="rate" value="5"/>
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4"/>
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3"/>
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2"/>
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1"/>
-                        <label for="star1" title="text">1 star</label>
-                    </div>
+                    {% include 'browse/rate_submit.html' %}
                     <script>
                         $('.rate input').on('change', function () {
                             var rate_val = $("input[type='radio'][name='rate']:checked").val();
@@ -400,10 +347,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         {% if restaurant.is_branch %}
             <div class="col-md-2" style="border-right: 1px solid white;padding-top: 2%; ">
-                <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+                <font style="color: white"><i class="fas fa-star">{{ rating |floatformat:1 }} rating</i> </font>
             </div>
 
-            {#                        {% if  %}#}
             <div class="col-md-2" style="border-right: 1px solid white;  ">
                 <font style="color: white">Closed<br> for delivery </font>
             </div>
@@ -411,7 +357,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <font style="color: white">60 mins <br> Delivery time </font>
             </div>
         {% else %}
-            <font style="color: white"><i class="fa fa-star">3.9 rating</i> </font>
+            <font style="color: white"><i class="fas fa-star">{{ rating |floatformat:1 }} rating</i> </font>
 
         {% endif %}
     </div>
@@ -423,209 +369,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 {% endblock %}
 {% block body-content %}
-    <div>
-
-        <!-- Navigation -->
-        <!-- <header> -->
-        <!-- <div class="top-nav" style="position: relative">
-			<div>
-				<nav class="navbar navbar-expand-lg navbar-light" style="background: black">
-					<a class="navbar-brand text-uppercase" href="index.html">{{ restaurant.restaurant_name }}</a></br>
-					<div class="collapse navbar-collapse justify-content-center pr-md-4" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto">
-
-
-							<li class="nav-item">
-								<a class="nav-link" href="#food_gallery">Food Menu</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="contact.html">Contact</a>
-							</li>
-							<li class="nav-item">
-
-
-								<button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-									data-target="#cart" style="background: black;border:none;outline:none;color:white;">
-									<span class="fas fa-cart-arrow-down"> Cart (<span
-											class="total-count"></span>)</span>
-								</button>
-
-							</li>
-
-							<div class="search-bar-agileits">
-								<div class="cd-main-header">
-									<ul class="cd-header-buttons">
-										<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-									</ul>
-								</div>
-								<div id="cd-search" class="cd-search">
-									<form action="#" method="post">
-										<input name="Search" type="search" placeholder="Click enter after typing...">
-									</form>
-								</div>
-							</div>
-
-						</ul>
-
-					</div>
-
-				</nav>
-			</div>
-		</div> -->
+    <li>
 
 
         <!-- //Navigation -->
 
         <!--Slider-->
 
-        <div class="slider" style="padding-top: 19%;">
+        <div class="slider" style="padding-top: 17%;">
             <div class="callbacks_container" style="height:45vh;">
                 <ul class="rslides" id="slider3" style="height: 100%">
                     <li>
                         <div class="slider-img1">
-                            <div style=" padding-top: 10%;padding-left: 40%;">
-                                <div style="background: white;padding: 0.5%;display: inline-block; width: 35%">
-                                    <input type=" text" placeholder="Search Dishes..."
-                                           style="border: none; outline: none;width: 90%"> <i class="fa fa-search"></i>
-                                    </input>
+                            {#                            <div style=" padding-top: 10%;padding-left: 40%;">#}
+                            {#                                <div style="background: white;padding: 0.5%;display: inline-block; width: 35%">#}
+                            {#                                    <input type=" text" placeholder="Search Dishes..."#}
+                            {#                                           style="border: none; outline: none;width: 90%"> <i class="fa fa-search"></i>#}
+                            {#                                    </input>#}
+                            {##}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <style>
+                                .text_container {
+                                    display: inline-block;
+                                    float: right;
+                                    padding-top: 5%;
+                                    padding-right: 3%;
+                                    width: 27%;
 
+                                }
+
+                                .text-block {
+                                    background-color: rgb(0, 0, 0); /* Fallback color */
+                                    background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+                                    color: white;
+                                    font-weight: bold;
+                                    border: 3px solid #f1f1f1;
+
+                                {#transform: translate(-50%, -50%);#} z-index: 2;
+
+                                }
+                            </style>
+                            {% if not restaurant.is_branch %}
+                                <div class="text_container">
+                                    <div class="text-block">
+                                        <h2 style="">Find Us At: </h2>
+                                        <div style="height: 3vh;"></div>
+
+                                        {% for branch in branch_list %}
+                                            <h4 style="padding-left: 5%;"> -- {{ branch }}</h4>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+
+
+                            {% endif %}
 
 
                         </div>
                     </li>
-                    <!-- <li>
-							<div class="slider-img2">
-								<div class="dot">
-									<div class="container">
-										<div class="slider_banner_info_w3ls text-center">
-											<h2 class="text-uppercase">Restaurant</h2>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="slider-img3">
-								<div class="dot">
-									<div class="container">
-										<div class="slider_banner_info_w3ls text-center">
-											<h4 class="text-uppercase">5 Star Hotel</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li> -->
+
                 </ul>
             </div>
             <div class="clearfix"></div>
         </div>
 
-        <!--//Slider-->
-
-        <!-- About us
-<section class="about py-5">
-	<div class="container">
-		<h3 class="heading text-center text-uppercase mb-5"> What We Do </h3>
-		<p class="aboutpara text-center">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. Donec posuere a massa sit amet sagittis. Nam ut nulla a ligula dictum imperdiet nec ut mauris. Etiam ipsum ipsum, ultrices id nisi ac, pretium efficitur ex. Vestibulum a maximus magna, sit amet ultrices nisi. In laoreet placerat turpis.</p>
-
-		<div class="row about_grids mt-5">
-			<div class="col-md-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-			<div class="col-md-4 mt-md-0 mt-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about2.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-			<div class="col-md-4 mt-md-0 mt-4">
-				<img src="{% static 'browse/Restaurant_homepage/images/about3.jpg' %}" alt="" class="img-fluid" />
-				<h3 class="mt-3 my-2 text-capitalize">Aliquam iaculis erat porta </h3>
-				<p class="mb-2">Nam ut nulla a ligula dictum imperdiet nec</p>
-				<a href="#" class="text-capitalize">Read more <span class="fas fa-long-arrow-alt-right"></span></a>
-			</div>
-		</div>
-
-	</div>
-</section>
-< //About us -->
-
-        <!-- about bottom -->
-        <!-- <section class="aboutbottom-grids pt-5 container-fluid">
-	<div class="row">
-		<div class="col-lg-6 aboutleft">
-			<img src="{% static 'browse/Restaurant_homepage/images/about1.jpg' %}" alt="" class="img-fluid"/>
-		</div>
-		<div class="col-lg-6 p-sm-5 p-3 aboutright">
-			<h3 class="mb-3">Checkout Our Cafe In Video</h3>
-			<p class="mb-2">Maecenas ac euismod eros. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris fermentum lacinia. Donec posuere a massa sit amet sagittis. Nam ut nulla a ligula dictum imperdiet nec ut mauris.</p>
-			<iframe src="https://www.youtube.com/embed/oItKNweXhXQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-		</div>
-	</div>
-</section> -->
-        <!-- //about bottom -->
-        <!-- /stats -->
-        <!-- <section class="stats_test pb-5 container-fluid">
-	<div class="row inner_stat_wthree_agileits">
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid">
-			<i class="far fa-building"></i>
-			<p class="counter">145</p>
-			<h4>Branches</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid1">
-			<i class="fas fa-users"></i>
-			<p class="counter">165</p>
-			<h4>Qualified Chefs</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid2">
-			<i class="far fa-edit"></i>
-			<p class="counter">563</p>
-			<h4>Food Items</h4>
-		</div>
-		<div class="col-sm-3 col-6 py-5 stats_left counter_grid3">
-			<i class="far fa-smile"></i>
-			<p class="counter">1045</p>
-			<h4>Happy Customers</h4>
-		</div>
-	</div>
-	</section> -->
-        <!-- //stats -->
-
-        <!-- How we Work -->
-        <!-- <section class="work py-5">
-	<div class="container">
-	<h3 class="heading text-center text-uppercase mb-5"> How We Work </h3>
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/1.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Spicy & Delicious</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/2.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Healthy Food</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 mt-lg-0 mt-sm-5 grid1">
-				<img src="{% static 'browse/Restaurant_homepage/images/3.png' %}" alt="" class="img-fluid mb-3">
-				<h3 class="my-2">Home Delivery</h3>
-				<p class="">Maecenas ac euismod eros porta. Aliquam a suscipit nibh. Aliquam iaculis erat porta mauris.</p>
-				<p></p>
-			</div>
-			<div class="col-lg-3 col-sm-6 mt-lg-0 mt-sm-5 grid2">
-				<img src="{% static 'browse/Restaurant_homepage/images/aa.jpg' %}" alt="" class="img-fluid">
-			</div>
-		</div>
-	</div>
-</section> -->
-        <!-- //How we Work -->
 
         <!-- food gallery -->
 
@@ -662,380 +470,260 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         });
                     </script>
-                    <div class="row" style="width: 80%">
-                        {# Searched Product list show start #}
-                        {% for pkg_details in item_list %}
-                            {% with item=pkg_details.package %}
-                                <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
-                                    <div class="product-toys-info">
-                                        <div class="men-pro-item">
-                                            <div class="men-thumb-item">
-                                                <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
-                                                     alt="">
-                                                <div class="men-cart-pro">
-                                                    <div class="inner-men-cart-pro">
-                                                        <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                                            View</a>
-                                                    </div>
-                                                </div>
-                                                <span class="product-new-top">20% off</span>
-                                            </div>
-                                            <div class="item-info-product">
-                                                <div class="info-product-price">
-                                                    <div class="grid_meta">
-                                                        <div class="product_price">
-                                                            <h4>
-                                                                <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
-                                                            </h4>
-                                                            <div class="grid-price mt-2">
-                                                                <span class="money ">BDT {{ item.price }}/=</span>
-                                                            </div>
+                    {% if not restaurant.is_branch %}
+                        {% include 'browse/product_list.html' %}
+                    {% else %}
+                        <div class="row" style="width: 80%">
+                            {# Searched Product list show start #}
+                            {% for pkg_details in item_list %}
+                                {% with item=pkg_details.package %}
+                                    <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two filt All {{ item.category }}">
+                                        <div class="product-toys-info">
+                                            <div class="men-pro-item">
+                                                <div class="men-thumb-item">
+                                                    <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid"
+                                                         alt="" style="height: 190px;width: 290px;">
+                                                    <div class="men-cart-pro">
+                                                        <div class="inner-men-cart-pro">
+                                                            <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                                                View</a>
                                                         </div>
-                                                        <ul class="stars">
-                                                            {% for star in item.rating %}
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <i class="fas fa-star"></i>
-                                                                    </a>
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
                                                     </div>
-                                                    <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
-                                                         id="cart-div">
-                                                        <button href="#" data-id="{{ item.id }}"
-                                                                data-name="{{ item.pkg_name }}"
-                                                                data-price="{{ item.price }}"
-                                                                data-restaurant-id="{{ restaurant.branch.id }}"
-                                                                class="add-to-cart toys-cart ptoys-cart">
-                                                            <i class="fas fa-cart-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                    {% if pkg_details.has_any_offer %}
+                                                        <span class="product-new-top">OFFER</span>
+                                                    {% endif %}
                                                 </div>
-                                                {% if not restaurant.is_branch %}
-                                                    <script>
-                                                        document.getElementById('cart-div').style.display = "none";
-                                                    </script>
-                                                {% endif %}
-                                                <div class="clearfix"></div>
+                                                <div class="item-info-product">
+                                                    <div class="info-product-price">
+                                                        <div class="grid_meta">
+                                                            <div class="product_price">
+                                                                <h4>
+                                                                    <a href="{{ item.get_absolute_url }}">{{ item.pkg_name }}</a>
+                                                                </h4>
+                                                                <div class="grid-price mt-2">
+                                                                    <span class="money ">BDT {{ item.price }}/=</span>
+                                                                </div>
+                                                                {% if pkg_details.has_any_offer %}
+                                                                    <div class="grid-price mt-2">
+                                                                    <span class="money"
+                                                                          style="color: red">{{ pkg_details.get_offer_details | upper }}</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                                <div id="star_rating{{ item.id }}">
+                                                                    {#                                    <i class="fa fa-star-half-full"></i>#}
+                                                                </div>
+                                                                <script>
+
+                                                                    {% if item.get_avg_rating is not None %}
+                                                                        var i = 0;
+                                                                        var rating = {{ item.get_avg_rating }};
+                                                                        for (i = 0; i < rating; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+
+                                                                        for (; i < 5; i++) {
+                                                                            $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                                                        }
+                                                                    {% endif %}
+
+                                                                </script>
+
+
+                                                            </div>
+                                                            <ul class="stars">
+                                                                {% for star in item.rating %}
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            <i class="fas fa-star"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                        <div class="toys single-item hvr-outline-out filt All cart-div {{ item.category }}"
+                                                             id="cart-div">
+                                                            <button href="#" data-id="{{ pkg_details.id }}"
+                                                                    data-name="{{ item.pkg_name }}"
+                                                                    {#                                                            data-price="{{ item.price }}"#}
+                                                                    data-price="{{ pkg_details.get_buying_price }}"
+                                                                    data-restaurant-id="{{ restaurant.branch.id }}"
+                                                                    data-offer-buy-n="{{ pkg_details.offer_buy_n }}"
+                                                                    data-offer-get-n="{{ pkg_details.offer_get_n }}"
+                                                                    class="add-to-cart toys-cart ptoys-cart">
+                                                                <i class="fas fa-cart-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    {% if not restaurant.is_branch %}
+                                                        <script>
+                                                            document.getElementById('cart-div').style.display = "none";
+                                                        </script>
+                                                    {% endif %}
+                                                    <div class="clearfix"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endwith %}
-                        {% endfor %}
-                        {# Searched Product list show end #}
-                    </div>
-
+                                {% endwith %}
+                            {% endfor %}
+                            {# Searched Product list show end #}
+                        </div>
+                    {% endif %}
                     {#                        </li>#}
                     </ul>
 
-                    <!-- <ul class="portfolio-area">
-
-					<li class="portfolio-item2 mb-2" data-id="id-0" data-type="cat-item-4">
-						<div>
-							<span class="image-block img-hover">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g1.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g1.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-1" data-type="cat-item-2">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g2.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g2.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-										<div class="toys single-item hvr-outline-out">
-											<form action="#" method="post">
-												<input type="hidden" name="cmd" value="_cart">
-												<input type="hidden" name="add" value="1">
-												<input type="hidden" name="toys_item" value={{ item.name }}>
-												<input type="hidden" name="amount" value="575.00">
-												<button type="submit" class="toys-cart ptoys-cart">
-													<i class="fas fa-cart-plus"></i>
-												</button>
-											</form>
-										</div>
-									</div>
-
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-2" data-type="cat-item-1">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g3.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g3.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-3" data-type="cat-item-4">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g4.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g4.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-4" data-type="cat-item-3">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g5.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g5.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-5" data-type="cat-item-2">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g6.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g6.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-6" data-type="cat-item-1">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g7.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g7.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-								</a>
-							</span>
-						</div>
-					</li>
-
-
-					<li class="portfolio-item2 mb-2" data-id="id-7" data-type="cat-item-1">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g8.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g8.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-
-								</a>
-							</span>
-						</div>
-					</li>
-
-					<li class="portfolio-item2 mb-2" data-id="id-7" data-type="cat-item-3">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g9.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g9.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-
-								</a>
-							</span>
-						</div>
-					</li>
-
-					<li class="portfolio-item2 mb-2" data-id="id-7" data-type="cat-item-2">
-						<div>
-							<span class="image-block">
-								<a class="image-zoom" href="{% static 'browse/Restaurant_homepage/images/g10.jpg' %}"
-									rel="prettyPhoto[gallery]">
-
-									<img src="{% static 'browse/Restaurant_homepage/images/g10.jpg' %}"
-										class="img-responsive" alt="Cafe In image">
-									<div class="port-info">
-										<h5>Healthy Food</h5>
-										<p>Delicious Food For All</p>
-									</div>
-
-								</a>
-							</span>
-						</div>
-					</li>
-
-				</ul> -->
-                    <!--end portfolio-area -->
 
                     <div class="clearfix"></div>
+                    <div style="height: 3vh;"></div>
+                    <hr style="width: 100%; color: black; height: 1px; background-color:black;"/>
+                    {% if restaurant.is_branch %}
+                        <font style="color: #7b3a3e" size="6">What people think about us: </font><br>
+                        <div style="height: 3vh;"></div>
+
+                        <div class="row">
+                            <div class="col-md-7 add-review">
+
+                                <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css"
+                                      rel="stylesheet" id="bootstrap-css">
+                                <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+                                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                                <!------ Include the above in your HEAD tag ---------->
+                                {% for comment in comments %}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
+                                                         class="img img-rounded img-fluid"/>
+                                                    <p class="text-secondary text-center">{{ comment.time }}</p>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>
+                                                        <a class="float-left"
+                                                           href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
+
+                                                    </p>
+                                                    <div class="clearfix"></div>
+                                                    <p>{{ comment.comment }}</p>
+                                                    <div style="position: absolute; bottom: 0%; right: 3%;">
+                                                        <a class="float-bottom btn text-white btn-danger react"
+                                                           id="like"> <i class="fa fa-thumbs-up"></i> Like <font
+                                                                id="like_count">{{ comment.nlikes }}</font> </a>
+                                                        <a class="float-bottom btn text-white btn-danger react"
+                                                           id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike <font
+                                                                id="dislike_count">{{ comment.ndislikes }}</font></a>
+
+                                                    </div>
+                                                    {% if loggedIn %}
+                                                        <script>
+                                                            var csrftoken = getCookie('csrftoken');
+                                                            $.ajaxSetup({
+                                                                beforeSend: function (xhr, settings) {
+                                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                                                    }
+                                                                }
+                                                            });
+                                                            var $react = $(this);
+
+                                                            $(".react").click(function () {
+
+                                                                $.ajax({
+                                                                    context: this,
+
+                                                                    type: "POST",
+                                                                    headers: {
+                                                                        "X-CSRFToken": csrftoken
+                                                                    },
+                                                                    url: 'reactOn/',
+                                                                    data: {
+                                                                        'comment-id': {{ comment.comment_id }},
+                                                                        'branch-id': {{ restaurant.branch.id }},
+                                                                        'react': this.id
+                                                                    },
+                                                                    dataType: 'json',
+                                                                    success: function (data) {
+                                                                        $('#like_count').text(data['nlikes']);
+                                                                        $('#dislike_count').text(data['ndislikes']);
+
+
+                                                                    }
+                                                                });
+
+                                                            });
+                                                        </script>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+                                <div style="height: 2vh;"></div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="comment">Leave a review:</label>
+                                            <textarea class="form-control" rows="2" id="comment"></textarea>
+                                        </div>
+
+                                        <div style="position: relative; bottom: 6%; left: 79%;">
+                                            <button type="button" class="btn btn-info" id="submit_review">Submit
+                                                Review
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                    <p id="test"></p>
+                                    <script>
+                                        var csrftoken = getCookie('csrftoken');
+                                        $("#submit_review").click(function () {
+
+                                            {% if loggedIn %}
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    headers: {
+                                                        "X-CSRFToken": csrftoken
+                                                    },
+                                                    url: 'submitReview/',
+                                                    data: {
+                                                        'branch-id': {{ restaurant.branch.id }},
+                                                        'comment': $('#comment').val()
+
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        location.reload();
+                                                    }
+                                                });
+
+                                            {% else %}
+
+                                                alert('Please log in to post review');
+                                            {% endif %}
+                                        });
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    {% endif %}
                 </div>
 
             </div>
         </section>
         <!--//food gallery-->
 
-        <!--Team-->
-        <!-- <section class="Team py-5">
-	<div class="container">
-	<h3 class="heading text-center text-uppercase mb-5"> Our Chefs </h3>
-		<div class="row inner-sec-w3layouts-agileinfo">
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p1.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>John Doe</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p2.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Alina Smith</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p3.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Adam Lobster</h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grids">
-				<img src="{% static 'browse/Restaurant_homepage/images/p4.jpg' %}" class="img-responsive" alt="">
-				<div class="team-info">
-					<div class="caption">
-						<h4>Christina </h4>
-						<h6>Chef</h6>
-					</div>
-					<div class="social-icons-section">
-						<a class="fac" href="#">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a class="twitter" href="#">
-							<i class="fab fa-twitter-square"></i>
-						</a>
-						<a class="pinterest" href="#">
-							<i class="fab fa-pinterest"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section> -->
-        <!--//Team-->
-
-        <!-- Newsletter -->
-        <!-- <section class="newsletter text-center py-5">
-	<div class="container">
-		<h3 class="heading text-center text-uppercase mb-5"> Newsletter </h3>
-
-	</div>
-	</section> -->
         <!-- //Newsletter -->
 
         <!-- footer -->

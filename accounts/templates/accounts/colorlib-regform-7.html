@@ -48,29 +48,29 @@
                     <h2 class="form-title"><a href="/">Foodsquare</a></h2>
                     <h1 class="form-title">New User Registration</h1>
                     <script>
-						var checkpass = function () {
-							if (document.getElementById('name') == '') {
-								document.getElementById('name').style.backgroundColor = 'red'
-							}
+                        var checkpass = function () {
+                            if (document.getElementById('name') == '') {
+                                document.getElementById('name').style.backgroundColor = 'red'
+                            }
 
-							if (document.getElementById('password').value ==
-								document.getElementById('re_pass').value) {
-								document.getElementById('password').style.color = 'green';
-								document.getElementById('re_pass').style.color = 'green';
-								document.getElementById('password-message').innerHTML = '';
-								document.getElementById('password-message').style.color = 'green';
-								document.getElementById('signup').disabled = false
-								document.getElementById('signup').style.backgroundColor = 'green'
-							} else {
-								document.getElementById('password').style.color = 'red';
-								document.getElementById('re_pass').style.color = 'red';
-								document.getElementById('password-message').innerHTML = 'NOT MATCHING';
-								document.getElementById('password-message').style.color = 'red';
-								document.getElementById('signup').disabled = true
-								document.getElementById('signup').style.backgroundColor = 'red'
-							}
-						}
-						}
+                            if (document.getElementById('password').value ==
+                                document.getElementById('re_pass').value) {
+                                document.getElementById('password').style.color = 'green';
+                                document.getElementById('re_pass').style.color = 'green';
+                                document.getElementById('password-message').innerHTML = '';
+                                document.getElementById('password-message').style.color = 'green';
+                                document.getElementById('signup').disabled = false
+                                document.getElementById('signup').style.backgroundColor = 'green'
+                            } else {
+                                document.getElementById('password').style.color = 'red';
+                                document.getElementById('re_pass').style.color = 'red';
+                                document.getElementById('password-message').innerHTML = 'NOT MATCHING';
+                                document.getElementById('password-message').style.color = 'red';
+                                document.getElementById('signup').disabled = true
+                                document.getElementById('signup').style.backgroundColor = 'red'
+                            }
+                        }
+                        }
                     </script>
                     <form method="POST" class="register-form" id="register-form">
                         {% csrf_token %}

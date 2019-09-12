@@ -19,8 +19,32 @@ class User(AbstractUser):
 		verbose_name = "User"
 		verbose_name_plural = "Users"
 
+	def get_rating(self):
+		rating = 0
+		if self.is_customer:
+			from customer.utils_db import get_avg_customer_rating
+			rating = get_avg_customer_rating(self.id)
+		elif self.is_delivery_man:
+			from delivery.utils_db import get_avg_deliveryman_rating
+			rating = get_avg_deliveryman_rating(self.id)
+		elif self.is_manager:
+			rating = self.restaurant.get_avg_rating()
+		elif self.is_branch_manager:
+			rating = self.restaurantbranch.get_avg_rating()
+		if rating is None:
+			rating = 0
+		return round(rating, 2)
 
-# user contactinfo not completed
+	def get_unread_notifications(self):
+		from customer.models import Notification
+		return Notification.get_unread_notifications(self)
+
+	def read_notifications(self, time):
+		from customer.models import Notification
+		for notf in Notification.objects.filter(user=self, time__lte=time):
+			notf.mark_as_read()
+
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)
@@ -52,6 +76,10 @@ class Restaurant(models.Model):
 	def get_absolute_url(self):
 		return reverse("browse:restaurant_detail", kwargs={"id": self.pk})
 
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_restaurant
+		return get_rating_restaurant(self.id)
+
 
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -68,8 +96,6 @@ class RestaurantBranch(models.Model):
 	running = models.BooleanField(default=False)
 	opening_time = models.FloatField(verbose_name='Opening Time in 24h format', default=9.00)
 	closing_time = models.FloatField(verbose_name='Opening Time in 24h format', default=23.00)
-	# opening_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=datetime.now())
-	# closing_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=23.00)
 
 	# branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
 
@@ -77,6 +103,8 @@ class RestaurantBranch(models.Model):
 
 	ratings = models.ManyToManyField(User, through='browse.BranchRating', related_name='branch_rating_user')
 	comments = models.ManyToManyField(User, through='browse.BranchComment', related_name='branch_comment_user')
+
+	MAX_DELIVERABLE_DISTANCE = 4
 
 	class Meta:
 		verbose_name = "Branch"
@@ -94,6 +122,10 @@ class RestaurantBranch(models.Model):
 
 	def distance(self, coordinates):
 		return distance(self.branch_location, coordinates)
+
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_branch
+		return get_rating_branch(self.id)
 
 
 class Payment(models.Model):
@@ -130,7 +162,7 @@ class Payment(models.Model):
 class DeliveryMan(models.Model):
 	name = models.CharField(verbose_name="Name", max_length=50)
 	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
-	address = models.CharField(verbose_name="Permanent Address", max_length=50)
+	address = models.CharField(verbose_name="Delivery Address", max_length=50)
 	nid = models.CharField(verbose_name="National ID No.", max_length=50)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
@@ -201,16 +233,28 @@ class Order(models.Model):
 		verbose_name_plural = "Orders"
 
 	def __str__(self):
-		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment
+		return self.user.username + ' ' + self.time.__repr__() + ' ' + self.payment.__repr__()
 
 	def get_package_list(self):
 		return OrderPackageList.objects.filter(order=self)
+
+	def assignDeliveryman(self, deliveryman):
+		self.order_status = Order.DELIVERING
+		self.delivery.deliveryman = deliveryman
+		self.delivery.charge = self.payment.price - sum(pack.price for pack in self.get_package_list())
+		self.delivery.save()
+		self.save()
+
+	def submitDelivery(self):
+		self.order_status = Order.DELIVERED
+		self.save()
 
 
 class OrderPackageList(models.Model):
 	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)
 	package = models.ForeignKey("browse.Package", verbose_name="Package", on_delete=models.CASCADE)
 	quantity = models.IntegerField(verbose_name="#Packages in this order", default=1)
+	price = models.FloatField(verbose_name="Total Price of all items for this package considering offer", default=0)
 
 	class Meta:
 		verbose_name = "OrderPackageList"

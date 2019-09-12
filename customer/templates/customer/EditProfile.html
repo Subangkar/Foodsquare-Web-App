@@ -1,7 +1,7 @@
 {% extends 'customer/base.html' %}
 
 {% block header %}
-    <title>Foodsquare | Home</title>
+    <title>{{ request.user.username | capfirst }} | Profile | FoodSquare </title>
 {% endblock %}
 
 
@@ -16,38 +16,43 @@
                 <hr>
                 <div class="row">
                     <!-- left column -->
-                    <script language="javascript">
-						function changeImage() {
-							document.getElementById("profile_pic_upload").src = document.getElementById("imgChangeBtn").value;
-						}
-                    </script>
                     <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                         {% csrf_token %}
                         <div class="col-md-3">
                             <div class="text-center">
 
                                 {% if not socialacnt %}
-                                    <img src={{ userprofile.avatar.url }} class="avatar " style="width : 100%;height:
-                                    100%"
-                                    alt="avatar" id="profile_pic_upload">
+                                    <img id="current_image" src={{ userprofile.avatar.url }} class="avatar"
+                                         style="width: 100%;height: 100%" alt="avatar">
                                 {% else %}
-                                    <img class="avatar " style="width : 100%;height: 100%" alt="avatar"
-                                         id="profile_pic_upload"
-                                         src={{ userprofile.avatar }}>
+                                    <img id="current_image" src="{{ userprofile.avatar }}" class="avatar"
+                                         style="width: 100%;height: 100%" alt="avatar">
                                 {% endif %}
-                                <h6>Upload a different photo...</h6>
-                                <input type="file" name="avatar" class="form-control" id="imgChangeBtn"
-                                       onchange="changeImage()">
+                                <br>
+                                <br>
+                                <h5>Upload a different photo...</h5>
+
+                                <input type="file" name="image" id="selected_image" class="form-control"
+                                       onchange="updateImg()">
+                                <script>
+                                    function updateImg() {
+                                        var fReader = new FileReader();
+                                        fReader.readAsDataURL(document.getElementById("selected_image").files[0]);
+                                        fReader.onloadend = function (event) {
+                                            document.getElementById("current_image").src = event.target.result;
+                                        }
+                                    }
+                                </script>
                             </div>
                         </div>
 
                         <!-- edit form column -->
                         <div class="col-md-9 personal-info">
-{#                            <div class="alert alert-info alert-dismissable">#}
-{#                                <a class="panel-close close" data-dismiss="alert">×</a>#}
-{#                                <i class="fa fa-coffee"></i>#}
-{#                                This is an <strong>.alert</strong>. Use this to show important messages to the user.#}
-{#                            </div>#}
+                            {#                            <div class="alert alert-info alert-dismissable">#}
+                            {#                                <a class="panel-close close" data-dismiss="alert">×</a>#}
+                            {#                                <i class="fa fa-coffee"></i>#}
+                            {#                                This is an <strong>.alert</strong>. Use this to show important messages to the user.#}
+                            {#                            </div>#}
                             <h3>Personal info</h3>
 
 

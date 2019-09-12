@@ -5,18 +5,18 @@
     <link rel="icon" type="image/png" href="{% static 'browse/toys_shop/images/icons/favicon.ico' %}"/>
     <!--meta tags -->
     <script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
     </script>
     <!--//meta tags ends here-->
     <!--booststrap-->
     {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">#}
-{#    <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">#}
+    {#    <link href="{% static 'browse/toys_shop/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all">#}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
 
@@ -45,12 +45,12 @@
     <!-- Custom Theme files -->
 
     <script type="application/x-javascript"> addEventListener("load", function () {
-		setTimeout(hideURLbar, 0);
-	}, false);
+        setTimeout(hideURLbar, 0);
+    }, false);
 
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	} </script>
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
 
     {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"
@@ -71,18 +71,18 @@
     <script src="{% static 'browse/toys_shop/index/js/wow.min.js' %}"></script>
     <link href="{% static 'browse/toys_shop/index/css/animate.css' %}" rel='stylesheet' type='text/css'/>
     <script>
-		new WOW().init();
+        new WOW().init();
     </script>
     <script src="{% static 'browse/toys_shop/index/js/simpleCart.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/move-top.js' %}"></script>
     <script type="text/javascript" src="{% static 'browse/toys_shop/index/js/easing.js' %}"></script>
     <script type="text/javascript">
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
+            });
+        });
     </script>
 
     <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
@@ -154,30 +154,16 @@
                     <a class="nav-link" href={% url 'browse:home' %}>Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href={% url 'browse:restaurants' %} class="nav-link">Top Restaurants</a>
+                    <a href={% url 'browse:restaurants' %} class="nav-link">Restaurants</a>
                 </li>
                 <li class="nav-item">
-                    <a href={% url 'browse:package-list' %} class="nav-link">Order Now</a>
-                </li>
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"#}
-{#                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                        Product#}
-{#                    </a>#}
-{#                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                        <a class="nav-link" href="product.html">Kids Menu</a>#}
-{#                        <a class="nav-link " href="product.html">Key Item</a>#}
-{#                        <a class="nav-link " href="product.html">Beverage</a>#}
-{#                    </div>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    <a href="service.html" class="nav-link">Service</a>#}
-{#                </li>#}
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
+                    <a href={% url 'browse:package-list' %} class="nav-link">Browse Items</a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="/about/" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact/" class="nav-link">Contact</a>
                 </li>
             </ul>
         </div>

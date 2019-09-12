@@ -1,51 +1,272 @@
 {% load static %}
+<style>
+
+    .tooltip-container {
+        position: relative;
+
+    }
+
+    .tooltip-container:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+        transition: 0.25s all ease;
+        transform: scale3d(1, 1, 1);
+        transition-delay: 0s;
+        top: -62px;
+        left: -27px;
+        border-radius: 9px;
+    }
+
+    .tooltip-content {
+        transform: scale3d(.2, .2, 1);
+
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        background: #B02B26;
+        top: -62px;
+        left: -27px;
+        border-radius: 9px;
+        padding: 0 15px;
+        margin: 16px;
+        font-size: 15px;
+        width: 250px;
+        transition: 0.25s all ease;
+        transition-delay: 0.25s;
+        z-index: 2;
+        color: #fff;
+    }
+
+    .tooltip-content .align-right {
+        text-align: right;
+    }
+
+    .tooltip-content .align-right a {
+        color: red;
+        text-decoration: none;
+    }
+
+    .tooltip-content .align-right a:hover {
+        text-decoration: underline;
+    }
+
+    .tooltip-content:after {
+        content: "";
+        position: absolute;
+        border-width: 10px;
+        border-style: solid;
+        top: 100%;
+        left: 25px;
+        border-color: #000 transparent transparent transparent;
+    }
+
+</style>
 <div class="row">
     {# Searched Product list show start #}
     {% for item in item_list %}
-        <div class="col-lg-4 col-md-6 col-sm-6 product-men women_two">
-            <div class="product-toys-info">
-                <div class="men-pro-item">
-                    <div class="men-thumb-item">
-                        <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
-                             style="height: 190px;width: 290px;">
-                        <div class="men-cart-pro">
-                            <div class="inner-men-cart-pro">
-                                <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
-                                    View</a>
-                            </div>
-                        </div>
-                        <span class="product-new-top">20% off</span>
-                    </div>
-                    <div class="item-info-product">
-                        <div class="info-product-price">
-                            <div class="grid_meta">
-                                <div class="product_price">
-                                    {#                                    <h4>#}
-                                    <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
-                                    {#                                    </h4>#}
-                                    <div class="grid-price mt-2">
-                                        <span class="money ">BDT {{ item.price }}</span>
-                                    </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 tooltip-container " id="offer_hover{{ item.id }}"
+                {#             onmouseover="document.getElementById('offer_details{{ item.id }}').style.visibility='visible';"#}
+                {#             onmouseout="document.getElementById('offer_details{{ item.id }}').style.visibility='hidden';"#}
+
+        >
+            {% if item.get_all_offers %}
+                <div class="tooltip-content">
+                    {% for brnchPkg in item.get_all_offers %}
+                        <li>{{ brnchPkg.branch }} --- {{ brnchPkg.get_offer_details }}</li>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+            <div class=" product-men women_two">
+                <div class="product-toys-info">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="/media/{{ item.image }}" class="img-thumbnail img-fluid" alt=""
+                                 style="height: 190px;width: 290px;">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href={{ item.get_absolute_url }} class="link-product-add-cart">Quick
+                                        View</a>
                                 </div>
-                                {% for j in "12345" %}
-                                    <i class="fas fa-star" style="color:  #FFC107"></i>
-                                {% endfor %}
                             </div>
-                            {#                                                <div class="toys single-item hvr-outline-out">#}
-                            {#                                                    <button href="#" data-id="{{ item.id }}"#}
-                            {#                                                            data-name="{{ item.pkg_name }}"#}
-                            {#                                                            data-price="{{ item.price }}"#}
-                            {#                                                            data-restaurant-id="{{ item.restaurant.id }}"#}
-                            {#                                                            class="add-to-cart toys-cart ptoys-cart">#}
-                            {#                                                        <i class="fas fa-cart-plus"></i>#}
-                            {#                                                    </button>#}
-                            {#                                                </div>#}
+
+                            {% if item.has_offer_in_any_branch %}
+                                <span class="product-new-top">OFFER ! </span>
+                            {% endif %}
+
+
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="item-info-product">
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        {#                                    <h4>#}
+                                        <a href={{ item.get_absolute_url }}><h4>{{ item.pkg_name }}</h4></a>
+                                        {#                                    </h4>#}
+                                        <h4>
+                                            <a href={{ item.restaurant.get_absolute_url }}>{{ item.restaurant.restaurant_name }}</a>
+                                        </h4>
+                                        <div class="grid-price mt-2">
+                                            <span class="money ">BDT {{ item.price }}</span>
+                                        </div>
+                                    </div>
+                                    <div id="star_rating{{ item.id }}">
+                                        {#                                    <i class="fa fa-star-half-full"></i>#}
+                                    </div>
+                                    <script>
+
+                                        {% if item.get_avg_rating is not None %}
+                                            var i = 0;
+                                            var rating = {{ item.get_avg_rating }};
+                                            for (i = 0; i < rating; i++) {
+                                                $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
+                                            }
+
+                                            for (; i < 5; i++) {
+                                                $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
+                                            }
+                                        {% endif %}
+
+                                    </script>
+                                </div>
+                                <div class="toys single-item hvr-outline-out">
+                                    <button href="{{ item.id }}" data-id="{{ item.id }}"
+                                            data-name="{{ item.pkg_name }}"
+                                            data-price="{{ item.price }}"
+                                            data-restaurant-id="-1"
+                                            class=" toys-cart ptoys-cart cart_button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     {% endfor %}
+    <script>
+        $(document).ready(function () {
+
+            $(".cart_button").click(function () {
+                var pkg_id = $(this).attr("href");
+
+                if ($('#delivery_input').val().length === 0) {
+                    $('#rest_pkg_id').val($(this).attr("href"));
+                    $('#delivery_modal_btn').click();
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: "/branch_pkg_availability/",
+                        data: {
+                            'id': $(this).attr("href"),
+                            'coord': $('#delivery_area_srch').val()
+                        },
+                        success: function (data) {
+
+                            $('#branch_modal').html(data);
+                        }
+
+                    });
+
+                    $('#br_modal_btn').click();
+                }
+
+            });
+        });
+
+    </script>
     {# Searched Product list show start #}
 </div>
+
+
+<!-- Button trigger modal -->
+<button type="button" id="delivery_modal_btn" hidden class="btn btn-primary" data-toggle="modal"
+        data-target="#delivery_location_modal">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="delivery_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #9F0053">Please Enter Your Delivery
+                    Location First</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" id="rest_pkg_id">
+                    <input type="text" class="form-control delivery_loc_input" id="delivery_input2"
+                           aria-describedby="emailHelp" placeholder="Enter Delivery Location">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function initAutocomplete2() {
+
+            var dhakaBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(23.6612704, 90.3295468),
+                new google.maps.LatLng(23.6612704, 23.9000025));
+
+
+            autocomplete2 = new google.maps.places.Autocomplete(
+                (document.getElementById('delivery_input2')), {'bounds': dhakaBounds}
+            );
+            // Set initial restrict to the greater list of countries.
+            autocomplete2.setComponentRestrictions({'country': ['bd']});
+
+
+            autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+            autocomplete2.addListener('place_changed', function () {
+                var place = autocomplete2.getPlace();
+                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                document.getElementById('delivery_input').value = document.getElementById('delivery_input2').value;
+                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input2').value);
+            });
+        }
+    </script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete2"
+            async defer></script>
+</div>
+<button hidden type="button" id="br_modal_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_modal">
+</button>
+<div class="modal fade" id="branch_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    {% include 'browse/branch_availability.html' %}
+
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#delivery_location_modal').on('hidden.bs.modal', function () {
+            if ($('#delivery_input').val().length !== 0) {
+                $.ajax({
+                    type: "GET",
+                    url: "/branch_pkg_availability/",
+                    data: {
+                        'id': $('#rest_pkg_id').val(),
+                        'coord': $('#delivery_area_srch').val()
+                    },
+                    success: function (data) {
+
+                        $('#branch_modal').html(data);
+                    }
+
+                });
+
+                $('#br_modal_btn').click();
+            }
+        });
+    });
+</script>

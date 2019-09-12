@@ -6,7 +6,7 @@
     <script src="{% static 'awesomplete.js' %}" async></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-    <title>Foodsquare | Home</title>
+    <title>Item Details | FoodSquare</title>
 {% endblock %}
 
 
@@ -25,20 +25,33 @@
                         {% csrf_token %}
                         <div class="col-md-3">
                             <div class="text-center">
-                                <img src="/media/{{ item.image }}" class="avatar " name style="width : 100%;height: 100%" alt="menu image">
-                                <h6>Upload a different photo...</h6>
+                                <img id="current_image" src="/media/{{ item.image }}" class="avatar " name
+                                     style="width : 100%;height: 100%" alt="menu image">
+                                <br>
+                                <br>
+                                <h5>Upload a different photo...</h5>
 
-                                <input type="file" name="image" class="form-control">
+                                <input type="file" name="image" id="selected_image" class="form-control"
+                                       onchange="updateImg()">
+                                <script>
+                                    function updateImg() {
+                                        var fReader = new FileReader();
+                                        fReader.readAsDataURL(document.getElementById("selected_image").files[0]);
+                                        fReader.onloadend = function (event) {
+                                            document.getElementById("current_image").src = event.target.result;
+                                        }
+                                    }
+                                </script>
                             </div>
                         </div>
 
                         <!-- edit form column -->
                         <div class="col-md-9 personal-info">
-{#                            <div class="alert alert-info alert-dismissable">#}
-{#                                <a class="panel-close close" data-dismiss="alert">×</a>#}
-{#                                <i class="fa fa-coffee"></i>#}
-{#                                This is an <strong>.alert</strong>. Use this to show important messages to the user.#}
-{#                            </div>#}
+                            {#                            <div class="alert alert-info alert-dismissable">#}
+                            {#                                <a class="panel-close close" data-dismiss="alert">×</a>#}
+                            {#                                <i class="fa fa-coffee"></i>#}
+                            {#                                This is an <strong>.alert</strong>. Use this to show important messages to the user.#}
+                            {#                            </div>#}
                             <h3>Menu info</h3>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Menu name:</label>

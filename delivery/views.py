@@ -1,18 +1,9 @@
-import json
-import re
-
-from django.core import serializers
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
-
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.generic import TemplateView
-
-from accounts.forms import UserForm, RestaurantForm
 
 from accounts.models import *
 from accounts.utils import pretty_request
-from browse.forms import PackageForm
-from browse.models import Ingredient, IngredientList
 from delivery.utils_db import *
 
 
@@ -28,7 +19,9 @@ class AcceptOrdersView(TemplateView):
 	template_name = 'delivery/delivery_order.html'
 
 	def get_context_data(self, **kwargs):
-		obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		print(self.request.user.id)
+		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
 		return {'object_list': obj_list}
 
 
@@ -45,30 +38,6 @@ class EditProfileView(TemplateView):
 
 		return context
 
-	def post(self, request, *args, **kwargs):
-		# print(request)
-		# oldUser = User.objects.get(id=request.user.id)
-		# user_form = UserForm(request.POST, oldUser)
-		# profile = oldUser.userprofile
-		# profile.user = oldUser
-		# profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
-		# print(profile_form)
-		# if profile_form.is_valid():
-		# 	profile_form.save()
-		# 	print('Registering : ' + str(request.user))
-		# 	return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-		# # if user_form.is_valid():
-		# # user = user_form.save(commit=False)
-		# # user.save()
-		#
-		# else:
-		# 	return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		# # menuForm = MenuForm(request.POST or None, request.FILES or None)
-		# # menuForm.save()
-		# # print(menuForm)
-		# # return HttpResponse("<h1>Congrats</h1>")
-		pass
-
 
 def acceptDelivery(request):
 	print(request)
@@ -79,36 +48,65 @@ def acceptDelivery(request):
 	status = request.POST.get('delivery_option')
 	order = Order.objects.get(id=order_id)
 	if status == 'take':
-		order.order_status = order.DELIVERING
-		order.delivery.deliveryman = deliveryman
-		order.save()
+		if order.order_status != Order.PROCESSING:
+			return JsonResponse({"accepted": False})
+		order.assignDeliveryman(deliveryman)
+		from customer.utils_db import send_notification
+		send_notification(order.user.id, "Your order: " + str(
+			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
+		                                                      "Wait for deliveryman to reach at your delivery address.")
+		send_notification(request.user.id,
+		                  "You accepted delivery for order id:" + order.id + " to deliver to " + order.user.username)
+
 	elif status == 'deliver':
-		order.order_status = order.DELIVERED
-		order.delivery.deliveryman = deliveryman
-		order.save()
+		order.submitDelivery()
+		from customer.utils_db import send_notification
+		send_notification(order.user.id, "Your order: " + str(
+			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address.")
+		send_notification(request.user.id, "You delivered order id:" + order.id + " to " + order.user.username)
+
 	return JsonResponse({"accepted": True})
 
-
-# def acceptDelivered(request):
-
-# def delivery_details(request):
-# 	id = request.GET.get('id')
-# 	obj = None
-# 	# obj = Restaurant.objects.get(id=id)
-#
-# 	# given an order id, find order details i.e. which item in which quantity
-#
-# 	ser = serializers.serialize('json', [obj])
-# 	json_obj = json.loads((ser.strip('[]')))
-# 	print(json_obj['fields'])
-# 	return JsonResponse(json_obj['fields'])
 
 def delivery_details(request):
 	"""
 	given an order id, find order details i.e. which item in which quantity and give total price
 	"""
 	id = request.GET.get('id')
-	pkg_list,order, price, deliver_charge = get_order_details(id)
+	pkg_list, order, price, deliver_charge = get_order_details(id)
 	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
-	              {'item_list': pkg_list,'order':order, 'price': price, 'delivery_charge': deliver_charge})
+	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
+
+
+class Delivered_Orders(TemplateView):
+	template_name = 'delivery/previous_order.html'
+
+	def get_context_data(self, **kwargs):
+		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+		obj_list = get_past_orders(self.request.user.id)
+		return {'object_list': obj_list}
+
+
+def submitCustomerRating(request):
+	print(request.POST.get('order-id'))
+	print(int(request.POST.get('rating')))
+	submit_rating(order_id=request.POST.get('order-id'), rating=int(request.POST.get('rating')))
+	return True
+
+
+def get_notifications(request):
+	from customer.utils_db import get_unread_notifications
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
+	return JsonResponse({'notifications': notifications})
+
+
+def read_notifications(request):
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())
+	return JsonResponse({'Success': True})

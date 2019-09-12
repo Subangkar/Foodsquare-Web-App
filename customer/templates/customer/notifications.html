@@ -1,0 +1,52 @@
+{#<a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" id="noti_bell"#}
+{#   data-toggle="dropdown"><i class="fa fa-bell"></i><span#}
+{#        class="badge badge-success pull-right">{{ cnt }}</span></a>#}
+
+{#<li>#}
+{#                                    <p class="drop-title">You have 3 pending tasks !</p>#}
+{#                                </li>#}
+<script>
+    {#        {% if cnt == "0" %}#}
+    {#        document.getElementById('noti-count').textContent={{ cnt }};#}
+    {#        {% endif %}#}
+</script>
+<li class="dropdown-menu-list slimscroll tasks">
+    <ul class="list-unstyled">
+        {% for ntfs in notifications %}
+
+            <li>
+                <a href="#">
+                    <div class="task-icon badge badge-success"><i class="icon-user"></i>
+                    </div>
+                    <span class="badge badge-roundless badge-default pull-right">1min
+                                                        ago</span>
+                    <p class="task-details">{{ ntfs.message }}</p>
+
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
+{#                                <li class="drop-all"><a href="#" class="text-center">All Tasks</a></li>#}
+{#<script>#}
+{#    $(document).ready(function(){#}
+{#        $('#noti_bell').click(function(){#}
+{#            $.ajax({#}
+{#                type: "GET",#}
+{#                url: "/customer/read_notifications/",#}
+{#                data: {#}
+{##}
+{#                },#}
+{#                success: function(data)#}
+{#                {#}
+{#                    $('#notifications').html(data);#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}
+{#<script>#}
+{#    function read_nofications() {#}
+{#        #}
+{#    }#}
+{#</script>#}

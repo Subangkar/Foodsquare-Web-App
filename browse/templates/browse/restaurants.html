@@ -2,17 +2,12 @@
 {% load static %}
 
 {% block header %}
-    <title>Foodsquare | order page :: food ordering made simple</title>
-    <link href="{% static 'browse/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <title> Restaurants | FoodSquare</title>
     <script src="{% static 'browse/js/jquery.min.js' %}"></script>
-    <!-- Custom Theme files -->
-    <!-- <link href="{% static 'browse/css/style.css' %}" rel="stylesheet" type="text/css" media="all" /> -->
-    <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function () {
-		setTimeout(hideURLbar, 0);
-	}, false);
+        setTimeout(hideURLbar, 0);
+    }, false);
     </script>
     <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
 
@@ -27,23 +22,6 @@
     <!--js working-->
     <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
     <!--//js working-->
-    <!-- cart-js -->
-    <!-- <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
-<script>
-    toys.render();
-
-    toys.cart.on('toys_checkout', function (evt) {
-        var items, len, i;
-
-        if (this.subtotal() > 0) {
-            items = this.items();
-
-            for (i = 0, len = items.length; i < len; i++) {
-            }
-        }
-    });
-</script> -->
-    <!-- //cart-js -->
     <!-- price range (top products) -->
     <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
 
@@ -52,33 +30,33 @@
     <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
     <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
     <script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 900);
-			});
-		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
 
 
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
-		});
+        });
     </script>
     <!-- //here ends scrolling icon -->
 {% endblock %}
@@ -134,26 +112,26 @@
     <section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
         <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
             <!-- <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Restaurants </h3> -->
-            <div style="height: 10vh"></div>
+            {#            <div style="height: 10vh"></div>#}
             <div class="wrap">
-                {#                <form action="." id="searchForm" method="GET">#}
-                <div class="search">
-                    <input form="location-based-search"
-                           class="awesomplete text" name="searchBy_dish_food"
-                           style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
-                           list="restaurant_list" value="{{ query }}"
-                           placeholder="Search by Dishes or Restaurants"/>
-                    <datalist id="restaurant_list">
-                        {% for restaurant in restaurants %}
-                            <option>{{ restaurant.restaurant_name }}</option>
-                        {% endfor %}
-                    </datalist>
-                    <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
-                    <button type="submit" class="searchButton" form="location-based-search">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-                {#                </form>#}
+                <form action="." id="searchForm" method="GET">
+                    <div class="search">
+                        <input form="location-based-search"
+                               class="awesomplete text" name="searchBy_dish_food"
+                               style="border: 1px solid #ccc; border-radius: 4px;padding: 5px 6px; height: 100%;width: 25em;"
+                               list="restaurant_list" value="{{ query }}"
+                               placeholder="Search by Dishes or Restaurants"/>
+                        <datalist id="restaurant_list">
+                            {% for restaurant in restaurants %}
+                                <option>{{ restaurant.restaurant_name }}</option>
+                            {% endfor %}
+                        </datalist>
+                        <!-- <input type="text" class="searchTerm" placeholder="Restaurants Near Your"> -->
+                        <button type="submit" class="searchButton" form="location-based-search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
 
             </div>
             <div style="height: 10vh"></div>
@@ -227,7 +205,7 @@
                     </style>
                     <div>
                         {% if show_all %}
-                            <label class="radio_container">Shw only restaurants near me
+                            <label class="radio_container">Show only restaurants near me
                                 <input type="radio" name="show" value="near_me" form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
@@ -237,7 +215,7 @@
                                 <span class="checkmark"></span>
                             </label>
                         {% else %}
-                            <label class="radio_container">Shw only restaurants near me
+                            <label class="radio_container">Show only restaurants near me
                                 <input type="radio" checked="checked" name="show" value="near_me"
                                        form="location-based-search">
                                 <span class="checkmark"></span>
@@ -247,7 +225,11 @@
                                 <span class="checkmark"></span>
                             </label>
                         {% endif %}
-
+                        <script>
+                            $('input[type=radio]').click(function () {
+                                $('.hotelsearchButton').click();
+                            });
+                        </script>
 
                     </div>
                     <!-- //reviews -->

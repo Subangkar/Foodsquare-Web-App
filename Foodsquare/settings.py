@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.loca
                  'foodsquare1.herokuapp.com', 'www.foodsquare1.herokuapp.com', 'manager.foodsquare1.herokuapp.com', 'delivery.foodsquare1.herokuapp.com',
                  'api.foodsquare1.herokuapp.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
-                 'api.foodsquare.net',
+                 'api.foodsquare.net', 'admin.foodsquare.net',
                  'admin.foodsquare.com']
 
 # Application definition
@@ -94,6 +94,14 @@ ROOT_HOSTCONF = 'Foodsquare.hosts'
 DEFAULT_HOST = 'www'
 # PREPEND_WWW = True
 
+SENDGRID_API_KEY = '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'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -124,7 +132,7 @@ WSGI_APPLICATION = 'Foodsquare.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': os.environ.get('DB_NAME', 'FoodSquare'),
+		'NAME': os.environ.get('DB_NAME', 'foodsquare'),
 		'USER': os.environ.get('DB_USER', 'postgres'),
 		'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
 		'HOST': 'localhost',
@@ -210,14 +218,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
 
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-# # Extra lookup directories for collectstatic to find static files
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# Extra lookup directories for collectstatic to find static files
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static'),
+# )
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 

@@ -1,4 +1,4 @@
-from collections import namedtuple, defaultdict
+from collections import namedtuple
 
 from django.db import connection
 
@@ -66,27 +66,30 @@ def get_reviews_package(user_id, pkg_id):
 		where comment.user_id = %s and comment.package_id = %s\
 		UNION\
 		DISTINCT\
-		select comment.package_id,\
-			comment.id                       as comment_id,\
-			account.username                 as user_name,\
-			account.id                       as user_id,\
-			rate.rating,\
-			comment.comment,\
-			comment.time,\
-			(select count(liked.user_id)\
-			from browse_packagecommentreact liked\
-			where liked.post_id = comment.id\
-				and liked.liked = true)		 as nlikes,\
-			(select count(disliked.user_id)\
-			from browse_packagecommentreact disliked\
-			where disliked.post_id = comment.id\
-				and disliked.disliked = true) as ndislikes\
-		from browse_packagecomment comment\
-				left join browse_packagerating rate on rate.package_id = comment.package_id and\
-													rate.user_id = comment.user_id\
-				join accounts_user account on comment.user_id = account.id\
-		where comment.user_id != %s and comment.package_id = %s\
-		order by time desc', [user_id, pkg_id, user_id, pkg_id])
+		select *\
+		from (\
+			select comment.package_id,\
+				comment.id                       as comment_id,\
+				account.username                 as user_name,\
+				account.id                       as user_id,\
+				rate.rating,\
+				comment.comment,\
+				comment.time,\
+				(select count(liked.user_id)\
+				from browse_packagecommentreact liked\
+				where liked.post_id = comment.id\
+					and liked.liked = true)		 as nlikes,\
+				(select count(disliked.user_id)\
+				from browse_packagecommentreact disliked\
+				where disliked.post_id = comment.id\
+					and disliked.disliked = true) as ndislikes\
+			from browse_packagecomment comment\
+					left join browse_packagerating rate on rate.package_id = comment.package_id and\
+														rate.user_id = comment.user_id\
+					join accounts_user account on comment.user_id = account.id\
+			where comment.user_id != %s and comment.package_id = %s\
+			order by time desc\
+		) other_comments', [user_id, pkg_id, user_id, pkg_id])
 	return results
 
 
@@ -145,28 +148,31 @@ def get_reviews_branch(user_id, branch_id):
 			and comment.branch_id = %s\
 		UNION\
 		DISTINCT\
-		select comment.branch_id,\
-			comment.id                       as comment_id,\
-			account.username                 as user_name,\
-			account.id                       as user_id,\
-			rate.rating,\
-			comment.comment,\
-			comment.time,\
-			(select count(liked.user_id)\
-			from browse_branchcommentreact liked\
-			where liked.post_id = comment.id\
-				and liked.liked = true)       as nlikes,\
-			(select count(disliked.user_id)\
-			from browse_branchcommentreact disliked\
-			where disliked.post_id = comment.id\
-				and disliked.disliked = true) as ndislikes\
-		from browse_branchcomment comment\
-				left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
-														rate.user_id = comment.user_id\
-				join accounts_user account on comment.user_id = account.id\
-		where comment.user_id != %s\
-			and comment.branch_id = %s\
-		order by time desc', [user_id, branch_id, user_id, branch_id])
+		select *\
+		from (\
+			select comment.branch_id,\
+				comment.id                       as comment_id,\
+				account.username                 as user_name,\
+				account.id                       as user_id,\
+				rate.rating,\
+				comment.comment,\
+				comment.time,\
+				(select count(liked.user_id)\
+				from browse_branchcommentreact liked\
+				where liked.post_id = comment.id\
+					and liked.liked = true)       as nlikes,\
+				(select count(disliked.user_id)\
+				from browse_branchcommentreact disliked\
+				where disliked.post_id = comment.id\
+					and disliked.disliked = true) as ndislikes\
+			from browse_branchcomment comment\
+					left join browse_branchrating rate on rate.branch_id = comment.branch_id and\
+															rate.user_id = comment.user_id\
+					join accounts_user account on comment.user_id = account.id\
+			where comment.user_id != %s\
+				and comment.branch_id = %s\
+			order by time desc\
+		) other_comments', [user_id, branch_id, user_id, branch_id])
 	return results
 
 
@@ -183,7 +189,7 @@ def post_rating_package(user, pkg_id, rating):
 	from browse.models import PackageRating
 	from browse.models import Package
 	package = Package.objects.get(id=pkg_id)
-	post = PackageRating.objects.get_or_create(package=package, user=user)
+	post, _ = PackageRating.objects.get_or_create(package=package, user=user)
 	post.rating = rating
 	post.save()
 
@@ -193,22 +199,24 @@ def post_comment_package(user, pkg_id, comment):
 	from browse.models import PackageComment
 	from browse.models import Package
 	package = Package.objects.get(id=pkg_id)
-	post = PackageComment.objects.get_or_create(package=package, user=user)
+	post, _ = PackageComment.objects.get_or_create(package=package, user=user)
 	post.comment = comment
 	post.save()
 
 
-def post_comment_react_package(user, comment_id, react):
+def post_comment_react_package(user, comment_id, react_val):
 	"""
 	create or update react on existing post of any user on package
 	:returns updated (likes_count, dislikes_count) of that post
 	"""
-	from browse.models import PackageCommentReact
-	post = PackageCommentReact.objects.get(id=comment_id)
-	if react in ['like', 'dislike']:
-		react = PackageCommentReact.objects.get_or_create(post=post, user=user)
-		react.liked = (react == 'like')
-		react.disliked = (react == 'dislike')
+	from browse.models import PackageComment, PackageCommentReact
+	post = PackageComment.objects.get(id=comment_id)
+	if react_val in ['like', 'dislike']:
+		react, _ = PackageCommentReact.objects.get_or_create(post=post, user=user)
+		print(react)
+
+		react.liked = (react_val == 'like')
+		react.disliked = (react_val == 'dislike')
 		react.save()
 	return get_react_count_package(post)
 
@@ -218,7 +226,7 @@ def post_rating_branch(user, branch_id, rating):
 	from browse.models import BranchRating
 	from accounts.models import RestaurantBranch
 	branch = RestaurantBranch.objects.get(id=branch_id)
-	post = BranchRating.objects.get_or_create(branch=branch, user=user)
+	post, _ = BranchRating.objects.get_or_create(branch=branch, user=user)
 	post.rating = rating
 	post.save()
 
@@ -228,22 +236,22 @@ def post_comment_branch(user, branch_id, comment):
 	from browse.models import BranchComment
 	from accounts.models import RestaurantBranch
 	branch = RestaurantBranch.objects.get(id=branch_id)
-	post = BranchComment.objects.get_or_create(branch=branch, user=user)
+	post, _ = BranchComment.objects.get_or_create(branch=branch, user=user)
 	post.comment = comment
 	post.save()
 
 
-def post_comment_react_branch(user, comment_id, react):
+def post_comment_react_branch(user, comment_id, react_val):
 	"""
 	create or update react on existing post of any user on branch
 	:returns updated (likes_count, dislikes_count) of that post
 	"""
-	from browse.models import BranchCommentReact
-	post = BranchCommentReact.objects.get(id=comment_id)
-	if react in ['like', 'dislike']:
-		react = BranchCommentReact.objects.get_or_create(post=post, user=user)
-		react.liked = (react == 'like')
-		react.disliked = (react == 'dislike')
+	from browse.models import BranchComment, BranchCommentReact
+	post = BranchComment.objects.get(id=comment_id)
+	if react_val in ['like', 'dislike']:
+		react, _ = BranchCommentReact.objects.get_or_create(post=post, user=user)
+		react.liked = (react_val == 'like')
+		react.disliked = (react_val == 'dislike')
 		react.save()
 	return get_react_count_branch(post)
 
@@ -258,7 +266,7 @@ def get_named_package(name):
 	from browse.models import Package
 	return (Package.objects.filter(
 		pkg_name__icontains=name) | Package.objects.filter(
-		restaurant__restaurant_name__icontains=name) | Package.objects.filter(
+		# restaurant__restaurant_name__icontains=name) | Package.objects.filter(
 		ingr_list__name__icontains=name) | Package.objects.filter(
 		category__icontains=name)).distinct()
 
@@ -266,19 +274,25 @@ def get_named_package(name):
 def get_rated_package(rating=0):
 	from browse.models import PackageRating
 	from django.db.models import Avg
-	from math import floor
-	# from browse.models import Package
-	# return Package.objects.filter(id__in=[pkg_rating.package.id for pkg_rating in
-	#         PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-	# 	        avg__gte=floor(rating))])
-	return PackageRating.objects.annotate(avg=Avg('rating')).values('package', 'rating').filter(
-		avg__gte=floor(rating)).values('package')
+	pkg_ids = PackageRating.objects.values('package').annotate(avg=Avg('rating')).filter(
+		avg__gte=rating).values('package').distinct()
+	from browse.models import Package
+	return Package.objects.filter(id__in=pkg_ids).distinct()
 
 
 def get_price_range_package(low=0.0, high=90000.0):
 	from browse.models import Package
 	from django.db.models import Q
-	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high))
+	return Package.objects.filter(Q(price__gte=low) & Q(price__lte=high)).distinct()
+
+
+def get_category_packages(categoty_name):
+	"""
+	:param categoty_name: category-name
+	:return: set of packages satisfying above criteria
+	"""
+	from browse.models import Package
+	return Package.objects.filter(category__iexact=categoty_name).distinct()
 
 
 # ----------- Branch/Restaurant Packages ----------------------
@@ -334,3 +348,63 @@ def get_searched_packages_restaurant(rest_id, search_key):
 	                                                Q(package__category__icontains=search_key) |
 	                                                Q(package__ingr_list__name__icontains=search_key))).distinct()
 	return filter(lambda pkg: pkg.package.is_available_in_any_branch(), packages)
+
+
+def get_price_for_branch_pkg(branchPack_id, quantity):
+	from browse.models import PackageBranchDetails
+	return PackageBranchDetails.objects.get(id=branchPack_id).get_buying_price(order_quantity=quantity)
+
+
+# ------------------------ Offers ------------------------------
+
+def get_deliverable_offers(package_id, coordinates):
+	"""
+	:param package_id: restaurant's package_id
+	:param coordinates: "x,y" format
+	:return: list of PackageOfferDetail(branch_package=branch_pack, deliverable=True/False)
+	"""
+	from browse.models import Package
+	try:
+		from browse.models import PackageBranchDetails
+		branch_detail_list = PackageBranchDetails.objects.filter(package__id=package_id)
+		import collections
+		PackageOfferDetail = collections.namedtuple('PackageOfferDetail',
+		                                            ['branch_package', 'deliverable', 'branch_url'])
+		return [PackageOfferDetail(branch_package=pkg, deliverable=pkg.is_deliverable_to(coordinates),
+		                           branch_url=pkg.branch.get_absolute_url())
+		        for pkg in branch_detail_list]
+	except Package.DoesNotExist:
+		return []
+
+
+# ------------------------ Delivery ----------------------------
+
+def post_delivery_rating(order_id, rating):
+	from accounts.models import Order
+	try:
+		order = Order.objects.get(id=order_id)
+		print(order_id)
+		order.delivery.rating_deliveryman = int(rating)
+		order.delivery.save()
+		return True
+	except Order.DoesNotExist:
+		return False
+
+
+#  ----------------------- Insert utils -------------------------
+def insert_package(pkg_name, inglist, price, for_n_persons, category, restaurant_id):
+	from browse.models import Package
+	from accounts.models import Restaurant
+	restaurant = Restaurant.objects.get(id=restaurant_id)
+	package, _ = Package.objects.get_or_create(pkg_name=pkg_name, category=category, price=price,
+	                                           for_n_persons=for_n_persons,
+	                                           restaurant=restaurant)
+	for ingr in inglist:
+		from browse.models import Ingredient
+		from browse.models import IngredientList
+		ingr = str(ingr).strip().lower()
+		ingredient, _ = Ingredient.objects.get_or_create(name=ingr)
+		IngredientList.objects.get_or_create(package=package, ingredient=ingredient)
+
+	from browse.models import PackageBranchDetails
+	PackageBranchDetails.add_package_to_all_branches(package.restaurant, package)

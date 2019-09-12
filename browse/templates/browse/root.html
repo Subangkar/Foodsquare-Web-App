@@ -4,211 +4,283 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-	{#    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,#}
-	{#				Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>#}
+    <meta charset="UTF-8">
 
-	{% block head-includes %}
+    {% block head-includes %}
 
-	{% endblock %}
+    {% endblock %}
 
-	{% block header %}
+    {% block header %}
 
-	{% endblock %}
+    {% endblock %}
 </head>
 
 <body>
 <div class="header-outs" id="home">
 
-	<div class="header-bar">
-		{% block topbar %}
-			<div class="container-fluid">
-				<div class="hedder-up row">
-					<div class="col-lg-3 col-md-3 logo-head">
-						<a href="/">
-							<h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
-						</a>
-					</div>
-					<div style="width: 40%;">
-					</div>
-					<div class="col-lg-4 col-md-3 right-side-cart" align="right">
-						<style>
-							.hotelsearchBox {
-								position: absolute;
-								top: -5%;
-								left: 28%;
-								transform: translate(-100%, 0%);
-								background: #2f3640;
-								/* height: 40px; */
-								border-radius: 40px;
-								padding: 10px;
-
-							}
-
-							.hotelsearchBox:hover .hotelsearchInput {
-								width: 240px;
-								padding: 0 6px;
-							}
-
-							.hotelsearchBox:hover .hotelsearchButton {
-								background: white;
-								color: #2f3640;
-							}
-
-							.hotelsearchBox:hover .autocomplete-items {
-								visibility: visible;
-
-							}
-
-							.hotelsearchButton {
-								color: white;
-								float: right;
-								width: 40px;
-								height: 40px;
-								border-radius: 50%;
-								background: #2f3640;
-								display: flex;
-								justify-content: center;
-								align-items: center;
-								transition: 0.4s;
-							}
-
-							.hotelsearchInput {
-								border: none;
-								background: none;
-								outline: none;
-								float: left;
-								padding: 0;
-								color: white;
-								font-size: 16px;
-								transition: 0.4s;
-								line-height: 40px;
-								width: 0px;
-
-							}
-
-							@media screen and (max-width: 620px) {
-								.hotelsearchBox:hover > .hotelsearchInput {
-									width: 150px;
-									padding: 0 6px;
-								}
-							}
-						</style>
+    <header class="sticky-top">
+        <div class="header-bar"> {#   style="position: fixed" #}
+            {% block topbar %}
+                <div class="container-fluid">
+                    <div class="hedder-up row" style="height: 100px">
+                        <div class="col-lg-3 col-md-3 logo-head">
+                            <a href="/">
+                                <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
+                            </a>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 " style="">
 
 
-						<div class="cart-icons">
-							<div class="hotelsearchBox" style="float: left">
+                            <script
+                                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                            <script
+                                    src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+                            <script src={% static 'browse/js/ajax_upload.js' %}></script>
+                            <style>
+                                .hotelsearchBox {
+                                    position: absolute;
+                                    top: -5%;
+                                    left: 28%;
+                                {#transform: translate(-100%, 0%);#} background: #2f3640;
+                                    /* height: 40px; */
+                                    border-radius: 40px;
+                                    padding: 10px;
+
+                                }
+
+                                .hotelsearchButton {
+                                    color: white;
+                                    float: right;
+                                    width: 40px;
+                                    height: 40px;
+                                    border-radius: 50%;
+                                    background: #2f3640;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    transition: 0.4s;
+                                }
+
+                                .hotelsearchInput {
+                                    border: none;
+
+                                    outline: none;
+                                    float: left;
+                                    padding: 0;
+                                    color: black;
+                                    font-size: 16px;
+                                {#transition: 0.4s;#} line-height: 40px;
+                                {#width: 0px;#} width: 81%
+
+                                }
+
+                                .hotelsearchInput::placeholder {
+                                    color: #f0f0f0;
+                                }
 
 
-								<script
-										src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-								<script
-										src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-
-								<script src={% static 'browse/js/ajax_upload.js' %}></script>
-{#								<link href="https:////maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"#}
-{#								      rel="stylesheet">#}
-
-								<style>
-									.autocomplete {
-										position: relative;
-										display: inline-block;
-									}
+                                @media screen and (max-width: 620px) {
+                                    .hotelsearchBox:hover > .hotelsearchInput {
+                                        width: 150px;
+                                        padding: 0 6px;
+                                    }
+                                }
+                            </style>
+                            <!-- <div class="autocomplete"> -->
 
 
-									.autocomplete-items {
-										/* transform: translate(-100%, 0%); */
-										position: absolute;
-										border: 1px solid #d4d4d4;
-										border-bottom: none;
-										border-top: none;
-										z-index: 99;
-										/*position the autocomplete items to be the same width as the container:*/
-										top: 100%;
-										left: 20px;
-										right: 0;
-										width: 80%;
-										text-align: left;
-										border-radius: 5px;
-										visibility: hidden;
-									}
+                            <div style="background: #808080; display: inline-block; border-radius: 20px; width: 100%; padding-left: 6%;">
+                                <input type="text" required id="delivery_input" name="delivery_input"
+                                       class="hotelsearchInput  delivery_loc_input" type="text"
+                                       placeholder="Enter Delivery Location"
+                                       style="background: transparent;" autocomplete="off">
+                                <style>
+                                    #clear_location {
+                                        cursor: pointer;
+                                        font-size: 20px;
+                                        color: #9F0053;
+                                        padding-left: 3%;
+                                    }
+                                </style>
+                                <form action="/browse/restaurants/" method="GET" id="location-based-search">
+                                    {#                                    {% csrf_token %}#}
+                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
+                                    <span id="clear_location">&times;</span>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#clear_location').on('click', function () {
+                                                $('#delivery_area_srch').val('');
+                                                $('#delivery_input').val('');
+                                                shoppingCart.clearCart();
+                                                deliveryLocation.clear();
+                                                displayCart();
+                                            });
+                                        });
+                                    </script>
+                                    <button class="hotelsearchButton" href="#" id="hotelsearchButton">
+                                        <i class="fa fa-search">
+                                        </i>
+                                    </button>
+                                    <style>
+                                        .pac-container {
+                                            z-index: 10000 !important;
 
-									.autocomplete-items div {
-										/* transform: translate(-100%, 0%); */
-										padding: 10px;
-										cursor: pointer;
-										background: black;
-										/* background-color: transparent; */
-										border-bottom: 1px solid #d4d4d4;
-										color: crimson;
-									}
+                                        }
 
-									/*when hovering an item:*/
-									.autocomplete-items div:hover {
-										background-color: #e9e9e9;
-									}
+                                        .pac-container:empty {
+                                            display: none !important;
+                                        }
+                                    </style>
+                                    <script>
+                                        var deliveryLocation = (function () {
+                                            // =============================
+                                            // Private methods and propeties
+                                            // =============================
+                                            var location_data = ['', ''];//coord, name
 
-									/*when navigating through the items using the arrow keys:*/
-									.autocomplete-active {
-										background-color: #e9e9e9 !important;
-										color: #da3333;
-									}
-								</style>
-								<!-- <div class="autocomplete"> -->
-								<form action="/browse/restaurants/" method="GET" id="location-based-search">
-									                                    {% csrf_token %}
-									<input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"
-									       id="delivery_input" style="background: transparent;" autocomplete="off">
-									<input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
-									<button class="hotelsearchButton" href="#" id="hotelsearchButton">
-										<i class="fa fa-search">
-										</i>
-									</button>
-								</form>
 
-								<!-- </div> -->
-							</div>
-							<div style="float: right">
-								<button class="top_toys_cart topBtn" type="button" data-toggle="modal"
-								        data-target="#cart">
-                                    <span class="fas fa-cart-arrow-down"> Cart (<span
-		                                    class="total-count"></span>)</span>
-								</button>
+                                            // Save location
+                                            function saveLocation() {
+                                                localStorage.setItem('deliveryLocation', JSON.stringify(location_data));
+                                            }
 
-							</div>
+                                            // Load location
+                                            function loadlocation() {
+                                                location_data = JSON.parse(localStorage.getItem('deliveryLocation'));
+                                            }
 
-							<div class="dropdown" style="float: right">
-								{% if not loggedIn %}
-									<button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
-									<div class="dropdown-content">
-										<a href={% url 'accounts:login' %}>Login</a>
-										<a href={% url 'accounts:register' %}>Register</a>
-									</div>
-								{% else %}
-									<button class="topBtn"><span class="far fa-user">
+                                            if (localStorage.getItem("deliveryLocation") != null) {
+                                                loadlocation();
+                                                // console.log(location_data);
+                                            }
+
+
+                                            // =============================
+                                            // Public methods and propeties
+                                            // =============================
+                                            var obj = {};
+
+                                            // Add to location
+                                            obj.set = function (coord, name) {
+                                                location_data = [coord, name];
+                                                saveLocation();
+                                                return true;
+                                            };
+
+                                            // Clear location
+                                            obj.clear = function () {
+                                                location_data = ['', ''];
+                                                saveLocation();
+                                            };
+
+                                            // Load
+                                            obj.get = function () {
+                                                loadlocation();
+                                                return location_data;
+                                            };
+
+                                            return obj;
+                                        })();
+
+                                        function initAutocomplete() {
+
+                                            var dhakaBounds = new google.maps.LatLngBounds(
+                                                new google.maps.LatLng(23.6612704, 90.3295468),
+                                                new google.maps.LatLng(23.6612704, 23.9000025));
+
+
+                                            autocomplete = new google.maps.places.Autocomplete(
+                                                (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
+                                            );
+
+                                            // Set initial restrict to the greater list of countries.
+                                            autocomplete.setComponentRestrictions({'country': ['bd']});
+
+                                            // Specify only the data fields that are needed.
+                                            autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+                                            autocomplete.addListener('place_changed', function () {
+                                                var place = autocomplete.getPlace();
+                                                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                                                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
+                                                $('.hotelsearchButton').click();
+                                            });
+
+                                        }
+                                    </script>
+                                    <script
+                                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete"
+                                            async defer></script>
+                                </form>
+
+                            </div>
+
+
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="col-lg-4 col-md-3 ">
+
+                            <div class="cart-icons">
+                                <div class="row" style="background: #000;">
+                                    <div class="col-md-6">
+                                        <div class="dropdown" style="float: right">
+                                            {% if not loggedIn %}
+                                                <button class="topBtn"><span class="far fa-user"> Login/Register</span>
+                                                </button>
+                                                <div class="dropdown-content">
+                                                    <a href={% url 'accounts:login' %}>Login</a>
+                                                    <a href={% url 'accounts:register' %}>Register</a>
+                                                </div>
+                                            {% else %}
+                                                <button class="topBtn"><span class="far fa-user">
                                         {{ request.user.username|upper }}</span></button>
-									<div class="dropdown-content">
-										<a href="/customer/editProfile/">Profile</a>
-										<a href={% url 'accounts:logout' %}>Logout</a>
-									</div>
-								{% endif %}
-							</div>
-						</div>
-					</div>
+                                                <div class="dropdown-content">
+                                                    <a href="/customer/editProfile/">Profile</a>
+                                                    <a href={% url 'accounts:logout' %}>Logout</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
 
-				</div>
-			</div>
-		{% endblock %}
-		{% block navbar %}
+                                        {% include "browse/notifications.html" %}
+                                        <script src="{% static 'browse/js/notification.js' %}"></script>
 
-		{% endblock %}
-	</div>
-	{% block body-header %}
+                                    </div>
 
-	{% endblock %}
+                                    <div class="col-md-4">
+                                        <button class="top_toys_cart topBtn" type="button" data-toggle="modal"
+                                                data-target="#cart">
+                                    <span class="fas fa-cart-arrow-down"> Cart (<span
+                                            class="total-count"></span>)</span>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endblock %}
+            {% block navbar %}
+
+            {% endblock %}
+        </div>
+    </header>
+    {% block body-header %}
+
+    {% endblock %}
 </div>
-
 {% block body-content %}
 {% endblock body-content %}
 
@@ -222,71 +294,70 @@
 
 {% block shopping-cart %}
 
-	<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-	     style="padding-top: 100px;">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table class="show-cart table">
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+         style="padding-top: 100px;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
 
-					</table>
-					<div align="right">Total price: BDT <span class="total-cart"></span></div>
-				</div>
-				<div class="modal-footer">
-					<button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					{#                    <a href={% url 'browse:checkout' %}>#}
-					<form action="{% url 'browse:checkout' %}" method="get">
-						<input type="hidden" id="rest-id" name="rest-id">
-						<input type="submit" class="btn btn-primary" value="Checkout"
-						       id="cart-checkout-button">
-						<script>
-							console.log(document.getElementById('rest-id').value)
-						</script>
-					</form>
-					{#                    </a>#}
-				</div>
-			</div>
-		</div>
-	</div>
+                    </table>
+                    <div align="right">Total price: BDT <span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-cart btn btn-danger" id="cart-clear-button">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {#                    <a href={% url 'browse:checkout' %}>#}
+                    <form action="{% url 'browse:checkout' %}" method="get">
+                        <input type="hidden" id="rest-id" name="rest-id">
+                        <input type="submit" class="btn btn-primary" value="Checkout"
+                               id="cart-checkout-button">
+                        <script>
+                            console.log(document.getElementById('rest-id').value)
+                        </script>
+                    </form>
+                    {#                    </a>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    {#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
+    {#    Notification #}
+    <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
+    {#    Notification#}
+    <script>
+        function showSuccessNotification(name, timeout = 5000) {
+            $.notify(name, "success", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-	{#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
-	{#    Notification #}
-	<script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
-	{#    Notification#}
-	<script>
-		function showSuccessNotification(name, timeout = 5000) {
-			$.notify(name, "success", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showFailureNotification(name, timeout = 5000) {
+            $.notify(name, "error", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
 
-		function showFailureNotification(name, timeout = 5000) {
-			$.notify(name, "error", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
+        function showWarningNotification(name, timeout = 5000) {
+            $.notify(name, "warn", {
+                position: "right",
+                autoHideDelay: timeout
+            });
+        }
+    </script>
 
-		function showWarningNotification(name, timeout = 5000) {
-			$.notify(name, "warn", {
-				position: "right",
-				autoHideDelay: timeout
-			});
-		}
-	</script>
-
-	{#    Cart#}
-	<link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
-	<script src="{% static 'browse/js/cart.js' %}"></script>
-	{#    Cart#}
+    {#    Cart#}
+    <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
+    <script src="{% static 'browse/js/cart.js' %}"></script>
+    {#    Cart#}
 
 {% endblock %}
 
@@ -297,7 +368,6 @@
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
 {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
 
-<script src="{% static 'browse/js/myAutocomplete.js' %}"></script>
 <script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
 {% endblock %}

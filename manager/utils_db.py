@@ -46,6 +46,7 @@ def set_package_availability_branch(user, branch_package_id, available_status):
 		if pkg_details is not None:
 			pkg_details.available = available_status
 			pkg_details.save()
+			return pkg_details.available
 
 
 def get_packages_list_branch(user):
@@ -92,3 +93,100 @@ def get_offers_to_customer(user, customer_id):
 	if user.is_authenticated and user.is_branch_manager:
 		from browse.models import UserOffer
 		return UserOffer.running_offers_to_customer(branch_id=user.restaurantbranch.id, customer_id=customer_id)
+
+
+# ---------------------- Dashboard -----------------------------
+
+def get_monthwise_order_completed_count_restaurant(rest_id):
+	from browse.utils_db import namedtuplefetchall
+	query = "select branch.branch_name                               as name,\
+					to_char(date_trunc('month', ao.time), 'Month')   as month,\
+					EXTRACT(month from date_trunc('month', ao.time)) as monthval,\
+					count(ao.delivery_id)                            as sale\
+			from accounts_restaurantbranch branch\
+					left join accounts_order ao on branch.id = ao.branch_id and ao.order_status = 'DELIVERED' and\
+													date_part('year', ao.time) = date_part('year', CURRENT_DATE)\
+			where branch.restaurant_id = %s\
+			group by branch.branch_name, date_trunc('month', ao.time)"
+	branches_sales = namedtuplefetchall(query, [rest_id])
+
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * 3
+	branches = {b.name: [0] * 12 for b in branches_sales}
+	barcolors = {b.name: fillcolors.pop() for b in branches_sales}
+
+	for b in branches_sales:
+		if b.monthval is not None:
+			branches[b.name][int(b.monthval) - 1] = b.sale
+
+	return [{'name': b, 'sale': branches[b], 'fillColor': barcolors[b]} for b in branches.keys()]
+
+
+def get_monthwise_order_completed_count_branch(branch_id):
+	from browse.utils_db import namedtuplefetchall
+	query = "select to_char(date_trunc('month', ao.time), 'Month')   as month,\
+					EXTRACT(month from date_trunc('month', ao.time)) as monthval,\
+					count(ao.delivery_id)                            as sale\
+			from accounts_restaurantbranch branch\
+					left join accounts_order ao on branch.id = ao.branch_id and ao.order_status = 'DELIVERED' and\
+													date_part('year', ao.time) = date_part('year', CURRENT_DATE)\
+			where branch.id = %s\
+			group by date_trunc('month', ao.time)"
+	month_sales = namedtuplefetchall(query, [branch_id])
+
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * 3
+	sales = [0] * 12
+	for m in month_sales:
+		if m.monthval is not None:
+			sales[int(m.monthval) - 1] = m.sale
+
+	return {'sale': sales, 'fillColor': fillcolors}
+
+
+def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
+	from browse.utils_db import namedtuplefetchall
+	query = "select package.pkg_name as name, sum(order_pack.quantity) as sale\
+			from browse_package package\
+					join accounts_orderpackagelist order_pack on package.id = order_pack.package_id\
+					join accounts_order ordr on order_pack.order_id = ordr.id\
+			where ordr.order_status = 'DELIVERED'\
+				and package.restaurant_id = %s\
+				and ordr.time >= CURRENT_DATE - INTERVAL '%s months'\
+			group by package.pkg_name\
+			order by sale desc"
+
+	packages = namedtuplefetchall(query, [rest_id, last_n_months])
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * len(
+		packages)
+
+	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
+
+
+def get_packagewise_order_completed_count_branch(branch_id, last_n_months=1):
+	from browse.utils_db import namedtuplefetchall
+	query = "select package.pkg_name as name, sum(order_pack.quantity) as sale\
+			from browse_package package\
+			         join browse_packagebranchdetails branch_pack on package.id = branch_pack.package_id\
+			         join accounts_orderpackagelist order_pack on package.id = order_pack.package_id\
+			         join accounts_order ordr on order_pack.order_id = ordr.id\
+			where ordr.order_status = 'DELIVERED'\
+			  and branch_pack.branch_id = %s\
+			  and ordr.time >= CURRENT_DATE - INTERVAL '%s months'\
+			group by package.pkg_name\
+			order by sale desc"
+
+	packages = namedtuplefetchall(query, [branch_id, last_n_months])
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * len(
+		packages)
+
+	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
+
+
+def send_to_close_deliverymen(order):
+	branch = order.branch
+	from accounts.models import DeliveryMan
+	deliverymen = DeliveryMan.objects.filter(address=branch.location_area)
+	if deliverymen.exists():
+		for deliveryman in deliverymen:
+			from customer.utils_db import send_notification
+			send_notification(deliveryman.user.id,
+			                  "A new order with id: " + order.id + " arrived for delivery from " + branch.branch_name)

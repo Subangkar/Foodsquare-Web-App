@@ -1,19 +1,10 @@
-{% extends 'manager/base.html' %}
+{% extends 'manager/branch_base.html' %}
 
 {% block header %}
-    <title>Foodsquare </title>
+    <title> Branch Orders | FoodSquare </title>
 {% endblock %}
 
-{% block slidebar %}
-    <li><a href="/orders/" class="waves-effect waves-button"><span
-            class="menu-icon glyphicon glyphicon-home"></span>
-        <p>Orders</p>
-    </a></li>
-    <li><a href="/view_branch_menus/" class="waves-effect waves-button"><span
-            class="menu-icon glyphicon glyphicon-home"></span>
-        <p>View Menus</p>
-    </a></li>
-{% endblock %}
+
 
 {% block body-content %}
     <div class="page-inner">
@@ -23,59 +14,62 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">Order List</h4>
                     <div style="padding-left:74%; ">
-                        <button type="button" class="btn btn-danger delivery_status" id="close_delivery">Close For Delivery</button>
-                        <button type="button" class="btn btn-success delivery_status" id="open_delivery">Open Delivery</button>
+                        <button type="button" class="btn btn-danger delivery_status" id="close_delivery">Close For
+                            Delivery
+                        </button>
+                        <button type="button" class="btn btn-success delivery_status" id="open_delivery">Open Delivery
+                        </button>
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-                <script src ="{% static 'ajaxRequest.js' %}"></script>
+                <script src="{% static 'ajaxRequest.js' %}"></script>
 
                 <script>
-					var csrftoken = getCookie('csrftoken');
-					$.ajaxSetup({
-						beforeSend: function(xhr, settings) {
-							if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-								xhr.setRequestHeader("X-CSRFToken", csrftoken);
-							}
-						}
-					});
+                    var csrftoken = getCookie('csrftoken');
+                    $.ajaxSetup({
+                        beforeSend: function (xhr, settings) {
+                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        }
+                    });
 
 
-					$(".delivery_status").click(function () {
+                    $(".delivery_status").click(function () {
 
-						branch_id = "{{ branch.id }}";
+                        branch_id = "{{ branch.id }}";
 
-						$.ajax({
-							type:"POST",
-							headers:{
-								"X-CSRFToken": csrftoken
-							},
-							url: '/delivery_option/',
-							data: {
-								'delivery_option': this.id,
-								'id': branch_id
-							},
-							dataType: 'json',
-							success: function (data) {
+                        $.ajax({
+                            type: "POST",
+                            headers: {
+                                "X-CSRFToken": csrftoken
+                            },
+                            url: '/delivery_option/',
+                            data: {
+                                'delivery_option': this.id,
+                                'id': branch_id
+                            },
+                            dataType: 'json',
+                            success: function (data) {
 
 
-							}
-						});
+                            }
+                        });
 
-					});
+                    });
                 </script>
 
                 <script>
-					var isOpen = "{{ branch.is_open_now }}";
+                    var isOpen = "{{ branch.is_open_now }}";
 
-					if(isOpen=="True"){
-						document.getElementById('close_delivery').disabled = true;
+                    if (isOpen == "True") {
+                        document.getElementById('close_delivery').disabled = true;
 
-					}else{
-						document.getElementById('open_delivery').disabled = true;
+                    } else {
+                        document.getElementById('open_delivery').disabled = true;
 
-					}
+                    }
                 </script>
                 <div style="height: 5vh">
 
@@ -92,22 +86,25 @@
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Approve/Reject</th>
+                                <th>View Details</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for order in object_list %}
 
                                 <tr>
-                                    <td>{{ order.id }}</td>
+                                    <td><a href="{{ order.id }}" class="order_details">{{ order.id }}</a></td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
                                         {% if order.order_status == "PENDING" %}
-                                            <span class="label label-danger">{{ order.order_status}}</span>
+                                            <span class="label label-danger">Pending for confirmation</span>
                                         {% elif order.order_status == "PROCESSING" %}
-                                            <span class="label label-info">{{ order.order_status}}</span>
+                                            <span class="label label-info">Pending for Delivery</span>
+                                        {% elif order.order_status == "DELIVERING" %}
+                                            <span class="label label-info">Delivery on the way</span>
                                         {% elif order.order_status == "DELIVERED" %}
-                                            <span class="label label-success">{{ order.order_status}}</span>
+                                            <span class="label label-success">Delivered</span>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -120,94 +117,99 @@
                                     <td> {{ order.payment.bkash_ref }}</td>
 
                                     <td>
-{#                                        <form action="/accept/{{ restaurant.id }}/" method="post"#}
-{#                                              id="requestAcceptForm">#}
-{#                                            {% csrf_token %}#}
-{#                                            {% if order.payment.payment_type == 'O' %}#}
-{#                                                <input type="submit" name="requestAccept" value="Confirm Payment"#}
-{#                                                       style="background-color: transparent; border: none; outline: none;color: tomato"/>#}
-{#                                            {% else %}#}
-{#                                                <input name="" value="Processed" disabled="disabled"#}
-{#                                                       style="background-color: transparent; border: none; outline: none;color: green"/>#}
-{#                                            {% endif %}#}
-{#                                        </form>#}
                                         {% if order.order_status == 'PENDING' %}
-                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
-	                                    {% endif %}
-                                <script>
-                                    var csrftoken = getCookie('csrftoken');
-                                    $.ajaxSetup({
-                                        beforeSend: function(xhr, settings) {
-                                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                            }
-                                        }
-                                    });
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-danger delivery_status" id="confirm_deliver">Accept
+                                            </button>
+                                        {% endif %}
 
-                                    $(".delivery_status").click(function () {
 
-                                        {#ekhane deliveryman er id hobe#}
-
-                                        $.ajax({
-                                            type:"POST",
-                                            headers:{
-                                                "X-CSRFToken": csrftoken
-                                            },
-                                            url: '/acceptOrder/',
-                                            data: {
-                                                'order_id': {{ order.id }} ,
-                                                {#'deliveryMan_id' : {{ user.id }},#}
-                                                {#'delivery_option': this.id#}
-                                            },
-                                            dataType: 'json',
-                                            success: function (data) {
-                                                console.log(data);
-                                                alert('Order waiting for delivery-man approval');
-                                            }
-                                        });
-
-                                    });
-                                    {#$(".delivery_status").click(function () {#}
-                                    {##}
-                                    {#ekhane deliveryman er id hobe#}
-                                    {##}
-                                    {#    $.ajax({#}
-                                    {#        type:"POST",#}
-                                    {#        headers:{#}
-                                    {#            "X-CSRFToken": csrftoken#}
-                                    {#        },#}
-                                    {#        url: '/delivery_availability/',#}
-                                    {#        data: {#}
-                                    {#            'delivery_option': this.id,#}
-                                    {#            'id': branch_id#}
-                                    {#        },#}
-                                    {#        dataType: 'json',#}
-                                    {#        success: function (data) {#}
-                                    {##}
-                                    {#        }#}
-                                    {#    });#}
-                                    {##}
-                                    {#});#}
-                                </script>
-
-{#                                        {% elif order.order_status == 'DELIVERING'%}#}
-{##}
-{#                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Delievred</button>#}
+                                        {#                                        {% elif order.order_status == 'DELIVERING'%}#}
+                                        {##}
+                                        {#                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Delievred</button>#}
+                                    </td>
+                                    <td>
+                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <!-- <tr>
-                                <td>Wordpress Theme</td>
-                                <td><span class="label label-success">Finished</span></td>
-                                </td>
-                                <td>Sandra Smith</td>
-                                <td>
-                                    <a href="#" style="color: brown"> Request</a>
-                                </td>
-                            </tr> -->
                             </tbody>
+                            <script>
+                                var csrftoken = getCookie('csrftoken');
+                                $.ajaxSetup({
+                                    beforeSend: function (xhr, settings) {
+                                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                        }
+                                    }
+                                });
+
+                                $(".delivery_status").click(function () {
+
+                                    {#ekhane deliveryman er id hobe#}
+
+                                    $.ajax({
+                                        type: "POST",
+                                        headers: {
+                                            "X-CSRFToken": csrftoken
+                                        },
+                                        url: '/acceptOrder/',
+                                        data: {
+                                            'order_id': $(this).attr('href'),
+                                            {#'deliveryMan_id' : {{ user.id }},#}
+                                            {#'delivery_option': this.id#}
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            console.log(data);
+                                            alert('Order waiting for delivery-man approval');
+                                            location.reload();
+                                        }
+                                    });
+
+                                });
+                            </script>
                         </table>
+
                     </div>
+                    {#    Modal #}
+                    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+
+                        {% include "delivery/delivery_modal.html" %}
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+
+                            $(".order_details").click(function (event) {
+                                event.preventDefault();
+                                {#$("#delivery_modal").modal();#}
+
+                                var addressValue = $(this).attr("href");
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/delivery_info",
+                                    data: {
+                                        'id': $(this).attr("href")
+                                    },
+                                    success: function (data) {
+                                        {#alert(data);#}
+                                        console.log(data);
+                                        {#console.log(data);#}
+                                        {#alert(data.trade_license);#}
+
+                                        $('#delivery_modal').html(data);
+
+
+                                        $("#delivery_modal").modal();
+                                    }
+                                });
+
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>

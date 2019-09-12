@@ -40,6 +40,8 @@ class Package(models.Model):
 	branch_details = models.ManyToManyField('accounts.RestaurantBranch', through='PackageBranchDetails',
 	                                        related_name='branch_details')
 
+	is_vegeterian = models.BooleanField(verbose_name='is only a vegetable item', default=False)
+
 	class Meta:
 		verbose_name = "Package"
 		verbose_name_plural = "Packages"
@@ -59,10 +61,28 @@ class Package(models.Model):
 	def is_available_in_any_branch(self):
 		return self.available and any(pkg.available for pkg in PackageBranchDetails.objects.filter(package=self))
 
+	def get_avg_rating(self):
+		from browse.utils_db import get_rating_package
+		return get_rating_package(self.id)
+
+	def get_all_offers(self):
+		""":returns list of PackageBranchDetails that has any offer"""
+		if not self.available:
+			return []
+		packs = PackageBranchDetails.objects.filter(package=self, available=True)
+		offered_pack = list(filter(lambda p: p.has_any_offer(), packs))
+		return offered_pack
+
+	def has_offer_in_any_branch(self):
+		return any(map(lambda p: p.has_any_offer(), PackageBranchDetails.objects.filter(package=self)))
+
+	def available_branches(self):
+		return PackageBranchDetails.objects.filter(package=self, available=True) and self.available
+
 
 class IngredientList(models.Model):
-	pack_id = models.ForeignKey(Package, on_delete=models.CASCADE)
-	ingr_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+	package = models.ForeignKey(Package, on_delete=models.CASCADE)
+	ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = "IngredientList"
@@ -73,7 +93,7 @@ class IngredientList(models.Model):
 
 
 class PackageRating(models.Model):
-	rating = models.IntegerField('Rating', null=False)
+	rating = models.IntegerField('Rating', default=5, null=False)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -84,6 +104,9 @@ class PackageRating(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("browse:PackageRating", kwargs={"id": self.pk})
+
+	def __str__(self):
+		return self.package.__str__() + " " + str(self.rating) + " from " + self.user.__str__()
 
 
 class PackageComment(models.Model):
@@ -119,7 +142,7 @@ class PackageCommentReact(models.Model):
 
 
 class BranchRating(models.Model):
-	rating = models.IntegerField('Rating', null=False)
+	rating = models.IntegerField('Rating', default=5, null=False)
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -203,6 +226,14 @@ class PackageBranchDetails(models.Model):
 		from datetime import date
 		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
 
+	def has_discount_offer(self):
+		from datetime import date
+		return self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
+
+	def has_buy_get_offer(self):
+		from datetime import date
+		return self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
+
 	def is_available(self):
 		return self.available and self.package.available
 
@@ -213,6 +244,7 @@ class PackageBranchDetails(models.Model):
 			PackageBranchDetails.objects.get_or_create(package=package, branch=branch)
 
 	def set_discount_offer(self, start_date, end_date, discount_val):
+		self.clear_offer(commit=False)
 		self.offer_start_date = start_date
 		self.offer_expire_date = end_date
 		self.offer_discount = discount_val
@@ -220,6 +252,7 @@ class PackageBranchDetails(models.Model):
 		self.save()
 
 	def set_buy_get_offer(self, start_date, end_date, buy_n, get_n):
+		self.clear_offer(commit=False)
 		self.offer_start_date = start_date
 		self.offer_expire_date = end_date
 		self.offer_buy_n = buy_n
@@ -227,12 +260,41 @@ class PackageBranchDetails(models.Model):
 		self.offer_type = PackageBranchDetails.BUY_N_GET_N
 		self.save()
 
-	def clear_offer(self):
+	def clear_offer(self, commit=True):
 		self.offer_type = self.NONE
-		self.save()
+		self.offer_discount = 0
+		self.offer_buy_n = 1
+		self.offer_get_n = 0
+		if commit:
+			self.save()
 
 	def get_absolute_url(self):
 		return reverse('manager:package-branch-details', kwargs={"pk": self.pk})
+
+	def get_offer_details(self):
+		offer = 'No offers'
+		if self.is_available() and self.has_any_offer():
+			if self.offer_type == PackageBranchDetails.DISCOUNT:
+				offer = str(round(self.offer_discount * 100.0 / self.package.price)) + "% Discount"
+			elif self.offer_type == PackageBranchDetails.BUY_N_GET_N:
+				offer = "Buy " + str(self.offer_buy_n) + " Get " + str(self.offer_get_n) + " for Free"
+		return offer
+
+	def get_buying_price(self, order_quantity=1):
+		if self.has_buy_get_offer():
+			# act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
+			return self.package.price * order_quantity
+		elif self.has_discount_offer():
+			return (self.package.price - self.offer_discount) * order_quantity
+		else:
+			return self.package.price * order_quantity
+
+	def is_deliverable_to(self, coordinates):
+		"""
+		:param coordinates: (x,y) format
+		"""
+		print("distance=", self.branch.distance(coordinates))
+		return self.is_available() and self.branch.distance(coordinates) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE
 
 
 class UserOffer(models.Model):

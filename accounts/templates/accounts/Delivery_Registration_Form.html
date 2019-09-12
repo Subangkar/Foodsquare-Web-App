@@ -148,7 +148,8 @@
 
                             <div class="dropdown">
                                 <div style="width: 212%;">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" type="button" id="addrBtn" data-toggle="dropdown" form="infoForm">Address
+                                    <button type="button" class="btn btn-primary dropdown-toggle" type="button"
+                                            id="addrBtn" data-toggle="dropdown" form="infoForm">Address
                                     </button>
                                     <input type="hidden" id="addrVal" name="area" form="infoForm">
                                     <ul class="dropdown-menu" id="address_dropdown">
@@ -163,7 +164,7 @@
                             </div>
 
                             <script>
-                                $("#address_dropdown a").click(function(e){
+                                $("#address_dropdown a").click(function (e) {
                                     e.preventDefault(); // cancel the link behaviour
                                     var selText = $(this).text();
                                     $("#addrBtn").text(selText);
@@ -173,12 +174,6 @@
                             </script>
                             <!-- <div style="height: 50vh;">
                         </div> -->
-{#                            <div class="flex-col-c p-t-20">#}
-{#                                Don't have your restaurant account yet?#}
-{#                                <b><u><a href="/accounts/manager_register/" class="txt2">#}
-{#                                    Open Now#}
-{#                                </a></u></b>#}
-{#                            </div>#}
                         </div>
 
                     </div>

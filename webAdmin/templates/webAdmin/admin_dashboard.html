@@ -1,0 +1,352 @@
+{% extends 'webAdmin/base.html' %}
+
+{% block header %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'awesomplete.css' %}"/>
+    <script src="{% static 'awesomplete.js' %}" async></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link href="{% static 'manager/plugins/pace-master/themes/blue/pace-theme-flash.css' %}" rel="stylesheet"/>
+    <link href="{% static 'manager/plugins/uniform/css/uniform.default.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'manager/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/fontawesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/line-icons/simple-line-icons.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/offcanvasmenueffects/css/menu_cornerbox.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'manager/plugins/waves/waves.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/switchery/switchery.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/3d-bold-navigation/css/style.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/plugins/slidepushmenus/css/component.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Theme Styles -->
+    <link href="{% static 'manager/css/modern.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/css/themes/white.css' %}" class="theme-color" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'manager/css/custom.css' %}" rel="stylesheet" type="text/css"/>
+
+
+    <title>Foodsquare | Home</title>
+{% endblock %}
+
+
+{% block body-content %}
+    <div class="overlay"></div>
+
+
+    <main class="page-content content-wrap">
+        {#    unnecassy part#}
+        <div class="navbar" style="display: none;">
+            <div class="navbar-inner">
+
+                <div class="topmenu-outer">
+                    <div class="top-menu">
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect waves-button waves-classic"
+                                   id="showRight">
+                                    <i class="fa fa-comments"></i>
+                                </a>
+                            </li>
+                        </ul><!-- Nav -->
+                    </div><!-- Top Menu -->
+                </div>
+            </div>
+        </div><!-- Navbar -->
+        <div class="page-inner">
+            <div class="page-title">
+                <h3>Dashboard</h3>
+                <div class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="main-wrapper">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel info-box panel-white">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p class="counter">{{ order_cnt }}</p>
+                                    <span class="info-box-title">Online orders this month</span>
+                                </div>
+                                <div class="info-box-icon">
+                                    {#                                    <i class="icon-users"></i>#}
+                                    <i class="icon-basket"></i>
+                                </div>
+
+                                <div class="info-box-progress">
+                                    <div class="progress progress-xs progress-squared bs-n">
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 40%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel info-box panel-white">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p class="counter">{{ user_cnt }}</p>
+                                    <span class="info-box-title">Users registered</span>
+                                </div>
+                                <div class="info-box-icon">
+                                    <i class="icon-dashboard2"></i>
+                                </div>
+                                <div class="info-box-progress">
+                                    <div class="progress progress-xs progress-squared bs-n">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 80%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel info-box panel-white">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p class="counter">{{ rest_count }}</p>
+                                    <span class="info-box-title">Restaurants registered </span>
+                                </div>
+
+                                <div class="info-box-icon">
+                                    <i class="icon-home"></i>
+                                    {#                                    <i class="icon-envelope"></i>#}
+                                </div>
+                                <div class="info-box-progress">
+                                    <div class="progress progress-xs progress-squared bs-n">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar"
+                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 50%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel info-box panel-white">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p>BDT <span class="counter">{{ monthly_revenue }}</span></p>
+                                    <span class="info-box-title">Monthly revenue earned</span>
+                                </div>
+                                <div class="info-box-icon">
+                                    <i class="icon-basket"></i>
+                                </div>
+                                <div class="info-box-progress">
+                                    <div class="progress progress-xs progress-squared bs-n">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 60%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Row -->
+                <div class="row">
+                    {#                    <div class="col-md-6">#}
+                    {#                        <div class="panel panel-white">#}
+                    {#                            <div class="panel-heading">#}
+                    {#                                <h3 class="panel-title">Line Chart</h3>#}
+                    {#                            </div>#}
+                    {#                            <div class="panel-body">#}
+                    {#                                <div>#}
+                    {#                                    <canvas id="chart1" height="150"></canvas>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    <div class="col-md-6">
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Outlets revenue</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <canvas id="barChart" height="150"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Item sales</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <canvas id="pieChart" height="150"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- Row -->
+                <div class="row">
+                    {#                    <div class="col-md-6">#}
+                    {#                        <div class="panel panel-white">#}
+                    {#                            <div class="panel-heading">#}
+                    {#                                <h3 class="panel-title">Doughnut Chart</h3>#}
+                    {#                            </div>#}
+                    {#                            <div class="panel-body">#}
+                    {#                                <div>#}
+                    {#                                    <canvas id="chart4" height="150"></canvas>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                </div><!-- Row -->
+                {#                <div class="row">#}
+                {#                    <div class="col-md-6">#}
+                {#                        <div class="panel panel-white">#}
+                {#                            <div class="panel-heading">#}
+                {#                                <h3 class="panel-title">Polar Area Chart</h3>#}
+                {#                            </div>#}
+                {#                            <div class="panel-body">#}
+                {#                                <div>#}
+                {#                                    <canvas id="chart5" height="150"></canvas>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <div class="col-md-6">#}
+                {#                        <div class="panel panel-white">#}
+                {#                            <div class="panel-heading">#}
+                {#                                <h3 class="panel-title">Radar Chart</h3>#}
+                {#                            </div>#}
+                {#                            <div class="panel-body">#}
+                {#                                <div>#}
+                {#                                    <canvas id="chart6" height="150"></canvas>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div><!-- Row -->#}
+            </div><!-- Main Wrapper -->
+
+        </div><!-- Page Inner -->
+    </main><!-- Page Content -->
+
+    <div class="cd-overlay"></div>
+
+
+    <!-- Javascripts -->
+    <script src="{% static 'manager/plugins/jquery/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/pace-master/pace.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/jquery-blockui/jquery.blockui.js' %}"></script>
+    <script src="{% static 'manager/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/switchery/switchery.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/uniform/jquery.uniform.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/classie.js' %}"></script>
+    {#    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/main.js' %}"></script>#}
+    <script src="{% static 'manager/plugins/waves/waves.min.js' %}"></script>
+    <script src="{% static 'manager/plugins/3d-bold-navigation/js/main.js' %}"></script>
+    <script src="{% static 'manager/plugins/chartsjs/Chart.min.js' %}"></script>
+    <script src="{% static 'manager/js/modern.min.js' %}"></script>
+    {#        <script src="{% static 'manager/js/pages/charts-chartjs.js' %}"></script>#}
+
+    <script>
+        $(document).ready(function () {
+
+
+            var ctx2 = document.getElementById("barChart").getContext("2d");
+            var i = 0;
+
+            var data2 = {
+                labels: {{ months | safe }},
+                datasets: [
+
+                    {% for branch in branches %}
+                        {
+                            label: "{{ branch.name }}",
+                            fillColor: "{{ branch.fillColor }}",
+
+                            data: {{ branch.sale | safe}}
+                        },
+                    {% endfor %}
+                ]
+            };
+
+
+            var chart2 = new Chart(ctx2).Bar(data2, {
+                scaleBeginAtZero: true,
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                scaleShowHorizontalLines: true,
+                scaleShowVerticalLines: true,
+                barShowStroke: true,
+                barStrokeWidth: 2,
+                barDatasetSpacing: 1,
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){ %><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){ %><%=segments[i].label%><%}%></li><%}%></ul>",
+
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        fontColor: 'rgb(255, 99, 132)'
+                    }
+                },
+                responsive: true
+            });
+
+            var ctx3 = document.getElementById("pieChart").getContext("2d");
+            var data3 = [
+                {% for menu in menus %}
+                    {
+                        value: {{ menu.sale }},
+                        color: "{{ menu.fillColor }}",
+                        highlight: "#FD7A7A",
+                        label: "{{ menu.name }}"
+                    },
+                {% endfor %}
+                {#{#}
+                {#    value: 50,#}
+                {#    color: "#22BAA0",#}
+                {#    highlight: "#36E7C8",#}
+                {#    label: "Green"#}
+                {#}, #}
+                {#{#}
+                {#    value: 100,#}
+                {#    color: "#F2CA4C",#}
+                {#    highlight: "#FBDB6E",#}
+                {#    label: "Yellow"#}
+                {#}#}
+            ];
+
+            var myPieChart = new Chart(ctx3).Pie(data3, {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false,
+                {#legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",#}
+                responsive: true
+            });
+
+
+        });
+    </script>
+    <script src="{% static 'manager/plugins/3d-bold-navigation/js/modernizr.js' %}"></script>
+    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/snap.svg-min.js' %}"></script>
+
+
+
+
+{% endblock %}

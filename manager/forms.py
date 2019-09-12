@@ -7,4 +7,3 @@ class MenuForm(ModelForm):
 	class Meta:
 		model = Menu
 		fields = ('menu_name', 'price', 'menu_img', 'category')
-

@@ -14,13 +14,13 @@
     <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
          Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
     </script>
     <!--//meta tags ends here-->
     <!--booststrap-->
@@ -1084,70 +1084,70 @@
 <!-- cart-js -->
 <script src="js/minicart.js"></script>
 <script>
-	toys.render();
+    toys.render();
 
-	toys.cart.on('toys_checkout', function (evt) {
-		var items, len, i;
+    toys.cart.on('toys_checkout', function (evt) {
+        var items, len, i;
 
-		if (this.subtotal() > 0) {
-			items = this.items();
+        if (this.subtotal() > 0) {
+            items = this.items();
 
-			for (i = 0, len = items.length; i < len; i++) {
-			}
-		}
-	});
+            for (i = 0, len = items.length; i < len; i++) {
+            }
+        }
+    });
 </script>
 <!-- //cart-js -->
 <!-- price range (top products) -->
 <script src="js/jquery-ui.js"></script>
 <script>
-	//<![CDATA[
-	$(window).load(function () {
-		$("#slider-range").slider({
-			range: true,
-			min: 0,
-			max: 9000,
-			values: [50, 6000],
-			slide: function (event, ui) {
-				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-			}
-		});
-		$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+    //<![CDATA[
+    $(window).load(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 9000,
+            values: [50, 6000],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
-	}); //]]>
+    }); //]]>
 </script>
 <!-- //price range (top products) -->
 <!-- start-smoth-scrolling -->
 <script src="js/move-top.js"></script>
 <script src="js/easing.js"></script>
 <script>
-	jQuery(document).ready(function ($) {
-		$(".scroll").click(function (event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop: $(this.hash).offset().top
-			}, 900);
-		});
-	});
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 900);
+        });
+    });
 </script>
 <!-- start-smoth-scrolling -->
 <!-- here stars scrolling icon -->
 <script>
-	$(document).ready(function () {
+    $(document).ready(function () {
 
-		var defaults = {
-			containerID: 'toTop', // fading element id
-			containerHoverID: 'toTopHover', // fading element hover id
-			scrollSpeed: 1200,
-			easingType: 'linear'
-		};
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
 
 
-		$().UItoTop({
-			easingType: 'easeOutQuart'
-		});
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
 
-	});
+    });
 </script>
 <!-- //here ends scrolling icon -->
 <!--bootstrap working-->

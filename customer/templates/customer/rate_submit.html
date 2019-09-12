@@ -1,0 +1,99 @@
+<style>
+    .star-cb-group {
+        /* remove inline-block whitespace */
+        font-size: 0;
+        /* flip the order so we can use the + and ~ combinators */
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        /* the hidden clearer */
+    }
+
+    .star-cb-group * {
+        font-size: 1rem;
+    }
+
+    .star-cb-group > input {
+        display: none;
+    }
+
+    .star-cb-group > input + label {
+        /* only enough room for the star */
+        display: inline-block;
+        overflow: hidden;
+        text-indent: 9999px;
+        width: 1em;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .star-cb-group > input + label:before {
+        display: inline-block;
+        text-indent: -9999px;
+        content: '\2606';
+        color: #888;
+    }
+
+    .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+        content: '\2605';
+        color: #e52;
+        text-shadow: 0 0 1px #333;
+    }
+
+    .star-cb-group > .star-cb-clear + label {
+        text-indent: -9999px;
+        width: 0.5em;
+        margin-left: -0.5em;
+    }
+
+    .star-cb-group > .star-cb-clear + label:before {
+        width: 0.5em;
+    }
+
+    .star-cb-group:hover > input + label:before {
+        content: '\2606';
+        color: #888;
+        text-shadow: none;
+    }
+
+    .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+        content: '\2605';
+        color: #e52;
+        text-shadow: 0 0 1px #333;
+    }
+
+    :root {
+        font-size: 2em;
+        font-family: Helvetica, arial, sans-serif;
+    }
+
+    body {
+        background: #333;
+        color: #888;
+    }
+
+    fieldset {
+        border: 0;
+        background: #222;
+        width: 5em;
+        border-radius: 1px;
+        padding: 1em 1.5em 0.9em;
+        margin: 1em auto;
+    }
+
+    #log {
+        margin: 1em auto;
+        width: 5em;
+        text-align: center;
+        background: transparent;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+</style>
+<input type="hidden" id="order_id">
+<span class="star-cb-group">
+
+</span>
+

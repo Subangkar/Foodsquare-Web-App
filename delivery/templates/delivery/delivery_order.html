@@ -31,6 +31,7 @@
                                 <th>Order Time</th>
                                 <th>Payment Type</th>
                                 <th>Delivery Status</th>
+                                <th>View Details</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,8 +39,8 @@
 
                                 <tr>
 
-                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a> </td>
-                                    <td>{{ order.branch.restaurant }} {{ order.branch }}</td>
+                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
+                                    <td>{{ order.branch.branch_name }}</td>
                                     <td>{{ order.user.username }}</td>
                                     <td>{{ order.time }} </td>
                                     <td>
@@ -53,72 +54,147 @@
                                     <td>
 
                                         {% if order.order_status == 'PROCESSING' %}
-                                            <button type="button" class="btn btn-danger delivery_status"
-                                                    id="take">Accept
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-danger delivery_status"
+                                                    value="take">Take Delivery
                                             </button>
                                         {% elif order.order_status == 'DELIVERING' %}
-                                            <button type="button" class="btn btn-danger delivery_status"
-                                                    id="deliver">Delievred
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-success delivery_status"
+                                                    value="deliver">Mark as Delievred
                                             </button>
                                         {% endif %}
-                                        <script src="{% static 'ajaxRequest.js' %}"></script>
-                                        <script>
-                                            var csrftoken = getCookie('csrftoken');
-
-                                            $.ajaxSetup({
-                                                beforeSend: function (xhr, settings) {
-                                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                                                    }
-                                                }
-                                            });
-
-                                            $(".delivery_status").click(function () {
-                                                $.ajax({
-                                                    type: "POST",
-                                                    headers: {
-                                                        "X-CSRFToken": csrftoken
-                                                    },
-                                                    url: '/applyForDelivery/',
-                                                    data: {
-                                                        'order_id': {{ order.id }},
-                                                        'deliveryMan_id': {{ user.id }},
-                                                        'delivery_option': this.id
-                                                    },
-                                                    dataType: 'json',
-                                                    success: function (data) {
-                                                        console.log(data);
-                                                        alert('Your request for delivery granted.Please collect asap');
-                                                    }
-                                                });
-
-                                            });
-
-                                        </script>
+                                        {#                                        {% if order.order_status == "PENDING" %}#}
+                                        {#                                            <span class="label label-danger">Pending for confirmation</span>#}
+                                        {#                                        {% elif order.order_status == "PROCESSING" %}#}
+                                        {#                                            <span class="label label-info">Pending for Delivery</span>#}
+                                        {#                                        {% elif order.order_status == "DELIVERING" %}#}
+                                        {#                                            <span class="label label-info">Delivery on the way</span>#}
+                                        {#                                        {% elif order.order_status == "DELIVERED" %}#}
+                                        {#                                            <span class="label label-success">Delivered</span>#}
+                                        {#                                        {% endif %}#}
 
                                     </td>
+                                    <td>
+                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
+                                    </td>
                                 </tr>
-                                <h1 id="cookie"></h1>
 
                             {% endfor %}
 
                             </tbody>
                         </table>
+
+
+                        {#rating_modal#}
+                        <div class="modal fade" id="rating_modal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Rate Customer </h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        {% include 'delivery/rate_submit.html' %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <script src="{% static 'ajaxRequest.js' %}"></script>
+                        <script>
+                            var csrftoken = getCookie('csrftoken');
+
+                            $.ajaxSetup({
+                                beforeSend: function (xhr, settings) {
+                                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                    }
+                                }
+                            });
+                            $(document).on('change', '.star-cb-group input', function () {
+
+                                var rate_val = $("input[type='radio'][name='rating']:checked").val();
+                                var csrftoken = getCookie('csrftoken');
+                                alert(rate_val);
+                                $("#star3").prop("checked", true);
+
+                                $.ajax({
+                                    type: "POST",
+                                    headers: {
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    url: '/submitCustomerRating/',
+                                    data: {
+                                        'order-id': $('#order_id').val(),
+                                        'rating': rate_val
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        location.reload();
+                                    }
+                                });
+
+                            });
+                            $(".delivery_status").click(function () {
+                                if (this.value === 'deliver') {
+                                    document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-2\" name=\"rating\" value=\"2\" /><label for=\"rating-2\">2</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-1\" name=\"rating\" value=\"1\" /><label for=\"rating-1\">1</label>\n" +
+                                        "      <input type=\"radio\" id=\"rating-0\" name=\"rating\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating-0\">0</label>";
+                                    $('#order_id').val($(this).attr('href'));
+
+                                    $("#rating_modal").modal();
+                                }
+
+
+                                $.ajax({
+                                    type: "POST",
+                                    headers: {
+                                        "X-CSRFToken": csrftoken
+                                    },
+                                    context: this,
+                                    url: '/applyForDelivery/',
+                                    data: {
+                                        'order_id': $(this).attr('href'),
+                                        'deliveryMan_id': {{ user.id }},
+                                        'delivery_option': this.value
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (this.value !== 'deliver') {
+                                            location.reload();
+
+                                        }
+                                    }
+                                });
+
+                            });
+
+                        </script>
                     </div>
                 </div>
-
 
 
             </div>
         </div>
 
         {#    Modal #}
-        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
 
             {% include "delivery/delivery_modal.html" %}
         </div>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 $(".order_details").click(function (event) {
                     event.preventDefault();
@@ -129,10 +205,9 @@
                         type: "GET",
                         url: "/delivery_info",
                         data: {
-                            'id' :  $(this).attr("href")
+                            'id': $(this).attr("href")
                         },
-                        success: function(data)
-                        {
+                        success: function (data) {
                             {#alert(data);#}
                             console.log(data);
                             {#console.log(data);#}
@@ -149,5 +224,71 @@
             });
         </script>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rate Delivery </h5>
+
+                </div>
+                <div class="modal-body">
+                    {% include 'customer/rate_submit.html' %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'customer/js/ajax_upload.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".order_rate").click(function (event) {
+                event.preventDefault();
+                document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +
+                    "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +
+                    "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +
+                    "      <input type=\"radio\" id=\"rating-2\" name=\"rating\" value=\"2\" /><label for=\"rating-2\">2</label>\n" +
+                    "      <input type=\"radio\" id=\"rating-1\" name=\"rating\" value=\"1\" /><label for=\"rating-1\">1</label>\n" +
+                    "      <input type=\"radio\" id=\"rating-0\" name=\"rating\" value=\"0\" class=\"star-cb-clear\" /><label for=\"rating-0\">0</label>";
+                $("#delivery_modal").modal();
+
+
+            });
+
+
+        });
+
+        $(document).on('change', '.star-cb-group input', function () {
+
+            var rate_val = $("input[type='radio'][name='rating']:checked").val();
+            var csrftoken = getCookie('csrftoken');
+            {#alert(rate_val);#}
+            $("#star3").prop("checked", true);
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                url: '/customer/submitDeliveryRating/',
+                data: {
+                    'order-id': 2,
+                    'rating': rate_val
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                }
+            });
+
+        });
+
+    </script>
 
 {% endblock %}

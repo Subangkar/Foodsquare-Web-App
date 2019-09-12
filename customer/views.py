@@ -1,10 +1,11 @@
 from allauth.socialaccount.models import SocialAccount
-from accounts.models import User, Order
 from django.http import HttpResponse
+from django.http import JsonResponse
 # Create your views here.
 from django.views.generic import TemplateView, ListView
 
 from accounts.forms import UserForm, ProfileForm
+from accounts.models import User, Order
 from accounts.utils import pretty_request
 
 
@@ -48,21 +49,40 @@ class EditProfileView(TemplateView):
 			profile_form.save()
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-		# if user_form.is_valid():
-		# user = user_form.save(commit=False)
-		# user.save()
 
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		# menuForm = MenuForm(request.POST or None, request.FILES or None)
-		# menuForm.save()
-		# print(menuForm)
-		# return HttpResponse("<h1>Congrats</h1>")
 		pass
-
 
 
 class myOrdersList(ListView):
 	template_name = 'customer/trackOrder.html'
 	queryset = Order.objects.all()
 	context_object_name = 'Orders'
+
+
+def get_notifications(request):
+	from customer.utils_db import get_unread_notifications
+	# notifications = get_new_notifications(request.user)
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
+	return JsonResponse({'notifications': notifications})
+
+
+def read_notifcations(request):
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())
+	return JsonResponse({'Success': True})
+
+
+def submitDeliveryRating(request):
+	order_id = request.POST.get('order-id')
+	rating = request.POST.get('rating')
+	print(order_id)
+	print(rating)
+	from browse.utils_db import post_delivery_rating
+	return JsonResponse({'success': post_delivery_rating(order_id, rating)})
