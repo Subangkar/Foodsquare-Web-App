@@ -8,6 +8,7 @@ urlpatterns = [
 	path('', views.Index.as_view(), name='home'),
 	path('browse/', views.OrderView.as_view(), name='package-list'),
 	path('about/', views.aboutSection),
+	path('contact/', views.contactSection),
 	path('branch_pkg_availability/', views.branch_pkg_availability),
 	path('browse/filter/', views.FilteredProducts, name='rating_filter'),
 

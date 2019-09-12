@@ -275,7 +275,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav" style="padding-left: 20%;padding-top: 2%">
-                        <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">{{ request.user.get_rating }}rating</i> </font>
+                        <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">{{ request.user.get_rating }}&nbsp; rating</i> </font>
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -283,6 +283,8 @@
                         <li class="dropdown" id="notifications">
 
                             {% include "browse/notifications.html" %}
+                            <script src="{% static 'browse/js/notification.js' %}"></script>
+
                             <script>
                                 document.getElementById("notification-dropdown").style.top = "16px";
                                 document.getElementById("notifications-count").style.zIndex = "1";

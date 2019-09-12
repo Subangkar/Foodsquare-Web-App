@@ -407,3 +407,7 @@ def branch_pkg_availability(request):
 
 def aboutSection(request):
 	return render(request, 'browse/about.html')
+
+
+def contactSection(request):
+	return render(request, 'browse/contact.html')
