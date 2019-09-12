@@ -74,7 +74,7 @@ class OrderView(TemplateView):
 					filtered_result.append(x)
 			pkg_list = filtered_result
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5),
-		       'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
+		       'category': [c['category'] for c in Package.objects.all().values('category').distinct()]}
 		return ctx
 
 
