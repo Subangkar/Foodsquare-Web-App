@@ -1,17 +1,16 @@
-from django.core import serializers
 import json
 
+from django.core import serializers
 from django.core.mail import send_mail
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
-
+from django.http import JsonResponse
+from django.shortcuts import redirect
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
-from accounts.models import Restaurant, Order
+from accounts.models import Order
 from browse.models import Package
-from webAdmin.utils import uniqueKey, get_deliverymen_list
+from webAdmin.utils import *
 
 
 class RestaurantListView(ListView):
@@ -58,25 +57,27 @@ class AdminDashBoardView(TemplateView):
 	template_name = 'webAdmin/admin_dashboard.html'
 
 	def get(self, request, *args, **kwargs):
-		if not request.user.is_authenticated:
+		if not request.user.is_authenticated or not request.user.is_superuser:
 			return redirect(reverse('index'))
 
 		return super(self.__class__, self).get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(AdminDashBoardView, self).get_context_data(kwargs=kwargs)
-		if self.request.user.is_authenticated and self.request.user.is_manager:
+		if self.request.user.is_authenticated and self.request.user.is_superuser:
 			import datetime
 			today = datetime.date.today()
-			context['order_cnt'] = Order.objects.filter(branch__restaurant=self.request.user.restaurant,
-			                                            time__month=today.month, time__year=today.year).count()
-			context['monthly_revenue'] = sum(pkg.price for ord in
-			                                 Order.objects.filter(branch__restaurant=self.request.user.restaurant,
-			                                                      time__month=today.month) for pkg in
-			                                 ord.get_package_list())
-			context['item_cnt'] = Package.objects.filter(restaurant=self.request.user.restaurant,
-			                                             available=True).count()
-
+			context['order_cnt'] = Order.objects.filter(time__month=today.month, time__year=today.year).count()
+			context['monthly_revenue'] = sum(
+				pkg.price for ord in Order.objects.filter(time__month=today.month, time__year=today.year) for pkg in
+				ord.get_package_list())
+			context['item_cnt'] = Package.objects.filter(available=True).count()
+			context['rest_count'] = Restaurant.objects.exclude(restaurant_key='0').count()
+			context['user_cnt'] = User.objects.filter(is_customer=True).count()
+			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+			                     "October", "November", "December"]
+			context['branches'] = get_monthwise_order_completed_count_all()
+			context['menus'] = get_packagewise_order_completed_count_all(last_n_months=3)
 		return context
 
 

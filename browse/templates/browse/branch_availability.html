@@ -22,7 +22,7 @@
                                 </td>
                                 <td>
                                     {{ brnch.branch_package.get_offer_details }}
-{#                                    {{ brnch.branch_package.branch.branch_name }}#}
+                                    {#                                    {{ brnch.branch_package.branch.branch_name }}#}
                                 </td>
                                 <td>
                                     {% if brnch.deliverable %}
@@ -33,7 +33,8 @@
                                                 data-restaurant-id="{{ brnch.branch_package.branch.id }}"
                                                 data-offer-buy-n="{{ brnch.branch_package.offer_buy_n }}"
                                                 data-offer-get-n="{{ brnch.branch_package.offer_get_n }}"
-                                                class="add-to-cart btn btn-danger" >Add to cart</button>
+                                                class="add-to-cart btn btn-danger">Add to cart
+                                        </button>
 
                                     {% else %}
                                         <font style="color: #7b3a3e">Not deliverable</font>
@@ -42,7 +43,9 @@
                                 </td>
                                 <td>
                                     {% if brnch.deliverable %}
-                                      <a href="{{ brnch.get_absolute_url }}" style="font-size: large;font-weight: bold;color: #9F0053">{{ brnch.get_absolute_url }} Visit</a>
+                                        <a href="{{ brnch.get_absolute_url }}"
+                                           style="font-size: large;font-weight: bold;color: #9F0053">{{ brnch.get_absolute_url }}
+                                            Visit</a>
 
                                     {% endif %}
 
@@ -56,7 +59,8 @@
                         </tbody>
                     </table>
                     {% load static %}
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
                     <script src="{% static 'browse/js/cart.js' %}"></script>
                     <script src="{% static 'browse/js/notify.js' %}"></script>

@@ -1,9 +1,5 @@
-import json
-import re
-
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
-
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from accounts.models import *
@@ -101,7 +97,7 @@ def submitCustomerRating(request):
 
 
 def get_notifications(request):
-	from customer.utils_db import get_new_notifications, get_unread_notifications
+	from customer.utils_db import get_unread_notifications
 	unreads = get_unread_notifications(request.user)
 	if unreads is not None:
 		notifications = [notf.message for notf in unreads]

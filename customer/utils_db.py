@@ -10,7 +10,6 @@ def send_notification(user_id, text):
 
 def get_new_notifications(user):
 	""" Get new notifications which never has been sent to user at descending order of time """
-	from accounts.models import User
 	if user.is_authenticated and user.is_customer:
 		return Notification.get_new_notifications(user)
 

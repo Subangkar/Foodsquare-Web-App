@@ -106,7 +106,8 @@
     {#    {% include 'customer/rate_submit.html' %}#}
 
     <!-- Modal -->
-    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,7 +141,7 @@
 
         });
 
-        $(document).on('change', '.star-cb-group input', function(){
+        $(document).on('change', '.star-cb-group input', function () {
 
             var rate_val = $("input[type='radio'][name='rating']:checked").val();
             var csrftoken = getCookie('csrftoken');
@@ -154,7 +155,7 @@
                 },
                 url: '/customer/submitDeliveryRating/',
                 data: {
-                    'order-id' : $('#order_id').val(),
+                    'order-id': $('#order_id').val(),
                     'rating': rate_val
                 },
                 dataType: 'json',

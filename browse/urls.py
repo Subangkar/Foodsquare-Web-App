@@ -1,6 +1,7 @@
 from django.urls import path
-from browse import views
 from rest_framework.urlpatterns import format_suffix_patterns
+
+from browse import views
 
 app_name = 'browse'
 

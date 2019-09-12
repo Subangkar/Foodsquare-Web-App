@@ -5,18 +5,20 @@
         position: relative;
 
     }
+
     .tooltip-container:hover .tooltip-content {
         visibility: visible;
         opacity: 1;
         transition: 0.25s all ease;
-         transform: scale3d(1,1,1);
+        transform: scale3d(1, 1, 1);
         transition-delay: 0s;
         top: -62px;
         left: -27px;
         border-radius: 9px;
     }
+
     .tooltip-content {
-          transform: scale3d(.2,.2,1);
+        transform: scale3d(.2, .2, 1);
 
         visibility: hidden;
         opacity: 0;
@@ -34,16 +36,20 @@
         z-index: 2;
         color: #fff;
     }
+
     .tooltip-content .align-right {
         text-align: right;
     }
+
     .tooltip-content .align-right a {
         color: red;
         text-decoration: none;
     }
+
     .tooltip-content .align-right a:hover {
         text-decoration: underline;
     }
+
     .tooltip-content:after {
         content: "";
         position: absolute;
@@ -85,7 +91,7 @@
                             </div>
 
                             {% if item.has_offer_in_any_branch %}
-                                <span class="product-new-top" >OFFER ! </span>
+                                <span class="product-new-top">OFFER ! </span>
                             {% endif %}
 
 
@@ -112,18 +118,18 @@
                                         {% if item.get_avg_rating is not None %}
                                             var i = 0;
                                             var rating = {{ item.get_avg_rating }};
-                                            for(i = 0;i<rating;i++){
+                                            for (i = 0; i < rating; i++) {
                                                 $('#star_rating{{ item.id }}').append(' <i class="fas fa-star" style="color:  #FFC107"></i>')
                                             }
 
-                                            for(;i<5;i++){
+                                            for (; i < 5; i++) {
                                                 $('#star_rating{{ item.id }}').append(' <i class="far fa-star" style="color:  #FFC107"></i>')
                                             }
                                         {% endif %}
 
                                     </script>
                                 </div>
-                                <div class="toys single-item hvr-outline-out" >
+                                <div class="toys single-item hvr-outline-out">
                                     <button href="{{ item.id }}" data-id="{{ item.id }}"
                                             data-name="{{ item.pkg_name }}"
                                             data-price="{{ item.price }}"
@@ -146,31 +152,28 @@
     <script>
         $(document).ready(function () {
 
-            $(".cart_button").click(function(){
+            $(".cart_button").click(function () {
                 var pkg_id = $(this).attr("href");
 
-                if($('#delivery_input').val().length === 0 )
-                {
-                    $('#rest_pkg_id').val( $(this).attr("href"));
+                if ($('#delivery_input').val().length === 0) {
+                    $('#rest_pkg_id').val($(this).attr("href"));
                     $('#delivery_modal_btn').click();
-                }
-                else{
+                } else {
                     $.ajax({
-                    type: "GET",
-                    url: "/branch_pkg_availability/",
-                    data: {
-                        'id' :   $(this).attr("href"),
-                        'coord' : $('#delivery_area_srch').val()
-                    },
-                    success: function(data)
-                    {
+                        type: "GET",
+                        url: "/branch_pkg_availability/",
+                        data: {
+                            'id': $(this).attr("href"),
+                            'coord': $('#delivery_area_srch').val()
+                        },
+                        success: function (data) {
 
-                        $('#branch_modal').html(data);
-                    }
+                            $('#branch_modal').html(data);
+                        }
 
-                });
+                    });
 
-                $('#br_modal_btn').click();
+                    $('#br_modal_btn').click();
                 }
 
             });
@@ -181,22 +184,25 @@
 </div>
 
 
-
 <!-- Button trigger modal -->
-<button type="button" id="delivery_modal_btn" hidden class="btn btn-primary" data-toggle="modal" data-target="#delivery_location_modal">
+<button type="button" id="delivery_modal_btn" hidden class="btn btn-primary" data-toggle="modal"
+        data-target="#delivery_location_modal">
     Launch demo modal
 </button>
 <!-- Modal -->
-<div class="modal fade" id="delivery_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delivery_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #9F0053">Please Enter Your Delivery Location First</h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #9F0053">Please Enter Your Delivery
+                    Location First</h5>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <input type="hidden" id="rest_pkg_id">
-                    <input type="text" class="form-control delivery_loc_input" id="delivery_input2" aria-describedby="emailHelp" placeholder="Enter Delivery Location">
+                    <input type="text" class="form-control delivery_loc_input" id="delivery_input2"
+                           aria-describedby="emailHelp" placeholder="Enter Delivery Location">
                 </div>
             </div>
             <div class="modal-footer">
@@ -214,10 +220,10 @@
 
 
             autocomplete2 = new google.maps.places.Autocomplete(
-                (document.getElementById('delivery_input2')), { 'bounds': dhakaBounds }
+                (document.getElementById('delivery_input2')), {'bounds': dhakaBounds}
             );
             // Set initial restrict to the greater list of countries.
-            autocomplete2.setComponentRestrictions({ 'country': ['bd'] });
+            autocomplete2.setComponentRestrictions({'country': ['bd']});
 
 
             autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
@@ -235,7 +241,8 @@
 </div>
 <button hidden type="button" id="br_modal_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_modal">
 </button>
-<div class="modal fade" id="branch_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="branch_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     {% include 'browse/branch_availability.html' %}
 
 </div>
@@ -243,17 +250,15 @@
     $(document).ready(function () {
 
         $('#delivery_location_modal').on('hidden.bs.modal', function () {
-            if($('#delivery_input').val().length !== 0 )
-            {
+            if ($('#delivery_input').val().length !== 0) {
                 $.ajax({
                     type: "GET",
                     url: "/branch_pkg_availability/",
                     data: {
-                        'id' :   $('#rest_pkg_id').val(),
-                        'coord' : $('#delivery_area_srch').val()
+                        'id': $('#rest_pkg_id').val(),
+                        'coord': $('#delivery_area_srch').val()
                     },
-                    success: function(data)
-                    {
+                    success: function (data) {
 
                         $('#branch_modal').html(data);
                     }

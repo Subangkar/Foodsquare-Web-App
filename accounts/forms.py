@@ -1,7 +1,7 @@
 from django import forms
-from accounts.models import User
 from django.forms.models import ModelForm
 
+from accounts.models import User
 from .models import UserProfile, Restaurant, RestaurantBranch
 
 

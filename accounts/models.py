@@ -44,6 +44,7 @@ class User(AbstractUser):
 		for notf in Notification.objects.filter(user=self, time__lte=time):
 			notf.mark_as_read()
 
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)

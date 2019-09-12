@@ -1,17 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
 from django.views.generic import TemplateView
 from django.views.generic.base import View
+from geopy.geocoders import Nominatim
 
 from accounts.account_links import *
 from accounts.models import *
 from accounts.utils import *
-from .forms import UserForm, RestaurantBranchForm
-
-from geopy.geocoders import Nominatim
+from .forms import UserForm
 
 geolocator = Nominatim(user_agent="foodsquare")
 

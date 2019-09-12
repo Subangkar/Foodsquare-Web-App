@@ -43,8 +43,7 @@
                                     position: absolute;
                                     top: -5%;
                                     left: 28%;
-                                {#transform: translate(-100%, 0%);#}
-                                    background: #2f3640;
+                                {#transform: translate(-100%, 0%);#} background: #2f3640;
                                     /* height: 40px; */
                                     border-radius: 40px;
                                     padding: 10px;
@@ -72,13 +71,12 @@
                                     padding: 0;
                                     color: black;
                                     font-size: 16px;
-                                {#transition: 0.4s;#}
-                                    line-height: 40px;
-                                {#width: 0px;#}
-                                    width : 81%
+                                {#transition: 0.4s;#} line-height: 40px;
+                                {#width: 0px;#} width: 81%
 
                                 }
-                                .hotelsearchInput::placeholder{
+
+                                .hotelsearchInput::placeholder {
                                     color: #f0f0f0;
                                 }
 
@@ -95,7 +93,8 @@
 
                             <div style="background: #808080; display: inline-block; border-radius: 20px; width: 100%; padding-left: 6%;">
                                 <input type="text" required id="delivery_input" name="delivery_input"
-                                       class="hotelsearchInput  delivery_loc_input" type="text" placeholder="Enter Delivery Location"
+                                       class="hotelsearchInput  delivery_loc_input" type="text"
+                                       placeholder="Enter Delivery Location"
                                        style="background: transparent;" autocomplete="off">
                                 <style>
                                     #clear_location {
@@ -106,8 +105,8 @@
                                     }
                                 </style>
                                 <form action="/browse/restaurants/" method="GET" id="location-based-search">
-{#                                    {% csrf_token %}#}
-                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
+                                    {#                                    {% csrf_token %}#}
+                                    <input type="hidden" id="delivery_area_srch" name="delivery_area_srch"/>
                                     <span id="clear_location">&times;</span>
                                     <script>
                                         $(document).ready(function () {
@@ -129,7 +128,8 @@
                                             z-index: 10000 !important;
 
                                         }
-                                        .pac-container:empty{
+
+                                        .pac-container:empty {
                                             display: none !important;
                                         }
                                     </style>
@@ -192,11 +192,11 @@
 
 
                                             autocomplete = new google.maps.places.Autocomplete(
-                                                (document.getElementById('delivery_input')), { 'bounds': dhakaBounds }
+                                                (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
                                             );
 
                                             // Set initial restrict to the greater list of countries.
-                                            autocomplete.setComponentRestrictions({ 'country': ['bd'] });
+                                            autocomplete.setComponentRestrictions({'country': ['bd']});
 
                                             // Specify only the data fields that are needed.
                                             autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
@@ -220,14 +220,15 @@
                             <!-- </div> -->
                         </div>
 
-                        <div class="col-lg-4 col-md-3 " >
+                        <div class="col-lg-4 col-md-3 ">
 
                             <div class="cart-icons">
                                 <div class="row" style="background: #000;">
                                     <div class="col-md-6">
                                         <div class="dropdown" style="float: right">
                                             {% if not loggedIn %}
-                                                <button class="topBtn"><span class="far fa-user"> Login/Register</span></button>
+                                                <button class="topBtn"><span class="far fa-user"> Login/Register</span>
+                                                </button>
                                                 <div class="dropdown-content">
                                                     <a href={% url 'accounts:login' %}>Login</a>
                                                     <a href={% url 'accounts:register' %}>Register</a>
@@ -263,7 +264,6 @@
                                 <div>
 
                                 </div>
-
 
 
                             </div>

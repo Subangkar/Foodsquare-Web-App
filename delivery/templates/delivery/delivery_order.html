@@ -54,11 +54,13 @@
                                     <td>
 
                                         {% if order.order_status == 'PROCESSING' %}
-                                            <button href="{{ order.id }}" type="button" class="btn btn-danger delivery_status"
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-danger delivery_status"
                                                     value="take">Take Delivery
                                             </button>
                                         {% elif order.order_status == 'DELIVERING' %}
-                                            <button href="{{ order.id }}" type="button" class="btn btn-success delivery_status"
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-success delivery_status"
                                                     value="deliver">Mark as Delievred
                                             </button>
                                         {% endif %}
@@ -85,7 +87,8 @@
 
 
                         {#rating_modal#}
-                        <div class="modal fade" id="rating_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="rating_modal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -96,7 +99,8 @@
                                         {% include 'delivery/rate_submit.html' %}
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +118,7 @@
                                     }
                                 }
                             });
-                            $(document).on('change', '.star-cb-group input', function(){
+                            $(document).on('change', '.star-cb-group input', function () {
 
                                 var rate_val = $("input[type='radio'][name='rating']:checked").val();
                                 var csrftoken = getCookie('csrftoken');
@@ -128,7 +132,7 @@
                                     },
                                     url: '/submitCustomerRating/',
                                     data: {
-                                        'order-id' : $('#order_id').val(),
+                                        'order-id': $('#order_id').val(),
                                         'rating': rate_val
                                     },
                                     dataType: 'json',
@@ -139,7 +143,7 @@
 
                             });
                             $(".delivery_status").click(function () {
-                                if(this.value === 'deliver'){
+                                if (this.value === 'deliver') {
                                     document.getElementsByClassName('star-cb-group')[0].innerHTML = "<input type=\"radio\" id=\"rating-5\" name=\"rating\" value=\"5\" /><label for=\"rating-5\">5</label>\n" +
                                         "      <input type=\"radio\" id=\"rating-4\" name=\"rating\" value=\"4\" checked=\"checked\" /><label for=\"rating-4\">4</label>\n" +
                                         "      <input type=\"radio\" id=\"rating-3\" name=\"rating\" value=\"3\" /><label for=\"rating-3\">3</label>\n" +
@@ -152,13 +156,12 @@
                                 }
 
 
-
                                 $.ajax({
                                     type: "POST",
                                     headers: {
                                         "X-CSRFToken": csrftoken
                                     },
-                                    context : this,
+                                    context: this,
                                     url: '/applyForDelivery/',
                                     data: {
                                         'order_id': $(this).attr('href'),
@@ -167,7 +170,7 @@
                                     },
                                     dataType: 'json',
                                     success: function (data) {
-                                        if(this.value !== 'deliver'){
+                                        if (this.value !== 'deliver') {
                                             location.reload();
 
                                         }
@@ -224,7 +227,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -260,7 +264,7 @@
 
         });
 
-        $(document).on('change', '.star-cb-group input', function(){
+        $(document).on('change', '.star-cb-group input', function () {
 
             var rate_val = $("input[type='radio'][name='rating']:checked").val();
             var csrftoken = getCookie('csrftoken');
@@ -274,7 +278,7 @@
                 },
                 url: '/customer/submitDeliveryRating/',
                 data: {
-                    'order-id' : 2,
+                    'order-id': 2,
                     'rating': rate_val
                 },
                 dataType: 'json',

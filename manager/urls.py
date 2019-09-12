@@ -1,8 +1,8 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 
 from manager import views
-from django.conf import settings
-from django.conf.urls.static import static
 
 app_name = 'manager'
 
@@ -32,7 +32,6 @@ urlpatterns = [
 
 	# for branch manager
 	path('edit_menu/<int:id>/', views.EditMenuView.as_view(), name='package-branch-details'),
-
 
 	path('get_notifications/', views.get_notifications),
 	path('read_notifications/', views.read_notifications)

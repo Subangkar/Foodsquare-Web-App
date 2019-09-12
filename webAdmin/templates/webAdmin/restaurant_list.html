@@ -38,7 +38,8 @@
                             {% for restaurant in object_list %}
 
                                 <tr>
-                                    <td><a href="{{ restaurant.id }}" class="rests_class">{{ restaurant.restaurant_name }}</a></td>
+                                    <td><a href="{{ restaurant.id }}"
+                                           class="rests_class">{{ restaurant.restaurant_name }}</a></td>
                                     {% if restaurant.restaurant_key == '0' %}
                                         <td><span class="label label-danger">Pending</span></td>
                                     {% else %}
@@ -66,7 +67,7 @@
                             </tbody>
                         </table>
                         <script>
-                            $(document).ready(function() {
+                            $(document).ready(function () {
 
                                 $(".rests_class").click(function (event) {
                                     event.preventDefault();
@@ -78,10 +79,9 @@
                                         type: "GET",
                                         url: "/restaurant_info",
                                         data: {
-                                            'id' :  $(this).attr("href")
+                                            'id': $(this).attr("href")
                                         },
-                                        success: function(data)
-                                        {
+                                        success: function (data) {
                                             {#console.log(data);#}
                                             {#alert(data.trade_license);#}
 
@@ -100,11 +100,13 @@
             </div>
         </div>
         {#        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Launch demo modal</button>#}
-        <div class="modal fade" id="rest_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="rest_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="rest_name"></h4>
                     </div>
                     <div class="modal-body" id="test_modal">
