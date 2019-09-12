@@ -65,7 +65,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID No.</th>
-                                    <th >Item Name</th>
+                                    <th>Item Name</th>
                                     <th width="160px">Quantity</th>
                                     {#                                <th>Product Name</th>#}
                                     <th width="70px">#Free Extras</th>
@@ -239,7 +239,8 @@
         </div> <!-- //top products -->
         </div>
     </section>
-    <button hidden type="button" id="bkash_refModal_btn" class="btn btn-primary" data-toggle="modal" data-target="#bkash_ref">
+    <button hidden type="button" id="bkash_refModal_btn" class="btn btn-primary" data-toggle="modal"
+            data-target="#bkash_ref">
     </button>
     <div class="modal fade" id="bkash_ref" role="dialog">
         <div class="modal-dialog">
@@ -250,7 +251,8 @@
                     <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
                     <p>
                         <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with
-                            ref. <span id="ref_no" style="color: #9F0053;"></span> via bkash. You'll receive confrimation
+                            ref. <span id="ref_no" style="color: #9F0053;"></span> via bkash. You'll receive
+                            confrimation
                             once your payment is done.</font>
                         <input type="hidden" name="ref_no" id="bkash_ref_no" form="checkout-form-submit">
                     </p>
@@ -304,7 +306,7 @@
                     // { #+ '<td class="invert-image"><a href="{{ element.pkg.get_absolute_url }}"><img src="/media/{{ element.pkg.image }}" alt="" class="img-responsive"></a></td>'# }
                     + '<td class="invert">' + cartArray[i].name + '</td>'
                     + '<td class="invert"> <div class="quantity"> <div class="quantity-select"> <div class="entry value-minus" data-id=' + cartArray[i].id + '>&nbsp;</div> <div class="entry value"><span>' + cartArray[i].count + '</span></div> <div class="entry value-plus active" data-id=' + cartArray[i].id + '>&nbsp;</div> </div> </div> </td>'
-                    + '<td class="invert">' + (Math.floor(cartArray[i].count/cartArray[i].buy_n)*cartArray[i].get_n) + '  </td>'
+                    + '<td class="invert">' + (Math.floor(cartArray[i].count / cartArray[i].buy_n) * cartArray[i].get_n) + '  </td>'
                     + '<td class="invert">' + cartArray[i].price + 'x ' + cartArray[i].count + '  </td>'
                     // { #+ "<td><button class='delete-item btn btn-danger' data-id=" + cartArray[i].id + ">X</button></td>"# }
                     + '<td class="invert"> <div class="rem"> <div class="close1" data-id=' + cartArray[i].id + '></div> </div> </td>'
@@ -321,11 +323,11 @@
 
             var total = 0.0;
             for (var i in cartArray) {
-                output += '<li>' + cartArray[i].name + ' <i>-</i> <span>BDT '+(cartArray[i].price*cartArray[i].count)+' </span></li>';
+                output += '<li>' + cartArray[i].name + ' <i>-</i> <span>BDT ' + (cartArray[i].price * cartArray[i].count) + ' </span></li>';
                 total += (cartArray[i].price * cartArray[i].count);
             }
             output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * {{ delivery_charge_percent }}) + '</span></li>';
-            output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*(1+{{ delivery_charge_percent }})).toPrecision(4) + '</span></li>';
+            output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total * (1 +{{ delivery_charge_percent }})).toPrecision(4) + '</span></li>';
             $('.checkout-basket').html(output);
         }
 

@@ -9,13 +9,14 @@
     <div class="wrapper" ng-controller="demoController" style="padding-top: 35%">
         <div class="nav-bar">
 
-            <div class="dropdowns-wrapper" >
+            <div class="dropdowns-wrapper">
                 <div class="dropdown-container">
                     <div class="notifications dropdown dd-trigger" ng-click="showNotifications($event)">
                         <span class="count animated" id="notifications-count">{{newNotifications.length}}</span>
                         <span class="fa fa-bell" id="bell_icon" style="color: white"></span>
                     </div>
-                    <div class="dropdown-menu animated" id="notification-dropdown" style="visibility: visible !important;">
+                    <div class="dropdown-menu animated" id="notification-dropdown"
+                         style="visibility: visible !important;">
                         <div class="dropdown-header">
                             <span class="triangle"></span>
                             <span class="heading">Notifications</span>

@@ -4,7 +4,7 @@
     <title> Branch Manager | FoodSquare </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     {% load static %}
-    <script src ="{% static 'ajaxRequest.js' %}"></script>
+    <script src="{% static 'ajaxRequest.js' %}"></script>
     {#        <link href="{% static 'manager/plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" type="text/css"/>#}
 
 {% endblock %}
@@ -39,9 +39,13 @@
                                     <td><a href="{{ menu.id }}" class="pkg_details">{{ menu.package.pkg_name }}</a></td>
                                     <td>
                                         {% if menu.is_available == True %}
-                                            <button type="button" class="btn btn-danger available_status" id="{{ menu.id }}" name="False">Mark As Not Available</button>
+                                            <button type="button" class="btn btn-danger available_status"
+                                                    id="{{ menu.id }}" name="False">Mark As Not Available
+                                            </button>
                                         {% else %}
-                                            <button type="button" class="btn btn-info available_status"  id="{{ menu.id }}" name="True">Mark As Available</button>
+                                            <button type="button" class="btn btn-info available_status"
+                                                    id="{{ menu.id }}" name="True">Mark As Available
+                                            </button>
 
                                         {% endif %}
                                     </td>
@@ -56,8 +60,8 @@
 
 
                                     $.ajax({
-                                        type:"POST",
-                                        headers:{
+                                        type: "POST",
+                                        headers: {
                                             "X-CSRFToken": csrftoken
                                         },
                                         url: '/post_availability/',
@@ -87,13 +91,14 @@
 
 
         {#    Modal #}
-        <div class="modal fade" id="pkg_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="pkg_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
 
             {% include "manager/branch_pkg_modal.html" %}
         </div>
 
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
 
 
                 $(".pkg_details").click(function (event) {
@@ -106,10 +111,9 @@
                         type: "GET",
                         url: "/branch_pkg_details/",
                         data: {
-                            'id' :  $(this).attr("href")
+                            'id': $(this).attr("href")
                         },
-                        success: function(data)
-                        {
+                        success: function (data) {
                             {#alert(data);#}
                             {#console.log(data);#}
                             {#console.log(data);#}
@@ -128,31 +132,32 @@
 
 
         <script>
-            $(document).on('change', '#offer_option', function(){
+            $(document).on('change', '#offer_option', function () {
                 var val = this.value;
 
-                if(val === 'discount'){
+                if (val === 'discount') {
                     $('.buy_get').hide();
                     $('.discount').show();
 
 
-                }else{
+                } else {
                     $('.discount').hide();
                     $('.buy_get').show();
                 }
             });
 
-            $(document).on('click', '#submit_offer', function(){
-                var offer_type = $('#offer_option').val();            alert(offer_type);
+            $(document).on('click', '#submit_offer', function () {
+                var offer_type = $('#offer_option').val();
+                alert(offer_type);
 
                 var discount = 0;
                 var buy_amnt = 1;
                 var get_amnt = 0;
 
-                if(offer_type === 'discount'){
-                    discount =  $('#discount_amnt').val();
+                if (offer_type === 'discount') {
+                    discount = $('#discount_amnt').val();
 
-                }else{
+                } else {
                     buy_amnt = $('#buy_amnt').val();
                     get_amnt = $('#get_amnt').val();
 
@@ -162,8 +167,8 @@
                 var csrftoken = getCookie('csrftoken');
 
                 $.ajax({
-                    type:"POST",
-                    headers:{
+                    type: "POST",
+                    headers: {
                         "X-CSRFToken": csrftoken
                     },
                     url: '/post_offer/',
@@ -171,10 +176,10 @@
                         'offer_type': offer_type,
                         'id': $('#pkg_id').val(),
                         'discount_amnt': discount,
-                        'get_amnt' : get_amnt,
-                        'buy_amnt' : buy_amnt,
-                        'start_date' : $('#start_date').val() ,
-                        'end_date' : $('#end_date').val()
+                        'get_amnt': get_amnt,
+                        'buy_amnt': buy_amnt,
+                        'start_date': $('#start_date').val(),
+                        'end_date': $('#end_date').val()
 
                     },
                     dataType: 'json',

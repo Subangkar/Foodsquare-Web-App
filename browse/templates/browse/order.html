@@ -115,7 +115,7 @@
 
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-danger" id="get_menus" >
+                                <button class="btn btn-danger" id="get_menus">
                                     <i class="fas fa-paper-plane"></i>Get
                                 </button>
 
@@ -131,16 +131,19 @@
 
                             <li>
                                 <style>
-                                    .rating_btn{
-                                        border: none; outline: none; background: transparent;
+                                    .rating_btn {
+                                        border: none;
+                                        outline: none;
+                                        background: transparent;
                                     }
-                                    .rating_btn_clicked{
+
+                                    .rating_btn_clicked {
                                         background: #953b39;
                                     }
                                 </style>
                                 <script>
                                     $(document).ready(function () {
-                                        $('.rating_btn').click(function(){
+                                        $('.rating_btn').click(function () {
 
                                             $(".rating_btn").removeClass('rating_btn_clicked');
                                             $(this).toggleClass('rating_btn_clicked');
@@ -148,7 +151,7 @@
                                     });
 
                                 </script>
-                                <button class="rating_btn" name="5"  >
+                                <button class="rating_btn" name="5">
                                     {% for j in "12345" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -158,7 +161,7 @@
                             </li>
                             <li>
 
-                                <button class="rating_btn" type="submit" form="rating_form" name="4" >
+                                <button class="rating_btn" type="submit" form="rating_form" name="4">
                                     {% for j in "1234" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -172,7 +175,7 @@
 
                             <li>
 
-                                <button class="rating_btn" type="submit" form="rating_form" name="3" >
+                                <button class="rating_btn" type="submit" form="rating_form" name="3">
                                     {% for j in "123" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -185,7 +188,7 @@
                             </li>
                             <li>
 
-                                <button class="rating_btn" type="submit" form="rating_form" name="2" >
+                                <button class="rating_btn" type="submit" form="rating_form" name="2">
                                     {% for j in "12" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -198,7 +201,7 @@
                             </li>
                             <li>
 
-                                <button class="rating_btn" type="submit" form="rating_form" name="1" >
+                                <button class="rating_btn" type="submit" form="rating_form" name="1">
                                     {% for j in "1" %}
                                         <i class="fas fa-star"></i>
                                     {% endfor %}
@@ -220,11 +223,13 @@
                             text-decoration: none;
                             color: inherit;
                         }
+
                         .menu {
                             display: block;
                             position: relative;
                             cursor: pointer;
                         }
+
                         .menu-title {
                             display: block;
                             width: 100%;
@@ -233,9 +238,9 @@
                             text-align: center;
                             color: #fff;
                             font-weight: bold;
-                        {#text-transform: uppercase;#}
-                            transition: 0.3s background-color;
+                        {#text-transform: uppercase;#} transition: 0.3s background-color;
                         }
+
                         .menu-title:before {
                             content: "";
                             display: block;
@@ -250,16 +255,20 @@
                             z-index: 101;
                             transition: 0.2s 0.2s border-top ease-out, 0.3s border-top-color;
                         }
+
                         .menu-title:hover {
                             background: #8db842;
                         }
+
                         .menu-title:hover:before {
                             border-top-color: #8db842;
                         }
+
                         .menu:hover > .menu-title:before {
                             border-top-width: 0;
                             transition: 0.2s border-top-width ease-in, 0.3s border-top-color;
                         }
+
                         .menu-title:after {
                             content: "";
                             display: block;
@@ -273,10 +282,12 @@
                             z-index: 101;
                             transition: 0.2s border-bottom ease-in;
                         }
+
                         .menu:hover > .menu-title:after {
                             border-bottom-width: 5px;
                             transition: 0.2s 0.2s border-bottom-width ease-out;
                         }
+
                         .menu-dropdown {
                             min-width: 100%;
                             padding: 15px 0;
@@ -285,6 +296,7 @@
                             z-index: 100;
                             transition: 0.5s padding, 0.5s background;
                         }
+
                         .menu-dropdown:after {
                             content: "";
                             display: block;
@@ -298,17 +310,21 @@
                             z-index: 101;
                             transition: 0.5s border-top;
                         }
+
                         .menu:not(:hover) > .menu-dropdown {
                             padding: 4px 0;
                             background: #ddd;
                             z-index: 99;
                         }
+
                         .menu:not(:hover) > .menu-dropdown:after {
                             border-top-color: #ddd;
                         }
+
                         .menu:not(:hover) > .menu-title:after {
                             border-bottom-color: #ddd;
                         }
+
                         .menu-dropdown > * {
                             overflow: hidden;
                             height: 30px;
@@ -317,9 +333,11 @@
                             white-space: nowrap;
                             transition: 0.5s height cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s padding cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s margin cubic-bezier(0.73, 0.32, 0.34, 1.5), 0.5s 0.2s color, 0.2s background-color;
                         }
+
                         .menu-dropdown > *:hover {
                             background: rgba(0, 0, 0, 0.1);
                         }
+
                         .menu:not(:hover) > .menu-dropdown > * {
                             visibility: hidden;
                             height: 0;
@@ -330,11 +348,10 @@
                             transition: 0.5s 0.1s height, 0.5s 0.1s padding, 0.5s 0.1s margin, 0.3s color, 0.6s visibility;
                             z-index: 99;
                         }
+
                         .hList > * {
                             float: left;
                         }
-
-
 
 
                     </style>
@@ -354,7 +371,6 @@
                     </div>
 
 
-
                 </div>
                 <div class="left-ads-display col-lg-9 product_list">
 
@@ -372,8 +388,8 @@
                     var rest_name;
                     var category;
                     $(document).ready(function () {
-                        $('#rest_select').on('change', function() {
-                            alert( this.value );
+                        $('#rest_select').on('change', function () {
+                            alert(this.value);
                         });
                         $(".rating_group button").click(function () {
                             rating = this.name;
@@ -388,7 +404,7 @@
                         });
                         $('#menu_search').on('keypress', function (e) {
                             var code = e.keyCode || e.which;
-                            if(code==13){
+                            if (code == 13) {
                                 menu_name = $("#menu_search").val();
                                 $('#get_menus').click();
                             }
@@ -403,9 +419,9 @@
                                 data: {
                                     'rating': rating,
                                     'min_range': min_range,
-                                    'max_range' : max_range,
-                                    'menu_name' : menu_name,
-                                    'category' : category
+                                    'max_range': max_range,
+                                    'menu_name': menu_name,
+                                    'category': category
                                 },
                                 responseTime: 200,
 

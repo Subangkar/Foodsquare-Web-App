@@ -14,18 +14,21 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">Order List</h4>
                     <div style="padding-left:74%; ">
-                        <button type="button" class="btn btn-danger delivery_status" id="close_delivery">Close For Delivery</button>
-                        <button type="button" class="btn btn-success delivery_status" id="open_delivery">Open Delivery</button>
+                        <button type="button" class="btn btn-danger delivery_status" id="close_delivery">Close For
+                            Delivery
+                        </button>
+                        <button type="button" class="btn btn-success delivery_status" id="open_delivery">Open Delivery
+                        </button>
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-                <script src ="{% static 'ajaxRequest.js' %}"></script>
+                <script src="{% static 'ajaxRequest.js' %}"></script>
 
                 <script>
                     var csrftoken = getCookie('csrftoken');
                     $.ajaxSetup({
-                        beforeSend: function(xhr, settings) {
+                        beforeSend: function (xhr, settings) {
                             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
                             }
@@ -38,8 +41,8 @@
                         branch_id = "{{ branch.id }}";
 
                         $.ajax({
-                            type:"POST",
-                            headers:{
+                            type: "POST",
+                            headers: {
                                 "X-CSRFToken": csrftoken
                             },
                             url: '/delivery_option/',
@@ -60,10 +63,10 @@
                 <script>
                     var isOpen = "{{ branch.is_open_now }}";
 
-                    if(isOpen=="True"){
+                    if (isOpen == "True") {
                         document.getElementById('close_delivery').disabled = true;
 
-                    }else{
+                    } else {
                         document.getElementById('open_delivery').disabled = true;
 
                     }
@@ -115,7 +118,9 @@
 
                                     <td>
                                         {% if order.order_status == 'PENDING' %}
-                                            <button href="{{ order.id }}" type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Accept</button>
+                                            <button href="{{ order.id }}" type="button"
+                                                    class="btn btn-danger delivery_status" id="confirm_deliver">Accept
+                                            </button>
                                         {% endif %}
 
 
@@ -123,14 +128,16 @@
                                         {##}
                                         {#                                            <button type="button" class="btn btn-danger delivery_status" id="confirm_deliver">Delievred</button>#}
                                     </td>
-                                    <td><button href="{{ order.id }}" class="order_details btn btn-info">View</button></td>
+                                    <td>
+                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                             <script>
                                 var csrftoken = getCookie('csrftoken');
                                 $.ajaxSetup({
-                                    beforeSend: function(xhr, settings) {
+                                    beforeSend: function (xhr, settings) {
                                         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                                             xhr.setRequestHeader("X-CSRFToken", csrftoken);
                                         }
@@ -142,13 +149,13 @@
                                     {#ekhane deliveryman er id hobe#}
 
                                     $.ajax({
-                                        type:"POST",
-                                        headers:{
+                                        type: "POST",
+                                        headers: {
                                             "X-CSRFToken": csrftoken
                                         },
                                         url: '/acceptOrder/',
                                         data: {
-                                            'order_id': $(this).attr('href') ,
+                                            'order_id': $(this).attr('href'),
                                             {#'deliveryMan_id' : {{ user.id }},#}
                                             {#'delivery_option': this.id#}
                                         },
@@ -166,7 +173,8 @@
 
                     </div>
                     {#    Modal #}
-                    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    <div class="modal fade" id="delivery_modal" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
                          aria-hidden="true">
 
                         {% include "delivery/delivery_modal.html" %}
