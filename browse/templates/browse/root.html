@@ -28,8 +28,6 @@
                                 <h1 class="w3-tangerine w3-jumbo">FoodSquare</h1>
                             </a>
                         </div>
-                        {#                        <div style="width: 40%;">#}
-                        {#                        </div>#}
                         <div class="col-md-1"></div>
                         <div class="col-md-4 " style="">
 
@@ -96,8 +94,6 @@
 
 
                             <div style="background: #808080; display: inline-block; border-radius: 20px; width: 100%; padding-left: 6%;">
-                                {#                                <input class="hotelsearchInput  " type="text" placeholder="Enter Delivery Location"#}
-                                {#                                       id="delivery_input" style="background: transparent;" autocomplete="off">#}
                                 <input type="text" required id="delivery_input" name="delivery_input"
                                        class="hotelsearchInput  delivery_loc_input" type="text" placeholder="Enter Delivery Location"
                                        style="background: transparent;" autocomplete="off">
@@ -110,7 +106,7 @@
                                     }
                                 </style>
                                 <form action="/browse/restaurants/" method="GET" id="location-based-search">
-                                    {% csrf_token %}
+{#                                    {% csrf_token %}#}
                                     <input type="hidden" id="delivery_area_srch" name="delivery_area_srch" />
                                     <span id="clear_location">&times;</span>
                                     <script>
