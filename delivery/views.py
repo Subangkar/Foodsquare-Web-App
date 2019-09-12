@@ -51,6 +51,7 @@ def acceptDelivery(request):
 	print(deliveryman)
 	status = request.POST.get('delivery_option')
 	order = Order.objects.get(id=order_id)
+
 	if status == 'take':
 		if order.order_status != Order.PROCESSING:
 			return JsonResponse({"accepted": False})

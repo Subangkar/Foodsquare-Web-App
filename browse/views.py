@@ -32,7 +32,7 @@ def viewRaw(request):
 
 
 def bkashPayment(request):
-	return JsonResponse({'ref': getUniqueBkashRef()})
+	return JsonResponse({'ref': getUniqueBkashRef(12)})
 
 
 class Index(TemplateView):
@@ -343,6 +343,7 @@ def reactSubmit(request, id):
 
 
 def submitReview(request, id):
+	""""""
 	pkg_id = request.POST.get('pkg-id')
 	branch_id = request.POST.get('branch-id')
 	comment = request.POST.get('comment')
