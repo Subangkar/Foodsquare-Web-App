@@ -11,6 +11,7 @@ def uniqueKey(N=10):
 			return key
 
 
+# ------------------ Configs ----------------------
 def get_delivery_charge(total_price):
 	from webAdmin.models import Config
 	return round(float(Config.get_value(Config.DELIVERY_CHARGE_PERCENTAGE)) / 100 * total_price, 2)

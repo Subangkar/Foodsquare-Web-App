@@ -1,7 +1,6 @@
 import functools
 import json
 
-import requests
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -150,7 +149,6 @@ class CheckoutView(TemplateView):
 		from webAdmin import utils
 		total_price += utils.get_delivery_charge(total_price)
 
-		# set payment_type + status
 		payment = None
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
