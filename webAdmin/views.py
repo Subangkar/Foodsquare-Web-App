@@ -81,8 +81,17 @@ class AdminDashBoardView(TemplateView):
 
 
 def get_notifications(request):
-	return None
+	from customer.utils_db import get_unread_notifications
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
+	return JsonResponse({'notifications': notifications})
 
 
 def read_notifications(request):
-	return None
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())
+	return JsonResponse({'Success': True})

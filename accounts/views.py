@@ -264,6 +264,8 @@ class ManagerRegisterView(TemplateView):
 
 			rest.user = user
 			rest.save()
+			from webAdmin.utils import send_notification_to_admin
+			send_notification_to_admin(rest.restaurant_name + "'s registration is pending for approval")
 			return render(request, 'accounts/message_page.html',
 			              {'header': "Registration Pending", 'details': 'Check your inbox (' + user.email + ')'})
 		else:

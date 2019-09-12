@@ -1,7 +1,7 @@
 import random
 import string
 
-from accounts.models import Restaurant
+from accounts.models import Restaurant, User
 
 
 def uniqueKey(N=10):
@@ -32,3 +32,12 @@ def get_deliverymen_list():
 			where accounts_order.time >= date_trunc('month', CURRENT_DATE)\
 			group by delman.id"
 	return namedtuplefetchall(query, [])
+
+
+def send_notification_to_admin(message):
+	admins = User.objects.filter(is_superuser=True)
+	if not admins.exists():
+		return
+	for admin in admins:
+		from customer.utils_db import send_notification
+		send_notification(admin.id, message)
