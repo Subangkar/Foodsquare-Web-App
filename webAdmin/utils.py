@@ -41,3 +41,49 @@ def send_notification_to_admin(message):
 	for admin in admins:
 		from customer.utils_db import send_notification
 		send_notification(admin.id, message)
+
+
+# ---------------------- Dashboard -----------------------------
+
+def get_monthwise_order_completed_count_all():
+	"""monthwise order completed restaurant wise top 3 only"""
+	from browse.utils_db import namedtuplefetchall
+	query = "select restaurant.restaurant_name                       as name,\
+					to_char(date_trunc('month', ao.time), 'Month')   as month,\
+					EXTRACT(month from date_trunc('month', ao.time)) as monthval,\
+					count(ao.delivery_id)                            as sale\
+			from accounts_restaurant restaurant left join accounts_restaurantbranch branch\
+					on restaurant.id = branch.restaurant_id\
+					left join accounts_order ao on branch.id = ao.branch_id and ao.order_status = 'DELIVERED' and\
+													date_part('year', ao.time) = date_part('year', CURRENT_DATE)\
+			group by restaurant.restaurant_name, date_trunc('month', ao.time) \
+			order by sale desc limit 3"
+	branches_sales = namedtuplefetchall(query, [])
+
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * 3
+	branches = {b.name: [0] * 12 for b in branches_sales}
+	barcolors = {b.name: fillcolors.pop() for b in branches_sales}
+
+	for b in branches_sales:
+		if b.monthval is not None:
+			branches[b.name][int(b.monthval) - 1] = b.sale
+
+	return [{'name': b, 'sale': branches[b], 'fillColor': barcolors[b]} for b in branches.keys()]
+
+
+def get_packagewise_order_completed_count_all(last_n_months=1):
+	from browse.utils_db import namedtuplefetchall
+	query = "select package.pkg_name as name, sum(order_pack.quantity) as sale\
+			from browse_package package\
+					join accounts_orderpackagelist order_pack on package.id = order_pack.package_id\
+					join accounts_order ordr on order_pack.order_id = ordr.id\
+			where ordr.order_status = 'DELIVERED'\
+				and ordr.time >= CURRENT_DATE - INTERVAL '%s months'\
+			group by package.pkg_name\
+			order by sale desc"
+
+	packages = namedtuplefetchall(query, [last_n_months])
+	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * len(
+		packages)
+
+	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
