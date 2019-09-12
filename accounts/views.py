@@ -15,6 +15,8 @@ from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent="foodsquare")
 
+from django.core.mail import send_mail
+
 
 def recoveryRender(request):
 	return HttpResponse("Enter email to recover !!!")
@@ -39,10 +41,8 @@ class LoginView(TemplateView):
 
 	def post(self, request, *args, **kwargs):
 		print(pretty_request(request))
-		# print(request.get_host().split('.')[0])
 		username = request.POST.get('username', False)
 		password = request.POST.get('pass', False)
-		# is_customer_domain = request.get_host().split('.')[0] == 'www'
 		if username and password:
 			user = authenticate(request, username=username, password=password)
 			if user is not None and user.is_customer:
@@ -51,15 +51,18 @@ class LoginView(TemplateView):
 				return redirect('/')
 			elif user is None:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': 'User authentication error'})
+				              {'header': "Error !", 'details': 'Invalid Username or Password',
+				               'redirect': reverse('accounts:login')})
 			# return JsonResponse({'account': False})
 			elif not user.is_customer:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': 'Not a Customer account'})
+				              {'header': "Error !", 'details': 'Not a Customer account',
+				               'redirect': reverse('accounts:login')})
 		# return JsonResponse({'account': True, 'customer': False})
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': 'Username or password is empty'})
+			              {'header': "Error !", 'details': 'Username or password is empty',
+			               'redirect': reverse('accounts:login')})
 
 
 class ManagerLoginView(TemplateView):
@@ -83,7 +86,8 @@ class ManagerLoginView(TemplateView):
 			user = authenticate(request, username=username, password=password)
 			if user is None:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': 'No such user exists, Try again'})
+				              {'header': "Error !", 'details': 'Invalid Username or Password',
+				               'redirect': reverse('accounts:manger_login')})
 			if user.is_branch_manager:
 				login(request, user)
 				print('Signing in: ' + str(request.user))
@@ -96,16 +100,19 @@ class ManagerLoginView(TemplateView):
 					return redirect('/homepage')
 				elif rest.restaurant_key.strip() == '0':
 					return render(request, 'accounts/message_page.html',
-								  {'header': "Error !", 'details': 'Your account has not been approved yet'})
-				elif not user.is_manager:
-					return render(request, 'accounts/message_page.html',
-								  {'header': "Error !", 'details': 'Not a Manager account'})
-				else:
-					return render(request, 'accounts/message_page.html',
-								  {'header': "Error !", 'details': 'User authentication error'})
+					              {'header': "Error !", 'details': 'Your account has not been approved yet'})
+			elif not user.is_manager or not user.is_branch_manager:
+				return render(request, 'accounts/message_page.html',
+				              {'header': "Error !", 'details': 'Not a Manager or Branch Manager account',
+				               'redirect': reverse('accounts:manger_login')})
+			else:
+				return render(request, 'accounts/message_page.html',
+				              {'header': "Error !", 'details': 'User authentication error',
+				               'redirect': reverse('accounts:manger_login')})
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' Username or password is empty'})
+			              {'header': "Error !", 'details': ' Username or password is empty',
+			               'redirect': reverse('accounts:manger_login')})
 
 
 class DeliveryLoginView(TemplateView):
@@ -127,18 +134,19 @@ class DeliveryLoginView(TemplateView):
 		password = request.POST.get('pass', False)
 		if username and password:
 			user = authenticate(request, username=username, password=password)
-			if user.is_delivery_man:
-				if user is not None:
-					login(request, user)
-					print('Signing in: ' + str(request.user))
-					return redirect('/orders')
-				else:
-					return render(request, 'accounts/message_page.html',
-								  {'header': "Error !", 'details': '  User authentication error'})
+			if user and user.is_delivery_man:
+				login(request, user)
+				print('Signing in: ' + str(request.user))
+				return redirect('/orders')
+			else:
+				return render(request, 'accounts/message_page.html',
+				              {'header': "Error !", 'details': '  User authentication error',
+				               'redirect': reverse('accounts:delivery_login')})
 
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' Username or password is empty'})
+			              {'header': "Error !", 'details': ' Username or password is empty',
+			               'redirect': reverse('accounts:delivery_login')})
 
 
 class AdminLoginView(TemplateView):
@@ -166,13 +174,13 @@ class AdminLoginView(TemplateView):
 				return redirect('/homepage')
 			elif not user.is_superuser:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': ' Not an admin account'})
+				              {'header': "Error !", 'details': ' Not an admin account'})
 			else:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': '  User authentication error'})
+				              {'header': "Error !", 'details': '  User authentication error'})
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' Username or password is empty'})
+			              {'header': "Error !", 'details': ' Username or password is empty'})
 
 
 class RegisterView(TemplateView):
@@ -205,10 +213,9 @@ class RegisterView(TemplateView):
 			print('Registering : ' + str(request.user))
 			login(request, user)
 			return redirect('/')
-		# return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' signup'})
+			              {'header': "Error !", 'details': ' signup'})
 
 
 class ManagerRegisterView(TemplateView):
@@ -238,23 +245,30 @@ class ManagerRegisterView(TemplateView):
 		if user_form.is_valid():
 			user = user_form.save(commit=False)
 			user.is_manager = True
+			send_mail(
+				'Account Activation Pending',
+				'You have applied for creating a Restaurant Account.<br>'
+				'Username:' + user.username + '<br>' +
+				'Restaurant:' + request.POST['rest_name'] + '<br>' +
+				'Trade License:' + request.POST['trade_license'] + '<br>' +
+				'We are verifying your information.<br>' +
+				'You will be notified via this email when we are done.',
+				'accounts@foodsquare',
+				[user.email],
+				fail_silently=False,
+			)
 			user.save()
-			login(request, user)
-		# UserProfile.objects.create(user=user).save() # lagbe na i guess
+			rest = Restaurant()
+			rest.restaurant_name = request.POST['rest_name']
+			rest.trade_license = request.POST['trade_license']
+
+			rest.user = user
+			rest.save()
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Registration Pending", 'details': 'Check your inbox (' + user.email + ')'})
 		else:
-			return HttpResponse("Invalid Form or pass")
-
-		rest = Restaurant()
-		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
-		#                  email=request.POST['email'])
-		rest.restaurant_name = request.POST['rest_name']
-		rest.trade_license = request.POST['trade_license']
-
-		# rest.user.save()
-		# rest.user = User.objects.get(username=request.POST['username'])
-		rest.user = user
-		rest.save()
-		return redirect('/homepage')
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Registration Failed!!!", 'details': 'Invalid Form Data'})
 
 
 class DeliveryRegister(TemplateView):
@@ -295,10 +309,9 @@ class DeliveryRegister(TemplateView):
 			user.save()
 			DeliveryMan(user=user, nid=nid, name=user.username, contactNum=contact, address=area).save()
 			login(request, user)
-		# UserProfile.objects.create(user=user).save() # lagbe na i guess
 		else:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' Invalid Form or pass'})
+			              {'header': "Error !", 'details': ' Invalid Form or pass'})
 
 		return redirect('/orders')
 
@@ -363,13 +376,10 @@ class BranchRegisterView(TemplateView):
 				login(request, user)
 			else:
 				return render(request, 'accounts/message_page.html',
-							  {'header': "Error !", 'details': ' Invalid Form or pass'})
+				              {'header': "Error !", 'details': ' Invalid Form or pass'})
 		except Exception as e:
 			return render(request, 'accounts/message_page.html',
-						  {'header': "Error !", 'details': ' Not Valid secret key'})
-
-		# rest.user = User(username=request.POST['username'], password=request.POST['password'],
-		#                  email=request.POST['email'])
+			              {'header': "Error !", 'details': ' Not Valid secret key'})
 		print(branch)
 		from browse.models import Package
 		for package in Package.objects.filter(restaurant=branch.restaurant):

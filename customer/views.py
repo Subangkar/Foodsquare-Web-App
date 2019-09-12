@@ -53,16 +53,9 @@ class EditProfileView(TemplateView):
 			profile_form.save()
 			print('Registering : ' + str(request.user))
 			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
-		# if user_form.is_valid():
-		# user = user_form.save(commit=False)
-		# user.save()
 
 		else:
 			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
-		# menuForm = MenuForm(request.POST or None, request.FILES or None)
-		# menuForm.save()
-		# print(menuForm)
-		# return HttpResponse("<h1>Congrats</h1>")
 		pass
 
 

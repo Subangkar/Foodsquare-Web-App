@@ -73,7 +73,8 @@ class OrderView(TemplateView):
 				if minprice <= x.price <= maxprice:
 					filtered_result.append(x)
 			pkg_list = filtered_result
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5)}
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5),
+		       'category': [c['category'] for c in Package.objects.all().values('category').distinct()]}
 		return ctx
 
 
@@ -320,7 +321,6 @@ class RestaurantDetails(TemplateView):
 		return ctx
 
 
-#
 def reactSubmit(request, id):
 	print(request)
 	if not request.user.is_authenticated:
@@ -345,10 +345,8 @@ def submitReview(request, id):
 	branch_id = request.POST.get('branch-id')
 	comment = request.POST.get('comment')
 	user = request.user
-	# print(pkg_id, " ", comment, " ", user)
 	print(branch_id, " ", comment, " ", user)
 
-	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	if pkg_id is not None:
 		post_comment_package(user, pkg_id, comment)
 	elif branch_id is not None:
@@ -362,7 +360,6 @@ def submitPackageRating(request, id):
 	user = request.user
 	print(pkg_id, " ", rating, " ", user)
 
-	# package = Package.objects.exclude(user=request.user).get(id=pkg_id)
 	post_rating_package(user, pkg_id, rating)
 	return JsonResponse({'success': True})
 

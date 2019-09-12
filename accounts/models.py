@@ -20,16 +20,22 @@ class User(AbstractUser):
 		verbose_name_plural = "Users"
 
 	def get_rating(self):
+		rating = 0
 		if self.is_customer:
 			from customer.utils_db import get_avg_customer_rating
-			return get_avg_customer_rating(self.id)
+			rating = get_avg_customer_rating(self.id)
 		elif self.is_delivery_man:
 			from delivery.utils_db import get_avg_deliveryman_rating
-			return get_avg_deliveryman_rating(self.id)
-		return 5
+			rating = get_avg_deliveryman_rating(self.id)
+		elif self.is_manager:
+			rating = self.restaurant.get_avg_rating()
+		elif self.is_branch_manager:
+			rating = self.restaurantbranch.get_avg_rating()
+		if rating is None:
+			rating = 0
+		return round(rating, 2)
 
 
-# user contactinfo not completed
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)
@@ -81,8 +87,6 @@ class RestaurantBranch(models.Model):
 	running = models.BooleanField(default=False)
 	opening_time = models.FloatField(verbose_name='Opening Time in 24h format', default=9.00)
 	closing_time = models.FloatField(verbose_name='Opening Time in 24h format', default=23.00)
-	# opening_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=datetime.now())
-	# closing_time = models.DateTimeField(verbose_name='Opening Time in 24h format', default=23.00)
 
 	# branch_contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
 

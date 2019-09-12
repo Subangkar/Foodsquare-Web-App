@@ -94,6 +94,14 @@ ROOT_HOSTCONF = 'Foodsquare.hosts'
 DEFAULT_HOST = 'www'
 # PREPEND_WWW = True
 
+SENDGRID_API_KEY = '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'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
