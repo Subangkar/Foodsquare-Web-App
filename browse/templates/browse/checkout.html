@@ -324,8 +324,8 @@
                 output += '<li>' + cartArray[i].name + ' <i>-</i> <span>BDT '+(cartArray[i].price*cartArray[i].count)+' </span></li>';
                 total += (cartArray[i].price * cartArray[i].count);
             }
-            output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * 0.1) + '</span></li>';
-            output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*1.1).toPrecision(4) + '</span></li>';
+            output += '<li>Total Service Charges <i>-</i> <span>BDT ' + (total * {{ delivery_charge_percent }}) + '</span></li>';
+            output += '<li>Total <i>-</i> <span>BDT ' + Math.round(total*(1+{{ delivery_charge_percent }})).toPrecision(4) + '</span></li>';
             $('.checkout-basket').html(output);
         }
 

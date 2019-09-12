@@ -118,8 +118,10 @@ class CheckoutView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		elements = []
+		from webAdmin.utils import get_delivery_charge_percentage
 		ctx = {'num_items': range(0, len(elements)), 'elements': elements,
-		       'loggedIn': self.request.user.is_authenticated}
+		       'loggedIn': self.request.user.is_authenticated,
+		       'delivery_charge_percent': get_delivery_charge_percentage()}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -304,13 +306,9 @@ class RestaurantDetails(TemplateView):
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		# item = pkg_t('toys(barbie)', 'browse/images/cuisine2.jpg', '$575.00', '5', '/browse/item/')
-		# entry_name = self.request.GET.get('menu_search')
-		# price_range = self.request.GET.get('range')
 
 		rest = Restaurant.objects.get(id=kwargs['id'])
 
-		# pkg_list = [p.package for p in get_available_packages_restaurant(rest_id=rest.id)]
 		pkg_list = Package.objects.filter(restaurant__id=rest.id)
 
 		categories = set([item.category for item in pkg_list])
