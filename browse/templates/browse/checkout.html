@@ -250,7 +250,7 @@
                     <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
                     <p>
                         <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with
-                            ref. <span id="ref_no"></span> via bkash. You'll receive confrimation
+                            ref. <span id="ref_no" style="color: #9F0053;"></span> via bkash. You'll receive confrimation
                             once your payment is done.</font>
                         <input type="hidden" name="ref_no" id="bkash_ref_no" form="checkout-form-submit">
                     </p>
@@ -259,9 +259,8 @@
                     <input type="submit" form="checkout-form-submit" class="btn btn-success payment-detail-submit"
                            name="bkash_payment"
                            style="width: 30%" value="Complete Order"/>
-                    {#                    <button type="button" class="btn btn-success" data-dismiss="modal" form=""#}
-                    {#                            style="width: 30%">Confirm Order#}
-                    {#                    </button>#}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
                 </div>
             </div>
 

@@ -33,7 +33,9 @@
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Payment status</th>
-                                <th>Rate Delivery</th>
+                                <th>You've been rated</th>
+
+                                <th>You rated</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -73,8 +75,21 @@
                                         {% endif %}
                                     </td>
                                     <td>
+                                        {{ order.delivery.rating_user }}
+                                    </td>
+                                    <td>
+                                        {% if order.delivery.rating_deliveryman == None %}
+                                            <a href="{{ order.id }}" class="order_rate"> Rate Now</a>
+
+                                        {% else %}
+                                            {{ order.delivery.rating_deliveryman }}
+
+
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
                                         {#                                        {% if order.delivery and d %}#}
-                                        <a href="{{ order.id }}" class="order_rate"> Rate Now</a>
                                     </td>
 
                                 </tr>

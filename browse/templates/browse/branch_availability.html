@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-body">
 
@@ -11,6 +11,7 @@
                             <th>Branch</th>
                             <th>Offer</th>
                             <th>Order availability</th>
+                            <th>Visit for more items</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,13 @@
 
                                     {% else %}
                                         <font style="color: #7b3a3e">Not deliverable</font>
+                                    {% endif %}
+
+                                </td>
+                                <td>
+                                    {% if brnch.deliverable %}
+                                      <a href="{{ brnch.get_absolute_url }}" style="font-size: large;font-weight: bold;color: #9F0053">{{ brnch.get_absolute_url }} Visit</a>
+
                                     {% endif %}
 
                                 </td>
