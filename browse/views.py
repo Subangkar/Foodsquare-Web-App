@@ -74,7 +74,7 @@ class OrderView(TemplateView):
 					filtered_result.append(x)
 			pkg_list = filtered_result
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5),
-		       'category': [c['category'] for c in Package.objects.all().values('category').distinct()]}
+		       'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
 		return ctx
 
 
@@ -170,7 +170,9 @@ class CheckoutView(TemplateView):
 		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " with " + str(
 			len(pkg_list)) + " items has been placed in manager's queue for confirmation.")
-
+		send_notification(order.branch.user.id,
+		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) +
+		                  ' items')
 		return redirect("/")
 
 

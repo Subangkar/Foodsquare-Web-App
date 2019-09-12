@@ -178,6 +178,7 @@ def acceptOrder(request):
 	from customer.utils_db import send_notification
 	send_notification(order.user.id, "Your order:" + str(
 		order.id) + " from " + order.branch.branch_name + " has been confirmed and pending for delivery.")
+	send_to_close_deliverymen(order)
 	return JsonResponse({'order': 'placed'})
 
 
@@ -205,6 +206,7 @@ def branch_pkg_details(request):
 
 
 def offerSubmit(request):
+	from customer.utils_db import send_notification
 	id = request.POST.get('id')
 	discount = request.POST.get('discount_amnt')
 	buy_amnt = request.POST.get('buy_amnt')
@@ -221,10 +223,19 @@ def offerSubmit(request):
 		offer_type = 'N'
 	if offer_type == PackageBranchDetails.DISCOUNT:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date, discount_val=discount)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
 	elif offer_type == PackageBranchDetails.BUY_N_GET_N:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date, buy_n=buy_amnt, get_n=get_amnt)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
 	elif offer_type == PackageBranchDetails.NONE:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date)
+		branch_pkg = PackageBranchDetails.objects.get(id=id)
+		send_notification(branch_pkg.package.restaurant.id,
+		                  branch_pkg.branch.branch_name + " cleared offers" + " on " + branch_pkg.package.pkg_name)
 	return JsonResponse({'updated': True})
 
 
@@ -291,10 +302,12 @@ class BranchManagerDashBoardView(TemplateView):
 			                                 ord.get_package_list())
 			context['item_cnt'] = PackageBranchDetails.objects.filter(branch=self.request.user.restaurantbranch,
 			                                                          available=True).count()
-			context['unique_customer'] = Order.objects.filter(branch=self.request.user.restaurantbranch).values('user_id').distinct().count()
+			context['unique_customer'] = Order.objects.filter(branch=self.request.user.restaurantbranch).values(
+				'user_id').distinct().count()
 			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
 			                     "October", "November", "December"]
-			context['branch'] = get_monthwise_order_completed_count_branch(branch_id=self.request.user.restaurantbranch.id)
+			context['branch'] = get_monthwise_order_completed_count_branch(
+				branch_id=self.request.user.restaurantbranch.id)
 			context['menus'] = get_packagewise_order_completed_count_branch(
 				branch_id=self.request.user.restaurantbranch.id, last_n_months=1)
 		return context
@@ -310,8 +323,17 @@ def branch_sale_info(request):
 
 
 def get_notifications(request):
-	return None
+	from customer.utils_db import get_unread_notifications
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
+	return JsonResponse({'notifications': notifications})
 
 
 def read_notifications(request):
-	return None
+	from datetime import datetime
+	from customer.utils_db import read_all_notifications
+	read_all_notifications(request.user, datetime.now())
+	return JsonResponse({'Success': True})

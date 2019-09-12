@@ -35,6 +35,14 @@ class User(AbstractUser):
 			rating = 0
 		return round(rating, 2)
 
+	def get_unread_notifications(self):
+		from customer.models import Notification
+		return Notification.get_unread_notifications(self)
+
+	def read_notifications(self, time):
+		from customer.models import Notification
+		for notf in Notification.objects.filter(user=self, time__lte=time):
+			notf.mark_as_read()
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -153,7 +161,7 @@ class Payment(models.Model):
 class DeliveryMan(models.Model):
 	name = models.CharField(verbose_name="Name", max_length=50)
 	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
-	address = models.CharField(verbose_name="Permanent Address", max_length=50)
+	address = models.CharField(verbose_name="Delivery Address", max_length=50)
 	nid = models.CharField(verbose_name="National ID No.", max_length=50)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')

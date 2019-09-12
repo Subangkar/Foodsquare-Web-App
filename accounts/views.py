@@ -374,6 +374,8 @@ class BranchRegisterView(TemplateView):
 
 				branch.save()
 				login(request, user)
+				from customer.utils_db import send_notification
+				send_notification(branch.restaurant.id, branch.branch_name + " was added under your restaurant")
 			else:
 				return render(request, 'accounts/message_page.html',
 				              {'header': "Error !", 'details': ' Invalid Form or pass'})
