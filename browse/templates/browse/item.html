@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block header %}
-    <title>Foodsquare | View Package Details</title>
+    <title>{{ item.pkg_name }} | {{ item.restaurant.restaurant_name }} | FoodSquare</title>
     <script>
         $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
+            beforeSend: function (xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
@@ -32,13 +32,6 @@
                                                                           alt=" ">
 
                                             </div>
-                                            {#                                            <button href="#" data-id="{{ item.id }}"#}
-                                            {#                                                    data-name="{{ item.pkg_name }}"#}
-                                            {#                                                    data-price="{{ item.price }}"#}
-                                            {#                                                    data-restaurant-id="{{ restaurant.branch.id }}"#}
-                                            {#                                                    class="add-to-cart toys-cart ptoys-cart">#}
-                                            {#                                                <i class="fas fa-cart-plus"></i>#}
-                                            {#                                            </button>#}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -52,9 +45,16 @@
                             <h4>{{ item.restaurant.restaurant_name }}</h4>
                         </a>
 
-                        <p><span class="item_price">BDT {{ item.price }}</span>
+                       <p><span class="item_price">BDT {{ item.price }}</span>
                             <del>{{ item.price }}</del>
                         </p>
+{#                        <button href="#" data-id="{{ item.id }}"#}
+{#                            data-name="{{ item.pkg_name }}"#}
+{#                            data-price="{{ item.price }}"#}
+{#                            data-restaurant-id="{{ restaurant.branch.id }}"#}
+{#                            class="add-to-cart toys-cart ptoys-cart">#}
+{#                        <i class="fas fa-cart-plus"></i>#}
+{#                        </button>#}
                         <div class="container">
                             <style>
                                 .rate {
@@ -62,29 +62,35 @@
                                     height: 46px;
                                     padding: 0 10px;
                                 }
+
                                 .rate:not(:checked) > input {
-                                    position:absolute;
-                                    top:-9999px;
+                                    position: absolute;
+                                    top: -9999px;
                                 }
+
                                 .rate:not(:checked) > label {
-                                    float:right;
-                                    width:1em;
-                                    overflow:hidden;
-                                    white-space:nowrap;
-                                    cursor:pointer;
-                                    font-size:30px;
-                                    color:#ccc;
+                                    float: right;
+                                    width: 1em;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    cursor: pointer;
+                                    font-size: 30px;
+                                    color: #ccc;
                                 }
+
                                 .rate:not(:checked) > label:before {
                                     content: '★ ';
                                 }
+
                                 .rate > input:checked ~ label {
                                     color: #ffc700;
                                 }
+
                                 .rate:not(:checked) > label:hover,
                                 .rate:not(:checked) > label:hover ~ label {
                                     color: #deb217;
                                 }
+
                                 .rate > input:checked + label:hover,
                                 .rate > input:checked + label:hover ~ label,
                                 .rate > input:checked ~ label:hover,
@@ -94,42 +100,42 @@
                                 }
                             </style>
                             <div class="row">
-                                <div  class="rate">
+                                <div class="rate">
 
-                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <input type="radio" id="star5" name="rate" value="5"/>
                                     <label for="star5" title="text">5 stars</label>
-                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <input type="radio" id="star4" name="rate" value="4"/>
                                     <label for="star4" title="text">4 stars</label>
                                     <input type="radio" id="star3" name="rate" value="3"/>
-                                    <label for="star3" title="text" >3 stars</label>
-                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2"/>
                                     <label for="star2" title="text">2 stars</label>
-                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <input type="radio" id="star1" name="rate" value="1"/>
                                     <label for="star1" title="text">1 star</label>
                                 </div>
                                 <script>
                                     var user_rating = {{ user_rating.rating }};
-                                    if(user_rating !== "None"){
+                                    if (user_rating !== "None") {
                                         {#alert(user_rating + " " + star{{ user_rating.rating }});#}
                                         $("#star{{ user_rating.rating }}").prop("checked", true);
 
                                     }
                                 </script>
                                 <script>
-                                    $('.rate input').on('change', function() {
+                                    $('.rate input').on('change', function () {
                                         var rate_val = $("input[type='radio'][name='rate']:checked").val();
                                         var csrftoken = getCookie('csrftoken');
                                         {% if loggedIn %}
 
                                             $.ajax({
-                                                type:"POST",
-                                                headers:{
+                                                type: "POST",
+                                                headers: {
                                                     "X-CSRFToken": csrftoken
                                                 },
                                                 url: 'submitRating/',
                                                 data: {
                                                     'pkg-id': {{ item.id }},
-                                                    'rating' : rate_val
+                                                    'rating': rate_val
 
                                                 },
                                                 dataType: 'json',
@@ -154,23 +160,43 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
-
                             </div>
-
                         </div>
-
 
 
                     </div>
                     <div class="col-lg-4">
                         <style>
-                            .glyphicon { margin-right:5px;}
-                            .rating .glyphicon {font-size: 22px;}
-                            .rating-num { margin-top:0px;font-size: 54px; }
-                            .progress { margin-bottom: 5px;}
-                            .progress-bar { text-align: left; }
-                            .rating-desc .col-md-3 {padding-right: 0px;}
-                            .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
+                            .glyphicon {
+                                margin-right: 5px;
+                            }
+
+                            .rating .glyphicon {
+                                font-size: 22px;
+                            }
+
+                            .rating-num {
+                                margin-top: 0px;
+                                font-size: 54px;
+                            }
+
+                            .progress {
+                                margin-bottom: 5px;
+                            }
+
+                            .progress-bar {
+                                text-align: left;
+                            }
+
+                            .rating-desc .col-md-3 {
+                                padding-right: 0px;
+                            }
+
+                            .sr-only {
+                                margin-left: 5px;
+                                overflow: visible;
+                                clip: auto;
+                            }
                         </style>
 
                         {#                        <div class="container">#}
@@ -181,13 +207,15 @@
                                         <div class="col-xs-12 col-md-6 text-center">
                                             <h1 class="rating-num">
                                                 {{ avg_rating |floatformat:1 }}</h1>
-                                            <div >
-                                                <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                                            <div>
+                                                <span class="glyphicon glyphicon-star"></span><span
+                                                    class="glyphicon glyphicon-star">
                             </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
                             </span><span class="glyphicon glyphicon-star-empty"></span>
                                             </div>
                                             <div>
-                                                <span class="glyphicon glyphicon-user"></span><p id="total_rate"> </p> people rated
+                                                <span class="glyphicon glyphicon-user"></span>
+                                                <p id="total_rate"></p> people rated
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6">
@@ -198,8 +226,10 @@
                                                     </div>
                                                     <div class="col-xs-8 col-md-9">
                                                         <div class="progress progress-striped">
-                                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
-                                                                 aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                            <div class="progress-bar progress-bar-success"
+                                                                 role="progressbar" aria-valuenow=""
+                                                                 aria-valuemin="0" aria-valuemax="100"
+                                                                 style="width: 80%">
                                                                 <span class="sr-only">80%</span>
                                                             </div>
                                                         </div>
@@ -212,15 +242,15 @@
                                                     {% for rating in ratings %}
                                                         rating_ara[{{ forloop.counter0 }}] = {{ rating }};
                                                     {% endfor %}
-                                                    var i=1;
-                                                    for(i=0;i<=5;i++) total+= rating_ara[i];
+                                                    var i = 1;
+                                                    for (i = 0; i <= 5; i++) total += rating_ara[i];
                                                     document.getElementById('total_rate').innerText = total;
-                                                    for(i=1;i<=5;i++){
+                                                    for (i = 1; i <= 5; i++) {
                                                         var count = rating_ara[i];
 
-                                                        var pcg = Math.floor(count/total*100);
-                                                        document.getElementsByClassName('progress-bar').item(5-i).setAttribute('aria-valuenow',pcg);
-                                                        document.getElementsByClassName('progress-bar').item(5-i).setAttribute('style','width:'+Number(pcg)+'%');
+                                                        var pcg = Math.floor(count / total * 100);
+                                                        document.getElementsByClassName('progress-bar').item(5 - i).setAttribute('aria-valuenow', pcg);
+                                                        document.getElementsByClassName('progress-bar').item(5 - i).setAttribute('style', 'width:' + Number(pcg) + '%');
                                                     }
 
                                                 </script>
@@ -244,8 +274,14 @@
                 <div class="row">
                     <div class="col-md-7 add-review">
 
-                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-                        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+{#        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" id="bootstrap-css">#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
+{#                        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" rel="stylesheet"#}
+{#                              id="bootstrap-css">#}
+{#                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>#}
+{#                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet"#}
+{#                              id="bootstrap-css">#}
+{#                        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>#}
                         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
                         <!------ Include the above in your HEAD tag ---------->
                         {% for comment in comments %}
@@ -253,19 +289,28 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
+                                                 class="img img-rounded img-fluid"/>
                                             <p class="text-secondary text-center">{{ comment.time }}</p>
                                         </div>
                                         <div class="col-md-9">
                                             <p>
-                                                <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
+                                                <a class="float-left"
+                                                   href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ comment.user_name }}</strong></a>
 
                                             </p>
                                             <div class="clearfix"></div>
                                             <p>{{ comment.comment }}</p>
                                             <div style="position: absolute; bottom: 0%; right: 3%;">
-                                                <a href="{{ comment.comment_id }}" class="float-bottom btn text-white btn-danger react" id="like"> <i class="fa fa-thumbs-up"></i> Like  <font id="like_count{{ comment.comment_id }}">{{  comment.nlikes }}</font> </a>
-                                                <a href="{{ comment.comment_id }}" class="float-bottom btn text-white btn-danger react" id="dislike"> <i class="fa fa-thumbs-down"></i> Dislike  <font  id="dislike_count{{ comment.comment_id }}">{{  comment.ndislikes }}</font></a>
+                                                <a href="{{ comment.comment_id }}"
+                                                   class="float-bottom btn text-white btn-danger react" id="like"> <i
+                                                        class="fa fa-thumbs-up"></i> Like <font
+                                                        id="like_count{{ comment.comment_id }}">{{ comment.nlikes }}</font>
+                                                </a>
+                                                <a href="{{ comment.comment_id }}"
+                                                   class="float-bottom btn text-white btn-danger react" id="dislike"> <i
+                                                        class="fa fa-thumbs-down"></i> Dislike <font
+                                                        id="dislike_count{{ comment.comment_id }}">{{ comment.ndislikes }}</font></a>
 
                                             </div>
                                         </div>
@@ -280,13 +325,13 @@
                             <script>
                                 var csrftoken = getCookie('csrftoken');
                                 $.ajaxSetup({
-                                    beforeSend: function(xhr, settings) {
+                                    beforeSend: function (xhr, settings) {
                                         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                                             xhr.setRequestHeader("X-CSRFToken", csrftoken);
                                         }
                                     }
                                 });
-                                var $react  = $(this);
+                                var $react = $(this);
 
                                 $(".react").click(function () {
                                     event.preventDefault();
@@ -294,20 +339,20 @@
                                     $.ajax({
                                         context: this,
 
-                                        type:"POST",
-                                        headers:{
+                                        type: "POST",
+                                        headers: {
                                             "X-CSRFToken": csrftoken
                                         },
                                         url: 'reactOn/',
                                         data: {
                                             'comment-id': $(this).attr('href'),
                                             'pkg-id': {{ item.id }},
-                                            'react' : this.id
+                                            'react': this.id
                                         },
                                         dataType: 'json',
                                         success: function (data) {
-                                            $('#like_count'+$(this).attr('href')).text( data['nlikes']);
-                                            $('#dislike_count'+$(this).attr('href')).text( data['ndislikes']);
+                                            $('#like_count' + $(this).attr('href')).text(data['nlikes']);
+                                            $('#dislike_count' + $(this).attr('href')).text(data['ndislikes']);
 
 
                                         }
@@ -319,7 +364,7 @@
 
                         <div style="height: 2vh;"></div>
 
-                        <div class="card" >
+                        <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="comment">Leave a review:</label>
@@ -338,17 +383,17 @@
                                 $("#submit_review").click(function () {
 
                                     {% if loggedIn %}
-                                        if($('#comment').val().trim().length !=0){
+                                        if ($('#comment').val().trim().length != 0) {
                                             alert($('#comment').val().trim().length);
                                             $.ajax({
-                                                type:"POST",
-                                                headers:{
+                                                type: "POST",
+                                                headers: {
                                                     "X-CSRFToken": csrftoken
                                                 },
                                                 url: 'submitReview/',
                                                 data: {
                                                     'pkg-id': {{ item.id }},
-                                                    'comment' : $('#comment').val()
+                                                    'comment': $('#comment').val()
 
                                                 },
                                                 dataType: 'json',
@@ -358,9 +403,7 @@
                                             });
                                         }
 
-
                                     {% else %}
-
                                         alert('Please log in to post review');
                                     {% endif %}
                                 });
@@ -372,7 +415,6 @@
                     </div>
 
                 </div>
-
 
 
             </div>

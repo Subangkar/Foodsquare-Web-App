@@ -75,12 +75,11 @@ class myOrdersList(ListView):
 def get_notifications(request):
 	from customer.utils_db import get_new_notifications, get_unread_notifications
 	# notifications = get_new_notifications(request.user)
-	notifications = [notf.message for notf in get_unread_notifications(request.user)]
-	# try:
-	# 	notifications = serializers.serialize("json", notifications)
-	# except:
-	# 	pass
-	# notifications = ["masum 1", "masum 3", "abc 5"]
+	unreads = get_unread_notifications(request.user)
+	if unreads is not None:
+		notifications = [notf.message for notf in unreads]
+	else:
+		notifications = []
 	return JsonResponse({'notifications': notifications})
 
 
