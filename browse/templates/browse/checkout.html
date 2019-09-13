@@ -300,7 +300,9 @@
             }
             $('.checkout-form').html(output);
             document.getElementById('item-list').value = itemListJSON();
-            document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
+            if (cartArray.length > 0) {
+                document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
+            }
         }
 
         function displayBasket() {
@@ -321,9 +323,9 @@
             console.log(">> delete >");
             var id = $(this).data('id');
             shoppingCart.removeItemFromCartAll(id);
-            displayCheckout();
-            displayBasket();
             displayCart();
+            displayBasket();
+            displayCheckout();
         });
 
         // -1
@@ -471,20 +473,6 @@
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-        });
-    </script>
     <!-- //here ends scrolling icon -->
 
     <!-- //bootstrap working-->
