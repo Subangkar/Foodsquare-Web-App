@@ -15,6 +15,8 @@ from browse.utils_db import *
 
 def getUniqueBkashRef(N=10):
 	while True:
+		import random
+		import string
 		key = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=N))
 		if not Payment.objects.filter(bkash_ref=key).exists():
 			return key
@@ -30,7 +32,7 @@ def viewRaw(request):
 
 
 def bkashPayment(request):
-	return JsonResponse({'ref': getUniqueBkashRef()})
+	return JsonResponse({'ref': getUniqueBkashRef(12)})
 
 
 class Index(TemplateView):
@@ -71,7 +73,10 @@ class OrderView(TemplateView):
 				if minprice <= x.price <= maxprice:
 					filtered_result.append(x)
 			pkg_list = filtered_result
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'rating': range(5),
+		page = self.request.GET.get('page')
+
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page),
+		       'rating': range(5),
 		       'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
 		return ctx
 
@@ -173,65 +178,6 @@ class CheckoutView(TemplateView):
 		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) +
 		                  ' items')
 		return redirect("/")
-
-
-class RestBranch:
-	branch = None
-	is_branch = False
-	user = None
-	restaurant_name = None
-	restaurant_key = None
-	trade_license = None
-	restaurantImg = None
-	id = None
-
-	def __init__(self, restaurant, branch=None):
-		self.user = restaurant.user
-		self.restaurant_name = restaurant.restaurant_name
-		self.restaurant_key = restaurant.restaurant_key
-		self.trade_license = restaurant.trade_license
-		self.restaurantImg = restaurant.restaurantImg
-		self.id = restaurant.id
-		self.pk = restaurant.pk
-		self.get_absolute_url = restaurant.get_absolute_url()
-
-		if branch is not None:
-			self.is_branch = True
-			self.is_open_now = branch.is_open_now()
-			# print(branch.get_absolute_url())
-			self.get_absolute_url = branch.get_absolute_url()
-
-		self.addBranch(branch=branch)
-
-	def __eq__(self, other):
-		return self.branch == other.branch if self.branch else self.id == other.id
-
-	def addBranch(self, branch):
-		self.branch = branch
-		self.is_branch = self.branch is not None
-
-
-def branchesInRadius(coord, queryset):
-	rest_map = {}
-	rest_list = []
-	for r in queryset:
-		if r.restaurant.id in rest_map:
-			rest_map[r.restaurant.id].append(r)
-		else:
-			rest_map[r.restaurant.id] = [r]
-	for rest in rest_map.values():
-		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
-		# print(branches[0].branch_name + ' ' + str(branches[0].distance(coord)))
-		if branches[0].distance(coord) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE:
-			def_branch = branches[0]
-			for branch in branches:
-				if branch.is_open_now():
-					def_branch = branch
-					break
-			rest_list.append(RestBranch(def_branch.restaurant, branch=def_branch))
-	# else:
-	# 	rest_list.append(RestBranch(branches[0].restaurant, branch=None))
-	return rest_list
 
 
 class RestaurantList(TemplateView):
@@ -338,6 +284,7 @@ def reactSubmit(request, id):
 
 
 def submitReview(request, id):
+	""""""
 	pkg_id = request.POST.get('pkg-id')
 	branch_id = request.POST.get('branch-id')
 	comment = request.POST.get('comment')
@@ -375,7 +322,7 @@ def FilteredProducts(request):
 	price_range_min = request.GET.get('min_range')
 	price_range_max = request.GET.get('max_range')
 	rating = request.GET.get('rating')
-	category = ""
+	category = request.GET.get('category')
 	if not entry_name:
 		entry_name = ''
 	if not price_range_min:
@@ -386,11 +333,13 @@ def FilteredProducts(request):
 	if rating and int(rating) != 0:
 		pkg_list &= get_rated_package(int(rating))
 	pkg_list &= get_price_range_package(float(price_range_min), float(price_range_max))
-	if category != '':
+	if category is not None:
 		pkg_list &= get_category_packages(category)
 	print(pkg_list)
 
-	return render(request, 'browse/product_list.html', {'item_list': pkg_list})
+	page = request.GET.get('page')
+	print(page, get_page_objects(pkg_list, page))
+	return render(request, 'browse/product_list.html', {'item_list': get_page_objects(pkg_list, page)})
 
 
 def branch_pkg_availability(request):

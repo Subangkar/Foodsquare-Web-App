@@ -2,71 +2,10 @@
 {% load static %}
 
 {% block header %}
-    <title>Foodsquare | order page :: food ordering made simple</title>
-    {#    <link href="{% static 'browse/css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>#}
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{% static 'browse/js/jquery.min.js' %}"></script>
-    <!-- Custom Theme files -->
-    <!-- <link href="{% static 'browse/css/style.css' %}" rel="stylesheet" type="text/css" media="all" /> -->
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    </script>
-    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
-
-    <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}"/>
-    <script src="{% static 'browse/js/awesomplete.js' %}" async></script>
-    <!--//price range-->
+    <title>Contact Us | FoodSquare</title>
 {% endblock %}
 
 
-{% block body-js %}
-    {#	{% load static %}#}
-    <!--js working-->
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
-    <!--//js working-->
-    <!-- price range (top products) -->
-    <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
-
-
-    <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <!-- start-smoth-scrolling -->
-    <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-    <!-- //here ends scrolling icon -->
-{% endblock %}
-<!-- //short-->
-<!--About -->
 {% block body-content %}
     <section class="about py-lg-4 py-md-3 py-sm-3 py-3">
         <i class="fa fa-facebook"></i>
@@ -90,11 +29,4 @@
             </div>
         </div>
     </section>
-    <!--//about -->
-    <!--Customers Review -->
-    <!--//Customers Review -->
-    <!--subscribe-address-->
-
-    <!--//subscribe-address-->
-
 {% endblock %}

@@ -3,13 +3,13 @@
 
 {% block header %}
     <title> Restaurants | FoodSquare</title>
-    <script src="{% static 'browse/js/jquery.min.js' %}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    </script>
-    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
+{#    <script src="{% static 'browse/js/jquery.min.js' %}"></script>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <script type="application/x-javascript"> addEventListener("load", function () {#}
+{#        setTimeout(hideURLbar, 0);#}
+{#    }, false);#}
+{#    </script>#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">#}
 
     <link rel="stylesheet" href="{% static 'browse/css/awesomplete.css' %}"/>
     <script src="{% static 'browse/js/awesomplete.js' %}" async></script>
@@ -20,45 +20,45 @@
 {% block body-js %}
     {#	{% load static %}#}
     <!--js working-->
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+{#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
     <!--//js working-->
     <!-- price range (top products) -->
-    <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>
+{#    <script src="{% static 'browse/toys_shop/js/jquery-ui.js' %}"></script>#}
 
 
     <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <!-- start-smoth-scrolling -->
-    <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-    <!-- //here ends scrolling icon -->
+{#    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>#}
+{#    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>#}
+{#    <script>#}
+{#        jQuery(document).ready(function ($) {#}
+{#            $(".scroll").click(function (event) {#}
+{#                event.preventDefault();#}
+{#                $('html,body').animate({#}
+{#                    scrollTop: $(this.hash).offset().top#}
+{#                }, 900);#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#    <!-- start-smoth-scrolling -->#}
+{#    <!-- here stars scrolling icon -->#}
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{##}
+{#            var defaults = {#}
+{#                containerID: 'toTop', // fading element id#}
+{#                containerHoverID: 'toTopHover', // fading element hover id#}
+{#                scrollSpeed: 1200,#}
+{#                easingType: 'linear'#}
+{#            };#}
+{##}
+{##}
+{#            $().UItoTop({#}
+{#                easingType: 'easeOutQuart'#}
+{#            });#}
+{##}
+{#        });#}
+{#    </script>#}
+{#    <!-- //here ends scrolling icon -->#}
 {% endblock %}
 
 {% block body-content %}
@@ -209,7 +209,7 @@
                                 <input type="radio" name="show" value="near_me" form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="radio_container">Show all
+                            <label class="radio_container">Show all restaurants
                                 <input type="radio" name="show" value="all" form="location-based-search"
                                        checked="checked">
                                 <span class="checkmark"></span>
@@ -220,7 +220,7 @@
                                        form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="radio_container">Show all
+                            <label class="radio_container">Show all restaurants
                                 <input type="radio" name="show" value="all" form="location-based-search">
                                 <span class="checkmark"></span>
                             </label>

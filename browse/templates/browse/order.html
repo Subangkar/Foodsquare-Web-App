@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block header %}
-    <title>Browse Items | FoodSquare</title>
+    <title>Cuisines | FoodSquare</title>
 
     <!--price range-->
     <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
@@ -11,7 +11,7 @@
 
 
 {% block body-js %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
     {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
@@ -34,44 +34,6 @@
         }); //]]>
     </script>
     <!-- //price range (top products) -->
-
-    <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    {#    <script src="{% static 'browse/js/cart.js' %}"></script>#}
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <!-- start-smoth-scrolling -->
-    <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-
-    </script>
-    <!-- jQuery library -->
-
-    <!-- //here ends scrolling icon -->
 {% endblock %}
 
 {% block body-content %}
@@ -92,7 +54,7 @@
     <!--show Now-->
     <section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
         <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
-            <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Menu list</h3>
+            <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Cuisine List</h3>
             <div class="row">
                 <div class="side-bar col-lg-3">
 
@@ -358,7 +320,7 @@
                     <div id="mainselection">
                         <ul class="hList" style="list-style: none">
                             <li>
-                                <a href="#click" class="menu">
+                                <a  class="menu">
                                     <h2 class="menu-title"> Category <i class="fas fa-caret-down"></i></h2>
                                     <ul class="menu-dropdown" id="category_dropdown">
                                         {% for cat in categories %}
@@ -411,6 +373,8 @@
                         });
                         $('.category_dropdown').on('click', function () {
                             category = this.innerHTML;
+                            $('#get_menus').click();
+
                         });
                         $("#get_menus").click(function () {
                             $.ajax({

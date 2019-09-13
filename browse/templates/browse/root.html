@@ -111,11 +111,42 @@
                                     <script>
                                         $(document).ready(function () {
                                             $('#clear_location').on('click', function () {
-                                                $('#delivery_area_srch').val('');
-                                                $('#delivery_input').val('');
-                                                shoppingCart.clearCart();
-                                                deliveryLocation.clear();
-                                                displayCart();
+
+                                                function clearLocation() {
+                                                    $('#delivery_area_srch').val('');
+                                                    $('#delivery_input').val('');
+                                                    shoppingCart.clearCart();
+                                                    deliveryLocation.clear();
+                                                    displayCart();
+                                                }
+
+                                                if (shoppingCart.hasItems()) {
+                                                    $.confirm({
+                                                        title: 'Clear Cart!',
+                                                        content: 'You Have Items in cart.\nDiscard those?',
+                                                        buttons: {
+                                                            confirm: {
+                                                                text: 'Clear',
+                                                                btnClass: 'btn-red',
+                                                                action: function () {
+                                                                    clearLocation();
+                                                                    showWarningNotification("Your cart was cleared.");
+                                                                }
+                                                            },
+                                                            cancel: {
+                                                                text: 'Cancel',
+                                                                // btnClass: 'btn-red',
+                                                                action: function () {
+                                                                    showFailureNotification("Your location was not cleared.");
+                                                                    this.close();
+                                                                }
+                                                            },
+                                                        }
+                                                    });
+                                                } else {
+                                                    clearLocation();
+                                                }
+
                                             });
                                         });
                                     </script>
@@ -330,7 +361,6 @@
     {#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
     {#    Notification #}
     <script type="text/javascript" src="{% static 'browse/js/notify.js' %}"></script>
-    {#    Notification#}
     <script>
         function showSuccessNotification(name, timeout = 5000) {
             $.notify(name, "success", {
@@ -353,6 +383,7 @@
             });
         }
     </script>
+    {#    Notification#}
 
     {#    Cart#}
     <link href="{% static 'browse/css/cart.css' %}" rel='stylesheet' type='text/css'/>
@@ -361,8 +392,8 @@
 
 {% endblock %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+{#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>#}
 {##}
 {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
@@ -370,6 +401,17 @@
 
 <script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
+    {#   ------------------------------ javascripts ----------------------------------- #}
+    <!--bootstrap working-->
+    {#    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>#}
+    {#    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+    {#            <link rel="stylesheet" href="{% static 'browse/Restaurant_homepage/css/bootstrap.css' %}">#}
+    {#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+    {#        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">#}
+    <!-- //bootstrap working-->
+    {#   ------------------------------ javascripts ----------------------------------- #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 {% endblock %}
 
 {% block body-js %}

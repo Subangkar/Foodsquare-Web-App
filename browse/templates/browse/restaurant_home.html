@@ -259,7 +259,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- start-smoth-scrolling -->
 
     <!-- jQuery-Photo-filter-lightbox-Gallery-plugin -->
-    <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'browse/Restaurant_homepage/js/jquery-1.7.2.js' %}"></script>#}
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.quicksand.js' %}" type="text/javascript"></script>
     <script src="{% static 'browse/Restaurant_homepage/js/script.js' %}" type="text/javascript"></script>
     <script src="{% static 'browse/Restaurant_homepage/js/jquery.prettyPhoto.js' %}" type="text/javascript"></script>
@@ -290,8 +290,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div>
 					<span style="background: #35728a;padding:6px;">
-						<font color="white"> Opens at {{ restaurant.branch.opening_time }}</font>
-						<font color="white">Closes at {{ restaurant.branch.closing_time }}</font>
+						<font color="#90ee90"> Opens at {{ restaurant.branch.opening_time }}</font>
+						<font color="red">Closes at {{ restaurant.branch.closing_time }}</font>
 					</span>
 
             </div>
@@ -351,10 +351,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
 
             <div class="col-md-2" style="border-right: 1px solid white;  ">
-                <font style="color: white">Closed<br> for delivery </font>
+                <font style="color: white">Open<br> for delivery </font>
             </div>
             <div class="col-md-2">
-                <font style="color: white">60 mins <br> Delivery time </font>
+                <font style="color: white">30-45 mins <br> Delivery time </font>
             </div>
         {% else %}
             <font style="color: white"><i class="fas fa-star">{{ rating |floatformat:1 }} rating</i> </font>
@@ -422,10 +422,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </div>
                                 </div>
 
-
                             {% endif %}
-
-
                         </div>
                     </li>
 
@@ -666,7 +663,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="comment">Leave a review:</label>
+                                            <label for="comment">Leave a review: </label>
                                             <textarea class="form-control" rows="2" id="comment"></textarea>
                                         </div>
 
@@ -704,7 +701,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                                             {% else %}
 
-                                                alert('Please log in to post review');
+                                                alert('Please log in to post review.');
                                             {% endif %}
                                         });
 
@@ -727,37 +724,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- //Newsletter -->
 
         <!-- footer -->
-        <footer>
-            <div class="container py-3 py-md-4">
-                <div class="row">
-                    <div class="col-lg-5 col-md-12">
-                        <p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a
-                                href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
-                    </div>
-                    <div class="col-lg-2 col-md-12 logo text-center">
-                        <a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>
-                    </div>
-                    <div class="col-lg-5 col-md-12">
-                        <ul class="py-lg-4">
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a>
-                            </li>
-                            <li class="mx-2"><a
-                                    href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>
-                            </li>
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food
-                                menu</a>
-                            </li>
-                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error
-                                page</a>
-                            </li>
-                            <li class="mx-2"><a
-                                    href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
+{#        <footer>#}
+{#            <div class="container py-3 py-md-4">#}
+{#                <div class="row">#}
+{#                    <div class="col-lg-5 col-md-12">#}
+{#                        <p class="py-lg-4">© 2018 Cafe In. All Rights Reserved | Design by <a#}
+{#                                href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>#}
+{#                    </div>#}
+{#                    <div class="col-lg-2 col-md-12 logo text-center">#}
+{#                        <a href="{% static 'browse/Restaurant_homepage/index.html' %}">Cafe In</a>#}
+{#                    </div>#}
+{#                    <div class="col-lg-5 col-md-12">#}
+{#                        <ul class="py-lg-4">#}
+{#                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/index.html' %}">Home</a>#}
+{#                            </li>#}
+{#                            <li class="mx-2"><a#}
+{#                                    href="{% static 'browse/Restaurant_homepage/services.html' %}">Services</a>#}
+{#                            </li>#}
+{#                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/gallery.html' %}">Food#}
+{#                                menu</a>#}
+{#                            </li>#}
+{#                            <li class="mx-2"><a href="{% static 'browse/Restaurant_homepage/error.html' %}">Error#}
+{#                                page</a>#}
+{#                            </li>#}
+{#                            <li class="mx-2"><a#}
+{#                                    href="{% static 'browse/Restaurant_homepage/contact.html' %}">Contact</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </footer>#}
         <!-- footer -->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -791,30 +788,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
 
         <!-- Vertically centered Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"
-                             alt="cafe Image"/>
-                        Vivamus eget est in odio tempor interdum. Mauris maximus fermentum arcu, ac finibus ante. Sed
-                        mattis
-                        risus at ipsum elementum, ut auctor turpis cursus. Sed sed odio pharetra, aliquet velit cursus,
-                        vehicula enim. Mauris porta aliquet magna, eget laoreet ligula.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+{#        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"#}
+{#             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">#}
+{#            <div class="modal-dialog modal-dialog-centered" role="document">#}
+{#                <div class="modal-content">#}
+{#                    <div class="modal-header">#}
+{#                        <h5 class="modal-title text-uppercase" id="exampleModalLongTitle">Cafe In</h5>#}
+{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                            <span aria-hidden="true">&times;</span>#}
+{#                        </button>#}
+{#                    </div>#}
+{#                    <div class="modal-body">#}
+{#                        <img src="{% static 'browse/Restaurant_homepage/images/4.jpg' %}" class="img-fluid mb-3"#}
+{#                             alt="cafe Image"/>#}
+{#                        #}
+{#                    </div>#}
+{#                    <div class="modal-footer">#}
+{#                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#                        <button type="button" class="btn btn-primary">Save changes</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <!-- //show Now-->
 {% endblock %}

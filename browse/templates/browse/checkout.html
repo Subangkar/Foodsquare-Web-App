@@ -5,27 +5,13 @@
 
     <title>Checkout | FoodSquare</title>
 
-    <!--price range-->
-    <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/jquery-ui1.css' %}">
-    <!--//price range-->
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!--//meta tags ends here-->
-
     <!--checkout-->
     <link rel="stylesheet" type="text/css" href="{% static 'browse/toys_shop/css/checkout.css' %}">
     <!--//checkout-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    {#    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>#}
+    {#    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>#}
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
     <link href="{% static 'browse/toys_shop/css/easy-responsive-tabs.css' %}" rel='stylesheet' type='text/css'/>
 
 {% endblock %}
@@ -139,7 +125,7 @@
                         <div class="responsive_tabs">
                             <div id="horizontalTab">
                                 <ul class="resp-tabs-list">
-                                    <li>Cash on delivery (COD)</li>
+                                    <li>Cash on Delivery (COD)</li>
 
                                     <li>Mobile Banking</li>
                                 </ul>
@@ -154,7 +140,7 @@
                                                         <label class="anim">
                                                             <input type="checkbox" class="checkbox">
                                                             <span> We also accept Credit/Debit card on delivery. Please
-                                                            Check with the agent.</span>
+                                                            check with the agent.</span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -186,7 +172,7 @@
                                                     {#                                                            </input>#}
                                                     {#                                                        </form>#}
                                                     <div>
-                                                        <h3>Pay To: 017784687436</h3>
+                                                        <h3>Pay To: 01778 468 743</h3>
                                                     </div>
                                                     <link rel="stylesheet"
                                                           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -248,7 +234,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    <font style="font-weight: 600; font-size:20px;"> Complete your order</font>
+                    <font style="font-weight: 600; font-size:20px;"> Complete your order </font>
                     <p>
                         <font style="font-weight: 400; font-size:15px;">Your order isn't complete yet. Please pay with
                             ref. <span id="ref_no" style="color: #9F0053;"></span> via bkash. You'll receive
@@ -314,7 +300,9 @@
             }
             $('.checkout-form').html(output);
             document.getElementById('item-list').value = itemListJSON();
-            document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
+            if (cartArray.length > 0) {
+                document.getElementById('branch-id-hidden').value = cartArray[0].rest_id;
+            }
         }
 
         function displayBasket() {
@@ -335,9 +323,9 @@
             console.log(">> delete >");
             var id = $(this).data('id');
             shoppingCart.removeItemFromCartAll(id);
-            displayCheckout();
-            displayBasket();
             displayCart();
+            displayBasket();
+            displayCheckout();
         });
 
         // -1
@@ -432,38 +420,10 @@
     <!-- //Modal 1-->
     <!--js working-->
     <!--//js working-->
-    <!-- cart-js -->
-    <script src="{% static 'browse/toys_shop/js/minicart.js' %}"></script>
     <script src="{% static 'browse/toys_shop/js/creditly.js' %}"></script>
     <link rel="stylesheet" href="{% static 'browse/toys_shop/css/creditly.css' %}" type="text/css" media="all"/>
-    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>
+    {#    <script src="{% static 'browse/toys_shop/js/jquery-2.2.3.min.js' %}"></script>#}
     <script src="{% static 'browse/toys_shop/js/easy-responsive-tabs.js' %}"></script>
-    <!-- start-smoth-scrolling -->
-    <script src="{% static 'browse/toys_shop/js/move-top.js' %}"></script>
-    <script src="{% static 'browse/toys_shop/js/easing.js' %}"></script>
-    <!--bootstrap working-->
-    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>
-    <script>
-        $(function () {
-            var creditly = Creditly.initialize(
-                '.creditly-wrapper .expiration-month-and-year',
-                '.creditly-wrapper .credit-card-number',
-                '.creditly-wrapper .security-code',
-                '.creditly-wrapper .card-type');
-
-            $(".creditly-card-form .submit").click(function (e) {
-                e.preventDefault();
-                var output = creditly.validate();
-                if (output) {
-                    // Your validated credit card output
-                    console.log(output);
-                }
-            });
-        });
-    </script>
-    <!-- //credit-card -->
-    <!-- start-smoth-scrolling -->
-
 
     <script>
         $(document).ready(function () {
@@ -513,20 +473,6 @@
     </script>
     <!-- start-smoth-scrolling -->
     <!-- here stars scrolling icon -->
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-        });
-    </script>
     <!-- //here ends scrolling icon -->
 
     <!-- //bootstrap working-->
