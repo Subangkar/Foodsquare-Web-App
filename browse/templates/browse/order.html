@@ -358,7 +358,7 @@
                     <div id="mainselection">
                         <ul class="hList" style="list-style: none">
                             <li>
-                                <a href="#click" class="menu">
+                                <a  class="menu">
                                     <h2 class="menu-title"> Category <i class="fas fa-caret-down"></i></h2>
                                     <ul class="menu-dropdown" id="category_dropdown">
                                         {% for cat in categories %}
@@ -411,6 +411,8 @@
                         });
                         $('.category_dropdown').on('click', function () {
                             category = this.innerHTML;
+                            $('#get_menus').click();
+
                         });
                         $("#get_menus").click(function () {
                             $.ajax({
