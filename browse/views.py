@@ -36,6 +36,8 @@ def bkashPayment(request):
 
 
 class Index(TemplateView):
+	"""[Renders Home Page]	
+	"""
 	template_name = 'browse/index.html'
 
 	def get_context_data(self, **kwargs):
@@ -181,12 +183,10 @@ class CheckoutView(TemplateView):
 
 
 class RestaurantList(TemplateView):
-	"""[Renders list of branches in 4km radius]
+	"""Renders list of branches in 4km radius
 	Description:
-		If no such branch is in radius then None
-		Assuming, a restaurant with null key cannot have any branch
-	Returns:
-		[type] -- [description]
+	If no such branch is in radius then None
+	Assuming, a restaurant with null key cannot have any branch
 	"""
 	template_name = 'browse/restaurants.html'
 
@@ -223,6 +223,9 @@ class RestaurantList(TemplateView):
 
 
 class RestaurantBranchDetails(TemplateView):
+	"""Renders a Branch Home Page
+	
+	"""
 	template_name = 'browse/restaurant_home.html'
 
 	def get_context_data(self, **kwargs):
@@ -244,7 +247,12 @@ class RestaurantBranchDetails(TemplateView):
 
 
 class RestaurantDetails(TemplateView):
+	"""Renders a Restaurant Home Page
+	
+	"""
+
 	template_name = 'browse/restaurant_home.html'
+
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
