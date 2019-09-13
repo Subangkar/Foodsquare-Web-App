@@ -2,6 +2,7 @@ import random
 import string
 
 from accounts.models import Restaurant, User
+from webAdmin.models import Config
 
 
 def uniqueKey(N=10):
@@ -13,12 +14,10 @@ def uniqueKey(N=10):
 
 # ------------------ Configs ----------------------
 def get_delivery_charge(total_price):
-	from webAdmin.models import Config
 	return round(float(Config.get_value(Config.DELIVERY_CHARGE_PERCENTAGE)) / 100 * total_price, 2)
 
 
 def get_delivery_charge_percentage():
-	from webAdmin.models import Config
 	return round(float(Config.get_value(Config.DELIVERY_CHARGE_PERCENTAGE)) / 100, 2)
 
 
@@ -39,6 +38,10 @@ def get_deliverymen_list():
 			where accounts_order.time >= date_trunc('month', CURRENT_DATE)\
 			group by delman.id"
 	return namedtuplefetchall(query, [])
+
+
+def get_no_items_per_page():
+	return Config.get_value(Config.ITEMS_PER_PAGE)
 
 
 def send_notification_to_admin(message):

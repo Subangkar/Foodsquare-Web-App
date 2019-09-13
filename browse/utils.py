@@ -45,4 +45,23 @@ def distance(p1, p2):
 	# print(distance)
 	return distance
 
+
 # print(distance("52.2296756,21.0122287", "52.406374,16.9251681"))
+
+
+# ------------------- Pagination --------------------
+def get_page_objects(qset, page, items_per_page=0):
+	"""
+	https://docs.djangoproject.com/en/2.2/topics/pagination/
+	:param qset: queryset or array
+	:param page: page no to view
+	:param items_per_page: no of items per page
+	:return: page object which is iterable
+	"""
+	if page is None or page == 0:
+		page = 1
+	if items_per_page is None or items_per_page == 0:
+		from webAdmin.utils import get_no_items_per_page
+		items_per_page = get_no_items_per_page()
+	from django.core.paginator import Paginator
+	return Paginator(qset, items_per_page).get_page(page)

@@ -15,6 +15,65 @@ def namedtuplefetchall(query, param_list):
 		return [nt_result(*row) for row in cursor.fetchall()]
 
 
+# ------------------------ Restaurant / Branches -----------------------
+class RestBranch:
+	branch = None
+	is_branch = False
+	user = None
+	restaurant_name = None
+	restaurant_key = None
+	trade_license = None
+	restaurantImg = None
+	id = None
+
+	def __init__(self, restaurant, branch=None):
+		self.user = restaurant.user
+		self.restaurant_name = restaurant.restaurant_name
+		self.restaurant_key = restaurant.restaurant_key
+		self.trade_license = restaurant.trade_license
+		self.restaurantImg = restaurant.restaurantImg
+		self.id = restaurant.id
+		self.pk = restaurant.pk
+		self.get_absolute_url = restaurant.get_absolute_url()
+
+		if branch is not None:
+			self.is_branch = True
+			self.is_open_now = branch.is_open_now()
+			# print(branch.get_absolute_url())
+			self.get_absolute_url = branch.get_absolute_url()
+
+		self.addBranch(branch=branch)
+
+	def __eq__(self, other):
+		return self.branch == other.branch if self.branch else self.id == other.id
+
+	def addBranch(self, branch):
+		self.branch = branch
+		self.is_branch = self.branch is not None
+
+
+def branchesInRadius(coord, queryset):
+	import functools
+	from accounts.models import RestaurantBranch
+	rest_map = {}
+	rest_list = []
+	for r in queryset:
+		if r.restaurant.id in rest_map:
+			rest_map[r.restaurant.id].append(r)
+		else:
+			rest_map[r.restaurant.id] = [r]
+	for rest in rest_map.values():
+		branches = sorted(rest, key=functools.cmp_to_key(lambda x, y: x.distance(coord) - y.distance(coord)))
+		if branches[0].distance(coord) < RestaurantBranch.MAX_DELIVERABLE_DISTANCE:
+			def_branch = branches[0]
+			for branch in branches:
+				if branch.is_open_now():
+					def_branch = branch
+					break
+			rest_list.append(RestBranch(def_branch.restaurant, branch=def_branch))
+	return rest_list
+
+
 # ------------------- Review Ratings -------------------------
 
 

@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.loca
                  'api.localhost', 'admin.localhost', 'delivery.localhost',
                  'foodsquare.com', 'www.foodsquare.com', 'manager.foodsquare.com', 'delivery.foodsquare.com',
                  'api.foodsquare.com',
-                 'foodsquare1.herokuapp.com', 'www.foodsquare1.herokuapp.com', 'manager.foodsquare1.herokuapp.com', 'delivery.foodsquare1.herokuapp.com',
+                 'foodsquare1.herokuapp.com', 'www.foodsquare1.herokuapp.com', 'manager.foodsquare1.herokuapp.com',
+                 'delivery.foodsquare1.herokuapp.com',
                  'api.foodsquare1.herokuapp.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
                  'api.foodsquare.net', 'admin.foodsquare.net',
@@ -217,7 +218,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
 
-
 # PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # Extra lookup directories for collectstatic to find static files
 # STATICFILES_DIRS = (
@@ -230,5 +230,6 @@ SITE_ID = 1
 
 
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
