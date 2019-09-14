@@ -57,8 +57,10 @@ class EditProfileView(TemplateView):
 
 class myOrdersList(ListView):
 	template_name = 'customer/trackOrder.html'
-	queryset = Order.objects.all()
 	context_object_name = 'Orders'
+
+	def get_queryset(self):
+		return Order.objects.filter(user=self.request.user)
 
 
 def get_notifications(request):

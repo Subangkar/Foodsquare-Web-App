@@ -63,6 +63,14 @@ class User(AbstractUser):
 			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED]).count()
 		return 0
 
+	def get_image(self):
+		if self.is_customer:
+			return self.userprofile.avatar
+		if self.is_manager:
+			return self.restaurant.get_image()
+		if self.is_branch_manager:
+			return self.restaurantbranch.get_image()
+		return 'default.png'
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)

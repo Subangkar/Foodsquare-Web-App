@@ -123,15 +123,6 @@
     </div>
 </nav>
 
-<form class="search-form" action="#" method="GET">
-    <div class="input-group">
-        <input type="text" name="search" class="form-control search-input" placeholder="Search...">
-        <span class="input-group-btn">
-                <button class="btn btn-default close-search waves-effect waves-button waves-classic" type="button"><i
-                        class="fa fa-times"></i></button>
-            </span>
-    </div><!-- Input Group -->
-</form><!-- Search Form -->
 <main class="page-content content-wrap">
     <div class="navbar">
         <div class="navbar-inner">
@@ -303,7 +294,7 @@
                             <a href="/branch_dashboard/" class="dropdown-toggle waves-effect waves-button waves-classic">
                                 <span class="user-name">{{ request.user.username }}</span>
                                 <img class="img-circle avatar"
-                                     src={{ request.user.restaurantbranch.get_image.url }}  width="40" height="40"
+                                     src={{ request.user.get_image.url }}  width="40" height="40"
                                      alt="">
                             </a>
                         </li>
@@ -322,10 +313,9 @@
         <div class="page-sidebar-inner slimscroll">
             <div class="sidebar-header">
                 <div class="sidebar-profile">
-                    <!-- <a href="javascript:void(0);" id="profile-menu-link"> -->
-                    <!--                        <div class="sidebar-profile-image">-->
-                    <!--                            <img src={{ userprofile.avatar.url }} class="img-circle img-responsive" alt="">-->
-                    <!--                        </div>-->
+                    <div class="sidebar-profile-image">
+                        <img src="{{ request.user.get_image.url }}" class="img-circle img-responsive" alt="">
+                    </div>
                     <div class="sidebar-profile-details">
                         <span>{{ request.user.username }} <br></span>
                     </div>
