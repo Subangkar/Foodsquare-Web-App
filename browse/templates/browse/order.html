@@ -11,7 +11,7 @@
 
 
 {% block body-js %}
-{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
+    {#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
     {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
@@ -337,10 +337,35 @@
                 <div class="left-ads-display col-lg-9 product_list">
 
                     {% include "browse/product_list.html" %}
+
                     <script>
 
                     </script>
                 </div>
+
+                {% if item_list.has_other_pages %}
+                    <ul class="pagination" style="padding-left: 35%">
+                        {% if item_list.has_previous %}
+                            <li><a href="?page={{ item_list.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in item_list.paginator.page_range %}
+                            {% if item_list.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if item_list.has_next %}
+                            <li><a href="?page={{ item_list.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+
+
 
                 <script>
                     var rating = 0;

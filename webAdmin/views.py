@@ -17,7 +17,7 @@ class RestaurantListView(ListView):
 	template_name = 'webAdmin/restaurant_list.html'
 	queryset = Restaurant.objects.all()
 	context_object_name = 'restaurants'
-
+	paginate_by = 10
 
 def requestAccept(request, id):
 	obj = Restaurant.objects.get(id=id)
@@ -51,6 +51,7 @@ class DeliveyListView(ListView):
 	template_name = 'webAdmin/delivery_info.html'
 	queryset = get_deliverymen_list()
 	context_object_name = 'delivery_men'
+	paginate_by = 10
 
 
 class AdminDashBoardView(TemplateView):

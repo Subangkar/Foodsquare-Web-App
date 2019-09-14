@@ -121,6 +121,9 @@
                         </script>
                     </div>
                 </div>
+
+                {% include 'webAdmin/listViewPagination.html' %}
+
             </div>
         </div>
         {#        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Launch demo modal</button>#}
@@ -152,6 +155,6 @@
     </button>
 
     <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-       {% include 'webAdmin/branch_info.html' %}
+        {% include 'webAdmin/branch_info.html' %}
     </div>
 {% endblock %}

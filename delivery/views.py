@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from accounts.models import *
 from accounts.utils import pretty_request
@@ -15,14 +15,25 @@ class IndexView(TemplateView):
 		return context
 
 
-class AcceptOrdersView(TemplateView):
-	template_name = 'delivery/delivery_order.html'
+# class AcceptOrdersView(TemplateView):
+# 	template_name = 'delivery/delivery_order.html'
+#
+# 	def get_context_data(self, **kwargs):
+# 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+# 		print(self.request.user.id)
+# 		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
+# 		return {'object_list': obj_list}
 
-	def get_context_data(self, **kwargs):
-		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+
+class AcceptOrdersView(ListView):
+	template_name = 'delivery/delivery_order.html'
+	context_object_name = 'object_list'
+	paginate_by = 10
+
+	def get_queryset(self):
 		print(self.request.user.id)
 		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
-		return {'object_list': obj_list}
+		return obj_list
 
 
 class EditProfileView(TemplateView):
@@ -79,14 +90,27 @@ def delivery_details(request):
 	return render(request, 'delivery/delivery_modal.html',
 	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
 
+#
+# class Delivered_Orders(TemplateView):
+# 	template_name = 'delivery/previous_order.html'
+#
+# 	def get_context_data(self, **kwargs):
+# 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
+# 		obj_list = get_past_orders(self.request.user.id)
+# 		return {'object_list': obj_list}
+#
 
-class Delivered_Orders(TemplateView):
+
+class Delivered_Orders(ListView):
 	template_name = 'delivery/previous_order.html'
+	context_object_name = 'object_list'
+	paginate_by = 10
 
-	def get_context_data(self, **kwargs):
+	def get_queryset(self):
 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
 		obj_list = get_past_orders(self.request.user.id)
-		return {'object_list': obj_list}
+		# return {'object_list': obj_list}
+		return obj_list
 
 
 def submitCustomerRating(request):
