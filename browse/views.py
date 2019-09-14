@@ -1,5 +1,7 @@
 import functools
 import json
+import random
+import string
 
 from django.db.models import Q
 from django.http import JsonResponse
@@ -32,10 +34,23 @@ def viewRaw(request):
 
 
 def bkashPayment(request):
-	return JsonResponse({'ref': getUniqueBkashRef(12)})
+	return render(request, "browse/bkash_payment.html", {'bkash_ref': getUniqueBkashRef(12)})
+
+# class bkashPayment(TemplateView):
+# 	template_name = 'browse/bkash_payment.html'
+#
+# 	def get_context_data(self, **kwargs):
+# 		with open("sessionLog.txt", "a") as myfile:
+# 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+# 		pkg_list = Package.objects.all()
+# 		rest_list = Restaurant.objects.all()
+# 		ctx = {'bkash_ref': getUniqueBkashRef(12)}}
+# 		return ctx
 
 
 class Index(TemplateView):
+	"""[Renders Home Page]	
+	"""
 	template_name = 'browse/index.html'
 
 	def get_context_data(self, **kwargs):
@@ -154,10 +169,12 @@ class CheckoutView(TemplateView):
 		total_price += utils.get_delivery_charge(total_price)
 
 		payment = None
+		ref = None
 		if request.POST.get('bkash_payment') is not None:
 			print('success')
+			ref = getUniqueBkashRef(12)
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.ONLINE,
-			                                 bkash_ref=request.POST.get('ref_no'), payment_status=Payment.DUE)
+			                                 bkash_ref=ref, payment_status=Payment.DUE)
 		else:
 			print('cash')
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
@@ -177,16 +194,18 @@ class CheckoutView(TemplateView):
 		send_notification(order.branch.user.id,
 		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) +
 		                  ' items')
-		return redirect("/")
+
+		if request.POST.get('bkash_payment') is not None:
+			return render(request, "browse/bkash_payment.html", {'bkash_ref': ref })
+		else:
+			return redirect("/")
 
 
 class RestaurantList(TemplateView):
-	"""[Renders list of branches in 4km radius]
+	"""Renders list of branches in 4km radius
 	Description:
-		If no such branch is in radius then None
-		Assuming, a restaurant with null key cannot have any branch
-	Returns:
-		[type] -- [description]
+	If no such branch is in radius then None
+	Assuming, a restaurant with null key cannot have any branch
 	"""
 	template_name = 'browse/restaurants.html'
 
@@ -223,6 +242,9 @@ class RestaurantList(TemplateView):
 
 
 class RestaurantBranchDetails(TemplateView):
+	"""Renders a Branch Home Page
+	
+	"""
 	template_name = 'browse/restaurant_home.html'
 
 	def get_context_data(self, **kwargs):
@@ -244,7 +266,12 @@ class RestaurantBranchDetails(TemplateView):
 
 
 class RestaurantDetails(TemplateView):
+	"""Renders a Restaurant Home Page
+	
+	"""
+
 	template_name = 'browse/restaurant_home.html'
+
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:

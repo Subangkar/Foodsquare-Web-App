@@ -11,7 +11,7 @@
 
 
 {% block body-js %}
-{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
+    {#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
     {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">#}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
@@ -172,6 +172,15 @@
                                     {% endfor %}
                                 </button>
                                 <span>And Up</span>
+
+                            </li>
+
+
+                            <li>
+
+                                <button class="rating_btn" type="submit" form="rating_form" name="0" style="background: lightskyblue">
+                                    <span style=" font-weight: bold;font-size: large">All rating</span>
+                                </button>
 
                             </li>
 
@@ -337,13 +346,15 @@
                 <div class="left-ads-display col-lg-9 product_list">
 
                     {% include "browse/product_list.html" %}
-                    <script>
 
-                    </script>
                 </div>
 
+
+
+
+
                 <script>
-                    var rating = 0;
+                    var ratingVal = 0;
                     var min_range = 0;
                     var max_range = 10000;
                     var menu_name;
@@ -354,7 +365,7 @@
                             alert(this.value);
                         });
                         $(".rating_group button").click(function () {
-                            rating = this.name;
+                            ratingVal = this.name;
                             $('#get_menus').click();
                             {#alert(rating);#}
                         });
@@ -377,11 +388,13 @@
 
                         });
                         $("#get_menus").click(function () {
+                                                        {#alert(rating);#}
+
                             $.ajax({
                                 method: "GET",
                                 url: 'filter/',
                                 data: {
-                                    'rating': rating,
+                                    'rating': ratingVal,
                                     'min_range': min_range,
                                     'max_range': max_range,
                                     'menu_name': menu_name,

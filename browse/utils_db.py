@@ -31,7 +31,8 @@ class RestBranch:
 		self.restaurant_name = restaurant.restaurant_name
 		self.restaurant_key = restaurant.restaurant_key
 		self.trade_license = restaurant.trade_license
-		self.restaurantImg = restaurant.restaurantImg
+		self.restaurantImg = restaurant.get_image()
+		self.get_image = restaurant.get_image()
 		self.id = restaurant.id
 		self.pk = restaurant.pk
 		self.get_absolute_url = restaurant.get_absolute_url()
@@ -41,6 +42,7 @@ class RestBranch:
 			self.is_open_now = branch.is_open_now()
 			# print(branch.get_absolute_url())
 			self.get_absolute_url = branch.get_absolute_url()
+			self.get_image = branch.get_image()
 
 		self.addBranch(branch=branch)
 

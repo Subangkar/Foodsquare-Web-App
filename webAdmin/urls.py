@@ -13,6 +13,7 @@ urlpatterns = [
 	path('restaurant_info/', views.restaurantDetails),
 	path('delivery_info/', views.DeliveyListView.as_view()),
 	path('dashboard/', views.AdminDashBoardView.as_view()),
+	path('branch_info/', views.branch_list),
 
 	path('', RedirectView.as_view(url='/accounts/admin_login'), name='accounts'),
 	path('accounts/', include('accounts.urls'), name='accounts'),

@@ -165,6 +165,10 @@
                                                 <div>
                                                     <h1>Proceed with bKash Payment</h1>
                                                     {#                                                        <form action="">#}
+                                                    <input  type="submit" form="checkout-form-submit" class="btn btn-success payment-detail-submit" id="bkash_submit"
+                                                            name="bkash_payment"
+                                                            value="Complete Order"
+                                                            style=" width: 25%; height: 25%; outline: none; display: none"/>
                                                     <input type="image" onclick="loadDoc()"
                                                            src="{% static 'browse/images/bkash.png' %}"
                                                            alt="Submit"
@@ -188,19 +192,21 @@
 
                                                         function loadDoc() {
                                                             event.preventDefault();
-                                                            var xhttp = new XMLHttpRequest();
-                                                            xhttp.onreadystatechange = function () {
-                                                                if (this.readyState === 4 && this.status === 200) {
-                                                                    var response = JSON.parse(this.responseText);
-                                                                    $('#ref_no').text(response.ref);
-                                                                    {#$('#bkash_ref_no').value = response.ref;#}
-                                                                    document.getElementById('bkash_ref_no').value = response.ref;
-                                                                    $('#bkash_refModal_btn').click();
-                                                                }
-                                                            };
-                                                            xhttp.open("GET", "getBkashRef", true);
-                                                            xhttp.send();
-                                                        }
+
+                                                            $('#bkash_submit').click();
+                                                            {#var xhttp = new XMLHttpRequest();#}
+                                                            {#xhttp.onreadystatechange = function () {#}
+                                                            {#    if (this.readyState === 4 && this.status === 200) {#}
+                                                            {#        var response = JSON.parse(this.responseText);#}
+                                                            {#        $('#ref_no').text(response.ref);#}
+                                                            {#$('#bkash_ref_no').value = response.ref;#}
+                                                            {#        document.getElementById('bkash_ref_no').value = response.ref;#}
+                                                            {#        $('#bkash_refModal_btn').click();#}
+                                                            {#    }#}
+                                                            {#};#}
+                                                                {#xhttp.open("GET", "getBkashRef", true);#}
+                                                                {#xhttp.send();#}
+                                                            }
                                                     </script>
                                                 </div>
 

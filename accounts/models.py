@@ -3,6 +3,8 @@ import datetime
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
 
 from browse.utils import distance
@@ -14,6 +16,8 @@ class User(AbstractUser):
 	is_branch_manager = models.BooleanField('Branch Manager Account', default=False)
 	is_delivery_man = models.BooleanField('Delivery Account', default=False)
 	backend = 'django.contrib.auth.backends.ModelBackend'
+
+	is_suspended = models.BooleanField('Suspended Account', default=False)
 
 	class Meta:
 		verbose_name = "User"
@@ -44,6 +48,29 @@ class User(AbstractUser):
 		for notf in Notification.objects.filter(user=self, time__lte=time):
 			notf.mark_as_read()
 
+	def suspend_account(self):
+		self.is_suspended = True
+		self.save()
+
+	def active_account(self):
+		self.is_suspended = False
+		self.save()
+
+	def get_order_count(self):
+		if self.is_customer:
+			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED, Order.DELIVERING]).count()
+		if self.is_delivery_man:
+			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED]).count()
+		return 0
+
+	def get_image(self):
+		if self.is_customer:
+			return self.userprofile.avatar
+		if self.is_manager:
+			return self.restaurant.get_image()
+		if self.is_branch_manager:
+			return self.restaurantbranch.get_image()
+		return 'default.png'
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -63,7 +90,6 @@ class Restaurant(models.Model):
 	restaurant_key = models.CharField(max_length=250, default='0')
 	trade_license = models.CharField(max_length=50, unique=True, blank=False)
 
-	# ei field ta
 	restaurantImg = models.ImageField(upload_to='restaurant_img/', default='restaurant_img/default.png')
 
 	class Meta:
@@ -80,6 +106,9 @@ class Restaurant(models.Model):
 		from browse.utils_db import get_rating_restaurant
 		return get_rating_restaurant(self.id)
 
+	def get_image(self):
+		return self.restaurantImg
+
 
 class RestaurantBranch(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -92,6 +121,8 @@ class RestaurantBranch(models.Model):
 	branch_phonenum = models.CharField(max_length=20, default='')
 	branch_mobilenum = models.CharField(max_length=20, default='')
 	branch_email = models.CharField(max_length=50, default='')
+
+	image = models.ImageField(upload_to='restaurant_img/', default='restaurant_img/default.png')
 
 	running = models.BooleanField(default=False)
 	opening_time = models.FloatField(verbose_name='Opening Time in 24h format', default=9.00)
@@ -126,6 +157,11 @@ class RestaurantBranch(models.Model):
 	def get_avg_rating(self):
 		from browse.utils_db import get_rating_branch
 		return get_rating_branch(self.id)
+
+	def get_image(self):
+		if self.image == 'restaurant_img/default.png':
+			return self.restaurant.get_image()
+		return self.image
 
 
 class Payment(models.Model):
@@ -248,6 +284,35 @@ class Order(models.Model):
 	def submitDelivery(self):
 		self.order_status = Order.DELIVERED
 		self.save()
+
+	def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+		deliveryman_rating_old = self.user.get_rating()
+		deliveryman_rating_old = self.user.get_rating()
+		super(models.Model, self).save(self, force_insert, force_update, using, update_fields)
+
+	def save(self, *args, **kwargs):
+		deliveryman_rating_old = self.user.get_rating()
+		deliveryman_rating_old = self.user.get_rating()
+		super(models.Model, self).save(*args, **kwargs)
+
+
+@receiver(post_save, sender=Order, dispatch_uid="update_order_status")
+def update_suspend_status(sender, instance, **kwargs):
+	print('order saved/updated ', instance)
+	if instance.order_status in [Order.DELIVERING, Order.DELIVERED]:
+		if instance.user.get_rating() < 2.00:
+			instance.user.is_suspended = True
+			instance.user.save()
+			print(instance.user, " suspended !!!")
+		if instance.delivery.deliveryman.user.get_rating() < 2.00:
+			instance.delivery.deliveryman.user.is_suspended = True
+			instance.delivery.deliveryman.user.save()
+			print(instance.delivery.deliveryman.user, " suspended !!!")
+
+
+# post_save.disconnect(update_suspend_status, sender=Order)
+# instance.product.save()
+# post_save.connect(update_suspend_status, sender=Order)
 
 
 class OrderPackageList(models.Model):
