@@ -156,19 +156,8 @@
                     </div>
                 </div><!-- Row -->
                 <div class="row">
-                    {#                    <div class="col-md-6">#}
-                    {#                        <div class="panel panel-white">#}
-                    {#                            <div class="panel-heading">#}
-                    {#                                <h3 class="panel-title">Line Chart</h3>#}
-                    {#                            </div>#}
-                    {#                            <div class="panel-body">#}
-                    {#                                <div>#}
-                    {#                                    <canvas id="chart1" height="150"></canvas>#}
-                    {#                                </div>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    <div class="col-md-6">
+
+                    <div class="col-md-8">
                         <div class="panel panel-white">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Outlets revenue</h3>
@@ -180,60 +169,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+
+
+                </div><!-- Row -->
+                <div class="row">
+                    <div class="col-md-8">
                         <div class="panel panel-white">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Item sales</h3>
                             </div>
                             <div class="panel-body">
                                 <div>
-                                    <canvas id="pieChart" height="150"></canvas>
-                                </div>
+                                    <canvas id="pieChart" width="600" height="400"></canvas>                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div><!-- Row -->
-                <div class="row">
-                    {#                    <div class="col-md-6">#}
-                    {#                        <div class="panel panel-white">#}
-                    {#                            <div class="panel-heading">#}
-                    {#                                <h3 class="panel-title">Doughnut Chart</h3>#}
-                    {#                            </div>#}
-                    {#                            <div class="panel-body">#}
-                    {#                                <div>#}
-                    {#                                    <canvas id="chart4" height="150"></canvas>#}
-                    {#                                </div>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                </div><!-- Row -->
-                {#                <div class="row">#}
-                {#                    <div class="col-md-6">#}
-                {#                        <div class="panel panel-white">#}
-                {#                            <div class="panel-heading">#}
-                {#                                <h3 class="panel-title">Polar Area Chart</h3>#}
-                {#                            </div>#}
-                {#                            <div class="panel-body">#}
-                {#                                <div>#}
-                {#                                    <canvas id="chart5" height="150"></canvas>#}
-                {#                                </div>#}
-                {#                            </div>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-6">#}
-                {#                        <div class="panel panel-white">#}
-                {#                            <div class="panel-heading">#}
-                {#                                <h3 class="panel-title">Radar Chart</h3>#}
-                {#                            </div>#}
-                {#                            <div class="panel-body">#}
-                {#                                <div>#}
-                {#                                    <canvas id="chart6" height="150"></canvas>#}
-                {#                                </div>#}
-                {#                            </div>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                </div><!-- Row -->#}
+
             </div><!-- Main Wrapper -->
 
         </div><!-- Page Inner -->
@@ -245,35 +198,20 @@
     <!-- Javascripts -->
     <script src="{% static 'manager/plugins/jquery/jquery-2.1.3.min.js' %}"></script>
     <script src="{% static 'manager/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/pace-master/pace.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/jquery-blockui/jquery.blockui.js' %}"></script>
-    <script src="{% static 'manager/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/switchery/switchery.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/uniform/jquery.uniform.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/classie.js' %}"></script>
-    {#    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/main.js' %}"></script>#}
-    <script src="{% static 'manager/plugins/waves/waves.min.js' %}"></script>
-    <script src="{% static 'manager/plugins/3d-bold-navigation/js/main.js' %}"></script>
-    <script src="{% static 'manager/plugins/chartsjs/Chart.min.js' %}"></script>
-    <script src="{% static 'manager/js/modern.min.js' %}"></script>
-    {#        <script src="{% static 'manager/js/pages/charts-chartjs.js' %}"></script>#}
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
 
     <script>
         $(document).ready(function () {
 
-
-            var ctx2 = document.getElementById("barChart").getContext("2d");
-            var i = 0;
-
-            var data2 = {
-                labels: {{ months | safe }},
+            var barChartData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                    "October", "November", "December"],
                 datasets: [
-
                     {% for branch in branches %}
                         {
                             label: "{{ branch.name }}",
-                            fillColor: "{{ branch.fillColor }}",
+                            backgroundColor: "{{ branch.fillColor }}",
 
                             data: {{ branch.sale | safe}}
                         },
@@ -281,70 +219,69 @@
                 ]
             };
 
-
-            var chart2 = new Chart(ctx2).Bar(data2, {
-                scaleBeginAtZero: true,
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                scaleShowHorizontalLines: true,
-                scaleShowVerticalLines: true,
-                barShowStroke: true,
-                barStrokeWidth: 2,
-                barDatasetSpacing: 1,
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){ %><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){ %><%=segments[i].label%><%}%></li><%}%></ul>",
-
+            var chartOptions = {
+                responsive: true,
                 legend: {
-                    display: true,
-                    position: 'right',
-                    labels: {
-                        fontColor: 'rgb(255, 99, 132)'
-                    }
+                    position: "top"
                 },
-                responsive: true
-            });
+                title: {
+                    display: true,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
 
-            var ctx3 = document.getElementById("pieChart").getContext("2d");
-            var data3 = [
-                {% for menu in menus %}
+            window.onload = function() {
+                var ctx = document.getElementById("barChart").getContext("2d");
+                window.myBar = new Chart(ctx, {
+                    type: "bar",
+                    data: barChartData,
+                    options: chartOptions
+                });
+            };
+
+
+            var oilCanvas = document.getElementById("pieChart");
+
+            Chart.defaults.global.defaultFontFamily = "Lato";
+            Chart.defaults.global.defaultFontSize = 18;
+
+
+
+
+            var oilData = {
+                labels: [
+                    {% for menu in menus %}
+                        "{{ menu.name }}",
+                    {% endfor %}
+                ],
+                datasets: [
                     {
-                        value: {{ menu.sale }},
-                        color: "{{ menu.fillColor }}",
-                        highlight: "#FD7A7A",
-                        label: "{{ menu.name }}"
-                    },
-                {% endfor %}
-                {#{#}
-                {#    value: 50,#}
-                {#    color: "#22BAA0",#}
-                {#    highlight: "#36E7C8",#}
-                {#    label: "Green"#}
-                {#}, #}
-                {#{#}
-                {#    value: 100,#}
-                {#    color: "#F2CA4C",#}
-                {#    highlight: "#FBDB6E",#}
-                {#    label: "Yellow"#}
-                {#}#}
-            ];
+                        data: [
+                            {% for menu in menus %}
+                                "{{ menu.sale }}",
+                            {% endfor %}
+                        ],
+                        backgroundColor: [
+                            {% for menu in menus %}
+                                "{{ menu.fillColor }}",
+                            {% endfor %}
+                        ]
+                    }]
+            };
 
-            var myPieChart = new Chart(ctx3).Pie(data3, {
-                segmentShowStroke: true,
-                segmentStrokeColor: "#fff",
-                segmentStrokeWidth: 2,
-                animationSteps: 100,
-                animationEasing: "easeOutBounce",
-                animateRotate: true,
-                animateScale: false,
-                {#legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",#}
-                responsive: true
+            var pieChart = new Chart(oilCanvas, {
+                type: 'pie',
+                data: oilData
             });
-
 
         });
     </script>
-    <script src="{% static 'manager/plugins/3d-bold-navigation/js/modernizr.js' %}"></script>
-    <script src="{% static 'manager/plugins/offcanvasmenueffects/js/snap.svg-min.js' %}"></script>
 
 
 

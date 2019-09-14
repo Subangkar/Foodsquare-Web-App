@@ -32,6 +32,8 @@
             Address : {{ order.delivery.address_desc }}, {{ order.delivery.address }}<br>
             Total Price : {{ price }}<br>
             Delivery Charge : {{ delivery_charge }}
+
+        {% include 'delivery/showLocation.html' %}
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

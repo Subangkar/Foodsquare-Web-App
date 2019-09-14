@@ -56,8 +56,8 @@
                                                        style="background-color: transparent; border: none; outline: none;color: tomato"/>
                                                 <td><span class="label label-danger">Pending</span></td>
                                             {% else %}
-                                                <input name="" value="View Log" disabled="disabled"
-                                                       style="background-color: transparent; border: none; outline: none;color: green"/>
+                                                <a href="{{ restaurant.id }}"
+                                                   class="branch_show">View Branches</a>
                                             {% endif %}
                                     </form>
                                     </td>
@@ -93,6 +93,30 @@
                                     });
 
                                 });
+
+
+                                $(".branch_show").click(function (event) {
+                                    event.preventDefault();
+                                    {#$("#delivery_modal").modal();#}
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/branch_info",
+                                        data: {
+                                            'id': $(this).attr("href")
+                                        },
+                                        success: function (data) {
+
+
+
+                                            $('#branch_info').html(data);
+
+
+                                            $("#branch_btn").click();
+                                        }
+                                    });
+
+                                });
                             });
                         </script>
                     </div>
@@ -123,4 +147,11 @@
 
     </div>
 
+
+    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" hidden>
+    </button>
+
+    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       {% include 'webAdmin/branch_info.html' %}
+    </div>
 {% endblock %}

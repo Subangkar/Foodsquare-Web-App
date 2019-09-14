@@ -33,7 +33,7 @@ urlpatterns = [
 	path('browse/branches/<int:id>/reactOn/', views.reactSubmit),
 
 	path('order/checkout/', views.CheckoutView.as_view(), name='checkout'),
-	path('order/checkout/getBkashRef', views.bkashPayment, name='bkashRef'),
+	path('order/checkout/bkashPayment', views.bkashPayment, name='bkashPayment'),
 
 ]
 

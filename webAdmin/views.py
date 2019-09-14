@@ -3,12 +3,12 @@ import json
 from django.core import serializers
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
-from accounts.models import Order
+from accounts.models import Order, RestaurantBranch
 from browse.models import Package
 from webAdmin.utils import *
 
@@ -96,3 +96,11 @@ def read_notifications(request):
 	from customer.utils_db import read_all_notifications
 	read_all_notifications(request.user, datetime.now())
 	return JsonResponse({'Success': True})
+
+
+def branch_list(request):
+	id = request.GET.get('id')
+	branch_list = RestaurantBranch.objects.filter(restaurant__id=id)
+
+	return render(request, 'webAdmin/branch_info.html', {'branchList': branch_list})
+

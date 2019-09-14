@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            height: 100%;
+            padding: 20px 0;
+            background: white;
+            background: #48C3CB;
+            background-repeat: no-repeat;
+            position: relative;
+            color: white;
+        }
+
+        body * {
+            font-family: 'Lato', sans-serif;
+        }
+
+
+        /* Cards Style*/
+
+        .payment-cards li {
+            font-size: 16px;
+            display: inline-block;
+            margin-right: .25em;
+            background-image: url(http://imgh.us/payment-cards2.svg);
+            background-size: 23.077em;
+            background-repeat: no-repeat;
+            width: 4.165em;
+            height: 2.74em;
+            transition: background .1s ease-out;
+            zoom: 1;
+            /* Visa */
+            /* Mastercard */
+            /* American Express */
+            /* Discover */
+            /* PayPal */
+        }
+
+        .payment-cards li:last-child {
+            margin-left: 0;
+        }
+
+        .payment-cards li.visa {
+            background-position: -.07em -.142em;
+        }
+
+        .payment-cards li.visa.disabled {
+            background-position: -.07em -3.07em;
+        }
+
+        .payment-cards li.mastercard {
+            background-position: -4.756em -.142em;
+        }
+
+        .payment-cards li.mastercard.disabled {
+            background-position: -4.756em -3.07em;
+        }
+
+        .payment-cards li.amex {
+            background-position: -9.44em -.142em;
+        }
+
+        .payment-cards li.amex.disabled {
+            background-position: -9.44em -3.07em;
+        }
+
+        .payment-cards li.discover {
+            background-position: -14.13em -.142em;
+        }
+
+        .payment-cards li.discover.disabled {
+            background-position: -14.13em -3.07em;
+        }
+
+        .payment-cards li.paypal {
+            background-position: -18.79em -.142em;
+        }
+
+        .payment-cards li.paypal.disabled {
+            background-position: -18.79em -3.07em;
+        }
+
+        .modernizrno-svg .payment-cards li {
+            background-image: url(http://i.imgur.com/x76gBSp.png);
+        }
+
+        .modernizrno-svg.modernizrno-backgroundsize .payment-cards li {
+            font-size: 16px;
+            height: 2.8em;
+            width: 4.2em;
+            background-image: url(http://i.imgur.com/x76gBSp.png);
+            cursor: pointer;
+        }
+
+        .payment-cards {
+            padding-left: 0;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .card-checkout {
+            color: black;
+            width: 100%;
+            max-width: 350px;
+            margin: auto;
+            box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .card-checkout label {
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: block;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+
+        .card-options {
+            width: 100%;
+            height: 55%;
+            padding: 10px;
+        }
+
+        .card-details {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-details input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1px;
+            border: 1px solid rgba(221, 221, 221, 0.5);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .card-details input.inline {
+            margin-right: 1px;
+        }
+
+        .card-details input::-webkit-input-placeholder,
+        .card-details input::-moz-placeholder,
+        .card-details input:-moz-placeholder,
+        .card-details input:-ms-input-placeholder,
+        .card-details input:placeholder-shown {
+            color: #C5DFFF;
+        }
+
+        .card-types {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .card_type {
+            opacity: 0.5;
+            vertical-align: top;
+            background-color: #fff;
+            text-align: center;
+            color: #666;
+            transition: all 0.2s;
+            display: inline-block;
+            font-size: 35px;
+            margin: 0 5px;
+            transition: all 0.2s;
+        }
+
+        .card_type.active {
+            transform: scale(1.3);
+            opacity: 1;
+        }
+
+        .card-confirm {
+            position: relative;
+            width: 100%;
+            height: 10%;
+        }
+
+        .button-confirm {
+            padding: 10px 0;
+            width: 100%;
+            outline: none !important;
+            background: #e86b1a;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            box-shadow: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+
+        /* End cards style */
+
+
+        /* Page style */
+
+        .logo {
+            display: block;
+            background: url(http://beta.triip.me/public/img/logo.svg) center center no-repeat;
+            background-size: 100%;
+            width: 60px;
+            height: 60px;
+            margin: auto;
+        }
+
+        .title {
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .label {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        .line {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            background-color: white;
+        }
+
+        .loading,
+        .success {
+            display: none;
+            text-align: center;
+        }
+
+        @keyframes loadingH {
+            0% {
+                width: 15px;
+            }
+            50% {
+                width: 35px;
+                padding: 4px;
+            }
+            100% {
+                width: 15px;
+            }
+        }
+
+        .load-8 .line {
+            animation: loadingH 1.5s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #7ac142;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            margin: 10px auto;
+            box-shadow: inset 0px 0px 0px #7ac142;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+            0%,
+            100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #7ac142;
+            }
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <title>Triip Payment Gateway</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="main.processed.css" />
+</head>
+<body style="background: #0a6aa1">
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <a class="logo" href="pay.triip.me" title="Triip Pay"></a>
+                <h1 class="title" style="color:#fff;">Welcome to Payment Gateway</h1>
+
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card-checkout" id="card-checkout">
+                    <div class="card-types">
+                        <div class="card_type fa fa-cc-discover" id="discover"></div>
+                        <div class="card_type fa fa-cc-amex" id="amex"></div>
+                        <div class="card_type fa fa-cc-mastercard" id="mastercard"></div>
+                        <div class="card_type fa fa-cc-visa" id="visa"></div>
+                    </div>
+                    <div class="card-options">
+                        <form class="card-details" id="card-form">
+                            <div class="form-group">
+                                <label for="cc-number">Account Number</label>
+                                <input id="cc-number" name="cc-number" class="cc-number" placeholder="XXXX XXXX XXXX" data-numeric required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cc-number">Pin Number</label>
+                                <input id="cc-pin" name="cc-number"  data-numeric required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cc-name">Ref. No</label>
+                                <input value="{{ bkash_ref }}" disabled>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="card-confirm">
+                        <button id="submit-button" class="button-confirm">
+                            <i class="fa fa-lock"></i> Confirm Payment
+                        </button>
+                    </div>
+                </div>
+                <div id="loading" class="loading hidden">
+                    <div class="load-8">
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div id="success" class="success hidden">
+                    <h4>Payment Succeeded !!</h4>
+                    <a href="/" style="color: #fff;">Return to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
+<script>
+    (function($, win){
+
+
+
+        $('#submit-button').on('click', function() {
+            $('#card-checkout').slideUp(200, function() {
+                $('#loading').fadeIn();
+                setTimeout(function() {
+                    $('#loading').fadeOut(function() {
+                        $('#success').prepend('<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>');
+                        $('#success').slideDown();
+                    });
+                }, 2000)
+            })
+            return false;
+        })
+    })(jQuery, window)
+</script>
+</body>
+</html>

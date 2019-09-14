@@ -1,0 +1,49 @@
+{% load static %}
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <b class="modal-title" id="exampleModalLabel">Package: </b> {{ pkg.package.pkg_name }}
+            <input type="hidden" id="pkg_id" value="{{ pkg.id }}">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="panel-body">
+                <div class="table-responsive project-stats">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Branch</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for branch in branchList %}
+                            <tr>
+                                <td>
+                                    {{ branch }}
+                                </td>
+
+                            </tr>
+
+
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submit_offer" data-dismiss="modal">Submit</button>
+        </div>
+    </div>
+</div>
+

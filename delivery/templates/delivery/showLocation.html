@@ -1,0 +1,86 @@
+<div style="display: none">
+    <input id="pac-input"
+           class="controls"
+           type="text" size="70"
+           name="addr"
+           placeholder="Enter a location">
+</div>
+<div id="map"></div>
+<div id="infowindow-content">
+    <span id="place-name" class="title"></span><br>
+    <strong>Place ID</strong>: <span id="place-id"></span><br>
+    <span id="place-address"></span>
+</div>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initMap"
+        async defer></script>
+
+<script>
+    // This sample requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script
+    // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+    function initMap() {
+        var map = new google.maps.Map(
+            document.getElementById('map'),
+            {center: {lat: 23.72, lng: 90.38}, zoom: 15});
+
+        var input = document.getElementById('pac-input');
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Set initial restrict to the greater list of countries.
+        autocomplete.setComponentRestrictions({'country': ['bd']});
+
+        autocomplete.bindTo('bounds', map);
+
+        // Specify just the place data fields that you need.
+        autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+
+        var geocoder = new google.maps.Geocoder;
+
+        var marker = new google.maps.Marker({map: map});
+        marker.addListener('click', function () {
+            infowindow.open(map, marker);
+        });
+
+        autocomplete.addListener('place_changed', function () {
+            infowindow.close();
+            var place = autocomplete.getPlace();
+
+            if (!place.place_id) {
+                return;
+            }
+            geocoder.geocode({'placeId': place.place_id}, function (results, status) {
+                if (status !== 'OK') {
+                    window.alert('Geocoder failed due to: ' + status);
+                    return;
+                }
+
+                map.setZoom(17);
+                map.setCenter(results[0].geometry.location);
+
+                // Set the position of the marker using the place ID and location.
+                marker.setPlace(
+                    {placeId: place.place_id, location: results[0].geometry.location});
+
+                marker.setVisible(true);
+
+                document.getElementById('lat').value = place.geometry.location.lat().toFixed(8);
+                document.getElementById('lon').value = place.geometry.location.lng().toFixed(8);
+                console.log(document.getElementById('lat').value);
+                infowindowContent.children['place-name'].textContent = place.name;
+                infowindowContent.children['place-id'].textContent = place.place_id;
+
+                infowindow.open(map, marker);
+            });
+        });
+    }
+</script>
