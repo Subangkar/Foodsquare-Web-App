@@ -269,3 +269,24 @@
         });
     });
 </script>
+{% if item_list.has_other_pages %}
+    <ul class="pagination" style="padding-left: 35%">
+        {% if item_list.has_previous %}
+            <li><a href="?page={{ item_list.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in item_list.paginator.page_range %}
+            {% if item_list.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if item_list.has_next %}
+            <li><a href="?page={{ item_list.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}

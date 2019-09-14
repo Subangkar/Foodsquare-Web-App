@@ -175,6 +175,15 @@
 
                             </li>
 
+
+                            <li>
+
+                                <button class="rating_btn" type="submit" form="rating_form" name="0" style="background: lightskyblue">
+                                    <span style=" font-weight: bold;font-size: large">All rating</span>
+                                </button>
+
+                            </li>
+
                         </ul>
                     </div>
 
@@ -338,37 +347,14 @@
 
                     {% include "browse/product_list.html" %}
 
-                    <script>
-
-                    </script>
                 </div>
 
-                {% if item_list.has_other_pages %}
-                    <ul class="pagination" style="padding-left: 35%">
-                        {% if item_list.has_previous %}
-                            <li><a href="?page={{ item_list.previous_page_number }}">&laquo;</a></li>
-                        {% else %}
-                            <li class="disabled"><span>&laquo;</span></li>
-                        {% endif %}
-                        {% for i in item_list.paginator.page_range %}
-                            {% if item_list.number == i %}
-                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                            {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
-                            {% endif %}
-                        {% endfor %}
-                        {% if item_list.has_next %}
-                            <li><a href="?page={{ item_list.next_page_number }}">&raquo;</a></li>
-                        {% else %}
-                            <li class="disabled"><span>&raquo;</span></li>
-                        {% endif %}
-                    </ul>
-                {% endif %}
+
 
 
 
                 <script>
-                    var rating = 0;
+                    var ratingVal = 0;
                     var min_range = 0;
                     var max_range = 10000;
                     var menu_name;
@@ -379,7 +365,7 @@
                             alert(this.value);
                         });
                         $(".rating_group button").click(function () {
-                            rating = this.name;
+                            ratingVal = this.name;
                             $('#get_menus').click();
                             {#alert(rating);#}
                         });
@@ -402,11 +388,13 @@
 
                         });
                         $("#get_menus").click(function () {
+                                                        {#alert(rating);#}
+
                             $.ajax({
                                 method: "GET",
                                 url: 'filter/',
                                 data: {
-                                    'rating': rating,
+                                    'rating': ratingVal,
                                     'min_range': min_range,
                                     'max_range': max_range,
                                     'menu_name': menu_name,
