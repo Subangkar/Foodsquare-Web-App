@@ -298,6 +298,7 @@ class Order(models.Model):
 
 @receiver(post_save, sender=Order, dispatch_uid="update_order_status")
 def update_suspend_status(sender, instance, **kwargs):
+	print('order saved/updated ', instance)
 	if instance.order_status in [Order.DELIVERING, Order.DELIVERED]:
 		if instance.user.get_rating() < 2.00:
 			instance.user.is_suspended = True
