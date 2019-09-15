@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 
 from accounts.models import *
@@ -10,19 +10,14 @@ from delivery.utils_db import *
 class IndexView(TemplateView):
 	template_name = 'delivery/index.html'
 
+	def get(self, request, *args, **kwargs):
+		if self.request.user.is_authenticated:
+			return redirect('/orders/')
+		return super(self.__class__, self).get(request, *args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		context = {'loggedIn': self.request.user.is_authenticated}
 		return context
-
-
-# class AcceptOrdersView(TemplateView):
-# 	template_name = 'delivery/delivery_order.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
-# 		print(self.request.user.id)
-# 		obj_list = get_next_orders(self.request.user.id) | get_taken_orders(self.request.user.id)
-# 		return {'object_list': obj_list}
 
 
 class AcceptOrdersView(ListView):
@@ -39,9 +34,6 @@ class AcceptOrdersView(ListView):
 class EditProfileView(TemplateView):
 	template_name = 'delivery/EditProfile.html'
 
-	def get(self, request, *args, **kwargs):
-		return super(self.__class__, self).get(request, *args, **kwargs)
-
 	def get_context_data(self, *args, **kwargs):
 		context = super(EditProfileView, self).get_context_data(**kwargs)
 		print(pretty_request(self.request))
@@ -56,6 +48,8 @@ def acceptDelivery(request):
 	deliveryman = DeliveryMan.objects.get(user=request.user)
 	print(order_id)
 	print(deliveryman)
+	if order_id is None:
+		return JsonResponse({"accepted": False})
 	status = request.POST.get('delivery_option')
 	order = Order.objects.get(id=order_id)
 
@@ -68,14 +62,14 @@ def acceptDelivery(request):
 			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
 		                                                      "Wait for deliveryman to reach at your delivery address.")
 		send_notification(request.user.id,
-		                  "You accepted delivery for order id:" + order.id + " to deliver to " + order.user.username)
+		                  "You accepted delivery for order id:" + str(order.id) + " to deliver to " + order.user.username)
 
 	elif status == 'deliver':
 		order.submitDelivery()
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " was delivered to your delivery address.")
-		send_notification(request.user.id, "You delivered order id:" + order.id + " to " + order.user.username)
+		send_notification(request.user.id, "You delivered order id:" + str(order.id) + " to " + order.user.username)
 
 	return JsonResponse({"accepted": True})
 
@@ -89,6 +83,7 @@ def delivery_details(request):
 	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
 	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
+
 
 #
 # class Delivered_Orders(TemplateView):

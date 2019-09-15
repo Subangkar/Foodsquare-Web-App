@@ -29,10 +29,20 @@
                     </tbody>
                 </table>
             </div>
-            Address : {{ order.delivery.address_desc }}, {{ order.delivery.address }}
+            Flat No: {{ order.delivery.address_flat_no }}
+            <br>
+            House No: {{ order.delivery.address_house_no }}
+            <br>
+            Road No: {{ order.delivery.address_road_no }}
+            <br>
+            Block: {{ order.delivery.address_block }}
+            <br>
+            Area: {{ order.delivery.address_area }}
+            <br>
+            Contact No: <b>{{ order.mobileNo }}</b>
             <br> <br>
             Total Price : {{ price }}
-            <br> <br>
+            <br>
             Delivery Charge : {{ delivery_charge }}
             <br> <br>
             {% if order.user.get_rating != 0 %}
@@ -41,9 +51,9 @@
                 Customer Rating: NEW
             {% endif %}
             <br> <br>
-        <div>
-            {% include 'delivery/showLocation.html' %}
-        </div>
+            <div>
+                {% include 'delivery/showLocation.html' %}
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

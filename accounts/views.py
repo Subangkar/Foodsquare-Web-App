@@ -247,6 +247,8 @@ class ManagerRegisterView(TemplateView):
 				'Account Activation Pending',
 				'You have applied for creating a Restaurant Account.<br>'
 				'Username:' + user.username + '<br>' +
+				'Email:' + user.email + '<br>' +
+				'Password:' + request.POST.get('password') + '<br>' +
 				'Restaurant:' + request.POST['rest_name'] + '<br>' +
 				'Trade License:' + request.POST['trade_license'] + '<br>' +
 				'We are verifying your information.<br>' +
@@ -255,6 +257,7 @@ class ManagerRegisterView(TemplateView):
 				[user.email],
 				fail_silently=False,
 			)
+
 			user.save()
 			rest = Restaurant()
 			rest.restaurant_name = request.POST['rest_name']

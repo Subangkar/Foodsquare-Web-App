@@ -42,15 +42,8 @@ class ProcessOrdersView(ListView):
 
 	def get_queryset(self):
 		branch = RestaurantBranch.objects.get(user=self.request.user)
-		return Order.objects.filter(branch=branch)
+		return Order.objects.filter(branch=branch).order_by('-time')
 
-	def get_context_data(self, **kwargs):
-		branch = RestaurantBranch.objects.get(user=self.request.user)
-		context = super(ProcessOrdersView, self).get_context_data(**kwargs)
-		context['branch'] = branch
-		print(branch)
-		print('-----')
-		return context
 
 class EditRestaurantView(TemplateView):
 	template_name = 'manager/edit_restaurant.html'

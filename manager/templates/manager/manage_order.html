@@ -84,7 +84,7 @@
                                 <th>Time</th>
                                 <th>Order Status</th>
                                 <th>Payment Type</th>
-                                <th>Ref. No(if applicable)</th>
+                                <th>Payment Status</th>
                                 <th>Approve/Reject</th>
                                 <th>View Details</th>
                             </tr>
@@ -114,8 +114,13 @@
                                             Online
                                         {% endif %}
                                     </td>
-                                    <td> {{ order.payment.bkash_ref }}</td>
-
+                                    <td>
+                                        {% if order.payment.payment_status == "D" %}
+                                            <span class="label label-info">DUE</span>
+                                        {% elif order.payment.payment_type == "O" %}
+                                            <span class="label label-success">PAID</span>
+                                        {% endif %}
+                                    </td>
                                     <td>
                                         {% if order.order_status == 'PENDING' %}
                                             <button href="{{ order.id }}" type="button"
