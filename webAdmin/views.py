@@ -124,7 +124,6 @@ class BlockedDeliveryMenView(ListView):
 		return User.objects.filter(is_delivery_man=True, is_suspended=True)
 
 
-
 class EditConfigView(TemplateView):
 	template_name = 'webAdmin/configuration.html'
 
@@ -135,3 +134,4 @@ class EditConfigView(TemplateView):
 
 	def post(self, request, *args, **kwargs):
 		pass
+		# name = chare, entry
