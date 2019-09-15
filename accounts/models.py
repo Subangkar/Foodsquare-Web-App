@@ -235,6 +235,21 @@ class Delivery(models.Model):
 	def get_absolute_url(self):
 		return reverse("Delivery_detail", kwargs={"pk": self.pk})
 
+	def address_flat_no(self):
+		return self.address_desc.split(',')[0]
+
+	def address_house_no(self):
+		return self.address_desc.split(',')[1]
+
+	def address_road_no(self):
+		return self.address_desc.split(',')[2]
+
+	def address_block(self):
+		return self.address_desc.split(',')[3]
+
+	def address_area(self):
+		return self.address
+
 
 class Order(models.Model):
 	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
