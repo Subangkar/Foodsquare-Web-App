@@ -1,9 +1,8 @@
 from django.db import models
 
 
-# Create your models here.
-
 class Config(models.Model):
+	"""Settings database"""
 	key = models.CharField(verbose_name='Configuration Type', max_length=50, unique=True, null=False)
 	value = models.CharField(verbose_name='Configuration Value', max_length=100)
 

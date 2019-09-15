@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Notification(models.Model):
+	"""Notifications for any system user"""
 	message = models.CharField(verbose_name="Message", max_length=250, blank=False, null=False)
 	time = models.DateTimeField(verbose_name="Notification Push Time", auto_now_add=True)
 	read = models.BooleanField(verbose_name="Notification has been read", default=False)
