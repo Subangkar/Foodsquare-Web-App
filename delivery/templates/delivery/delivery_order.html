@@ -22,68 +22,65 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive project-stats">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Order Id</th>
-                                <th>Restaurant</th>
-                                <th>Customer</th>
-                                <th>Order Time</th>
-                                <th>Payment Type</th>
-                                <th>Delivery Status</th>
-                                <th>View Details</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for order in object_list %}
-
+                        {% if request.user.is_suspended %}
+                            <h1 style="color: red">Your account has been suspended</h1>
+                            <h1 style="color: red">Contact Admin at <a href="mailto:{{ request.user.get_suspend_contact_email }}">{{ request.user.get_suspend_contact_email }}</a></h1>
+                        {% else %}
+                            <table class="table">
+                                <thead>
                                 <tr>
-
-                                    <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
-                                    <td>{{ order.branch.branch_name }}</td>
-                                    <td>{{ order.user.username }}</td>
-                                    <td>{{ order.time }} </td>
-                                    <td>
-                                        {% if order.payment.payment_type == "C" %}
-                                            Cash
-                                        {% elif order.payment.payment_type == "O" %}
-                                            Online
-                                        {% endif %}
-                                    </td>
-
-                                    <td>
-
-                                        {% if order.order_status == 'PROCESSING' %}
-                                            <button href="{{ order.id }}" type="button"
-                                                    class="btn btn-danger delivery_status"
-                                                    value="take">Take Delivery
-                                            </button>
-                                        {% elif order.order_status == 'DELIVERING' %}
-                                            <button href="{{ order.id }}" type="button"
-                                                    class="btn btn-success delivery_status"
-                                                    value="deliver">Mark as Delievred
-                                            </button>
-                                        {% endif %}
-                                        {#                                        {% if order.order_status == "PENDING" %}#}
-                                        {#                                            <span class="label label-danger">Pending for confirmation</span>#}
-                                        {#                                        {% elif order.order_status == "PROCESSING" %}#}
-                                        {#                                            <span class="label label-info">Pending for Delivery</span>#}
-                                        {#                                        {% elif order.order_status == "DELIVERING" %}#}
-                                        {#                                            <span class="label label-info">Delivery on the way</span>#}
-                                        {#                                        {% elif order.order_status == "DELIVERED" %}#}
-                                        {#                                            <span class="label label-success">Delivered</span>#}
-                                        {#                                        {% endif %}#}
-
-                                    </td>
-                                    <td>
-                                        <button href="{{ order.id }}" class="order_details btn btn-info">View</button>
-                                    </td>
+                                    <th>Order Id</th>
+                                    <th>Restaurant</th>
+                                    <th>Customer</th>
+                                    <th>Order Time</th>
+                                    <th>Payment Type</th>
+                                    <th>Delivery Status</th>
+                                    <th>View Details</th>
                                 </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in object_list %}
 
-                            {% endfor %}
+                                    <tr>
 
-                            </tbody>
-                        </table>
+                                        <td><a href="{{ order.id }}" class="order_details"> {{ order.id }}</a></td>
+                                        <td>{{ order.branch.branch_name }}</td>
+                                        <td>{{ order.user.username }}</td>
+                                        <td>{{ order.time }} </td>
+                                        <td>
+                                            {% if order.payment.payment_type == "C" %}
+                                                Cash
+                                            {% elif order.payment.payment_type == "O" %}
+                                                Online
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+
+                                            {% if order.order_status == 'PROCESSING' %}
+                                                <button href="{{ order.id }}" type="button"
+                                                        class="btn btn-danger delivery_status"
+                                                        value="take">Take Delivery
+                                                </button>
+                                            {% elif order.order_status == 'DELIVERING' %}
+                                                <button href="{{ order.id }}" type="button"
+                                                        class="btn btn-success delivery_status"
+                                                        value="deliver">Mark as Delievred
+                                                </button>
+                                            {% endif %}
+
+                                        </td>
+                                        <td>
+                                            <button href="{{ order.id }}" class="order_details btn btn-info">View
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        {% endif %}
 
 
                         {#rating_modal#}
@@ -122,7 +119,6 @@
 
                                 var rate_val = $("input[type='radio'][name='rating']:checked").val();
                                 var csrftoken = getCookie('csrftoken');
-                                alert(rate_val);
                                 $("#star3").prop("checked", true);
 
                                 $.ajax({
@@ -172,7 +168,6 @@
                                     success: function (data) {
                                         if (this.value !== 'deliver') {
                                             location.reload();
-
                                         }
                                     }
                                 });

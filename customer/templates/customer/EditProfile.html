@@ -7,10 +7,13 @@
 
 {% block body-content %}
     <div class="page-inner">
-
-        <div style="height: 50px"></div>
+        {% if request.user.is_suspended %}
+            <h1 style="color: red">&nbsp;&nbsp;&nbsp;Your account has been suspended.</h1>
+            <h1 style="color: red">&nbsp;&nbsp;&nbsp;Contact us at <a
+                    href="mailto:{{ request.user.get_suspend_contact_email }}">{{ request.user.get_suspend_contact_email }}</a>
+            </h1>
+        {% endif %}
         <div id="main-wrapper">
-            <div class="container"></div>
             <div class="container">
                 <h1>Edit Profile</h1>
                 <hr>

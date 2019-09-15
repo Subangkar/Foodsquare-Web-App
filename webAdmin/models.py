@@ -10,6 +10,7 @@ class Config(models.Model):
 	DELIVERY_CHARGE_PERCENTAGE = 'delivery_charge'
 	ITEMS_PER_PAGE = 'items_per_page'
 	SETTINGS = ((DELIVERY_CHARGE_PERCENTAGE, 'delivery_charge'), (ITEMS_PER_PAGE, 'items_per_page'))
+	ACCOUNT_SUSPEND_CONTACT = 'account_suspend_email'
 
 	@staticmethod
 	def set_value(settings, value):
