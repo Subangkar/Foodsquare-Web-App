@@ -105,3 +105,13 @@ def branch_list(request):
 
 	return render(request, 'webAdmin/branch_info.html', {'branchList': branch_list})
 
+
+class BlockedUsersView(ListView):
+	template_name = 'webAdmin/blocked_user.html'
+	queryset = get_deliverymen_list()   # to be completed
+	context_object_name = 'customers'
+	paginate_by = 10
+
+
+class BlockedDeliveryMenView(ListView):
+	pass

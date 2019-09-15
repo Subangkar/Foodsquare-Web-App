@@ -350,6 +350,8 @@ def FilteredProducts(request):
 	price_range_max = request.GET.get('max_range')
 	rating = request.GET.get('rating')
 	category = request.GET.get('category')
+	only_offer = request.GET.get('only_offer') # two value offer/all
+
 	if not entry_name:
 		entry_name = ''
 	if not price_range_min:
@@ -384,3 +386,36 @@ def aboutSection(request):
 
 def contactSection(request):
 	return render(request, 'browse/contact.html')
+
+
+class OfferView(TemplateView):
+	template_name = 'browse/browse_offer.html'
+
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+		entry_name = self.request.GET.get('menu_search')
+		price_range = self.request.GET.get('range')
+		pkg_list = Package.objects.all()
+		if entry_name is not None:
+			minprice = (float(str(price_range).split('-')[0].strip()[1:]))
+			maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
+			queryset2 = [ingobj.package for ingobj in
+						 IngredientList.objects.filter(ingredient__name__icontains=entry_name)]
+			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
+			queryset1 = Package.objects.filter(
+				Q(pkg_name__icontains=entry_name) & Q(price__range=(minprice, maxprice))
+			)
+			result_list = list(dict.fromkeys(list(queryset1) + queryset2))
+			result_list.sort(key=lambda x: x.pkg_name, reverse=False)
+			filtered_result = []
+			for x in result_list:
+				if minprice <= x.price <= maxprice:
+					filtered_result.append(x)
+			pkg_list = filtered_result
+		page = self.request.GET.get('page')
+
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page),
+			   'rating': range(5),
+			   'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
+		return ctx

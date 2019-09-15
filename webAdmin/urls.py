@@ -14,6 +14,8 @@ urlpatterns = [
 	path('delivery_info/', views.DeliveyListView.as_view()),
 	path('dashboard/', views.AdminDashBoardView.as_view()),
 	path('branch_info/', views.branch_list),
+	path('blocked_user/', views.BlockedUsersView.as_view()),
+	path('blocked_delieryman/', views.BlockedDeliveryMenView.as_view()),
 
 	path('', RedirectView.as_view(url='/accounts/admin_login'), name='accounts'),
 	path('accounts/', include('accounts.urls'), name='accounts'),
