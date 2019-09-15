@@ -65,16 +65,25 @@
                             </div>
 
                             <div class="form-group">
+
                                 <label class="col-lg-3 control-label">Address:</label>
-                                <div class="addressDropDown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                            data-toggle="dropdown">Dropdown Example
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">HTML</a></li>
-                                        <li><a href="#">CSS</a></li>
-                                        <li><a href="#">JavaScript</a></li>
+                                        {% for location in locations %}
+                                            <li><a href="#">{{ location }}</a></li>
+                                        {% endfor %}
                                     </ul>
+                                    <script>
+                                        $("#address_dropdown a").click(function (e) {
+                                            e.preventDefault(); // cancel the link behaviour
+                                            var selText = $(this).text();
+                                            $("#addrBtn").text(selText);
+                                            $("#addrVal").val(selText);
+
+                                        });
+                                    </script>
                                 </div>
                             </div>
 
