@@ -39,9 +39,9 @@
 
                                 <tr>
                                     <td><a href="{{ customer.id }}"
-                                           class="cust_class">{{ restaurant.restaurant_name }}</a></td>
-                                    {
-                                    <td> </td>
+                                           class="cust_class">{{ customer.username }}</a>
+                                    </td>
+                                    <td></td>
 
                                     <td>
 
@@ -93,7 +93,6 @@
                                         success: function (data) {
 
 
-
                                             $('#branch_info').html(data);
 
 
@@ -139,7 +138,8 @@
     <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">
     </button>
 
-    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         {% include 'webAdmin/branch_info.html' %}
     </div>
 {% endblock %}

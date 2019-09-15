@@ -4,7 +4,6 @@ from django.core import serializers
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-# Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
@@ -18,6 +17,7 @@ class RestaurantListView(ListView):
 	queryset = Restaurant.objects.all()
 	context_object_name = 'restaurants'
 	paginate_by = 10
+
 
 def requestAccept(request, id):
 	obj = Restaurant.objects.get(id=id)
@@ -108,13 +108,21 @@ def branch_list(request):
 
 class BlockedUsersView(ListView):
 	template_name = 'webAdmin/blocked_user.html'
-	queryset = get_deliverymen_list()   # to be completed
 	context_object_name = 'customers'
 	paginate_by = 10
 
+	def get_queryset(self):
+		return User.objects.filter(is_customer=True, is_suspended=True)
+
 
 class BlockedDeliveryMenView(ListView):
-	pass
+	template_name = 'webAdmin/blocked_user.html'
+	context_object_name = 'customers'
+	paginate_by = 10
+
+	def get_queryset(self):
+		return User.objects.filter(is_delivery_man=True, is_suspended=True)
+
 
 
 class EditConfigView(TemplateView):
