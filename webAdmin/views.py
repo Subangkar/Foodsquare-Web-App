@@ -4,7 +4,6 @@ from django.core import serializers
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-# Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
@@ -18,6 +17,7 @@ class RestaurantListView(ListView):
 	queryset = Restaurant.objects.all()
 	context_object_name = 'restaurants'
 	paginate_by = 10
+
 
 def requestAccept(request, id):
 	obj = Restaurant.objects.get(id=id)
