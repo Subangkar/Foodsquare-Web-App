@@ -72,6 +72,7 @@ class User(AbstractUser):
 			return self.restaurantbranch.get_image()
 		return 'default.png'
 
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)

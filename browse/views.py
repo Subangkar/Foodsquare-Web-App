@@ -34,7 +34,19 @@ def viewRaw(request):
 
 
 def bkashPayment(request):
-	return render(request, "browse/bkash_payment.html", {'bkash_ref': getUniqueBkashRef(12)})
+	if request.method == "GET":
+		ref_no = request.GET.get('ref-no')
+		if ref_no is not None and Order.objects.filter(payment__bkash_ref=ref_no).exists():
+			order = Order.objects.get(payment__bkash_ref=ref_no)
+			return render(request, "browse/bkash_payment.html", {'bkash_ref': ref_no, 'order': order})
+		return render(request, "browse/bkash_payment.html", {'bkash_ref': 'INVALID'})
+	if request.method == "POST":
+		ref_no = request.POST.get('ref-no')
+		if ref_no is not None and Order.objects.filter(payment__bkash_ref=ref_no).exists():
+			order = Order.objects.get(payment__bkash_ref=ref_no)
+			order.payment.payment_status = Payment.PAID
+			order.payment.save()
+		return redirect('/')
 
 # class bkashPayment(TemplateView):
 # 	template_name = 'browse/bkash_payment.html'
@@ -196,7 +208,8 @@ class CheckoutView(TemplateView):
 		                  ' items')
 
 		if request.POST.get('bkash_payment') is not None:
-			return render(request, "browse/bkash_payment.html", {'bkash_ref': ref })
+			# return render(request, "browse/bkash_payment.html", {'bkash_ref': order.payment.bkash_ref, 'order': order})
+			return redirect(reverse('browse:bkashPayment') + '?ref-no=' + order.payment.bkash_ref)
 		else:
 			return redirect("/")
 
@@ -271,7 +284,6 @@ class RestaurantDetails(TemplateView):
 	"""
 
 	template_name = 'browse/restaurant_home.html'
-
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
