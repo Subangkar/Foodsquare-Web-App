@@ -76,6 +76,12 @@ class Package(models.Model):
 	def has_offer_in_any_branch(self):
 		return any(map(lambda p: p.has_any_offer(), PackageBranchDetails.objects.filter(package=self)))
 
+	def has_any_buy_get_offer(self):
+		return any(map(lambda p: p.has_buy_get_offer(), PackageBranchDetails.objects.filter(package=self)))
+
+	def has_any_discount_offer(self):
+		return any(map(lambda p: p.has_discount_offer(), PackageBranchDetails.objects.filter(package=self)))
+
 	def available_branches(self):
 		return PackageBranchDetails.objects.filter(package=self, available=True) and self.available
 
@@ -224,15 +230,15 @@ class PackageBranchDetails(models.Model):
 
 	def has_any_offer(self):
 		from datetime import date
-		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def has_discount_offer(self):
 		from datetime import date
-		return self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def has_buy_get_offer(self):
 		from datetime import date
-		return self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def is_available(self):
 		return self.available and self.package.available

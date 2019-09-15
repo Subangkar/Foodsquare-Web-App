@@ -108,10 +108,17 @@ def branch_list(request):
 
 class BlockedUsersView(ListView):
 	template_name = 'webAdmin/blocked_user.html'
-	queryset = get_deliverymen_list()   # to be completed
 	context_object_name = 'customers'
 	paginate_by = 10
 
+	def get_queryset(self):
+		return User.objects.filter(is_customer=True, is_suspended=True)
+
 
 class BlockedDeliveryMenView(ListView):
-	pass
+	template_name = 'webAdmin/blocked_user.html'
+	context_object_name = 'customers'
+	paginate_by = 10
+
+	def get_queryset(self):
+		return User.objects.filter(is_delivery_man=True, is_suspended=True)
