@@ -135,3 +135,7 @@ class EditConfigView(TemplateView):
 	def post(self, request, *args, **kwargs):
 		pass
 		# name = chare, entry
+
+
+def unblock(request):
+	id = request.GET.get('id')

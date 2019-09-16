@@ -24,6 +24,7 @@ urlpatterns = [
 	path('database/', admin.site.urls, name='dbadmin'),
 
 	path('get_notifications/', views.get_notifications),
-	path('read_notifications/', views.read_notifications)
+	path('read_notifications/', views.read_notifications),
+	path('unblock/', views.unblock)
 
 ]
