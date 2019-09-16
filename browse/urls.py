@@ -13,7 +13,6 @@ urlpatterns = [
 	path('contact/', views.contactSection),
 	path('branch_pkg_availability/', views.branch_pkg_availability),
 	path('browse/filter/', views.FilteredProducts, name='rating_filter'),
-	path('browse/only_offer/', views.offerFilteredProducts),
 
 	path('browse/restaurants/', views.RestaurantList.as_view(), name='restaurants'),
 	path('browse/branches/', views.RestaurantList.as_view(), name='branches'),
