@@ -121,7 +121,7 @@ class BlockedDeliveryMenView(ListView):
 	paginate_by = 10
 
 	def get_queryset(self):
-		return User.objects.filter(is_delivery_man=True, is_suspended=True)
+		return User.objects.filter(is_delivery_man=True, is_suspended=True).order_by('-last_login')
 
 
 class EditConfigView(TemplateView):
@@ -138,8 +138,10 @@ class EditConfigView(TemplateView):
 		for k in post_data:
 			Config.set_value(k, post_data[k].strip())
 		return redirect('/editConfiguration/')
-# name = chare, entry
 
 
 def unblock(request):
 	id = request.GET.get('id')
+	user = User.objects.get(id=id)
+	user.active_account()
+	return JsonResponse({'accepted': True})

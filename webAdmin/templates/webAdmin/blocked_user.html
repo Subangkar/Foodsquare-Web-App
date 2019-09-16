@@ -28,8 +28,11 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>User</th>
+                                <th>UserID</th>
+                                <th>Username</th>
+                                <th>Email</th>
                                 <th>Rating</th>
+                                <th>Last Login Time</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -37,15 +40,24 @@
                             {% for customer in customers %}
 
                                 <tr>
+                                    <td>
+                                        {{ customer.id }}
+                                    </td>
                                     <td><a href="{{ customer.id }}"
                                            class="cust_class">{{ customer.username }}</a>
                                     </td>
                                     <td>
+                                        {{ customer.email }}
+                                    </td>
+                                    <td>
                                         {{ customer.get_rating }}
                                     </td>
-
                                     <td>
-                                        <button type="button" class="btn btn-danger unblock" value="{{ customer.id  }}">Unblock
+                                        {{ customer.last_login }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger unblock" value="{{ customer.id }}">
+                                            Unblock
                                         </button>
                                     </td>
                                 </tr>
@@ -59,9 +71,9 @@
 
 
                                     $.ajax({
-                                        type: "POST",
+                                        type: "GET",
                                         headers: {
-                                            "X-CSRFToken": csrftoken
+                                            {#"X-CSRFToken": csrftoken#}
                                         },
                                         url: '/unblock/',
                                         data: {
@@ -91,11 +103,11 @@
     </div>
 
 
-{#    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">#}
-{#    </button>#}
-{##}
-{#    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
-{#         aria-hidden="true">#}
-{#        {% include 'webAdmin/branch_info.html' %}#}
-{#    </div>#}
+    {#    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">#}
+    {#    </button>#}
+    {##}
+    {#    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
+    {#         aria-hidden="true">#}
+    {#        {% include 'webAdmin/branch_info.html' %}#}
+    {#    </div>#}
 {% endblock %}
