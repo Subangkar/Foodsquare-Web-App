@@ -65,7 +65,6 @@ class myOrdersList(ListView):
 
 def get_notifications(request):
 	from customer.utils_db import get_unread_notifications
-	# notifications = get_new_notifications(request.user)
 	unreads = get_unread_notifications(request.user)
 	if unreads is not None:
 		notifications = [notf.message for notf in unreads]
