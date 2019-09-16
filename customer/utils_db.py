@@ -8,12 +8,6 @@ def send_notification(user_id, text):
 		Notification.send_notification(User.objects.get(id=user_id), text)
 
 
-def get_new_notifications(user):
-	""" Get new notifications which never has been sent to user at descending order of time """
-	if user.is_authenticated and user.is_customer:
-		return Notification.get_new_notifications(user)
-
-
 def get_unread_notifications(user):
 	""" Get unread notifications at descending order of time """
 	if user.is_authenticated:

@@ -245,16 +245,19 @@ class ManagerRegisterView(TemplateView):
 			user.is_manager = True
 			send_mail(
 				'Account Activation Pending',
-				'You have applied for creating a Restaurant Account.<br>'
-				'Username:' + user.username + '<br>' +
-				'Restaurant:' + request.POST['rest_name'] + '<br>' +
-				'Trade License:' + request.POST['trade_license'] + '<br>' +
-				'We are verifying your information.<br>' +
+				'You have applied for creating a Restaurant Account.\n '
+				'Username:' + user.username + '\n ' +
+				'Email:' + user.email + '\n ' +
+				'Password:' + request.POST.get('password') + '\n ' +
+				'Restaurant:' + request.POST['rest_name'] + '\n ' +
+				'Trade License:' + request.POST['trade_license'] + '\n ' +
+				'We are verifying your information.\n ' +
 				'You will be notified via this email when we are done.',
 				'accounts@foodsquare',
 				[user.email],
 				fail_silently=False,
 			)
+
 			user.save()
 			rest = Restaurant()
 			rest.restaurant_name = request.POST['rest_name']
@@ -336,52 +339,46 @@ class BranchRegisterView(TemplateView):
 		print(pretty_request(request))
 
 		if request.POST.get('password') != request.POST.get('re_pass'):
-			return
+			return render(request, 'accounts/message_page.html', {'header': "Error !", 'details': ' Invalid Password'})
 
+		# --------------------------------------------------
 		user_form = UserForm(request.POST)
-		user = None
-		branch = RestaurantBranch()
-		try:
-			print(request.POST['rest_key'])
-			rest = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
-			print(rest)
-			if user_form.is_valid():
-				branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
-				try:
-					branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
-						'suburb']
-				except Exception:
-					try:
-						branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
-							'neighbourhood']
-					except Exception:
-						print("Location NOT Reversed")
+		if not user_form.is_valid():
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Error !", 'details': ' Invalid Form or pass'})
 
-				branch.branch_name = request.POST['branch_name']
-				branch.restaurant = rest
-				print(branch.branch_name)
-
-				try:
-					branch.branch_location_details = request.POST['extra_details']
-				except Exception:
-					pass
-				# branch.location_area = ...
-
-				user = user_form.save(commit=False)
-				user.is_branch_manager = True
-				user.save()
-				branch.user = user
-
-				branch.save()
-				login(request, user)
-				from customer.utils_db import send_notification
-				send_notification(branch.restaurant.id, branch.branch_name + " was added under your restaurant")
-			else:
-				return render(request, 'accounts/message_page.html',
-				              {'header': "Error !", 'details': ' Invalid Form or pass'})
-		except Exception as e:
+		if not Restaurant.objects.filter(restaurant_key=request.POST['rest_key']).exists():
 			return render(request, 'accounts/message_page.html',
 			              {'header': "Error !", 'details': ' Not Valid secret key'})
+
+		if request.POST['lat'] is None or request.POST['lon'] is None:
+			return render(request, 'accounts/message_page.html',
+			              {'header': "Error !", 'details': ' No Location Provided'})
+
+		branch = RestaurantBranch()
+		branch.branch_name = request.POST['branch_name']
+		branch.restaurant = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
+		branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
+		if request.POST.get('extra_details') is not None:
+			branch.branch_location_details = request.POST.get('extra_details')
+		try:
+			branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
+				'suburb']
+		except Exception:
+			try:
+				branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
+					'neighbourhood']
+			except Exception:
+				print("Location NOT Reversed")
+		user = user_form.save(commit=False)
+		user.is_branch_manager = True
+		user.save()
+		branch.user = user
+
+		branch.save()
+		login(request, user)
+		from customer.utils_db import send_notification
+		send_notification(branch.restaurant.user.id, branch.branch_name + " was added under your restaurant")
 		print(branch)
 		from browse.models import Package
 		for package in Package.objects.filter(restaurant=branch.restaurant):

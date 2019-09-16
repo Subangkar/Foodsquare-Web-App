@@ -4,7 +4,6 @@ from django.core import serializers
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-# Create your views here.
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
@@ -19,16 +18,17 @@ class RestaurantListView(ListView):
 	context_object_name = 'restaurants'
 	paginate_by = 10
 
+
 def requestAccept(request, id):
 	obj = Restaurant.objects.get(id=id)
 	obj.restaurant_key = uniqueKey()
 	user = obj.user
 	send_mail(
 		'Account Activated',
-		'You Restaurant Account has been activated.<br>' +
-		'Username:' + user.username + '<br>' +
-		'Restaurant:' + obj.restaurant_name + '<br>' +
-		'Your Key:' + obj.restaurant_key + '<br>' +
+		'You Restaurant Account has been activated.\n ' +
+		'Username:' + user.username + '\n ' +
+		'Restaurant:' + obj.restaurant_name + '\n ' +
+		'Your Key:' + obj.restaurant_key + '\n ' +
 		'You can now login with your username and password at.',
 		'accounts@foodsquare',
 		[obj.user.email],
@@ -105,3 +105,43 @@ def branch_list(request):
 
 	return render(request, 'webAdmin/branch_info.html', {'branchList': branch_list})
 
+
+class BlockedUsersView(ListView):
+	template_name = 'webAdmin/blocked_user.html'
+	context_object_name = 'customers'
+	paginate_by = 10
+
+	def get_queryset(self):
+		return User.objects.filter(is_customer=True, is_suspended=True)
+
+
+class BlockedDeliveryMenView(ListView):
+	template_name = 'webAdmin/blocked_user.html'
+	context_object_name = 'customers'
+	paginate_by = 10
+
+	def get_queryset(self):
+		return User.objects.filter(is_delivery_man=True, is_suspended=True).order_by('-last_login')
+
+
+class EditConfigView(TemplateView):
+	template_name = 'webAdmin/configuration.html'
+
+	def get_context_data(self, *args, **kwargs):
+		return {'settings': Config.objects.all()}
+
+	def post(self, request, *args, **kwargs):
+		print(self.request.POST)
+		from copy import copy
+		post_data = copy(self.request.POST)
+		del post_data['csrfmiddlewaretoken']
+		for k in post_data:
+			Config.set_value(k, post_data[k].strip())
+		return redirect('/editConfiguration/')
+
+
+def unblock(request):
+	id = request.GET.get('id')
+	user = User.objects.get(id=id)
+	user.active_account()
+	return JsonResponse({'accepted': True})

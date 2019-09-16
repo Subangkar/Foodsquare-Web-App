@@ -1,14 +1,11 @@
-import functools
 import json
-import random
-import string
 
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
-from accounts.models import *  # Delivery, Order
+from accounts.models import *
 from accounts.models import Payment
 from browse.models import *
 from browse.utils import *
@@ -16,6 +13,11 @@ from browse.utils_db import *
 
 
 def getUniqueBkashRef(N=10):
+	"""
+	Generates a unique token for a particular payment
+	:param N: length of token to generate
+	:return: generated token with alphanumeric characters
+	"""
 	while True:
 		import random
 		import string
@@ -24,32 +26,34 @@ def getUniqueBkashRef(N=10):
 			return key
 
 
-def viewRestaurants(request):
-	return render(request, "browse/restaurants.html", {})
-
-
-# for debug purpose only
 def viewRaw(request):
+	"""for debug purpose only"""
 	return render(request, "browse/base-banner.html", {})
 
 
 def bkashPayment(request):
-	return render(request, "browse/bkash_payment.html", {'bkash_ref': getUniqueBkashRef(12)})
-
-# class bkashPayment(TemplateView):
-# 	template_name = 'browse/bkash_payment.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		with open("sessionLog.txt", "a") as myfile:
-# 			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-# 		pkg_list = Package.objects.all()
-# 		rest_list = Restaurant.objects.all()
-# 		ctx = {'bkash_ref': getUniqueBkashRef(12)}}
-# 		return ctx
+	"""
+	Renders payment page for the provided reference number
+	:return: updates order corresponding to reference number submitted via post request
+	"""
+	if request.method == "GET":
+		ref_no = request.GET.get('ref-no')
+		if ref_no is not None and Order.objects.filter(payment__bkash_ref=ref_no).exists():
+			order = Order.objects.get(payment__bkash_ref=ref_no)
+			return render(request, "browse/bkash_payment.html", {'bkash_ref': ref_no, 'order': order})
+		return render(request, "browse/bkash_payment.html", {'bkash_ref': 'INVALID'})
+	if request.method == "POST":
+		ref_no = request.POST.get('ref-no')
+		if ref_no is not None and Order.objects.filter(payment__bkash_ref=ref_no).exists():
+			order = Order.objects.get(payment__bkash_ref=ref_no)
+			order.payment.payment_status = Payment.PAID
+			order.payment.save()
+		return redirect('/')
 
 
 class Index(TemplateView):
-	"""[Renders Home Page]	
+	"""
+	Renders Home Page
 	"""
 	template_name = 'browse/index.html'
 
@@ -64,6 +68,7 @@ class Index(TemplateView):
 
 
 class OrderView(TemplateView):
+	"""View to render Cuisines List"""
 	template_name = 'browse/order.html'
 
 	def get_context_data(self, **kwargs):
@@ -97,6 +102,7 @@ class OrderView(TemplateView):
 
 
 class PackageDetails(TemplateView):
+	"""View to render Details Page for a cuisine"""
 	template_name = 'browse/item.html'
 
 	def get(self, request, *args, **kwargs):
@@ -126,6 +132,7 @@ class PackageDetails(TemplateView):
 
 
 class CheckoutView(TemplateView):
+	"""View to render Checkout Page"""
 	template_name = 'browse/checkout.html'
 
 	def get(self, request, *args, **kwargs):
@@ -183,7 +190,6 @@ class CheckoutView(TemplateView):
 		                             payment=payment)
 
 		for pkg in pkg_list:
-			# print(Package.objects.get(id=pkg['id']))
 			package = PackageBranchDetails.objects.get(id=pkg['id']).package
 			OrderPackageList.objects.create(order=order, package=package, quantity=int(pkg['quantity']),
 			                                price=pkg['price'])
@@ -196,14 +202,15 @@ class CheckoutView(TemplateView):
 		                  ' items')
 
 		if request.POST.get('bkash_payment') is not None:
-			return render(request, "browse/bkash_payment.html", {'bkash_ref': ref })
+			# return render(request, "browse/bkash_payment.html", {'bkash_ref': order.payment.bkash_ref, 'order': order})
+			return redirect(reverse('browse:bkashPayment') + '?ref-no=' + order.payment.bkash_ref)
 		else:
 			return redirect("/")
 
 
 class RestaurantList(TemplateView):
-	"""Renders list of branches in 4km radius
-	Description:
+	"""
+	View to renders list of branches in 4km radius
 	If no such branch is in radius then None
 	Assuming, a restaurant with null key cannot have any branch
 	"""
@@ -242,8 +249,8 @@ class RestaurantList(TemplateView):
 
 
 class RestaurantBranchDetails(TemplateView):
-	"""Renders a Branch Home Page
-	
+	"""
+	Renders a Branch Home Page with list of packages it currently has
 	"""
 	template_name = 'browse/restaurant_home.html'
 
@@ -266,12 +273,11 @@ class RestaurantBranchDetails(TemplateView):
 
 
 class RestaurantDetails(TemplateView):
-	"""Renders a Restaurant Home Page
-	
+	"""
+	Renders a Restaurant's Home Page with list of packages it currently has
 	"""
 
 	template_name = 'browse/restaurant_home.html'
-
 
 	def get_context_data(self, **kwargs):
 		with open("sessionLog.txt", "a") as myfile:
@@ -292,6 +298,10 @@ class RestaurantDetails(TemplateView):
 
 
 def reactSubmit(request, id):
+	"""
+	updates like/dislike count for user react on any post
+	:return: updated like,dislike count for that post
+	"""
 	print(request)
 	if not request.user.is_authenticated:
 		return
@@ -311,7 +321,7 @@ def reactSubmit(request, id):
 
 
 def submitReview(request, id):
-	""""""
+	"""Saves post for branch/package reviews"""
 	pkg_id = request.POST.get('pkg-id')
 	branch_id = request.POST.get('branch-id')
 	comment = request.POST.get('comment')
@@ -326,6 +336,7 @@ def submitReview(request, id):
 
 
 def submitPackageRating(request, id):
+	"""saves user rating for a cuisine"""
 	pkg_id = request.POST.get('pkg-id')
 	rating = request.POST.get('rating')
 	user = request.user
@@ -336,6 +347,7 @@ def submitPackageRating(request, id):
 
 
 def submitBranchRating(request, id):
+	"""saves user rating for a branch"""
 	branch_id = request.POST.get('restaurant-id')
 	rating = request.POST.get('rating')
 	user = request.user
@@ -345,11 +357,17 @@ def submitBranchRating(request, id):
 
 
 def FilteredProducts(request):
+	"""
+	Renders list of cuisines satisfying given filters
+	:return: list of Package
+	"""
 	entry_name = request.GET.get('menu_name')
 	price_range_min = request.GET.get('min_range')
 	price_range_max = request.GET.get('max_range')
 	rating = request.GET.get('rating')
 	category = request.GET.get('category')
+	only_offer = request.GET.get('only_offer')  # two value offer/all
+
 	if not entry_name:
 		entry_name = ''
 	if not price_range_min:
@@ -370,6 +388,9 @@ def FilteredProducts(request):
 
 
 def branch_pkg_availability(request):
+	"""
+	Renders list of (branch, offer, deliverable status) for a cuisine
+	"""
 	id = request.GET.get('id')
 	coord = request.GET.get('coord')
 	if coord:
@@ -379,8 +400,30 @@ def branch_pkg_availability(request):
 
 
 def aboutSection(request):
+	"""Renders About Page"""
 	return render(request, 'browse/about.html')
 
 
 def contactSection(request):
+	"""Renders Contact Page"""
 	return render(request, 'browse/contact.html')
+
+
+class OfferView(TemplateView):
+	"""Renders list of cuisines that have any offer"""
+	template_name = 'browse/browse_offer.html'
+
+	def get_context_data(self, **kwargs):
+		with open("sessionLog.txt", "a") as myfile:
+			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+		offer_type = self.request.GET.get('offer-type')  # buy-get / discount / any
+		page = self.request.GET.get('page')
+
+		if offer_type and offer_type == 'buy-get':
+			pkg_list = list(filter(lambda p: p.has_any_buy_get_offer(), Package.objects.filter(available=True)))
+		elif offer_type and offer_type == 'discount':
+			pkg_list = list(filter(lambda p: p.has_any_discount_offer(), Package.objects.filter(available=True)))
+		else:
+			pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
+		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page), }
+		return ctx

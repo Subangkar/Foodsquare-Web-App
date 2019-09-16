@@ -304,13 +304,14 @@
             }
         }
     </style>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Triip Payment Gateway</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,300" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="main.processed.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="main.processed.css"/>
 </head>
 <body style="background: #0a6aa1">
 <div class="page-container">
@@ -336,11 +337,24 @@
                         <form class="card-details" id="card-form">
                             <div class="form-group">
                                 <label for="cc-number">Account Number</label>
-                                <input id="cc-number" name="cc-number" class="cc-number" placeholder="XXXX XXXX XXXX" data-numeric required>
+                                <input id="cc-number" name="cc-number" class="cc-number" placeholder="XXXX XXXX XXXX"
+                                       data-numeric required>
                             </div>
                             <div class="form-group">
                                 <label for="cc-number">Pin Number</label>
-                                <input id="cc-pin" name="cc-number"  data-numeric required>
+                                <input id="cc-pin" name="cc-number" data-numeric required>
+                            </div>
+                            <div>
+                                <label style="display: flex" for="cc-name">Amount: </label>
+                                <input style="color: BLUE;font-weight: bold" value="{{ order.payment.price }}" disabled>
+                            </div>
+                            <div>
+                                <label style="display: flex" for="cc-name">Status: </label>
+                                {% if order.payment.payment_status == "P" %}
+                                    <input style="color: green;font-weight: bold" value="PAID" disabled>
+                                {% else %}
+                                    <input style="color: red;font-weight: bold" value="DUE" disabled>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <label for="cc-name">Ref. No</label>
@@ -362,7 +376,12 @@
                 </div>
                 <div id="success" class="success hidden">
                     <h4>Payment Succeeded !!</h4>
-                    <a href="/" style="color: #fff;">Return to home</a>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="ref-no" value="{{ order.payment.bkash_ref }}">
+                        <button type="submit" class="button-confirm" style="color: #fff;">Proceed</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -371,15 +390,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
 <script>
-    (function($, win){
+    (function ($, win) {
 
 
-
-        $('#submit-button').on('click', function() {
-            $('#card-checkout').slideUp(200, function() {
+        $('#submit-button').on('click', function () {
+            $('#card-checkout').slideUp(200, function () {
                 $('#loading').fadeIn();
-                setTimeout(function() {
-                    $('#loading').fadeOut(function() {
+                setTimeout(function () {
+                    $('#loading').fadeOut(function () {
                         $('#success').prepend('<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>');
                         $('#success').slideDown();
                     });

@@ -33,6 +33,7 @@
                                 <th>Payment Type</th>
                                 <th>Ref. No(if applicable)</th>
                                 <th>Payment status</th>
+                                <th>Pay Now</th>
                                 <th>You've been rated</th>
 
                                 <th>You rated</th>
@@ -75,6 +76,14 @@
                                         {% endif %}
                                     </td>
                                     <td>
+                                        {% if order.payment.payment_type == "O" and order.payment.payment_status == "D" %}
+                                            <form action="{% url 'browse:bkashPayment' %}" method="GET">
+                                                <button type="submit">Pay Now</button>
+                                                <input type="hidden" name="ref-no" value="{{ order.payment.bkash_ref }}">
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                    <td>
                                         {{ order.delivery.rating_user }}
                                     </td>
                                     <td>
@@ -83,8 +92,6 @@
 
                                         {% else %}
                                             {{ order.delivery.rating_deliveryman }}
-
-
                                         {% endif %}
                                     </td>
 

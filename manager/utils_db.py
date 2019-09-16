@@ -184,9 +184,10 @@ def get_packagewise_order_completed_count_branch(branch_id, last_n_months=1):
 def send_to_close_deliverymen(order):
 	branch = order.branch
 	from accounts.models import DeliveryMan
-	deliverymen = DeliveryMan.objects.filter(address=branch.location_area)
+	deliverymen = DeliveryMan.objects.filter(address=branch.location_area, user__is_suspended=False)
 	if deliverymen.exists():
 		for deliveryman in deliverymen:
 			from customer.utils_db import send_notification
 			send_notification(deliveryman.user.id,
-			                  "A new order with id: " + order.id + " arrived for delivery from " + branch.branch_name)
+			                  "A new order with id: " + str(
+				                  order.id) + " arrived for delivery from " + branch.branch_name)

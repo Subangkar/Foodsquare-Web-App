@@ -11,6 +11,7 @@ from browse.utils import distance
 
 
 class User(AbstractUser):
+	"""User's login credential entity for any system user"""
 	is_customer = models.BooleanField('Customer Account', default=False)
 	is_manager = models.BooleanField('Manager Account', default=False)
 	is_branch_manager = models.BooleanField('Branch Manager Account', default=False)
@@ -51,10 +52,28 @@ class User(AbstractUser):
 	def suspend_account(self):
 		self.is_suspended = True
 		self.save()
+		self.send_mail(
+			subject='Account Deactivated',
+			message='Your account has been deactivated for bad reputation.\n ' +
+			        'We are verifying your account.\n ' +
+			        'You will be mailed via this email when we are done.'
+		)
+		from customer.utils_db import send_notification
+		if self.is_customer:
+			send_notification(self.id,
+			                  "Your account has been suspended due to lower rating. You cannot order any items until you contact us.")
+		elif self.is_delivery_man:
+			send_notification(self.id,
+			                  "Your account has been suspended due to lower rating. You cannot accept any delivery until you contact us")
 
 	def active_account(self):
 		self.is_suspended = False
 		self.save()
+		self.send_mail(
+			subject='Account Activated',
+			message='Your account has been reactivated.\n ')
+		from customer.utils_db import send_notification
+		send_notification(self.id, "Welcome Back, " + self.username)
 
 	def get_order_count(self):
 		if self.is_customer:
@@ -72,7 +91,24 @@ class User(AbstractUser):
 			return self.restaurantbranch.get_image()
 		return 'default.png'
 
+	def send_mail(self, subject, message, from_email='admin@foodsquare'):
+		print('sending mail to', self)
+		import django.core.mail
+		django.core.mail.send_mail(
+			subject=subject,
+			message='Username:' + self.username + '\n ' + 'Email:' + self.email + '\n ' + message,
+			from_email=from_email,
+			recipient_list=[self.email],
+			fail_silently=False,
+		)
+
+	def get_suspend_contact_email(self):
+		from webAdmin.models import Config
+		return Config.get_value(Config.ACCOUNT_SUSPEND_CONTACT)
+
+
 class UserProfile(models.Model):
+	"""Customer profile entity"""
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=20, null=True)
 	last_name = models.CharField(max_length=20, null=True)
@@ -85,6 +121,7 @@ class UserProfile(models.Model):
 
 
 class Restaurant(models.Model):
+	"""Restaurant Profile Entity"""
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	restaurant_name = models.CharField(max_length=50, blank=False, null=False)
 	restaurant_key = models.CharField(max_length=250, default='0')
@@ -111,6 +148,7 @@ class Restaurant(models.Model):
 
 
 class RestaurantBranch(models.Model):
+	"""Branch Profile Entity"""
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	branch_name = models.CharField(blank=False, null=False, max_length=50)
 	branch_location = models.CharField(verbose_name="Openstreetmap co-ordinates", max_length=50, default='0,0')
@@ -165,6 +203,7 @@ class RestaurantBranch(models.Model):
 
 
 class Payment(models.Model):
+	"""Payment log entity for any order"""
 	CASH = 'C'
 	ONLINE = 'O'
 	PAYMENT_TYPES = (
@@ -196,6 +235,7 @@ class Payment(models.Model):
 
 
 class DeliveryMan(models.Model):
+	"""Deliveryman Profile Entity"""
 	name = models.CharField(verbose_name="Name", max_length=50)
 	contactNum = models.CharField(verbose_name="Phone Number", max_length=15)
 	address = models.CharField(verbose_name="Delivery Address", max_length=50)
@@ -215,6 +255,7 @@ class DeliveryMan(models.Model):
 
 
 class Delivery(models.Model):
+	"""Delivery log entity for any order"""
 	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	charge = models.FloatField(verbose_name="Delivery Fees", default=50)
@@ -234,9 +275,25 @@ class Delivery(models.Model):
 	def get_absolute_url(self):
 		return reverse("Delivery_detail", kwargs={"pk": self.pk})
 
+	def address_flat_no(self):
+		return self.address_desc.split(',')[0]
+
+	def address_house_no(self):
+		return self.address_desc.split(',')[1]
+
+	def address_road_no(self):
+		return self.address_desc.split(',')[2]
+
+	def address_block(self):
+		return self.address_desc.split(',')[3]
+
+	def address_area(self):
+		return self.address
+
 
 class Order(models.Model):
-	time = models.DateTimeField(verbose_name="Order Place Time", auto_now=True, auto_now_add=False)
+	"""Order log entity"""
+	time = models.DateTimeField(verbose_name="Order Place Time", auto_now_add=False)
 
 	user = models.ForeignKey(User, verbose_name="Person To Deliver", on_delete=models.CASCADE, null=False, blank=False)
 	delivery = models.ForeignKey(Delivery, verbose_name="Delivery Info", on_delete=models.CASCADE, null=True,
@@ -285,37 +342,9 @@ class Order(models.Model):
 		self.order_status = Order.DELIVERED
 		self.save()
 
-	def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-		deliveryman_rating_old = self.user.get_rating()
-		deliveryman_rating_old = self.user.get_rating()
-		super(models.Model, self).save(self, force_insert, force_update, using, update_fields)
-
-	def save(self, *args, **kwargs):
-		deliveryman_rating_old = self.user.get_rating()
-		deliveryman_rating_old = self.user.get_rating()
-		super(models.Model, self).save(*args, **kwargs)
-
-
-@receiver(post_save, sender=Order, dispatch_uid="update_order_status")
-def update_suspend_status(sender, instance, **kwargs):
-	print('order saved/updated ', instance)
-	if instance.order_status in [Order.DELIVERING, Order.DELIVERED]:
-		if instance.user.get_rating() < 2.00:
-			instance.user.is_suspended = True
-			instance.user.save()
-			print(instance.user, " suspended !!!")
-		if instance.delivery.deliveryman.user.get_rating() < 2.00:
-			instance.delivery.deliveryman.user.is_suspended = True
-			instance.delivery.deliveryman.user.save()
-			print(instance.delivery.deliveryman.user, " suspended !!!")
-
-
-# post_save.disconnect(update_suspend_status, sender=Order)
-# instance.product.save()
-# post_save.connect(update_suspend_status, sender=Order)
-
 
 class OrderPackageList(models.Model):
+	"""Keeps Track of cuisines in any Order"""
 	order = models.ForeignKey("accounts.Order", verbose_name="Order", on_delete=models.CASCADE)
 	package = models.ForeignKey("browse.Package", verbose_name="Package", on_delete=models.CASCADE)
 	quantity = models.IntegerField(verbose_name="#Packages in this order", default=1)
@@ -330,3 +359,22 @@ class OrderPackageList(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("OrderPackageList_detail", kwargs={"pk": self.pk})
+
+
+# --------------------- Signals / Triggers --------------------------
+
+
+@receiver(post_save, sender=Delivery, dispatch_uid="update_order_status")
+def update_suspend_status(sender, instance, **kwargs):
+	"""
+	Checks on rating submit whether ratings of any customer/deliveryman has fallen below 2.00 to suspend that account.
+	"""
+	print('delivery saved/updated ', instance)
+	order = Order.objects.get(delivery=instance)
+	if order.order_status in [Order.DELIVERING, Order.DELIVERED]:
+		if 0 < order.user.get_rating() < 2.00:
+			order.user.suspend_account()
+			print(instance.user, " suspended !!!")
+		if 0 < order.delivery.deliveryman.user.get_rating() < 2.00:
+			order.delivery.deliveryman.user.suspend_account()
+			print(order.delivery.deliveryman.user, " suspended !!!")

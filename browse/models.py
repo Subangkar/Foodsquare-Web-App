@@ -1,14 +1,11 @@
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
 from accounts.models import Restaurant, User, RestaurantBranch
 
 
-# from browse.views import PackageDetails
-
-
 class Ingredient(models.Model):
+	"""Raw ingredients of a cuisine like chicken, bun etc."""
 	name = models.CharField(max_length=50)
 
 	class Meta:
@@ -23,6 +20,9 @@ class Ingredient(models.Model):
 
 
 class Package(models.Model):
+	"""
+	Entity for a cuisine maintained by a restaurant
+	"""
 	pkg_name = models.CharField(max_length=50)
 	for_n_persons = models.IntegerField(default=1, null=False)
 	price = models.IntegerField(blank=False, null=False)
@@ -76,11 +76,20 @@ class Package(models.Model):
 	def has_offer_in_any_branch(self):
 		return any(map(lambda p: p.has_any_offer(), PackageBranchDetails.objects.filter(package=self)))
 
+	def has_any_buy_get_offer(self):
+		return any(map(lambda p: p.has_buy_get_offer(), PackageBranchDetails.objects.filter(package=self)))
+
+	def has_any_discount_offer(self):
+		return any(map(lambda p: p.has_discount_offer(), PackageBranchDetails.objects.filter(package=self)))
+
 	def available_branches(self):
 		return PackageBranchDetails.objects.filter(package=self, available=True) and self.available
 
 
 class IngredientList(models.Model):
+	"""
+	Keeps which cuisine has which ingredients
+	"""
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
@@ -93,6 +102,9 @@ class IngredientList(models.Model):
 
 
 class PackageRating(models.Model):
+	"""
+	Ratings for a cuisine rated by a customer
+	"""
 	rating = models.IntegerField('Rating', default=5, null=False)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -110,6 +122,9 @@ class PackageRating(models.Model):
 
 
 class PackageComment(models.Model):
+	"""
+	Comments of customers for a cuisine
+	"""
 	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)
 	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
@@ -126,6 +141,9 @@ class PackageComment(models.Model):
 
 
 class PackageCommentReact(models.Model):
+	"""
+	Like, Dislike reacts of customers for others comment on a cuisine
+	"""
 	post = models.ForeignKey(PackageComment, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -142,6 +160,9 @@ class PackageCommentReact(models.Model):
 
 
 class BranchRating(models.Model):
+	"""
+	Ratings for a Branch rated by a customer
+	"""
 	rating = models.IntegerField('Rating', default=5, null=False)
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -156,6 +177,9 @@ class BranchRating(models.Model):
 
 
 class BranchComment(models.Model):
+	"""
+	Comments of customers for a branch
+	"""
 	comment = models.CharField('User Comment', max_length=250, blank=False, null=False)
 	time = models.DateTimeField(verbose_name="Post Time", auto_now=True, auto_now_add=False)
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
@@ -172,6 +196,9 @@ class BranchComment(models.Model):
 
 
 class BranchCommentReact(models.Model):
+	"""
+	Like, Dislike reacts of customers for others comment on a branch
+	"""
 	post = models.ForeignKey(BranchComment, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -191,11 +218,9 @@ class BranchCommentReact(models.Model):
 
 class PackageBranchDetails(models.Model):
 	"""
-	Package Details Info for a Branch
+	Entity of a cuisine's info maintained by any individual branch of a restaurant
 	Keeps whether a package is available at a branch and
-	Offer details associated with that package in that branch
-
-		available: true if this branch has the package currently
+	Offer details associated with that cuisine in that branch
 	"""
 	package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='branch_specific_details')
 	branch = models.ForeignKey('accounts.RestaurantBranch', on_delete=models.CASCADE)
@@ -224,15 +249,15 @@ class PackageBranchDetails(models.Model):
 
 	def has_any_offer(self):
 		from datetime import date
-		return self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type != self.NONE and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def has_discount_offer(self):
 		from datetime import date
-		return self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type == self.DISCOUNT and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def has_buy_get_offer(self):
 		from datetime import date
-		return self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
+		return self.is_available() and self.offer_type == self.BUY_N_GET_N and self.offer_start_date <= date.today() <= self.offer_expire_date
 
 	def is_available(self):
 		return self.available and self.package.available
@@ -282,7 +307,6 @@ class PackageBranchDetails(models.Model):
 
 	def get_buying_price(self, order_quantity=1):
 		if self.has_buy_get_offer():
-			# act_quant = order_quantity - int(order_quantity / self.offer_buy_n) * self.offer_get_n
 			return self.package.price * order_quantity
 		elif self.has_discount_offer():
 			return (self.package.price - self.offer_discount) * order_quantity
