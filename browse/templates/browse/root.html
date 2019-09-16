@@ -221,22 +221,43 @@
                                                 new google.maps.LatLng(23.6612704, 90.3295468),
                                                 new google.maps.LatLng(23.6612704, 23.9000025));
 
+                                            if ($('#delivery_input2').length > 0) {
+                                                autocomplete2 = new google.maps.places.Autocomplete(
+                                                    (document.getElementById('delivery_input2')), {'bounds': dhakaBounds}
+                                                );
+                                                // Set initial restrict to the greater list of countries.
+                                                autocomplete2.setComponentRestrictions({'country': ['bd']});
 
-                                            autocomplete = new google.maps.places.Autocomplete(
-                                                (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
-                                            );
 
-                                            // Set initial restrict to the greater list of countries.
-                                            autocomplete.setComponentRestrictions({'country': ['bd']});
+                                                autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+                                                autocomplete2.addListener('place_changed', function () {
+                                                    var place = autocomplete2.getPlace();
+                                                    document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                                                    document.getElementById('delivery_input').value = document.getElementById('delivery_input2').value;
+                                                    deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input2').value);
+                                                });
+                                            }
+                                            else{
+                                                autocomplete = new google.maps.places.Autocomplete(
+                                                    (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
+                                                );
 
-                                            // Specify only the data fields that are needed.
-                                            autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
-                                            autocomplete.addListener('place_changed', function () {
-                                                var place = autocomplete.getPlace();
-                                                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
-                                                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
-                                                $('.hotelsearchButton').click();
-                                            });
+                                                // Set initial restrict to the greater list of countries.
+                                                autocomplete.setComponentRestrictions({'country': ['bd']});
+
+                                                // Specify only the data fields that are needed.
+                                                autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+                                                autocomplete.addListener('place_changed', function () {
+                                                    var place = autocomplete.getPlace();
+                                                    document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                                                    deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
+                                                    $('.hotelsearchButton').click();
+                                                });
+                                            }
+
+
+
+
 
                                         }
                                     </script>
