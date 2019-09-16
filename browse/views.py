@@ -409,21 +409,24 @@ def contactSection(request):
 	return render(request, 'browse/contact.html')
 
 
-class OfferView(TemplateView):
+def OfferView(request):
 	"""Renders list of cuisines that have any offer"""
 	template_name = 'browse/browse_offer.html'
 
-	def get_context_data(self, **kwargs):
-		with open("sessionLog.txt", "a") as myfile:
-			myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
-		offer_type = self.request.GET.get('offer-type')  # buy-get / discount / any
-		page = self.request.GET.get('page')
+	with open("sessionLog.txt", "a") as myfile:
+		myfile.write(">>>>>>\n" + pretty_request(self.request) + "\n>>>>>>\n")
+	
+	offer_type = self.request.GET.get('offer-type')  # buy-get / discount / any
+	page = self.request.GET.get('page')
 
-		if offer_type and offer_type == 'buy-get':
-			pkg_list = list(filter(lambda p: p.has_any_buy_get_offer(), Package.objects.filter(available=True)))
-		elif offer_type and offer_type == 'discount':
-			pkg_list = list(filter(lambda p: p.has_any_discount_offer(), Package.objects.filter(available=True)))
-		else:
-			pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
-		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page), }
-		return ctx
+	if offer_type is None or offer_type == 'buy-get':
+		pkg_list = list(filter(lambda p: p.has_any_buy_get_offer(), Package.objects.filter(available=True)))
+	elif offer_type and offer_type == 'discount':
+		pkg_list = list(filter(lambda p: p.has_any_discount_offer(), Package.objects.filter(available=True)))
+	else:
+		pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
+	ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page), }
+	
+	if offer_type is None:
+		return render(request, 'browse/browse_offer.html', ctx)
+	return render(request, 'browse/product_list.html', {'item_list': get_page_objects(pkg_list, page)})
