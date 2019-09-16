@@ -427,3 +427,9 @@ class OfferView(TemplateView):
 			pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page), }
 		return ctx
+
+
+def offerFilteredProducts(request):
+	pass
+	offer_type = request.GET.get('only_offer')
+	# 2 values -> buy_get, discount , return same objects like filteredProducts

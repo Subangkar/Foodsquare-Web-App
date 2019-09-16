@@ -2,6 +2,8 @@ from allauth.socialaccount.models import SocialAccount
 from django.http import HttpResponse
 from django.http import JsonResponse
 # Create your views here.
+from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
 from accounts.forms import UserForm, ProfileForm
@@ -48,10 +50,14 @@ class EditProfileView(TemplateView):
 		if profile_form.is_valid():
 			profile_form.save()
 			print('Registering : ' + str(request.user))
-			return HttpResponse("Signed Up!<br><a href='/'>Go to home</a>")
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Signed Up!", 'details': '',
+						   'redirect': reverse('customer:homepage')})
 
 		else:
-			return HttpResponse("Error : <a href='/signup'>Try again</a>!")
+			return render(request, 'accounts/message_page.html',
+						  {'header': "Error!", 'details': 'Try Again',
+						   'redirect': reverse('customer:homepage')})
 		pass
 
 
