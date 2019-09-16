@@ -152,10 +152,9 @@
                     $(document).ready(function () {
 
                         $(".offer_radio").click(function () {
-=
                             $.ajax({
                                 method: "GET",
-                                url: 'filter/',
+                                url: '/offer/',
                                 data: {
                                     'offer_type': this.value
                                 },
