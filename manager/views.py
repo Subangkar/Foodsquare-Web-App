@@ -223,17 +223,17 @@ def offerSubmit(request):
 	if offer_type == PackageBranchDetails.DISCOUNT:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date, discount_val=discount)
 		branch_pkg = PackageBranchDetails.objects.get(id=id)
-		send_notification(branch_pkg.package.restaurant.id,
+		send_notification(branch_pkg.package.restaurant.user.id,
 		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
 	elif offer_type == PackageBranchDetails.BUY_N_GET_N:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date, buy_n=buy_amnt, get_n=get_amnt)
 		branch_pkg = PackageBranchDetails.objects.get(id=id)
-		send_notification(branch_pkg.package.restaurant.id,
+		send_notification(branch_pkg.package.restaurant.user.id,
 		                  branch_pkg.branch.branch_name + " added " + branch_pkg.get_offer_details() + " on " + branch_pkg.package.pkg_name)
 	elif offer_type == PackageBranchDetails.NONE:
 		update_offer_branch(request.user, id, offer_type, start_date, end_date)
 		branch_pkg = PackageBranchDetails.objects.get(id=id)
-		send_notification(branch_pkg.package.restaurant.id,
+		send_notification(branch_pkg.package.restaurant.user.id,
 		                  branch_pkg.branch.branch_name + " cleared offers" + " on " + branch_pkg.package.pkg_name)
 	return JsonResponse({'updated': True})
 

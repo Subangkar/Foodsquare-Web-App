@@ -359,7 +359,8 @@ class BranchRegisterView(TemplateView):
 		branch.branch_name = request.POST['branch_name']
 		branch.restaurant = Restaurant.objects.get(restaurant_key=request.POST['rest_key'])
 		branch.branch_location = request.POST['lat'] + ',' + request.POST['lon']
-		branch.branch_location_details = request.POST.get('extra_details')
+		if request.POST.get('extra_details') is not None:
+			branch.branch_location_details = request.POST.get('extra_details')
 		try:
 			branch.location_area = geolocator.reverse(branch.branch_location, language='en').raw['address'][
 				'suburb']
@@ -377,7 +378,7 @@ class BranchRegisterView(TemplateView):
 		branch.save()
 		login(request, user)
 		from customer.utils_db import send_notification
-		send_notification(branch.restaurant.id, branch.branch_name + " was added under your restaurant")
+		send_notification(branch.restaurant.user.id, branch.branch_name + " was added under your restaurant")
 		print(branch)
 		from browse.models import Package
 		for package in Package.objects.filter(restaurant=branch.restaurant):
