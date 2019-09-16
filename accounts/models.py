@@ -54,8 +54,8 @@ class User(AbstractUser):
 		self.save()
 		self.send_mail(
 			subject='Account Deactivated',
-			message='Your account has been deactivated for bad reputation.<br>' +
-			        'We are verifying your account.<br>' +
+			message='Your account has been deactivated for bad reputation.\n ' +
+			        'We are verifying your account.\n ' +
 			        'You will be mailed via this email when we are done.'
 		)
 		from customer.utils_db import send_notification
@@ -71,7 +71,7 @@ class User(AbstractUser):
 		self.save()
 		self.send_mail(
 			subject='Account Activated',
-			message='Your account has been reactivated.<br>')
+			message='Your account has been reactivated.\n ')
 		from customer.utils_db import send_notification
 		send_notification(self.id, "Welcome Back, " + self.username)
 
@@ -96,7 +96,7 @@ class User(AbstractUser):
 		import django.core.mail
 		django.core.mail.send_mail(
 			subject=subject,
-			message='Username:' + self.username + '<br>' + 'Email:' + self.email + '<br>' + message,
+			message='Username:' + self.username + '\n ' + 'Email:' + self.email + '\n ' + message,
 			from_email=from_email,
 			recipient_list=[self.email],
 			fail_silently=False,

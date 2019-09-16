@@ -245,13 +245,13 @@ class ManagerRegisterView(TemplateView):
 			user.is_manager = True
 			send_mail(
 				'Account Activation Pending',
-				'You have applied for creating a Restaurant Account.<br>'
-				'Username:' + user.username + '<br>' +
-				'Email:' + user.email + '<br>' +
-				'Password:' + request.POST.get('password') + '<br>' +
-				'Restaurant:' + request.POST['rest_name'] + '<br>' +
-				'Trade License:' + request.POST['trade_license'] + '<br>' +
-				'We are verifying your information.<br>' +
+				'You have applied for creating a Restaurant Account.\n '
+				'Username:' + user.username + '\n ' +
+				'Email:' + user.email + '\n ' +
+				'Password:' + request.POST.get('password') + '\n ' +
+				'Restaurant:' + request.POST['rest_name'] + '\n ' +
+				'Trade License:' + request.POST['trade_license'] + '\n ' +
+				'We are verifying your information.\n ' +
 				'You will be notified via this email when we are done.',
 				'accounts@foodsquare',
 				[user.email],

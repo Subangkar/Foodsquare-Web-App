@@ -25,10 +25,10 @@ def requestAccept(request, id):
 	user = obj.user
 	send_mail(
 		'Account Activated',
-		'You Restaurant Account has been activated.<br>' +
-		'Username:' + user.username + '<br>' +
-		'Restaurant:' + obj.restaurant_name + '<br>' +
-		'Your Key:' + obj.restaurant_key + '<br>' +
+		'You Restaurant Account has been activated.\n ' +
+		'Username:' + user.username + '\n ' +
+		'Restaurant:' + obj.restaurant_name + '\n ' +
+		'Your Key:' + obj.restaurant_key + '\n ' +
 		'You can now login with your username and password at.',
 		'accounts@foodsquare',
 		[obj.user.email],
