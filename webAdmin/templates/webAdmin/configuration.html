@@ -24,24 +24,25 @@
                         <div class="col-md-9 personal-info">
 
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Delivery charge:</label>
-                                <div class="col-lg-2">
-                                    <input class="form-control" type="text" name="charge"
-                                           value= >
-                                </div>%
-                            </div>
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-lg-3 control-label">Delivery charge:</label>#}
+                            {#                                <div class="col-lg-2">#}
+                            {#                                    <input class="form-control" type="text" name="charge"#}
+                            {#                                           value=>#}
+                            {#                                </div>#}
+                            {#                                %#}
+                            {#                            </div>#}
 
 
-
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Per page entry:</label>
-                                <div class="col-md-2">
-                                    <input class="form-control" type="text" value=
-                                            name="entry">
+                            {% for setting in settings %}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{ setting.key|upper }}</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="text" value={{ setting.value }}
+                                                name="{{ setting.key }}">
+                                    </div>
                                 </div>
-                            </div>
-
+                            {% endfor %}
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-8">

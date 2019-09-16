@@ -128,10 +128,14 @@ class EditConfigView(TemplateView):
 	template_name = 'webAdmin/configuration.html'
 
 	def get_context_data(self, *args, **kwargs):
-		context = super(EditConfigView, self).get_context_data(**kwargs)
-
-		return context
+		return {'settings': Config.objects.all()}
 
 	def post(self, request, *args, **kwargs):
-		pass
-		# name = chare, entry
+		print(self.request.POST)
+		from copy import copy
+		post_data = copy(self.request.POST)
+		del post_data['csrfmiddlewaretoken']
+		for k in post_data:
+			Config.set_value(k, post_data[k].strip())
+		return redirect('/editConfiguration/')
+# name = chare, entry

@@ -13,9 +13,11 @@ class Config(models.Model):
 
 	@staticmethod
 	def set_value(settings, value):
-		config, _ = Config.objects.get_or_create(key=settings)
+		config, created = Config.objects.get_or_create(key=settings)
 		config.value = str(value)
 		config.save()
+		if created:
+			print('added settings ', config)
 
 	@staticmethod
 	def get_value(settings):
