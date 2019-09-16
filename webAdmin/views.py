@@ -122,3 +122,16 @@ class BlockedDeliveryMenView(ListView):
 
 	def get_queryset(self):
 		return User.objects.filter(is_delivery_man=True, is_suspended=True)
+
+
+class EditConfigView(TemplateView):
+	template_name = 'webAdmin/configuration.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(EditConfigView, self).get_context_data(**kwargs)
+
+		return context
+
+	def post(self, request, *args, **kwargs):
+		pass
+		# name = chare, entry
