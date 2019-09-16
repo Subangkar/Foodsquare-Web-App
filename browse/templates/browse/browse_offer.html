@@ -126,11 +126,11 @@
                     </style>
                     <div>
                         <label class="radio_container">Buy Some Get Some
-                            <input type="radio" name="show" value="offer" class="offer_radio" >
+                            <input type="radio" name="show" value="buy_get" class="offer_radio" >
                             <span class="checkmark"></span>
                         </label>
                         <label class="radio_container">Discount
-                            <input type="radio" name="show" value="all" class="offer_radio"
+                            <input type="radio" name="show" value="discount" class="offer_radio"
                                    checked="checked">
                             <span class="checkmark"></span>
                         </label>
@@ -149,14 +149,13 @@
 
                 <script>
 
-                    var only_offer;
                     $(document).ready(function () {
 
                         $(".offer_radio").click(function () {
 =
                             $.ajax({
                                 method: "GET",
-                                url: 'filter/',
+                                url: 'filter_offer/',
                                 data: {
                                     'only_offer': this.value
                                 },
