@@ -139,3 +139,7 @@ class EditConfigView(TemplateView):
 			Config.set_value(k, post_data[k].strip())
 		return redirect('/editConfiguration/')
 # name = chare, entry
+
+
+def unblock(request):
+	id = request.GET.get('id')

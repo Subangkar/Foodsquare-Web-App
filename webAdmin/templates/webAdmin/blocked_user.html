@@ -28,10 +28,9 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Restaurant</th>
-                                <th>Status</th>
-                                <th>Manager</th>
-                                <th>View</th>
+                                <th>User</th>
+                                <th>Rating</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,10 +40,13 @@
                                     <td><a href="{{ customer.id }}"
                                            class="cust_class">{{ customer.username }}</a>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        {{ customer.get_rating }}
+                                    </td>
 
                                     <td>
-
+                                        <button type="button" class="btn btn-danger unblock" value="{{ customer.id  }}">Unblock
+                                        </button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -53,54 +55,28 @@
                         </table>
                         <script>
                             $(document).ready(function () {
+                                $(".unblock").click(function () {
 
-                                $(".cust_class").click(function (event) {
-                                    event.preventDefault();
 
-                                    var addressValue = $(this).attr("href");
-                                    {#alert(addressValue );#}
-                                    {#$("#rest_modal").modal();#}
                                     $.ajax({
-                                        type: "GET",
-                                        url: "/restaurant_info",
-                                        data: {
-                                            'id': $(this).attr("href")
+                                        type: "POST",
+                                        headers: {
+                                            "X-CSRFToken": csrftoken
                                         },
+                                        url: '/unblock/',
+                                        data: {
+                                            'id': this.value
+                                        },
+                                        dataType: 'json',
                                         success: function (data) {
-                                            {#console.log(data);#}
-                                            {#alert(data.trade_license);#}
 
-                                            $('#trade_license').text(data.trade_license);
-                                            $('#rest_name').text(data.restaurant_name);
 
-                                            $("#rest_modal").modal();
                                         }
                                     });
 
                                 });
 
 
-                                $(".branch_show").click(function (event) {
-                                    event.preventDefault();
-                                    {#$("#delivery_modal").modal();#}
-
-                                    $.ajax({
-                                        type: "GET",
-                                        url: "/branch_info",
-                                        data: {
-                                            'id': $(this).attr("href")
-                                        },
-                                        success: function (data) {
-
-
-                                            $('#branch_info').html(data);
-
-
-                                            $("#branch_btn").click();
-                                        }
-                                    });
-
-                                });
                             });
                         </script>
                     </div>
@@ -110,36 +86,16 @@
 
             </div>
         </div>
-        {#        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Launch demo modal</button>#}
-        <div class="modal fade" id="rest_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="rest_name"></h4>
-                    </div>
-                    <div class="modal-body" id="test_modal">
-                        Restaruant Name : <font id="rest_name"></font><br>
-                        Trade License Number : <font id="trade_license"></font>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 
 
-    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">
-    </button>
-
-    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        {% include 'webAdmin/branch_info.html' %}
-    </div>
+{#    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">#}
+{#    </button>#}
+{##}
+{#    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
+{#         aria-hidden="true">#}
+{#        {% include 'webAdmin/branch_info.html' %}#}
+{#    </div>#}
 {% endblock %}

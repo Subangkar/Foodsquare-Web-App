@@ -24,17 +24,6 @@ class IndexView(TemplateView):
 		return context
 
 
-# class ProcessOrdersView(TemplateView):
-# 	template_name = 'manager/manage_order.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		branch = RestaurantBranch.objects.get(user=self.request.user)
-# 		obj_list = Order.objects.filter(branch=branch)  # .order_by('status', '-time')
-# 		print(branch)
-# 		print('-----')
-# 		return {'object_list': obj_list, 'branch': branch}
-
-
 class ProcessOrdersView(ListView):
 	template_name = 'manager/manage_order.html'
 	context_object_name = 'object_list'
