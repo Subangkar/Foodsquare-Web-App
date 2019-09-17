@@ -254,6 +254,17 @@
 
             </ul>
         </div><!-- Page Sidebar Inner -->
+        <script>
+            $(document).ready(function(){
+                $(".accordion-menu li a ").each(function(){
+
+                    if($(this).context.href ===window.location.href){
+                        $(this).parent().attr("class","active");
+                    }
+
+                });
+            });
+        </script>
     </div><!-- Page Sidebar -->
 
 

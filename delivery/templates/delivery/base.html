@@ -171,18 +171,18 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav" style="padding-left: 20%;padding-top: 2%">
-                    {% if request.user.is_suspended %}
+                        {% if request.user.is_suspended %}
                             <font style="font-size: 18px; font-weight: bold;color: red"><i
                                     class="fa fa-star">{{ request.user.get_rating }}&nbsp; rating</i> <b> (Suspended)</b> </font>
-                    {% else %}
-                        {% if request.user.get_rating == 0 %}
-                            <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">No
-                                Rating</i> </font>
                         {% else %}
-                            <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i
-                                    class="fa fa-star">{{ request.user.get_rating }}&nbsp; rating</i> </font>
+                            {% if request.user.get_rating == 0 %}
+                                <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i class="fa fa-star">No
+                                    Rating</i> </font>
+                            {% else %}
+                                <font style="font-size: 18px; font-weight: bold;color: #0a6aa1"><i
+                                        class="fa fa-star">{{ request.user.get_rating }}&nbsp; rating</i> </font>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -251,6 +251,17 @@
 
             </ul>
         </div><!-- Page Sidebar Inner -->
+        <script>
+            $(document).ready(function(){
+                $(".accordion-menu li a ").each(function(){
+
+                    if($(this).context.href ===window.location.href){
+                        $(this).parent().attr("class","active");
+                    }
+
+                });
+            });
+        </script>
     </div><!-- Page Sidebar -->
     {% block body-content %}
     {% endblock body-content %}
