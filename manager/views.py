@@ -258,8 +258,8 @@ class ManagerDashBoardView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(ManagerDashBoardView, self).get_context_data(kwargs=kwargs)
 		if self.request.user.is_authenticated and self.request.user.is_manager:
-			import datetime
-			today = datetime.date.today()
+			from django.utils.timezone import datetime
+			today = datetime.today()
 			context['order_cnt'] = Order.objects.filter(branch__restaurant=self.request.user.restaurant,
 			                                            time__month=today.month, time__year=today.year).count()
 			context['monthly_revenue'] = sum(pkg.price for ord in
@@ -290,8 +290,8 @@ class BranchManagerDashBoardView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(BranchManagerDashBoardView, self).get_context_data(kwargs=kwargs)
 		if self.request.user.is_authenticated and self.request.user.is_branch_manager:
-			import datetime
-			today = datetime.date.today()
+			from django.utils.timezone import datetime
+			today = datetime.today()
 			context['order_cnt'] = Order.objects.filter(branch=self.request.user.restaurantbranch,
 			                                            time__month=today.month, time__year=today.year).count()
 			context['monthly_revenue'] = sum(pkg.price for ord in

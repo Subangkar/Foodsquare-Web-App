@@ -76,10 +76,23 @@ class User(AbstractUser):
 		send_notification(self.id, "Welcome Back, " + self.username)
 
 	def get_order_count(self):
+		"""
+		:return: current month's delivered orders count
+		"""
+		from django.utils.timezone import datetime
+		today = datetime.today()
 		if self.is_customer:
-			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED, Order.DELIVERING]).count()
+			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
 		if self.is_delivery_man:
-			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED]).count()
+			return Order.objects.filter(delivery__deliveryman__user=self, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
+		if self.is_manager:
+			return Order.objects.filter(branch__restaurant=self.restaurant, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
+		if self.is_branch_manager:
+			return Order.objects.filter(branch=self.restaurantbranch, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
 		return 0
 
 	def get_image(self):

@@ -66,8 +66,8 @@ class AdminDashBoardView(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(AdminDashBoardView, self).get_context_data(kwargs=kwargs)
 		if self.request.user.is_authenticated and self.request.user.is_superuser:
-			import datetime
-			today = datetime.date.today()
+			from django.utils.timezone import datetime
+			today = datetime.today()
 			context['order_cnt'] = Order.objects.filter(time__month=today.month, time__year=today.year).count()
 			context['monthly_revenue'] = sum(
 				pkg.price for ord in Order.objects.filter(time__month=today.month, time__year=today.year) for pkg in
