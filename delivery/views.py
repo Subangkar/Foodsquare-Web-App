@@ -62,7 +62,8 @@ def acceptDelivery(request):
 			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
 		                                                      "Wait for deliveryman to reach at your delivery address.")
 		send_notification(request.user.id,
-		                  "You accepted delivery for order id:" + str(order.id) + " to deliver to " + order.user.username)
+		                  "You accepted delivery for order id:" + str(
+			                  order.id) + " to deliver to " + order.user.username)
 
 	elif status == 'deliver':
 		order.submitDelivery()
@@ -85,26 +86,13 @@ def delivery_details(request):
 	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
 
 
-#
-# class Delivered_Orders(TemplateView):
-# 	template_name = 'delivery/previous_order.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
-# 		obj_list = get_past_orders(self.request.user.id)
-# 		return {'object_list': obj_list}
-#
-
-
 class Delivered_Orders(ListView):
 	template_name = 'delivery/previous_order.html'
 	context_object_name = 'object_list'
 	paginate_by = 10
 
 	def get_queryset(self):
-		# obj_list = Order.objects.filter(branch__location_area__iexact=self.request.user.deliveryman.address)
 		obj_list = get_past_orders(self.request.user.id)
-		# return {'object_list': obj_list}
 		return obj_list
 
 

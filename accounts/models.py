@@ -271,6 +271,7 @@ class Delivery(models.Model):
 	"""Delivery log entity for any order"""
 	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
+	location = models.CharField(verbose_name='Coordinate of Delivery Location', max_length=50, default='0,0')
 	charge = models.FloatField(verbose_name="Delivery Fees", default=50)
 	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=True, auto_now_add=False)
 	rating_user = models.IntegerField(verbose_name="User Rating", null=True)
@@ -353,6 +354,8 @@ class Order(models.Model):
 
 	def submitDelivery(self):
 		self.order_status = Order.DELIVERED
+		self.payment.payment_status = Payment.PAID
+		self.payment.save()
 		self.save()
 
 
