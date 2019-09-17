@@ -21,4 +21,6 @@ class Config(models.Model):
 
 	@staticmethod
 	def get_value(settings):
+		if not Config.objects.filter(key=settings).exists():
+			Config.set_value(settings, 9)
 		return Config.objects.get(key=settings).value

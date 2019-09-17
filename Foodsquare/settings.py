@@ -37,7 +37,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.loca
                  'api.foodsquare1.herokuapp.com',
                  'foodsquare.net', 'www.foodsquare.net', 'manager.foodsquare.net', 'delivery.foodsquare.net',
                  'api.foodsquare.net', 'admin.foodsquare.net',
-                 'admin.foodsquare.com']
+                 'admin.foodsquare.com',
+				 '*']
 
 # Application definition
 

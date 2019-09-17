@@ -29,12 +29,3 @@ class Notification(models.Model):
 	def get_all_notifications(user, time=None):
 		""" Get all notifications arrived after provided time at descending order """
 		return Notification.objects.filter(user=user, time__gt=time).order_by('-time')
-
-
-def test():
-	from accounts.models import User
-	user = User.objects.get(id=2)
-	Notification.get_unread_notifications(user)
-	from customer.utils_db import send_notification
-	send_notification(2, "You have a new notification")
-	Notification.get_new_notifications(user)

@@ -67,34 +67,6 @@ def get_package_branch(user, branch_package_id):
 		return PackageBranchDetails.objects.get(id=branch_package_id)
 
 
-# ---------------- Offers to users --------------------------------------
-
-def add_offer_to_customer(user, customer_id, start_date, end_date, discount, count):
-	from accounts.models import User
-	from browse.models import UserOffer
-	customer = User.objects.get(id=customer_id)
-	if user.is_authenticated and user.is_branch_manager and customer and customer.is_customer:
-		UserOffer.add_offer(user.restaurantbranch.id, customer_id, start_date, end_date, discount, count)
-
-
-def get_running_offers(user):
-	"""
-	:return: list of currently active offers of this branch
-	"""
-	if user.is_authenticated and user.is_branch_manager:
-		from browse.models import UserOffer
-		return UserOffer.running_offers(branch_id=user.restaurantbranch.id)
-
-
-def get_offers_to_customer(user, customer_id):
-	"""
-	:return: list of currently active offers to the customer on this branch
-	"""
-	if user.is_authenticated and user.is_branch_manager:
-		from browse.models import UserOffer
-		return UserOffer.running_offers_to_customer(branch_id=user.restaurantbranch.id, customer_id=customer_id)
-
-
 # ---------------------- Dashboard -----------------------------
 
 def get_monthwise_order_completed_count_restaurant(rest_id):

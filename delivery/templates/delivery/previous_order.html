@@ -19,7 +19,7 @@
 
                 <div style="height: 5vh;">
                     <font style="font-size: 15px; padding-left: 2%; font-weight: bold;color: #0a6aa1"><i
-                            class="fa fa-truck">&nbsp;5 orders delievry this month</i> </font>
+                            class="fa fa-truck">&nbsp;{{ request.user.get_order_count }} orders delivered this month</i> </font>
 
                 </div>
                 <div class="panel-body">

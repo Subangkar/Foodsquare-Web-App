@@ -76,10 +76,23 @@ class User(AbstractUser):
 		send_notification(self.id, "Welcome Back, " + self.username)
 
 	def get_order_count(self):
+		"""
+		:return: current month's delivered orders count
+		"""
+		from django.utils.timezone import datetime
+		today = datetime.today()
 		if self.is_customer:
-			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED, Order.DELIVERING]).count()
+			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
 		if self.is_delivery_man:
-			return Order.objects.filter(user=self, order_status__in=[Order.DELIVERED]).count()
+			return Order.objects.filter(delivery__deliveryman__user=self, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
+		if self.is_manager:
+			return Order.objects.filter(branch__restaurant=self.restaurant, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
+		if self.is_branch_manager:
+			return Order.objects.filter(branch=self.restaurantbranch, order_status__in=[Order.DELIVERED],
+			                            time__month=today.month, time__year=today.year).count()
 		return 0
 
 	def get_image(self):
@@ -258,6 +271,7 @@ class Delivery(models.Model):
 	"""Delivery log entity for any order"""
 	address = models.CharField(verbose_name="Delivery Address Description", max_length=50)
 	address_desc = models.CharField(verbose_name="Delivery Address Description", max_length=50)
+	location = models.CharField(verbose_name='Coordinate of Delivery Location', max_length=50, default='0,0')
 	charge = models.FloatField(verbose_name="Delivery Fees", default=50)
 	time = models.DateTimeField(verbose_name="Delivery Completion Time", auto_now=True, auto_now_add=False)
 	rating_user = models.IntegerField(verbose_name="User Rating", null=True)
@@ -340,6 +354,8 @@ class Order(models.Model):
 
 	def submitDelivery(self):
 		self.order_status = Order.DELIVERED
+		self.payment.payment_status = Payment.PAID
+		self.payment.save()
 		self.save()
 
 

@@ -1,0 +1,113 @@
+{% extends 'webAdmin/base.html' %}
+
+{% block header %}
+    <title>Foodsquare </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Remember to include jQuery :) -->
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>#}
+    {##}
+    {#    <!-- jQuery Modal -->#}
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>#}
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />#}
+{% endblock %}
+
+<!-- <span class="label label-success">Finished</span></td> -->
+<!-- <span class="label label-info">Pending</span></td> -->
+<!-- copied from index.html template -->
+{% block body-content %}
+    <div class="page-inner">
+        {% load static %}
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Restaurant List</h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive project-stats">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>UserID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Rating</th>
+                                <th>Last Login Time</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for dman in deliverymen %}
+
+                                <tr>
+                                    <td>
+                                        {{ dman.id }}
+                                    </td>
+                                    <td><a
+                                           class="cust_class">{{ dman.username }}</a>
+                                    </td>
+                                    <td>
+                                        {{ dman.email }}
+                                    </td>
+                                    <td>
+                                        {{ dman.get_rating }}
+                                    </td>
+                                    <td>
+                                        {{ dman.last_login }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger unblock" value="{{ dman.id }}">
+                                            Unblock
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function () {
+                                $(".unblock").click(function () {
+
+
+                                    $.ajax({
+                                        type: "GET",
+                                        headers: {
+                                            {#"X-CSRFToken": csrftoken#}
+                                        },
+                                        url: '/unblock/',
+                                        data: {
+                                            'id': this.value
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+
+
+                                        }
+                                    });
+
+                                });
+
+
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                {% include 'webAdmin/listViewPagination.html' %}
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    {#    <button type="button" id="branch_btn" class="btn btn-primary" data-toggle="modal" data-target="#branch_info" style="display: none">#}
+    {#    </button>#}
+    {##}
+    {#    <div class="modal fade" id="branch_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
+    {#         aria-hidden="true">#}
+    {#        {% include 'webAdmin/branch_info.html' %}#}
+    {#    </div>#}
+{% endblock %}

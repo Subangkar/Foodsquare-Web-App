@@ -164,106 +164,7 @@
                                             display: none !important;
                                         }
                                     </style>
-                                    <script>
-                                        var deliveryLocation = (function () {
-                                            // =============================
-                                            // Private methods and propeties
-                                            // =============================
-                                            var location_data = ['', ''];//coord, name
 
-
-                                            // Save location
-                                            function saveLocation() {
-                                                localStorage.setItem('deliveryLocation', JSON.stringify(location_data));
-                                            }
-
-                                            // Load location
-                                            function loadlocation() {
-                                                location_data = JSON.parse(localStorage.getItem('deliveryLocation'));
-                                            }
-
-                                            if (localStorage.getItem("deliveryLocation") != null) {
-                                                loadlocation();
-                                                // console.log(location_data);
-                                            }
-
-
-                                            // =============================
-                                            // Public methods and propeties
-                                            // =============================
-                                            var obj = {};
-
-                                            // Add to location
-                                            obj.set = function (coord, name) {
-                                                location_data = [coord, name];
-                                                saveLocation();
-                                                return true;
-                                            };
-
-                                            // Clear location
-                                            obj.clear = function () {
-                                                location_data = ['', ''];
-                                                saveLocation();
-                                            };
-
-                                            // Load
-                                            obj.get = function () {
-                                                loadlocation();
-                                                return location_data;
-                                            };
-
-                                            return obj;
-                                        })();
-
-                                        function initAutocomplete() {
-
-                                            var dhakaBounds = new google.maps.LatLngBounds(
-                                                new google.maps.LatLng(23.6612704, 90.3295468),
-                                                new google.maps.LatLng(23.6612704, 23.9000025));
-
-                                            if ($('#delivery_input2').length > 0) {
-                                                autocomplete2 = new google.maps.places.Autocomplete(
-                                                    (document.getElementById('delivery_input2')), {'bounds': dhakaBounds}
-                                                );
-                                                // Set initial restrict to the greater list of countries.
-                                                autocomplete2.setComponentRestrictions({'country': ['bd']});
-
-
-                                                autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
-                                                autocomplete2.addListener('place_changed', function () {
-                                                    var place = autocomplete2.getPlace();
-                                                    document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
-                                                    document.getElementById('delivery_input').value = document.getElementById('delivery_input2').value;
-                                                    deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input2').value);
-                                                });
-                                            }
-                                            else{
-                                                autocomplete = new google.maps.places.Autocomplete(
-                                                    (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
-                                                );
-
-                                                // Set initial restrict to the greater list of countries.
-                                                autocomplete.setComponentRestrictions({'country': ['bd']});
-
-                                                // Specify only the data fields that are needed.
-                                                autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
-                                                autocomplete.addListener('place_changed', function () {
-                                                    var place = autocomplete.getPlace();
-                                                    document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
-                                                    deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
-                                                    $('.hotelsearchButton').click();
-                                                });
-                                            }
-
-
-
-
-
-                                        }
-                                    </script>
-                                    <script
-                                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete"
-                                            async defer></script>
                                 </form>
 
                             </div>
@@ -420,8 +321,103 @@
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
 {#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>#}
 
-<script src={% static 'browse/js/location.js' %}></script>
 {% block body-js-common %}
+    <script>
+        var deliveryLocation = (function () {
+            // =============================
+            // Private methods and propeties
+            // =============================
+            var location_data = ['', ''];//coord, name
+
+
+            // Save location
+            function saveLocation() {
+                localStorage.setItem('deliveryLocation', JSON.stringify(location_data));
+            }
+
+            // Load location
+            function loadlocation() {
+                location_data = JSON.parse(localStorage.getItem('deliveryLocation'));
+            }
+
+            if (localStorage.getItem("deliveryLocation") != null) {
+                loadlocation();
+                // console.log(location_data);
+            }
+
+
+            // =============================
+            // Public methods and propeties
+            // =============================
+            var obj = {};
+
+            // Add to location
+            obj.set = function (coord, name) {
+                location_data = [coord, name];
+                saveLocation();
+                return true;
+            };
+
+            // Clear location
+            obj.clear = function () {
+                location_data = ['', ''];
+                saveLocation();
+            };
+
+            // Load
+            obj.get = function () {
+                loadlocation();
+                return location_data;
+            };
+
+            return obj;
+        })();
+
+        function initAutocomplete() {
+
+            var dhakaBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(23.6612704, 90.3295468),
+                new google.maps.LatLng(23.6612704, 23.9000025));
+
+            autocomplete2 = new google.maps.places.Autocomplete(
+                (document.getElementById('delivery_input2')), {'bounds': dhakaBounds}
+            );
+            // Set initial restrict to the greater list of countries.
+            autocomplete2.setComponentRestrictions({'country': ['bd']});
+
+
+            autocomplete2.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+            autocomplete2.addListener('place_changed', function () {
+                var place = autocomplete2.getPlace();
+                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                document.getElementById('delivery_input').value = document.getElementById('delivery_input2').value;
+                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input2').value);
+            });
+            autocomplete = new google.maps.places.Autocomplete(
+                (document.getElementById('delivery_input')), {'bounds': dhakaBounds}
+            );
+
+            // Set initial restrict to the greater list of countries.
+            autocomplete.setComponentRestrictions({'country': ['bd']});
+
+            // Specify only the data fields that are needed.
+            autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('delivery_area_srch').value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+                deliveryLocation.set(document.getElementById('delivery_area_srch').value, document.getElementById('delivery_input').value);
+                $('.hotelsearchButton').click();
+            });
+
+
+
+
+
+        }
+    </script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATg_isuGSCHIlJamrxAXfkFDTYhIz7ytM&libraries=places&callback=initAutocomplete"
+            async defer></script>
     {#   ------------------------------ javascripts ----------------------------------- #}
     <!--bootstrap working-->
     {#    <script src="{% static 'browse/toys_shop/js/bootstrap.min.js' %}"></script>#}
@@ -434,6 +430,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 {% endblock %}
+<script src={% static 'browse/js/location.js' %}></script>
 
 {% block body-js %}
 {% endblock %}
