@@ -105,7 +105,14 @@ def get_monthwise_order_completed_count_branch(branch_id):
 			group by date_trunc('month', ao.time)"
 	month_sales = namedtuplefetchall(query, [branch_id])
 
-	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * 3
+	fillcolors = ["#396AB1",
+				  "#DA7C30",
+				  "#3E9651",
+				  "#CC2529",
+				  "#535154",
+				  "#6B4C9A",
+				  "#922428",
+				  "#948B3D"] * 3
 	sales = [0] * 12
 	for m in month_sales:
 		if m.monthval is not None:
@@ -127,7 +134,11 @@ def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
 			order by sale desc"
 
 	packages = namedtuplefetchall(query, [rest_id, last_n_months])
-	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * len(
+	fillcolors = ["#FF6384",
+				  "#63FF84",
+				  "#84FF63",
+				  "#8463FF",
+				  "#6384FF"] * len(
 		packages)
 
 	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
@@ -147,7 +158,11 @@ def get_packagewise_order_completed_count_branch(branch_id, last_n_months=1):
 			order by sale desc"
 
 	packages = namedtuplefetchall(query, [branch_id, last_n_months])
-	fillcolors = ["rgba(220,0,220,0.3)", "rgba(0,220,220,0.3)", "rgba(220,90,220,0.3)", "rgba(120,220,220,0.3)"] * len(
+	fillcolors = ["#FF6384",
+				  "#63FF84",
+				  "#84FF63",
+				  "#8463FF",
+				  "#6384FF"] * len(
 		packages)
 
 	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
