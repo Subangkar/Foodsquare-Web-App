@@ -164,10 +164,12 @@ class CheckoutView(TemplateView):
 		area = request.POST.get('area')
 		mobileNo = request.POST.get('mobile-no')
 		branchID = request.POST.get('branch-id')
+		location = request.POST.get('delivery-location')
 
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery.objects.create(address=area,
-		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
+		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo,
+		                                   location=location)
 
 		total_price = 0
 		for pkg in pkg_list:
@@ -198,11 +200,9 @@ class CheckoutView(TemplateView):
 			order.id) + " from " + order.branch.branch_name + " with " + str(
 			len(pkg_list)) + " items has been placed in manager's queue for confirmation.")
 		send_notification(order.branch.user.id,
-		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) +
-		                  ' items')
+		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) + ' items')
 
 		if request.POST.get('bkash_payment') is not None:
-			# return render(request, "browse/bkash_payment.html", {'bkash_ref': order.payment.bkash_ref, 'order': order})
 			return redirect(reverse('browse:bkashPayment') + '?ref-no=' + order.payment.bkash_ref)
 		else:
 			return redirect("/")
@@ -411,11 +411,9 @@ def contactSection(request):
 
 def OfferView(request):
 	"""Renders list of cuisines that have any offer"""
-	template_name = 'browse/browse_offer.html'
-
 	with open("sessionLog.txt", "a") as myfile:
 		myfile.write(">>>>>>\n" + pretty_request(request) + "\n>>>>>>\n")
-	
+
 	offer_type = request.GET.get('offer-type')  # buy-get / discount / any
 	page = request.GET.get('page')
 
@@ -426,7 +424,7 @@ def OfferView(request):
 	else:
 		pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
 	ctx = {'loggedIn': request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page)}
-	
+
 	if offer_type is None:
 		return render(request, 'browse/browse_offer.html', ctx)
 	return render(request, 'browse/product_list.html', {'item_list': get_page_objects(pkg_list, page)})
