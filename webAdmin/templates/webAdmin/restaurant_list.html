@@ -54,12 +54,12 @@
                                             {% if restaurant.restaurant_key == '0' %}
                                                 <input type="submit" name="requestAccept" value="Approve"
                                                        style="background-color: transparent; border: none; outline: none;color: tomato"/>
-                                                <td><span class="label label-danger">Pending</span></td>
                                             {% else %}
                                                 <a href="{{ restaurant.id }}"
                                                    class="branch_show">View Branches</a>
                                             {% endif %}
                                     </form>
+
                                     </td>
                                 </tr>
                             {% endfor %}
