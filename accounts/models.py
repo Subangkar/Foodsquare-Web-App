@@ -386,6 +386,8 @@ def update_suspend_status(sender, instance, **kwargs):
 	Checks on rating submit whether ratings of any customer/deliveryman has fallen below 2.00 to suspend that account.
 	"""
 	print('delivery saved/updated ', instance)
+	if not Order.objects.filter(delivery=instance).exists():
+		return
 	order = Order.objects.get(delivery=instance)
 	if order.order_status in [Order.DELIVERING, Order.DELIVERED]:
 		if 0 < order.user.get_rating() < 2.00:

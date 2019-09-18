@@ -63,7 +63,7 @@ class Index(TemplateView):
 		pkg_list = Package.objects.all()
 		rest_list = Restaurant.objects.all()
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurant_list': Restaurant.objects.all(),
-		       'item_list': pkg_list[:3], 'restaurants': rest_list[0:4]}
+			   'item_list': pkg_list[:3], 'restaurants': rest_list[0:4]}
 		return ctx
 
 
@@ -81,7 +81,7 @@ class OrderView(TemplateView):
 			minprice = (float(str(price_range).split('-')[0].strip()[1:]))
 			maxprice = (float(str(price_range).split('-')[1].strip()[1:]))
 			queryset2 = [ingobj.package for ingobj in
-			             IngredientList.objects.filter(ingredient__name__icontains=entry_name)]
+						 IngredientList.objects.filter(ingredient__name__icontains=entry_name)]
 			# queryset2 = Package.objects.raw(" Select * from browse_package where ")
 			queryset1 = Package.objects.filter(
 				Q(pkg_name__icontains=entry_name) & Q(price__range=(minprice, maxprice))
@@ -96,8 +96,8 @@ class OrderView(TemplateView):
 		page = self.request.GET.get('page')
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page),
-		       'rating': range(5),
-		       'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
+			   'rating': range(5),
+			   'categories': [c['category'] for c in Package.objects.all().values('category').distinct()]}
 		return ctx
 
 
@@ -121,12 +121,12 @@ class PackageDetails(TemplateView):
 		comments = get_reviews_package(user_id, id)
 		user_rating = None
 		if self.request.user.is_authenticated and PackageRating.objects.filter(user=self.request.user,
-		                                                                       package=pkg).exists():
+																			   package=pkg).exists():
 			user_rating = PackageRating.objects.get(user=self.request.user, package=pkg)
 		print(get_rating_count_package(id))
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item': pkg, 'item_img': [pkg.image],
-		       'ing_list': ing_list, 'comments': comments, 'ratings': get_rating_count_package(id),
-		       'avg_rating': get_rating_package(id)
+			   'ing_list': ing_list, 'comments': comments, 'ratings': get_rating_count_package(id),
+			   'avg_rating': get_rating_package(id)
 			, 'user_rating': user_rating}
 		return ctx
 
@@ -145,8 +145,8 @@ class CheckoutView(TemplateView):
 		elements = []
 		from webAdmin.utils import get_delivery_charge_percentage
 		ctx = {'num_items': range(0, len(elements)), 'elements': elements,
-		       'loggedIn': self.request.user.is_authenticated,
-		       'delivery_charge_percent': get_delivery_charge_percentage()}
+			   'loggedIn': self.request.user.is_authenticated,
+			   'delivery_charge_percent': get_delivery_charge_percentage()}
 		return ctx
 
 	def post(self, request, *args, **kwargs):
@@ -168,8 +168,7 @@ class CheckoutView(TemplateView):
 
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery.objects.create(address=area,
-		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo
-		                                   )
+										   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo)
 
 		total_price = 0
 		for pkg in pkg_list:
@@ -183,24 +182,26 @@ class CheckoutView(TemplateView):
 			print('success')
 			ref = getUniqueBkashRef(12)
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.ONLINE,
-			                                 bkash_ref=ref, payment_status=Payment.DUE)
+											 bkash_ref=ref, payment_status=Payment.DUE)
 		else:
 			print('cash')
 			payment = Payment.objects.create(price=total_price, payment_type=Payment.CASH, payment_status=Payment.DUE)
 
+		from django.utils.timezone import datetime
+		time = datetime.now()
 		order = Order.objects.create(user=self.request.user, mobileNo=mobileNo, delivery=delivery, branch=branch,
-		                             payment=payment)
+									 payment=payment, time=time)
 
 		for pkg in pkg_list:
 			package = PackageBranchDetails.objects.get(id=pkg['id']).package
 			OrderPackageList.objects.create(order=order, package=package, quantity=int(pkg['quantity']),
-			                                price=pkg['price'])
+											price=pkg['price'])
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " with " + str(
 			len(pkg_list)) + " items has been placed in manager's queue for confirmation.")
 		send_notification(order.branch.user.id,
-		                  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) + ' items')
+						  "You have a new order with id: " + str(order.id) + ' of ' + str(len(pkg_list)) + ' items')
 
 		if request.POST.get('bkash_payment') is not None:
 			return redirect(reverse('browse:bkashPayment') + '?ref-no=' + order.payment.bkash_ref)
@@ -244,7 +245,7 @@ class RestaurantList(TemplateView):
 			rest_list = branchesInRadius(coord=coord, queryset=qset)
 		print(rest_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'restaurants': rest_list,
-		       'show_all': (show == 'all'), 'query': query}
+			   'show_all': (show == 'all'), 'query': query}
 		return ctx
 
 
@@ -266,9 +267,9 @@ class RestaurantBranchDetails(TemplateView):
 
 		# print(pkg_list)
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
-		       'rating': get_rating_branch(kwargs['id']),
-		       'comments': comments}
+			   'restaurant': RestBranch(restaurant=branch.restaurant, branch=branch),
+			   'rating': get_rating_branch(kwargs['id']),
+			   'comments': comments}
 		return ctx
 
 
@@ -292,8 +293,8 @@ class RestaurantDetails(TemplateView):
 		branch_list = RestaurantBranch.objects.filter(restaurant__id=kwargs['id'])
 
 		ctx = {'loggedIn': self.request.user.is_authenticated, 'item_list': pkg_list, 'categories': categories,
-		       'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id']),
-		       'branch_list': branch_list}
+			   'restaurant': RestBranch(restaurant=rest, branch=None), 'rating': get_rating_restaurant(kwargs['id']),
+			   'branch_list': branch_list}
 		return ctx
 
 
@@ -414,15 +415,15 @@ def OfferView(request):
 	with open("sessionLog.txt", "a") as myfile:
 		myfile.write(">>>>>>\n" + pretty_request(request) + "\n>>>>>>\n")
 
-	offer_type = request.GET.get('offer-type')  # buy-get / discount / any
+	offer_type = request.GET.get('offer_type')  # buy-get / discount / any
 	page = request.GET.get('page')
 
-	if offer_type is None or offer_type == 'buy-get':
+	if offer_type is None or offer_type=='all':
+		pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
+	elif offer_type == 'buy_get':
 		pkg_list = list(filter(lambda p: p.has_any_buy_get_offer(), Package.objects.filter(available=True)))
 	elif offer_type and offer_type == 'discount':
 		pkg_list = list(filter(lambda p: p.has_any_discount_offer(), Package.objects.filter(available=True)))
-	else:
-		pkg_list = list(filter(lambda p: p.has_offer_in_any_branch(), Package.objects.filter(available=True)))
 	ctx = {'loggedIn': request.user.is_authenticated, 'item_list': get_page_objects(pkg_list, page)}
 
 	if offer_type is None:
