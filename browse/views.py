@@ -164,12 +164,12 @@ class CheckoutView(TemplateView):
 		area = request.POST.get('area')
 		mobileNo = request.POST.get('mobile-no')
 		branchID = request.POST.get('branch-id')
-		location = request.POST.get('delivery-location')
+		# location = request.POST.get('delivery-location')
 
 		branch = RestaurantBranch.objects.get(id=branchID)
 		delivery = Delivery.objects.create(address=area,
-		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo,
-		                                   location=location)
+		                                   address_desc=apartmentNo + ', ' + houseNo + ', ' + roadNo + ', ' + blockNo
+		                                   )
 
 		total_price = 0
 		for pkg in pkg_list:

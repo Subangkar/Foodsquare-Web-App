@@ -38,7 +38,8 @@ class EditProfileView(TemplateView):
 		context = super(EditProfileView, self).get_context_data(**kwargs)
 		print(pretty_request(self.request))
 		context['userprofile'] = User.objects.get(id=self.request.user.id).deliveryman
-
+		context['locations'] = set([x.location_area for x in RestaurantBranch.objects.raw("select * from accounts_restaurantbranch \
+				where location_area notnull and location_area!=\'\'")])
 		return context
 
 
@@ -60,10 +61,10 @@ def acceptDelivery(request):
 		from customer.utils_db import send_notification
 		send_notification(order.user.id, "Your order: " + str(
 			order.id) + " from " + order.branch.branch_name + " has been proceeded to deliver.\n"
-		                                                      "Wait for deliveryman to reach at your delivery address.")
+															  "Wait for deliveryman to reach at your delivery address.")
 		send_notification(request.user.id,
-		                  "You accepted delivery for order id:" + str(
-			                  order.id) + " to deliver to " + order.user.username)
+						  "You accepted delivery for order id:" + str(
+							  order.id) + " to deliver to " + order.user.username)
 
 	elif status == 'deliver':
 		order.submitDelivery()
@@ -83,7 +84,7 @@ def delivery_details(request):
 	pkg_list, order, price, deliver_charge = get_order_details(id)
 	print(order.delivery)
 	return render(request, 'delivery/delivery_modal.html',
-	              {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
+				  {'item_list': pkg_list, 'order': order, 'price': price, 'delivery_charge': deliver_charge})
 
 
 class Delivered_Orders(ListView):
