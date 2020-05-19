@@ -112,7 +112,7 @@ def get_monthwise_order_completed_count_branch(branch_id):
 				  "#535154",
 				  "#6B4C9A",
 				  "#922428",
-				  "#948B3D"] * 3
+				  "#45FF88"] * 3
 	sales = [0] * 12
 	for m in month_sales:
 		if m.monthval is not None:
@@ -138,7 +138,11 @@ def get_packagewise_order_completed_count_restaurant(rest_id, last_n_months=1):
 				  "#63FF84",
 				  "#84FF63",
 				  "#8463FF",
-				  "#6384FF"] * len(
+				  "#6384FF",
+				  "#44EF93",
+				  "#5466FD",
+				  "#2314EF"
+				  ] * len(
 		packages)
 
 	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
@@ -162,7 +166,11 @@ def get_packagewise_order_completed_count_branch(branch_id, last_n_months=1):
 				  "#63FF84",
 				  "#84FF63",
 				  "#8463FF",
-				  "#6384FF"] * len(
+				  "#6581FE",
+				  "#84FF63",
+				  "#8D63FF",
+				  "#6864FF"
+				  ] * len(
 		packages)
 
 	return [{'name': p.name, 'sale': p.sale, 'fillColor': fillcolors.pop()} for p in packages]
