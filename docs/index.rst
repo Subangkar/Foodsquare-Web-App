@@ -10,7 +10,11 @@ Welcome to Foodsquare's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   accounts
    browse
+   manager
+   delivery
+   webAdmin
 
 Indices and tables
 ==================
