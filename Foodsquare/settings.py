@@ -56,8 +56,6 @@ INSTALLED_APPS = [
 	'manager',
 	'webAdmin',
 	'delivery',
-	'api',
-	'rest_framework',
 	'customer',
 	'debug_toolbar',
 	'django_extensions',
