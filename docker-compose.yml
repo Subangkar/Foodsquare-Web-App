@@ -9,10 +9,8 @@ services:
     ports:
       - '5432'
   web:
-    build: .
+    image: subangkar/foodsquare
     command: sh -c "while ! nc -z db 5432; do sleep 1; done; ./startdatabase.sh && python3 manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/code
     ports:
       - '8000:8000'
     depends_on:
