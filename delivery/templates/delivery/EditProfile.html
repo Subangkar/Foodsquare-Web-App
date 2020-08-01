@@ -21,13 +21,9 @@
                         <div class="col-md-3">
                             <div class="text-center">
 
-                                {% if not socialacnt %}
-                                    <img id="current_image" src={{ userprofile.avatar.url }} class="avatar"
-                                         style="width: 100%;height: 100%" alt="avatar">
-                                {% else %}
-                                    <img id="current_image" src="{{ userprofile.avatar }}" class="avatar"
-                                         style="width: 100%;height: 100%" alt="avatar">
-                                {% endif %}
+
+                                <img id="current_image" src="{{ userprofile.avatar }}" class="avatar"
+                                     style="width: 100%;height: 100%" alt="avatar">
                                 <br>
                                 <br>
                                 <h5>Upload a different photo...</h5>
@@ -66,10 +62,13 @@
 
                             <div class="form-group">
 
+
                                 <label class="col-lg-3 control-label">Address:</label>
                                 <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                    <button class="btn btn-primary dropdown-toggle" id="addrBtn" type="button" data-toggle="dropdown">Address
                                         <span class="caret"></span></button>
+                                    <input type="hidden" id="addrVal" name="area">
+
                                     <ul class="dropdown-menu">
                                         {% for location in locations %}
                                             <li><a href="#">{{ location }}</a></li>

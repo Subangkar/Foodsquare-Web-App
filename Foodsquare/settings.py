@@ -19,14 +19,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx'
+SECRET_KEY = os.environ.get('SECRET_KEY', '=%m4l_6pi$++(nf7th-z(dz)f(!uwhv&dm1w*5t*l37m+09wlx')
 
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', '1')))
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.137.1', 'localhost', 'www.localhost', 'manager.localhost',
                  'api.localhost', 'admin.localhost', 'delivery.localhost',
@@ -56,8 +56,6 @@ INSTALLED_APPS = [
 	'manager',
 	'webAdmin',
 	'delivery',
-	'api',
-	'rest_framework',
 	'customer',
 	'debug_toolbar',
 	'django_extensions',
@@ -137,8 +135,8 @@ DATABASES = {
 		'NAME': os.environ.get('DB_NAME', 'foodsquare'),
 		'USER': os.environ.get('DB_USER', 'postgres'),
 		'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
-		'HOST': 'localhost',
-		'PORT': '5432',
+		'HOST': os.environ.get('DB_HOST', 'localhost'),
+		'PORT': os.environ.get('DB_PORT', '5432'),
 	}
 }
 

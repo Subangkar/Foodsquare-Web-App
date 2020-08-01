@@ -110,6 +110,7 @@
                                     <input form="checkout-form-submit" type="text" class="form-control"
                                            placeholder="Mobile No" id="mobile-no" name="mobile-no">
                                 </div>
+                                <input type="hidden" id="delv_loc" name="delivery-location">
                             </div>
                         </div>
 
@@ -246,6 +247,24 @@
     <!-- //show Now-->
 {% endblock %}
 
+<script>
+    $(document).ready(function () {
+        $('checkout-form-submit').submit(function () {
+            alert('here');
+            // Get the Login Name value and trim it
+            var mob = $.trim($('#mobile-no').val());
+
+            // Check if empty of not
+            if (mob === '') {
+                alert('Mobile No. field is empty.');
+                return false;
+            }else if(mob.match(/^\d+$/)){
+                alert('Not valid number');
+                return false;
+            }
+        });
+    });
+</script>
 {% block body-js %}
     <script type="text/javascript">
         function getCookie(name) {

@@ -301,7 +301,7 @@
                         <p>Dashboard</p>
                     </a></li>
                     <li><a href="/orders/" class="waves-effect waves-button"><span
-                            class="menu-icon glyphicon-shopping-cart"></span>
+                            class="menu-icon glyphicon glyphicon-shopping-cart"></span>
                         <p>Orders</p>
                     </a></li>
                     <li><a href="/view_branch_menus/" class="waves-effect waves-button"><span
@@ -313,6 +313,17 @@
 
             </ul>
         </div><!-- Page Sidebar Inner -->
+        <script>
+            $(document).ready(function(){
+                $(".accordion-menu li a ").each(function(){
+
+                    if($(this).context.href ===window.location.href){
+                        $(this).parent().attr("class","active");
+                    }
+
+                });
+            });
+        </script>
     </div><!-- Page Sidebar -->
     {% block body-content %}
     {% endblock body-content %}

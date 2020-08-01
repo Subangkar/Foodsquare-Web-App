@@ -148,7 +148,6 @@
 
             $(document).on('click', '#submit_offer', function () {
                 var offer_type = $('#offer_option').val();
-                alert(offer_type);
 
                 var discount = 0;
                 var buy_amnt = 1;
@@ -185,7 +184,7 @@
                     dataType: 'json',
                     success: function (data) {
 
-
+                        location.reload();
                     }
                 });
 

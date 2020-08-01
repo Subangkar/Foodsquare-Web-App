@@ -77,7 +77,7 @@ class AdminDashBoardView(TemplateView):
 			context['user_cnt'] = User.objects.filter(is_customer=True).count()
 			context['months'] = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
 			                     "October", "November", "December"]
-			context['branches'] = get_monthwise_order_completed_count_all()
+			context['restaurants'] = get_monthwise_order_completed_count_all()
 			context['menus'] = get_packagewise_order_completed_count_all(last_n_months=3)
 		return context
 
