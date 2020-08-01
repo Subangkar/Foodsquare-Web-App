@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres:10.1-alpine
+    image: postgres
     environment:
       - POSTGRES_DB=foodsquare
       - POSTGRES_USER=postgres
@@ -10,7 +10,7 @@ services:
       - '5432'
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: sh -c "while ! nc -z db 5432; do sleep 1; done; ./startdatabase.sh && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
@@ -19,3 +19,4 @@ services:
       - db
 
 # docker-compose up
+# docker-compose run web python3 manage.py migrate
