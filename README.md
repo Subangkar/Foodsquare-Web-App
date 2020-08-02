@@ -1,6 +1,6 @@
 # FoodSquare
 An online restaurant hub to manage food items, offers & delivery for each restaurant individually by their respective owners.  
-This repo contains the web app for this system implemented in Django-2.2 with Model-View-Template design pattern. This was an Information System Design project, part of an academic course of CSE, BUET. So not all the best practices of system design could be maintained properly.
+This repo contains the web app for this system implemented in Django-2.2 with Model-View-Template design pattern. This was an Information System Design project, part of an academic course of CSE, BUET. So some of the best practices of system design could not be maintained properly.
   
 **How to run:**
  - Clone the repo
