@@ -2,6 +2,10 @@
 An online restaurant hub to manage food items, offers & delivery for each restaurant individually by their respective owners.  
 This repo contains the web app for this system implemented in Django-2.2 with Model-View-Template design pattern. This was an Information System Design project, part of an academic course of CSE, BUET. So some of the best practices of system design could not be maintained properly.
   
+**Spec:**
+  - Web Framework: Django 2.2
+  - Database Server: PostgreSQL 12.3
+  
 **How to run:**
  - Clone the repo
  - Now you can either run in [docker containers](https://www.docker.com/) of a [pre-built image on docker hub](https://hub.docker.com/repository/docker/subangkar/foodsquare) of this repo **or** create an python & database environment yourself
