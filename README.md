@@ -7,8 +7,8 @@ This repo contains the web app for this system implemented in Django-2.2 with Mo
   - Database Server: PostgreSQL 12.3
   
 **How to run:**
- - Clone the repo
- - Now you can either run in [docker containers](https://www.docker.com/) of a [pre-built image on docker hub](https://hub.docker.com/repository/docker/subangkar/foodsquare) of this repo **or** create an python & database environment yourself
+ - Clone the [github repo](https://github.com/Subangkar/Foodsquare-Web-App)
+ - Now you can either run in [docker containers](https://www.docker.com/) of a [pre-built image on docker hub](https://hub.docker.com/r/subangkar/foodsquare) of this repo **or** create an python & database environment yourself
     - **Docker**
         - install [docker](https://docs.docker.com/engine/install/) & [docker-compose](https://docs.docker.com/compose/install/) on your system (if not installed)
         - move to the project directory & start the docker containers using the following commands
@@ -17,7 +17,7 @@ This repo contains the web app for this system implemented in Django-2.2 with Mo
         docker-compose up
         ```
         - now browse the site at http://localhost:8000/ 
-        - **N.B.** Here [remote docker image](https://hub.docker.com/repository/docker/subangkar/foodsquare) is used in docker compose. Alternately, you can build a new docker image using `Dockerfile` & use it in composer.
+        - **N.B.** Here [remote docker image](https://hub.docker.com/r/subangkar/foodsquare) is used in docker compose. Alternately, you can build a new docker image using `Dockerfile` & use it in composer.
 
     - Or, **Python Environment/Database setup**
         - install postgres database
@@ -58,4 +58,4 @@ This repo contains the web app for this system implemented in Django-2.2 with Mo
 - Online Payment Handling
 - Review-Rating Management
 
-Docker Hub Repo: https://hub.docker.com/repository/docker/subangkar/foodsquare/
+Docker Hub Repo: https://hub.docker.com/r/subangkar/foodsquare
