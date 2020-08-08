@@ -1,5 +1,15 @@
 # FoodSquare
-An online restaurant hub to manage food items, offers & delivery for each restaurant individually by their respective owners.  
+## What Problems Does It Solve:
+With growing number of restaurants in Dhaka city, it has become very much indispensable part for the restaurants to have an website where they can not only manage their business but also advertise their products. And Covid-19 has just shown how much necessary it is to have an online presence even for a small organization. 
+
+
+But it's not easy for all restaurants to build and manage their websites themselves. That's where FoodSquare comes into the picture. 
+
+
+It gives restaurants a platform to manage their own restaurants and put their products on display. On the other hand, food-lovers get the opportunity to browse food items as per their taste and budget from hundreds of restaurants. 
+
+
+## About This Repository:
 This repo contains the web app for this system implemented in Django-2.2 with Model-View-Template design pattern. This was an Information System Design project, part of an academic course of CSE, BUET. So some of the best practices of system design could not be maintained properly.
   
 **Spec:**
@@ -59,3 +69,35 @@ This repo contains the web app for this system implemented in Django-2.2 with Mo
 - Review-Rating Management
 
 Docker Hub Repo: https://hub.docker.com/r/subangkar/foodsquare
+
+***
+
+## Sample Usage:
+***Homepage*** ![Homepage](https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/website_homepage.png?token=AHSCFFTRYRD66DB3CGMUMKK7HAKDY)
+
+
+
+
+
+***Browse Cuisines***
+![Browse Cuisines](https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/filter.png?token=AHSCFFUMKSH2Z5K6QVYXGOC7HALZW)
+
+***Payment***
+
+<img src="https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/bkash.png?token=AHSCFFTSZANDZAQZ5BJ6GUC7HAN5G" alt="Payment" width="500" height="400"/>
+
+***Branch Open***
+![Branch Open](https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/rest_branch_reg.png?token=AHSCFFSFY4IOR3WV7VFXAJ27HALL4)
+***Add Items***
+![Add Items](https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/additem.png?token=AHSCFFQ2SC7HM7GV5FJBBEC7HALMK)
+
+
+
+***Manage and Accept Orders***
+![Manage and Accept Orders](https://raw.githubusercontent.com/Subangkar/Foodsquare-Web-App/master/Foodsquare_Screenshots/accept_branch.png?token=AHSCFFUV6AGWFLXQIMFCX427HAMPG)
+
+
+
+
+***Please, find the detailed report and manual of this project*** @[FoodSquare-Report](https://github.com/Subangkar/Foodsquare-Web-App/blob/master/FoodSquareReport.pdf)
+
